@@ -1,0 +1,125 @@
+﻿{
+   "CodeGenerationMode": 2,
+   "ContextClassName": "PetHeavenDbContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "FourthTeamProject",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "Name": "[dbo].[t_Discount]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_Employees]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_HotelOrder]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_HotelOrderDetail]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_HotelService]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_Invoice]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_Member]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_MemberBenefits]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_Payment]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_Pet]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_PetSize]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_ProductList]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_ProductOrder]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_ProductOrderDetail]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_ProductType]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_ProductUsage]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_RoomType]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_SalonOrder]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_SalonOrderDetail]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_SalonService]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_SalonType]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[t_WorkShift]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": "sql5110.db_a98d31_petheaven.dbo",
+   "UncountableWords": null,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDateOnlyTimeOnly": false,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSpatial": false,
+   "UseT4": false
+}

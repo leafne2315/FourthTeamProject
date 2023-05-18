@@ -13,15 +13,15 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Serif+Pro:wght@400;700&display=swap" rel="stylesheet">
 
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/owl.carousel.min.css">
-	<link rel="stylesheet" href="css/owl.theme.default.min.css">
-	<link rel="stylesheet" href="css/jquery.fancybox.min.css">
-	<link rel="stylesheet" href="fonts/icomoon/style.css">
-	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-	<link rel="stylesheet" href="css/daterangepicker.css">
-	<link rel="stylesheet" href="css/aos.css">
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="~/css/bootstrap.min.css">
+	<link rel="stylesheet" href="~/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="~/css/jquery.fancybox.min.css">
+	<link rel="stylesheet" href="~/fonts/icomoon/style.css">
+	<link rel="stylesheet" href="~/fonts/flaticon/font/flaticon.css">
+	<link rel="stylesheet" href="~/css/daterangepicker.css">
+	<link rel="stylesheet" href="~/css/aos.css">
+	<link rel="stylesheet" href="~/css/style.css">
 
 	<title>Pets Heaven</title>
 
@@ -82,7 +82,7 @@
 						</ul>
 					</li>
 					<li>
-						<li><a asp-controller="" asp-action="">登入</a></li>
+						<li><a asp-controller="t_Member" asp-action="Login">登入</a></li>
 					</li>
 				</ul>
 
@@ -217,7 +217,7 @@
 		})
 	</script>
 
-	<script src="js/custom.js"></script>
+	<script src="~/js/custom.js"></script>
 
 	@await RenderSectionAsync("Scripts", required: false)
 </body>

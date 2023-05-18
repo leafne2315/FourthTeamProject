@@ -488,22 +488,22 @@ namespace FourthTeamProject.Models
 
             modelBuilder.Entity<TProductType>(entity =>
             {
-                entity.HasKey(e => e.CProductTypeId);
+                entity.HasKey(e => e.CPetTypeId);
 
                 entity.ToTable("t_ProductType");
 
-                entity.Property(e => e.CProductTypeId)
+                entity.Property(e => e.CPetTypeId)
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("c_ProductTypeID");
+                    .HasColumnName("c_PetTypeID");
 
-                entity.Property(e => e.CProductTypeName)
+                entity.Property(e => e.CPetTypeName)
                     .IsRequired()
                     .HasMaxLength(20)
-                    .HasColumnName("c_ProductTypeName");
+                    .HasColumnName("c_PetTypeName");
 
-                entity.HasOne(d => d.CProductType)
+                entity.HasOne(d => d.CPetType)
                     .WithOne(p => p.TProductType)
-                    .HasForeignKey<TProductType>(d => d.CProductTypeId)
+                    .HasForeignKey<TProductType>(d => d.CPetTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_t_ProductType_t_ProductList");
             });

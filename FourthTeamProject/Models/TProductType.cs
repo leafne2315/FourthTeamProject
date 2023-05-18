@@ -7,9 +7,9 @@ namespace FourthTeamProject.Models
 {
     public partial class TProductType
     {
-        public int CProductTypeId { get; set; }
-        public string CProductTypeName { get; set; }
+        public int CPetTypeId { get; set; }
+        public string CPetTypeName { get; set; }
 
-        public virtual TProductList CProductType { get; set; }
+        public virtual TProductList CPetType { get; set; }
     }
 }

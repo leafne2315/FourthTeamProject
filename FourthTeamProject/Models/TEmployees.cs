@@ -13,6 +13,8 @@ namespace FourthTeamProject.Models
         public int? CEmployeePhone { get; set; }
         public string CEmployeeEmail { get; set; }
         public string CEmployeeAddress { get; set; }
+        public string CEmployeeRole { get; set; }
+        public string CEmployeePassword { get; set; }
 
         public virtual TWorkShift CWorkShiftNavigation { get; set; }
     }

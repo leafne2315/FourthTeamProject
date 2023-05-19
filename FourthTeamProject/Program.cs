@@ -1,4 +1,6 @@
 using FourthTeamProject.Data;
+using FourthTeamProject.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,14 +13,22 @@ namespace FourthTeamProject
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            var connectionString = builder.Configuration.GetConnectionString("PetHeavenConnection") ?? throw new InvalidOperationException("Connection string 'PetHeavenConnection' not found.");
+            builder.Services.AddDbContext<PetHeavenDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<PetHeavenDbContext>(opt =>
+            {
+                opt.UseSqlServer(builder.Configuration.GetConnectionString("PetHeavenConnection"));
+            });
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme) //ÅçÃÒ¾÷¨î
+                .AddCookie(opt =>
+                {
+
+                });
 
             var app = builder.Build();
 
@@ -45,7 +55,7 @@ namespace FourthTeamProject
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.MapRazorPages();
+            //app.MapRazorPages();
 
             app.Run();
         }

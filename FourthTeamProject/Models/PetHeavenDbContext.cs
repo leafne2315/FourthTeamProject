@@ -90,7 +90,16 @@ namespace FourthTeamProject.Models
                     .HasMaxLength(20)
                     .HasColumnName("c_EmployeeName");
 
+                entity.Property(e => e.CEmployeePassword)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .HasColumnName("c_EmployeePassword");
+
                 entity.Property(e => e.CEmployeePhone).HasColumnName("c_EmployeePhone");
+
+                entity.Property(e => e.CEmployeeRole)
+                    .HasMaxLength(20)
+                    .HasColumnName("c_EmployeeRole");
 
                 entity.Property(e => e.CWorkShift).HasColumnName("c_WorkShift");
 

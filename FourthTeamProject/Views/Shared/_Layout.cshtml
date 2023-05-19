@@ -84,6 +84,14 @@
 					<li>
 						<li><a asp-controller="t_Member" asp-action="Login">登入</a></li>
 					</li>
+						<li class="has-children">
+							<a asp-controller="t_Employees" asp-action="EmployeeLogin">企業登入</a>
+							<ul class="dropdown">
+								<li><a asp-controller="t_Employees" asp-action="EmployeeSystem">員工系統</a></li>
+								<li><a asp-controller="" asp-action="">開發中</a></li>
+							</ul>
+						</li>
+						
 				</ul>
 
 				<a asp-controller="" asp-action="" class="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" data-toggle="collapse" data-target="#main-navbar">

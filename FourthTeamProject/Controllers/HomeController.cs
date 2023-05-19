@@ -1,4 +1,5 @@
 ﻿using FourthTeamProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -17,6 +18,8 @@ namespace FourthTeamProject.Controllers
         {
             return View();
         }
+
+       
 
         public IActionResult Privacy()
         {

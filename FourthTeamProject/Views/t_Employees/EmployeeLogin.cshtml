@@ -6,17 +6,17 @@
         }
 
     }
-    <form action="/t_Member/Login" method="post">
+    <form action="/t_Employees/EmployeeLogin" method="post">
         <img class="mb-4" src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg
 " alt="" width="72" height="57">
-        <h1 class="h3 mb-3 fw-normal">請登入會員</h1>
+        <h1 class="h3 mb-3 fw-normal">Please sign in Admin Mode</h1>
 
         <div class="form-floating">
-            <input type="text" name="MemberAccount" class="form-control" id="floatingInput" placeholder="請輸入帳號">
-            <label for="floatingInput">帳號</label>
+            <input type="email" name="EmployeeEmail" class="form-control" id="floatingInput" placeholder="Email">
+            <label for="floatingInput">信箱</label>
         </div>
         <div class="form-floating">
-            <input type="password" name="MemberPassword" class="form-control" id="floatingPassword" placeholder="請輸入密碼">
+            <input type="password" name="EmployeePassword" class="form-control" id="floatingPassword" placeholder="Password">
             <label for="floatingPassword">密碼</label>
         </div>
 
@@ -26,6 +26,6 @@
             </label>
         </div>
         <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-        
+        <p class="mt-5 mb-3 text-body-secondary">© 2017–2023</p>
     </form>
 </main>

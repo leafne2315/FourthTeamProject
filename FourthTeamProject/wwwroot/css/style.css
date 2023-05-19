@@ -160,10 +160,12 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     color: #ffffff; }
 
 .site-nav {
-  position: absolute;
-  top: 0;
-  z-index: 9;
-  width: 100%; }
+    background-color: #6998AB;
+    position: fixed;
+    top: 0;
+    z-index: 9;
+    width: 100%;
+}
 
 .site-nav {
   padding-top: 20px;
@@ -548,9 +550,11 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   outline: none; }
 
 .hero {
-  padding: 7rem 0 10rem 0;
-  background: #6998AB;
-  margin-bottom: 100px; }
+    position: relative;
+    padding: 7rem 0 10rem 0;
+    background: #6998AB;
+    margin-bottom: 100px;
+}
   .hero.hero-inner {
     padding: 9rem 0 7rem 0;
     margin-bottom: auto;

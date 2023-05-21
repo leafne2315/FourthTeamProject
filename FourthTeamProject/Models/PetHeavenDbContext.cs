@@ -262,6 +262,8 @@ namespace FourthTeamProject.Models
                     .HasMaxLength(10)
                     .HasColumnName("c_MemberGender");
 
+                entity.Property(e => e.CMemberIsActive).HasColumnName("c_MemberIsActive");
+
                 entity.Property(e => e.CMemberName)
                     .IsRequired()
                     .HasMaxLength(20)

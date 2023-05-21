@@ -1,5 +1,6 @@
 using FourthTeamProject.Data;
 using FourthTeamProject.Models;
+using FourthTeamProject.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -27,8 +28,11 @@ namespace FourthTeamProject
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme) //ÅçÃÒ¾÷¨î
                 .AddCookie(opt =>
                 {
-
+                    opt.LoginPath = "/t_Employees/EmployeeLogin";
+                    
+                    opt.ExpireTimeSpan = TimeSpan.FromMinutes(10);
                 });
+            builder.Services.AddTransient<EncryptService>();
 
             var app = builder.Build();
 

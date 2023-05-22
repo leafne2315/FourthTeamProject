@@ -17,6 +17,7 @@ namespace FourthTeamProject.Models
         public DateTime CMemberBirthday { get; set; }
         public string CMemberAddress { get; set; }
         public int? CMemberPoint { get; set; }
+        public bool? CMemberIsActive { get; set; }
 
         public virtual TMemberBenefits TMemberBenefits { get; set; }
         public virtual TPet TPet { get; set; }

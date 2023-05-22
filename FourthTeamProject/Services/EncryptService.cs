@@ -1,57 +1,67 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace WebApplication4.Services
+namespace FourthTeamProject.Services
 {
     public class EncryptService
     {
-        //private readonly IConfiguration configuration;
-        //private readonly string key;
+        private readonly IConfiguration configuration;
+        private readonly string key;
 
-        //public EncryptService(IConfiguration configuration)
-        //{
-        //    this.key = configuration.GetSection("AesKey").Value;
-        //}
-        //public string AesEncryptToBase64(string str)
-        //{
-        //    using Aes aes = Aes.Create();
-        //    aes.Key = Encoding.UTF8.GetBytes(key);
-        //    aes.GenerateIV();
-        //    byte[] iv = aes.IV;
-        //    using (var encryptor = aes.CreateEncryptor(aes.Key, iv))
-        //    using (var memoryStream = new MemoryStream())
-        //    {
-        //        memoryStream.Write(iv, 0, iv.Length);
-        //        using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
-        //        {
-        //            byte[] plainBytes = Encoding.UTF8.GetBytes(str);
-        //            cryptoStream.Write(plainBytes, 0, plainBytes.Length);
-        //            cryptoStream.FlushFinalBlock();
-        //        }
-        //        return Convert.ToBase64String(memoryStream.ToArray());
-        //    }
-        //}
-        //public string AesDecryptToString(string str)
-        //{
-        //    using Aes aes = Aes.Create();
-        //    aes.Key = Encoding.UTF8.GetBytes(key);
-        //    byte[] encryptedData = Convert.FromBase64String(str);
-        //    string plainText;
-        //    byte[] iv = new byte[aes.IV.Length];
-        //    Array.Copy(encryptedData, 0, iv, 0, iv.Length);
+        public EncryptService(IConfiguration configuration)
+        {
+            this.key = configuration.GetSection("AesKey").Value;
+        }
+        public string AesEncryptToBase64(string str)
+        {
+            using Aes aes = Aes.Create();
+            aes.Key = Encoding.UTF8.GetBytes(key);
+            aes.GenerateIV();
+            byte[] iv = aes.IV;
+            using (var encryptor = aes.CreateEncryptor(aes.Key, iv))
+            using (var memoryStream = new MemoryStream())
+            {
+                memoryStream.Write(iv, 0, iv.Length);
+                using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
+                {
+                    byte[] plainBytes = Encoding.UTF8.GetBytes(str);
+                    cryptoStream.Write(plainBytes, 0, plainBytes.Length);
+                    cryptoStream.FlushFinalBlock();
+                }
+                return Convert.ToBase64String(memoryStream.ToArray());
+            }
+        }
+        public string AesDecryptToString(string str)
+        {
+            using (Aes aes = Aes.Create())
+            {
+                try
+                {
+                    aes.Key = Encoding.UTF8.GetBytes(key);
+                    byte[] encryptedData = Convert.FromBase64String(str);
+                    byte[] iv = new byte[aes.IV.Length];
+                    Array.Copy(encryptedData, 0, iv, 0, iv.Length);
 
-        //    using (var decryptor = aes.CreateDecryptor(aes.Key, iv))
-        //    using (var memoryStream = new MemoryStream())
-        //    {
-        //        using (var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Write))
-        //        {
-        //            cryptoStream.Write(encryptedData, iv.Length, encryptedData.Length - iv.Length);
-        //            cryptoStream.FlushFinalBlock();
-        //        }
-        //        byte[] decryptedBytes = memoryStream.ToArray();
-        //        plainText = Encoding.UTF8.GetString(decryptedBytes);
-        //    }
-        //    return plainText;
-        //}
+                    using (var decryptor = aes.CreateDecryptor(aes.Key, iv))
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        using (var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Write))
+                        {
+                            cryptoStream.Write(encryptedData, iv.Length, encryptedData.Length - iv.Length);
+                            cryptoStream.FlushFinalBlock();
+                        }
+                        byte[] decryptedBytes = memoryStream.ToArray();
+                        string plainText = Encoding.UTF8.GetString(decryptedBytes);
+                        return plainText;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // 處理錯誤，例如記錄錯誤訊息、回傳預設值等
+                    Console.WriteLine("解密失敗: " + ex.Message);
+                    return null;
+                }
+            }
+        }
     }
 }

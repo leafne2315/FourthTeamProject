@@ -45,7 +45,7 @@
             getData: function () {
                 let self = this;
                 var test = axios.get('/api/PetHotelAPI').then(response => {
-                    this.petHotelDatas = response.data; // Store the fetched data in the component's data property
+                    self.petHotelDatas = response.data; // Store the fetched data in the component's data property
                 })
                 console.log('getData');
             }

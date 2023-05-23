@@ -1,4 +1,4 @@
-﻿namespace FourthTeamProject.Models.ViewModels
+﻿namespace FourthTeamProject.Models.ViewModel
 {
     public class PetHotelViewModel
     {

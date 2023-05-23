@@ -18,672 +18,582 @@ namespace FourthTeamProject.Models
         {
         }
 
-        public virtual DbSet<TDiscount> TDiscount { get; set; }
-        public virtual DbSet<TEmployees> TEmployees { get; set; }
-        public virtual DbSet<THotelOrder> THotelOrder { get; set; }
-        public virtual DbSet<THotelOrderDetail> THotelOrderDetail { get; set; }
-        public virtual DbSet<THotelService> THotelService { get; set; }
-        public virtual DbSet<TInvoice> TInvoice { get; set; }
-        public virtual DbSet<TMember> TMember { get; set; }
-        public virtual DbSet<TMemberBenefits> TMemberBenefits { get; set; }
-        public virtual DbSet<TPayment> TPayment { get; set; }
-        public virtual DbSet<TPet> TPet { get; set; }
-        public virtual DbSet<TPetSize> TPetSize { get; set; }
-        public virtual DbSet<TProductList> TProductList { get; set; }
-        public virtual DbSet<TProductOrder> TProductOrder { get; set; }
+        public virtual DbSet<Discount> Discount { get; set; }
+        public virtual DbSet<Employees> Employees { get; set; }
+        public virtual DbSet<Hotel> Hotel { get; set; }
+        public virtual DbSet<HotelCatogory> HotelCatogory { get; set; }
+        public virtual DbSet<HotelImage> HotelImage { get; set; }
+        public virtual DbSet<HotelOrder> HotelOrder { get; set; }
+        public virtual DbSet<HotelOrderDetail> HotelOrderDetail { get; set; }
+        public virtual DbSet<HotelService> HotelService { get; set; }
+        public virtual DbSet<HotelToService> HotelToService { get; set; }
+        public virtual DbSet<Invoice> Invoice { get; set; }
+        public virtual DbSet<Member> Member { get; set; }
+        public virtual DbSet<MemberDiscount> MemberDiscount { get; set; }
+        public virtual DbSet<Payment> Payment { get; set; }
+        public virtual DbSet<Pet> Pet { get; set; }
+        public virtual DbSet<PetType> PetType { get; set; }
+        public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<ProductCatagory> ProductCatagory { get; set; }
+        public virtual DbSet<ProductImage> ProductImage { get; set; }
+        public virtual DbSet<ProductOrder> ProductOrder { get; set; }
+        public virtual DbSet<ProductRating> ProductRating { get; set; }
+        public virtual DbSet<ProductType> ProductType { get; set; }
+        public virtual DbSet<Salon> Salon { get; set; }
+        public virtual DbSet<SalonCatagory> SalonCatagory { get; set; }
+        public virtual DbSet<SalonOrder> SalonOrder { get; set; }
+        public virtual DbSet<SalonOrderDetail> SalonOrderDetail { get; set; }
+        public virtual DbSet<SalonSolution> SalonSolution { get; set; }
+        public virtual DbSet<SalonSolutionSalon> SalonSolutionSalon { get; set; }
+        public virtual DbSet<ShoppingCart> ShoppingCart { get; set; }
         public virtual DbSet<TProductOrderDetail> TProductOrderDetail { get; set; }
-        public virtual DbSet<TProductType> TProductType { get; set; }
-        public virtual DbSet<TProductUsage> TProductUsage { get; set; }
-        public virtual DbSet<TRoomType> TRoomType { get; set; }
-        public virtual DbSet<TSalonOrder> TSalonOrder { get; set; }
-        public virtual DbSet<TSalonOrderDetail> TSalonOrderDetail { get; set; }
-        public virtual DbSet<TSalonService> TSalonService { get; set; }
-        public virtual DbSet<TSalonType> TSalonType { get; set; }
-        public virtual DbSet<TWorkShift> TWorkShift { get; set; }
+        public virtual DbSet<WorkShift> WorkShift { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TDiscount>(entity =>
+            modelBuilder.Entity<Discount>(entity =>
             {
-                entity.HasKey(e => e.CDiscountId);
-
-                entity.ToTable("t_Discount");
-
-                entity.Property(e => e.CDiscountId)
+                entity.Property(e => e.DiscountId)
                     .ValueGeneratedNever()
-                    .HasColumnName("c_DiscountID");
+                    .HasColumnName("DiscountID");
 
-                entity.Property(e => e.CDisPercentage).HasColumnName("c_DisPercentage");
-
-                entity.Property(e => e.CDiscountName)
+                entity.Property(e => e.DiscountName)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("c_DiscountName");
+                    .HasMaxLength(20);
 
-                entity.Property(e => e.CEndTime)
-                    .HasColumnType("datetime")
-                    .HasColumnName("c_EndTime");
+                entity.Property(e => e.EndTime).HasColumnType("datetime");
 
-                entity.Property(e => e.CStatTime)
-                    .HasColumnType("datetime")
-                    .HasColumnName("c_StatTime");
+                entity.Property(e => e.StartTime).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<TEmployees>(entity =>
+            modelBuilder.Entity<Employees>(entity =>
             {
-                entity.HasKey(e => e.CEmployeeId);
+                entity.HasNoKey();
 
-                entity.ToTable("t_Employees");
+                entity.Property(e => e.EmployeeAddress).HasMaxLength(100);
 
-                entity.Property(e => e.CEmployeeId).HasColumnName("c_EmployeeID");
+                entity.Property(e => e.EmployeeEmail).HasMaxLength(100);
 
-                entity.Property(e => e.CEmployeeAddress)
-                    .HasMaxLength(100)
-                    .HasColumnName("c_EmployeeAddress");
+                entity.Property(e => e.EmployeeId)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("EmployeeID");
 
-                entity.Property(e => e.CEmployeeEmail)
-                    .HasMaxLength(100)
-                    .HasColumnName("c_EmployeeEmail");
-
-                entity.Property(e => e.CEmployeeName)
+                entity.Property(e => e.EmployeeName)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("c_EmployeeName");
+                    .HasMaxLength(20);
 
-                entity.Property(e => e.CEmployeePassword)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("c_EmployeePassword");
-
-                entity.Property(e => e.CEmployeePhone).HasColumnName("c_EmployeePhone");
-
-                entity.Property(e => e.CEmployeeRole)
-                    .HasMaxLength(20)
-                    .HasColumnName("c_EmployeeRole");
-
-                entity.Property(e => e.CWorkShift).HasColumnName("c_WorkShift");
-
-                entity.HasOne(d => d.CWorkShiftNavigation)
-                    .WithMany(p => p.TEmployees)
-                    .HasForeignKey(d => d.CWorkShift)
+                entity.HasOne(d => d.WorkShiftNavigation)
+                    .WithMany()
+                    .HasForeignKey(d => d.WorkShift)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__t_Employe__c_Wor__76619304");
+                    .HasConstraintName("FK__Employees__WorkS__37FA4C37");
             });
 
-            modelBuilder.Entity<THotelOrder>(entity =>
+            modelBuilder.Entity<Hotel>(entity =>
             {
-                entity.HasKey(e => e.COrderId);
+                entity.Property(e => e.HotelId).HasColumnName("HotelID");
 
-                entity.ToTable("t_HotelOrder");
+                entity.Property(e => e.HotelCatagoryId).HasColumnName("HotelCatagoryID");
 
-                entity.Property(e => e.COrderId).HasColumnName("c_OrderID");
+                entity.Property(e => e.HotelContent).IsRequired();
 
-                entity.Property(e => e.CInvoiceId).HasColumnName("c_InvoiceID");
+                entity.Property(e => e.HotelContentDetail).IsRequired();
 
-                entity.Property(e => e.CMemberName)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("c_MemberName");
+                entity.Property(e => e.HotelImage).IsRequired();
 
-                entity.Property(e => e.COrderDate)
-                    .HasColumnType("datetime")
-                    .HasColumnName("c_OrderDate");
+                entity.Property(e => e.HotelName).IsRequired();
 
-                entity.Property(e => e.COrderStatue).HasColumnName("c_OrderStatue");
+                entity.HasOne(d => d.HotelCatagory)
+                    .WithMany(p => p.Hotel)
+                    .HasForeignKey(d => d.HotelCatagoryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_t_Hotel_HotelCatogory");
+            });
 
-                entity.Property(e => e.CPayId).HasColumnName("c_PayID");
+            modelBuilder.Entity<HotelCatogory>(entity =>
+            {
+                entity.Property(e => e.HotelCatogoryId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("HotelCatogoryID");
+            });
 
-                entity.Property(e => e.CTotalAmount).HasColumnName("c_TotalAmount");
+            modelBuilder.Entity<HotelImage>(entity =>
+            {
+                entity.HasNoKey();
 
-                entity.HasOne(d => d.CInvoice)
-                    .WithMany(p => p.THotelOrder)
-                    .HasForeignKey(d => d.CInvoiceId)
+                entity.Property(e => e.HotelId).HasColumnName("HotelID");
+
+                entity.Property(e => e.HotelImageId).HasColumnName("HotelImageID");
+
+                entity.Property(e => e.HotelImagePath).IsRequired();
+
+                entity.HasOne(d => d.Hotel)
+                    .WithMany()
+                    .HasForeignKey(d => d.HotelId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_HotelImage_t_Hotel");
+            });
+
+            modelBuilder.Entity<HotelOrder>(entity =>
+            {
+                entity.HasKey(e => e.HoyelOrderId)
+                    .HasName("PK_t_HotelOrder");
+
+                entity.Property(e => e.HoyelOrderId).HasColumnName("HoyelOrderID");
+
+                entity.Property(e => e.HotelOrderDate).HasColumnType("datetime");
+
+                entity.Property(e => e.InvoiceId).HasColumnName("InvoiceID");
+
+                entity.Property(e => e.MemberId).HasColumnName("MemberID");
+
+                entity.Property(e => e.PayId).HasColumnName("PayID");
+
+                entity.HasOne(d => d.Invoice)
+                    .WithMany(p => p.HotelOrder)
+                    .HasForeignKey(d => d.InvoiceId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_t_HotelOrder_t_Invoice");
 
-                entity.HasOne(d => d.CPay)
-                    .WithMany(p => p.THotelOrder)
-                    .HasForeignKey(d => d.CPayId)
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.HotelOrder)
+                    .HasForeignKey(d => d.MemberId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_t_HotelOrder_t_Member");
+
+                entity.HasOne(d => d.Pay)
+                    .WithMany(p => p.HotelOrder)
+                    .HasForeignKey(d => d.PayId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_t_HotelOrder_t_Payment");
             });
 
-            modelBuilder.Entity<THotelOrderDetail>(entity =>
+            modelBuilder.Entity<HotelOrderDetail>(entity =>
             {
-                entity.HasKey(e => e.COrderDetailId);
+                entity.Property(e => e.HotelOrderDetailId).HasColumnName("HotelOrderDetailID");
 
-                entity.ToTable("t_HotelOrderDetail");
+                entity.Property(e => e.CheckIntime).HasColumnType("datetime");
 
-                entity.Property(e => e.COrderDetailId)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("c_OrderDetailID");
+                entity.Property(e => e.CheckOutTime).HasColumnType("datetime");
 
-                entity.Property(e => e.CCheckIntime)
-                    .HasColumnType("datetime")
-                    .HasColumnName("c_CheckIntime");
+                entity.Property(e => e.HotelCatagoryName).IsRequired();
 
-                entity.Property(e => e.CCheckOutTime)
-                    .HasColumnType("datetime")
-                    .HasColumnName("c_CheckOutTime");
+                entity.Property(e => e.HotelId).HasColumnName("HotelID");
 
-                entity.Property(e => e.CDetailStatus).HasColumnName("c_DetailStatus");
+                entity.Property(e => e.HotelName).IsRequired();
 
-                entity.Property(e => e.COrderAmount).HasColumnName("c_OrderAmount");
+                entity.Property(e => e.HotelOrderId).HasColumnName("HotelOrderID");
 
-                entity.Property(e => e.COrderId).HasColumnName("c_OrderID");
-
-                entity.Property(e => e.CService).HasColumnName("c_Service");
-
-                entity.Property(e => e.CUnitPrice).HasColumnName("c_UnitPrice");
-
-                entity.HasOne(d => d.COrderDetail)
-                    .WithOne(p => p.THotelOrderDetail)
-                    .HasForeignKey<THotelOrderDetail>(d => d.COrderDetailId)
+                entity.HasOne(d => d.HotelOrder)
+                    .WithMany(p => p.HotelOrderDetail)
+                    .HasForeignKey(d => d.HotelOrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_t_HotelOrderDetail_t_HotelOrder");
+            });
 
-                entity.HasOne(d => d.CServiceNavigation)
-                    .WithMany(p => p.THotelOrderDetail)
-                    .HasForeignKey(d => d.CService)
+            modelBuilder.Entity<HotelService>(entity =>
+            {
+                entity.Property(e => e.HotelServiceId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("HotelServiceID");
+
+                entity.Property(e => e.HotelServiceName).IsRequired();
+            });
+
+            modelBuilder.Entity<HotelToService>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.HotelId).HasColumnName("HotelID");
+
+                entity.Property(e => e.HotelServiceId).HasColumnName("HotelServiceID");
+
+                entity.HasOne(d => d.Hotel)
+                    .WithMany()
+                    .HasForeignKey(d => d.HotelId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_HotelOrderDetail_t_HotelService");
-            });
+                    .HasConstraintName("FK_t_HotelToService_t_Hotel");
 
-            modelBuilder.Entity<THotelService>(entity =>
-            {
-                entity.HasKey(e => e.CService);
-
-                entity.ToTable("t_HotelService");
-
-                entity.Property(e => e.CService)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("c_Service");
-
-                entity.Property(e => e.CPetSizeId).HasColumnName("c_PetSizeID");
-
-                entity.Property(e => e.CRoomTypeId).HasColumnName("c_RoomTypeID");
-
-                entity.Property(e => e.CUnitPrice).HasColumnName("c_UnitPrice");
-
-                entity.HasOne(d => d.CPetSize)
-                    .WithMany(p => p.THotelService)
-                    .HasForeignKey(d => d.CPetSizeId)
+                entity.HasOne(d => d.HotelService)
+                    .WithMany()
+                    .HasForeignKey(d => d.HotelServiceId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_HotelService_t_PetSize");
+                    .HasConstraintName("FK_t_HotelToService_t_HotelService");
+            });
 
-                entity.HasOne(d => d.CServiceNavigation)
-                    .WithOne(p => p.THotelService)
-                    .HasForeignKey<THotelService>(d => d.CService)
+            modelBuilder.Entity<Invoice>(entity =>
+            {
+                entity.Property(e => e.InvoiceId).HasColumnName("InvoiceID");
+
+                entity.Property(e => e.InvoiceName)
+                    .IsRequired()
+                    .HasMaxLength(20);
+            });
+
+            modelBuilder.Entity<Member>(entity =>
+            {
+                entity.Property(e => e.MemberId).HasColumnName("MemberID");
+
+                entity.Property(e => e.MemberAccount).IsRequired();
+
+                entity.Property(e => e.MemberBirthday).HasColumnType("date");
+
+                entity.Property(e => e.MemberEmail).IsRequired();
+
+                entity.Property(e => e.MemberName).IsRequired();
+
+                entity.Property(e => e.MemberPassword).IsRequired();
+
+                entity.Property(e => e.MemberPhone).IsRequired();
+            });
+
+            modelBuilder.Entity<MemberDiscount>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.DiscountId).HasColumnName("DiscountID");
+
+                entity.Property(e => e.MemberId).HasColumnName("MemberID");
+
+                entity.HasOne(d => d.Discount)
+                    .WithMany()
+                    .HasForeignKey(d => d.DiscountId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_HotelService_t_RoomType");
-            });
+                    .HasConstraintName("FK_MemberDiscount_t_Discount");
 
-            modelBuilder.Entity<TInvoice>(entity =>
-            {
-                entity.HasKey(e => e.CInvoiceId);
-
-                entity.ToTable("t_Invoice");
-
-                entity.Property(e => e.CInvoiceId).HasColumnName("c_InvoiceID");
-
-                entity.Property(e => e.CInvoiceName)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("c_InvoiceName");
-            });
-
-            modelBuilder.Entity<TMember>(entity =>
-            {
-                entity.HasKey(e => e.CMemberId);
-
-                entity.ToTable("t_Member");
-
-                entity.Property(e => e.CMemberId).HasColumnName("c_MemberID");
-
-                entity.Property(e => e.CMemberAccount)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .HasColumnName("c_MemberAccount");
-
-                entity.Property(e => e.CMemberAddress)
-                    .HasMaxLength(50)
-                    .HasColumnName("c_MemberAddress");
-
-                entity.Property(e => e.CMemberBirthday)
-                    .HasColumnType("date")
-                    .HasColumnName("c_MemberBirthday");
-
-                entity.Property(e => e.CMemberEmail)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .HasColumnName("c_MemberEmail");
-
-                entity.Property(e => e.CMemberGender)
-                    .HasMaxLength(10)
-                    .HasColumnName("c_MemberGender");
-
-                entity.Property(e => e.CMemberIsActive).HasColumnName("c_MemberIsActive");
-
-                entity.Property(e => e.CMemberName)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("c_MemberName");
-
-                entity.Property(e => e.CMemberPassword)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .HasColumnName("c_MemberPassword");
-
-                entity.Property(e => e.CMemberPhone)
-                    .IsRequired()
-                    .HasMaxLength(30)
-                    .HasColumnName("c_MemberPhone");
-
-                entity.Property(e => e.CMemberPoint).HasColumnName("c_MemberPoint");
-            });
-
-            modelBuilder.Entity<TMemberBenefits>(entity =>
-            {
-                entity.HasKey(e => e.CBenefitsId);
-
-                entity.ToTable("t_MemberBenefits");
-
-                entity.Property(e => e.CBenefitsId)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("c_BenefitsID");
-
-                entity.Property(e => e.CDiscountId).HasColumnName("c_DiscountID");
-
-                entity.Property(e => e.CMemberId).HasColumnName("c_MemberID");
-
-                entity.HasOne(d => d.CBenefits)
-                    .WithOne(p => p.TMemberBenefits)
-                    .HasForeignKey<TMemberBenefits>(d => d.CBenefitsId)
+                entity.HasOne(d => d.Member)
+                    .WithMany()
+                    .HasForeignKey(d => d.MemberId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_MemberBenefits_t_Discount");
-
-                entity.HasOne(d => d.CBenefitsNavigation)
-                    .WithOne(p => p.TMemberBenefits)
-                    .HasForeignKey<TMemberBenefits>(d => d.CBenefitsId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_MemberBenefits_t_Member");
+                    .HasConstraintName("FK_MemberDiscount_t_Member");
             });
 
-            modelBuilder.Entity<TPayment>(entity =>
+            modelBuilder.Entity<Payment>(entity =>
             {
-                entity.HasKey(e => e.CPayId);
+                entity.HasKey(e => e.PayId)
+                    .HasName("PK_t_Payment");
 
-                entity.ToTable("t_Payment");
+                entity.Property(e => e.PayId).HasColumnName("PayID");
 
-                entity.Property(e => e.CPayId).HasColumnName("c_PayID");
-
-                entity.Property(e => e.CPayName)
-                    .HasMaxLength(20)
-                    .HasColumnName("c_PayName");
+                entity.Property(e => e.PayName).HasMaxLength(20);
             });
 
-            modelBuilder.Entity<TPet>(entity =>
+            modelBuilder.Entity<Pet>(entity =>
             {
-                entity.HasKey(e => e.CPetId);
+                entity.Property(e => e.PetId).HasColumnName("PetID");
 
-                entity.ToTable("t_Pet");
+                entity.Property(e => e.MemberId).HasColumnName("MemberID");
 
-                entity.Property(e => e.CPetId)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("c_PetID");
+                entity.Property(e => e.PetBirthday).HasColumnType("date");
 
-                entity.Property(e => e.CMemberId).HasColumnName("c_MemberID");
+                entity.Property(e => e.PetGender).HasMaxLength(10);
 
-                entity.Property(e => e.CPetBirthday)
-                    .HasColumnType("date")
-                    .HasColumnName("c_PetBirthday");
-
-                entity.Property(e => e.CPetGender)
-                    .HasMaxLength(10)
-                    .HasColumnName("c_PetGender");
-
-                entity.Property(e => e.CPetName)
+                entity.Property(e => e.PetName)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("c_PetName");
+                    .HasMaxLength(20);
 
-                entity.Property(e => e.CPetSize).HasColumnName("c_PetSize");
+                entity.Property(e => e.PetTypeId).HasColumnName("PetTypeID");
 
-                entity.Property(e => e.CPetVariety)
-                    .HasMaxLength(20)
-                    .HasColumnName("c_PetVariety");
+                entity.Property(e => e.PetVariety).HasMaxLength(20);
 
-                entity.HasOne(d => d.CPet)
-                    .WithOne(p => p.TPet)
-                    .HasForeignKey<TPet>(d => d.CPetId)
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.Pet)
+                    .HasForeignKey(d => d.MemberId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_t_Pet_t_Member");
 
-                entity.HasOne(d => d.CPetSizeNavigation)
-                    .WithMany(p => p.TPet)
-                    .HasForeignKey(d => d.CPetSize)
+                entity.HasOne(d => d.PetType)
+                    .WithMany(p => p.Pet)
+                    .HasForeignKey(d => d.PetTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_Pet_t_PetSize");
+                    .HasConstraintName("FK_t_Pet_t_PetType");
             });
 
-            modelBuilder.Entity<TPetSize>(entity =>
+            modelBuilder.Entity<PetType>(entity =>
             {
-                entity.HasKey(e => e.CPetSizeId);
-
-                entity.ToTable("t_PetSize");
-
-                entity.Property(e => e.CPetSizeId)
+                entity.Property(e => e.PetTypeId)
                     .ValueGeneratedNever()
-                    .HasColumnName("c_PetSizeID");
+                    .HasColumnName("PetTypeID");
 
-                entity.Property(e => e.CSizeName)
+                entity.Property(e => e.PetTypeName)
                     .IsRequired()
-                    .HasMaxLength(10)
-                    .HasColumnName("c_SizeName");
+                    .HasMaxLength(10);
             });
 
-            modelBuilder.Entity<TProductList>(entity =>
+            modelBuilder.Entity<Product>(entity =>
             {
-                entity.HasKey(e => e.CProductId);
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
-                entity.ToTable("t_ProductList");
+                entity.Property(e => e.ProductCatagoryId).HasColumnName("ProductCatagoryID");
 
-                entity.Property(e => e.CProductId)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("c_ProductID");
-
-                entity.Property(e => e.CProductContent)
+                entity.Property(e => e.ProductContent)
                     .IsRequired()
-                    .HasMaxLength(50)
-                    .HasColumnName("c_ProductContent");
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.CProductName)
+                entity.Property(e => e.ProductName)
                     .IsRequired()
-                    .HasMaxLength(50)
-                    .HasColumnName("c_ProductName");
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.CProductRating).HasColumnName("c_ProductRating");
-
-                entity.Property(e => e.CProductSpecification)
+                entity.Property(e => e.ProductSpecification)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("c_ProductSpecification");
+                    .HasMaxLength(20);
 
-                entity.Property(e => e.CProductTypeId).HasColumnName("c_ProductTypeID");
+                entity.Property(e => e.ProductTypeId).HasColumnName("ProductTypeID");
 
-                entity.Property(e => e.CProductUsage).HasColumnName("c_ProductUsage");
-
-                entity.Property(e => e.CStock).HasColumnName("c_Stock");
-
-                entity.Property(e => e.CUnitPrice).HasColumnName("c_UnitPrice");
-
-                entity.HasOne(d => d.CProduct)
-                    .WithOne(p => p.TProductList)
-                    .HasForeignKey<TProductList>(d => d.CProductId)
+                entity.HasOne(d => d.ProductCatagory)
+                    .WithMany(p => p.Product)
+                    .HasForeignKey(d => d.ProductCatagoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_ProductList_t_ProductUsage");
+                    .HasConstraintName("FK_t_Product_t_ProductCatagory");
+
+                entity.HasOne(d => d.ProductType)
+                    .WithMany(p => p.Product)
+                    .HasForeignKey(d => d.ProductTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_t_Product_t_ProductType1");
             });
 
-            modelBuilder.Entity<TProductOrder>(entity =>
+            modelBuilder.Entity<ProductCatagory>(entity =>
             {
-                entity.HasKey(e => e.COrderId);
+                entity.Property(e => e.ProductCatagoryId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ProductCatagoryID");
 
-                entity.ToTable("t_ProductOrder");
+                entity.Property(e => e.ProductCatagoryName).IsRequired();
+            });
 
-                entity.Property(e => e.COrderId)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("c_OrderID");
+            modelBuilder.Entity<ProductImage>(entity =>
+            {
+                entity.Property(e => e.ProductImageId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ProductImageID");
 
-                entity.Property(e => e.CInvoiceId).HasColumnName("c_InvoiceID");
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
-                entity.Property(e => e.CMemberName)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("c_MemberName");
+                entity.Property(e => e.ProductImagePath).IsRequired();
 
-                entity.Property(e => e.COrderDate)
-                    .HasColumnType("datetime")
-                    .HasColumnName("c_OrderDate");
-
-                entity.Property(e => e.COrderStatus).HasColumnName("c_OrderStatus");
-
-                entity.Property(e => e.CPayId).HasColumnName("c_PayID");
-
-                entity.Property(e => e.CTotalAmount).HasColumnName("c_TotalAmount");
-
-                entity.HasOne(d => d.CInvoice)
-                    .WithMany(p => p.TProductOrder)
-                    .HasForeignKey(d => d.CInvoiceId)
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.ProductImage)
+                    .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_t_ProductImage_t_Product");
+            });
+
+            modelBuilder.Entity<ProductOrder>(entity =>
+            {
+                entity.HasKey(e => e.OrderId)
+                    .HasName("PK_t_ProductOrder");
+
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+
+                entity.Property(e => e.InvoiceId).HasColumnName("InvoiceID");
+
+                entity.Property(e => e.MemberId).HasColumnName("MemberID");
+
+                entity.Property(e => e.OrderDate).HasColumnType("datetime");
+
+                entity.Property(e => e.OrderMemberName).IsRequired();
+
+                entity.Property(e => e.OrderMemberPhone).IsRequired();
+
+                entity.Property(e => e.PayId).HasColumnName("PayID");
+
+                entity.HasOne(d => d.Invoice)
+                    .WithMany(p => p.ProductOrder)
+                    .HasForeignKey(d => d.InvoiceId)
                     .HasConstraintName("FK_t_ProductOrder_t_Invoice");
 
-                entity.HasOne(d => d.COrder)
-                    .WithOne(p => p.TProductOrder)
-                    .HasForeignKey<TProductOrder>(d => d.COrderId)
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.ProductOrder)
+                    .HasForeignKey(d => d.MemberId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_ProductOrder_t_ProductOrderDetail");
+                    .HasConstraintName("FK_t_ProductOrder_t_Member");
 
-                entity.HasOne(d => d.COrderNavigation)
-                    .WithOne(p => p.TProductOrder)
-                    .HasForeignKey<TProductOrder>(d => d.COrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                entity.HasOne(d => d.Pay)
+                    .WithMany(p => p.ProductOrder)
+                    .HasForeignKey(d => d.PayId)
                     .HasConstraintName("FK_t_ProductOrder_t_Payment");
+            });
+
+            modelBuilder.Entity<ProductRating>(entity =>
+            {
+                entity.Property(e => e.ProductRatingId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ProductRatingID");
+
+                entity.Property(e => e.MemberName).IsRequired();
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.Property(e => e.ProductRating1).HasColumnName("ProductRating");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.ProductRating)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_t_ProductRating_t_Product");
+            });
+
+            modelBuilder.Entity<ProductType>(entity =>
+            {
+                entity.Property(e => e.ProductTypeId).HasColumnName("ProductTypeID");
+
+                entity.Property(e => e.ProductTypeName).IsRequired();
+            });
+
+            modelBuilder.Entity<Salon>(entity =>
+            {
+                entity.Property(e => e.SalonId).HasColumnName("SalonID");
+
+                entity.Property(e => e.SalonName).IsRequired();
+            });
+
+            modelBuilder.Entity<SalonCatagory>(entity =>
+            {
+                entity.HasKey(e => e.SalontCatagoryId);
+
+                entity.Property(e => e.SalontCatagoryId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("SalontCatagoryID");
+
+                entity.Property(e => e.SalonCatagoryName).IsRequired();
+            });
+
+            modelBuilder.Entity<SalonOrder>(entity =>
+            {
+                entity.Property(e => e.SalonOrderId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("SalonOrderID");
+
+                entity.Property(e => e.InvoiceId).HasColumnName("InvoiceID");
+
+                entity.Property(e => e.MemberId).HasColumnName("MemberID");
+
+                entity.Property(e => e.OrderMemberEmail).IsRequired();
+
+                entity.Property(e => e.OrderMemberName).IsRequired();
+
+                entity.Property(e => e.OrderMemberPhone).IsRequired();
+
+                entity.Property(e => e.PayId).HasColumnName("PayID");
+
+                entity.Property(e => e.SalonOrderDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Invoice)
+                    .WithMany(p => p.SalonOrder)
+                    .HasForeignKey(d => d.InvoiceId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SalonOrder_t_Invoice");
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.SalonOrder)
+                    .HasForeignKey(d => d.MemberId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SalonOrder_t_Member");
+
+                entity.HasOne(d => d.Pay)
+                    .WithMany(p => p.SalonOrder)
+                    .HasForeignKey(d => d.PayId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SalonOrder_t_Payment");
+            });
+
+            modelBuilder.Entity<SalonOrderDetail>(entity =>
+            {
+                entity.Property(e => e.SalonOrderDetailId).HasColumnName("SalonOrderDetailID");
+
+                entity.Property(e => e.Appointment).HasColumnType("datetime");
+
+                entity.Property(e => e.SalonCatagoryName).IsRequired();
+
+                entity.Property(e => e.SalonOrderId).HasColumnName("SalonOrderID");
+
+                entity.Property(e => e.SalonSolutionId).HasColumnName("SalonSolutionID");
+
+                entity.Property(e => e.SalonSolutionName).IsRequired();
+
+                entity.HasOne(d => d.SalonOrder)
+                    .WithMany(p => p.SalonOrderDetail)
+                    .HasForeignKey(d => d.SalonOrderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_t_SalonOrderDetail_SalonOrder");
+            });
+
+            modelBuilder.Entity<SalonSolution>(entity =>
+            {
+                entity.Property(e => e.SalonSolutionId).HasColumnName("SalonSolutionID");
+
+                entity.Property(e => e.SalonCatagoryId).HasColumnName("SalonCatagoryID");
+
+                entity.Property(e => e.SalonName).IsRequired();
+
+                entity.HasOne(d => d.SalonCatagory)
+                    .WithMany(p => p.SalonSolution)
+                    .HasForeignKey(d => d.SalonCatagoryId)
+                    .HasConstraintName("FK_SalonSolution_SalonCatagory");
+            });
+
+            modelBuilder.Entity<SalonSolutionSalon>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.SalonId).HasColumnName("SalonID");
+
+                entity.Property(e => e.SalonSolutionId).HasColumnName("SalonSolutionID");
+
+                entity.HasOne(d => d.Salon)
+                    .WithMany()
+                    .HasForeignKey(d => d.SalonId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SalonSolutionSalon_Salon");
+
+                entity.HasOne(d => d.SalonSolution)
+                    .WithMany()
+                    .HasForeignKey(d => d.SalonSolutionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SalonSolutionSalon_SalonSolution");
+            });
+
+            modelBuilder.Entity<ShoppingCart>(entity =>
+            {
+                entity.Property(e => e.ShoppingCartId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ShoppingCartID");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
             });
 
             modelBuilder.Entity<TProductOrderDetail>(entity =>
             {
-                entity.HasKey(e => e.COrderDetailId);
+                entity.HasKey(e => e.OrderDetailId);
 
                 entity.ToTable("t_ProductOrderDetail");
 
-                entity.Property(e => e.COrderDetailId)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("c_OrderDetailID");
+                entity.Property(e => e.OrderDetailId).HasColumnName("OrderDetailID");
 
-                entity.Property(e => e.CDetailStatus).HasColumnName("c_DetailStatus");
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
-                entity.Property(e => e.COrderId).HasColumnName("c_OrderID");
+                entity.Property(e => e.ProductCatagoryName).IsRequired();
 
-                entity.Property(e => e.CProductId).HasColumnName("c_ProductID");
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
-                entity.Property(e => e.CQuantity).HasColumnName("c_Quantity");
+                entity.Property(e => e.ProductName).IsRequired();
 
-                entity.Property(e => e.CUnitPrice).HasColumnName("c_UnitPrice");
-
-                entity.HasOne(d => d.COrderDetail)
-                    .WithOne(p => p.TProductOrderDetail)
-                    .HasForeignKey<TProductOrderDetail>(d => d.COrderDetailId)
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.TProductOrderDetail)
+                    .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_ProductOrderDetail_t_ProductList");
+                    .HasConstraintName("FK_t_ProductOrderDetail_t_ProductOrder");
             });
 
-            modelBuilder.Entity<TProductType>(entity =>
+            modelBuilder.Entity<WorkShift>(entity =>
             {
-                entity.HasKey(e => e.CPetTypeId);
+                entity.HasKey(e => e.ShiftId)
+                    .HasName("PK__WorkShif__C0A838E1493A269F");
 
-                entity.ToTable("t_ProductType");
+                entity.Property(e => e.ShiftId).HasColumnName("ShiftID");
 
-                entity.Property(e => e.CPetTypeId)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("c_PetTypeID");
-
-                entity.Property(e => e.CPetTypeName)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("c_PetTypeName");
-
-                entity.HasOne(d => d.CPetType)
-                    .WithOne(p => p.TProductType)
-                    .HasForeignKey<TProductType>(d => d.CPetTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_ProductType_t_ProductList");
-            });
-
-            modelBuilder.Entity<TProductUsage>(entity =>
-            {
-                entity.HasKey(e => e.CProductUsage);
-
-                entity.ToTable("t_ProductUsage");
-
-                entity.Property(e => e.CProductUsage).HasColumnName("c_ProductUsage");
-
-                entity.Property(e => e.CUsageName)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("c_UsageName");
-            });
-
-            modelBuilder.Entity<TRoomType>(entity =>
-            {
-                entity.HasKey(e => e.CRoomTypeId);
-
-                entity.ToTable("t_RoomType");
-
-                entity.Property(e => e.CRoomTypeId).HasColumnName("c_RoomTypeID");
-
-                entity.Property(e => e.CRoomTypeName)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("c_RoomTypeName");
-            });
-
-            modelBuilder.Entity<TSalonOrder>(entity =>
-            {
-                entity.HasKey(e => e.COrderId);
-
-                entity.ToTable("t_SalonOrder");
-
-                entity.Property(e => e.COrderId)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("c_OrderID");
-
-                entity.Property(e => e.CInvoiceId).HasColumnName("c_InvoiceID");
-
-                entity.Property(e => e.CMemberName)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("c_MemberName");
-
-                entity.Property(e => e.COrderDate)
-                    .HasColumnType("datetime")
-                    .HasColumnName("c_OrderDate");
-
-                entity.Property(e => e.COrderStatus).HasColumnName("c_OrderStatus");
-
-                entity.Property(e => e.CPayId).HasColumnName("c_PayID");
-
-                entity.Property(e => e.CTotalAmount).HasColumnName("c_TotalAmount");
-
-                entity.HasOne(d => d.COrder)
-                    .WithOne(p => p.TSalonOrder)
-                    .HasForeignKey<TSalonOrder>(d => d.COrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_SalonOrder_t_Invoice");
-
-                entity.HasOne(d => d.CPay)
-                    .WithMany(p => p.TSalonOrder)
-                    .HasForeignKey(d => d.CPayId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_SalonOrder_t_Payment");
-            });
-
-            modelBuilder.Entity<TSalonOrderDetail>(entity =>
-            {
-                entity.HasKey(e => e.COrderDetailId);
-
-                entity.ToTable("t_SalonOrderDetail");
-
-                entity.Property(e => e.COrderDetailId)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("c_OrderDetailID");
-
-                entity.Property(e => e.CAppointment)
-                    .HasColumnType("datetime")
-                    .HasColumnName("c_Appointment");
-
-                entity.Property(e => e.CDetailStatus).HasColumnName("c_DetailStatus");
-
-                entity.Property(e => e.COrderAmount).HasColumnName("c_OrderAmount");
-
-                entity.Property(e => e.COrderId).HasColumnName("c_OrderID");
-
-                entity.Property(e => e.CService).HasColumnName("c_Service");
-
-                entity.Property(e => e.CUnitPrice).HasColumnName("c_UnitPrice");
-
-                entity.HasOne(d => d.COrderDetail)
-                    .WithOne(p => p.TSalonOrderDetail)
-                    .HasForeignKey<TSalonOrderDetail>(d => d.COrderDetailId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_SalonOrderDetail_t_SalonOrder");
-
-                entity.HasOne(d => d.COrderDetailNavigation)
-                    .WithOne(p => p.TSalonOrderDetail)
-                    .HasForeignKey<TSalonOrderDetail>(d => d.COrderDetailId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_SalonOrderDetail_t_SalonService");
-            });
-
-            modelBuilder.Entity<TSalonService>(entity =>
-            {
-                entity.HasKey(e => e.CService);
-
-                entity.ToTable("t_SalonService");
-
-                entity.Property(e => e.CService)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("c_Service");
-
-                entity.Property(e => e.CPetSizeId).HasColumnName("c_PetSizeID");
-
-                entity.Property(e => e.CSalonId).HasColumnName("c_SalonID");
-
-                entity.Property(e => e.CUnitPrice).HasColumnName("c_UnitPrice");
-
-                entity.HasOne(d => d.CSalon)
-                    .WithMany(p => p.TSalonService)
-                    .HasForeignKey(d => d.CSalonId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_SalonService_t_SalonType");
-
-                entity.HasOne(d => d.CServiceNavigation)
-                    .WithOne(p => p.TSalonService)
-                    .HasForeignKey<TSalonService>(d => d.CService)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_SalonService_t_PetSize");
-            });
-
-            modelBuilder.Entity<TSalonType>(entity =>
-            {
-                entity.HasKey(e => e.CSalonId);
-
-                entity.ToTable("t_SalonType");
-
-                entity.Property(e => e.CSalonId).HasColumnName("c_SalonID");
-
-                entity.Property(e => e.CSalonContet)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .HasColumnName("c_SalonContet");
-
-                entity.Property(e => e.CSalonName)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("c_SalonName");
-            });
-
-            modelBuilder.Entity<TWorkShift>(entity =>
-            {
-                entity.HasKey(e => e.CShiftId)
-                    .HasName("PK__t_WorkSh__95E35D1D60603FEC");
-
-                entity.ToTable("t_WorkShift");
-
-                entity.Property(e => e.CShiftId).HasColumnName("c_ShiftID");
-
-                entity.Property(e => e.CShiftName)
-                    .HasMaxLength(10)
-                    .HasColumnName("c_ShiftName");
+                entity.Property(e => e.ShiftName).HasMaxLength(10);
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -5,11 +5,10 @@ using System.Collections.Generic;
 
 namespace FourthTeamProject.Models
 {
-    public partial class TProductUsage
+    public partial class ShoppingCart
     {
-        public int CProductUsage { get; set; }
-        public string CUsageName { get; set; }
-
-        public virtual TProductList TProductList { get; set; }
+        public int ShoppingCartId { get; set; }
+        public int ProductId { get; set; }
+        public int Amount { get; set; }
     }
 }

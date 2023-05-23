@@ -15,55 +15,115 @@
    "SelectedToBeGenerated": 0,
    "Tables": [
       {
-         "Name": "[dbo].[t_Discount]",
+         "Name": "[dbo].[Discount]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[t_Employees]",
+         "Name": "[dbo].[Employees]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[t_HotelOrder]",
+         "Name": "[dbo].[Hotel]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[t_HotelOrderDetail]",
+         "Name": "[dbo].[HotelCatogory]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[t_HotelService]",
+         "Name": "[dbo].[HotelImage]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[t_Invoice]",
+         "Name": "[dbo].[HotelOrder]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[t_Member]",
+         "Name": "[dbo].[HotelOrderDetail]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[t_MemberBenefits]",
+         "Name": "[dbo].[HotelService]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[t_Payment]",
+         "Name": "[dbo].[HotelToService]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[t_Pet]",
+         "Name": "[dbo].[Invoice]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[t_PetSize]",
+         "Name": "[dbo].[Member]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[t_ProductList]",
+         "Name": "[dbo].[MemberDiscount]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[t_ProductOrder]",
+         "Name": "[dbo].[Payment]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Pet]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PetType]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Product]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ProductCatagory]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ProductImage]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ProductOrder]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ProductRating]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ProductType]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Salon]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SalonCatagory]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SalonOrder]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SalonOrderDetail]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SalonSolution]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SalonSolutionSalon]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ShoppingCart]",
          "ObjectType": 0
       },
       {
@@ -71,35 +131,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[t_ProductType]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[t_ProductUsage]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[t_RoomType]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[t_SalonOrder]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[t_SalonOrderDetail]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[t_SalonService]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[t_SalonType]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[t_WorkShift]",
+         "Name": "[dbo].[WorkShift]",
          "ObjectType": 0
       }
    ],

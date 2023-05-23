@@ -1,9 +1,9 @@
 ﻿using FourthTeamProject.Models;
-using FourthTeamProject.Models.ViewModels;
+using FourthTeamProject.Models.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FourthTeamProject.Controllers.ApiControllers
+namespace FourthTeamProject.Controllers.API
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -11,15 +11,15 @@ namespace FourthTeamProject.Controllers.ApiControllers
     {
         private readonly PetHeavenDbContext petHeavenDb;
 
-        public PetHotelAPIController(PetHeavenDbContext petHeavenDb )
+        public PetHotelAPIController(PetHeavenDbContext petHeavenDb)
         {
             this.petHeavenDb = petHeavenDb;
         }
 
         [HttpGet]
-        public IActionResult Index() 
+        public IActionResult Index()
         {
-            var petHotelDB = petHeavenDb.THotelService.ToList();
+            var petHotelDB = petHeavenDb.HotelService.ToList();
             var petHotelList = petHotelDB.Select(data => new PetHotelViewModel()
             {
                 Service = data.CService,
@@ -27,12 +27,12 @@ namespace FourthTeamProject.Controllers.ApiControllers
                 PetSizeId = data.CPetSizeId,
                 UnitPrice = data.CUnitPrice,
             });
-         
+
 
             return Ok(petHotelList);
         }
 
-        
+
         //public IActionResult getRoomDataById(int roomId)
         //{
 

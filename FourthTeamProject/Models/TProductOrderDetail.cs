@@ -7,14 +7,16 @@ namespace FourthTeamProject.Models
 {
     public partial class TProductOrderDetail
     {
-        public int COrderDetailId { get; set; }
-        public int COrderId { get; set; }
-        public int CProductId { get; set; }
-        public int CUnitPrice { get; set; }
-        public double CQuantity { get; set; }
-        public bool CDetailStatus { get; set; }
+        public int OrderDetailId { get; set; }
+        public int OrderId { get; set; }
+        public int ProductId { get; set; }
+        public int UnitPrice { get; set; }
+        public int Quantity { get; set; }
+        public bool DetailStatus { get; set; }
+        public string ProductName { get; set; }
+        public string ProductContent { get; set; }
+        public string ProductCatagoryName { get; set; }
 
-        public virtual TProductList COrderDetail { get; set; }
-        public virtual TProductOrder TProductOrder { get; set; }
+        public virtual ProductOrder Order { get; set; }
     }
 }

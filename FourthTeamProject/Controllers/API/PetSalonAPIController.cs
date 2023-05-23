@@ -1,5 +1,5 @@
 ﻿using FourthTeamProject.Models;
-using FourthTeamProject.ViewModel;
+using FourthTeamProject.Models.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

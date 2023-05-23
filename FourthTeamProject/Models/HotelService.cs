@@ -5,11 +5,9 @@ using System.Collections.Generic;
 
 namespace FourthTeamProject.Models
 {
-    public partial class TRoomType
+    public partial class HotelService
     {
-        public int CRoomTypeId { get; set; }
-        public string CRoomTypeName { get; set; }
-
-        public virtual THotelService THotelService { get; set; }
+        public int HotelServiceId { get; set; }
+        public string HotelServiceName { get; set; }
     }
 }

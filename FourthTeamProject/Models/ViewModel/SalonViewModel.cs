@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
-namespace FourthTeamProject.ViewModel
+namespace FourthTeamProject.Models.ViewModel
 {
     public class SalonViewModel
     {

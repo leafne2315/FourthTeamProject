@@ -1,0 +1,94 @@
+﻿<div>1</div>
+<div>1</div>
+<div>1</div>
+<div>1</div>
+<div>1</div>
+<div>1</div>
+<div>1</div>
+<div>1</div>
+
+<div class="form-group" id="app">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>編輯</th>
+                <th>編號</th>
+                <th>項目</th>
+                <th>內容</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="item in SalonDTO">
+                <template v-if="item.Edit == true">
+                    <td>
+                        <button class="btn btn-success" @@click="update(item)">確定修改</button>
+                        <button class="btn btn-warning" @@click="cancel">取消修改</button>
+                    </td>
+                    <td>{{item.cSalonId}}</td>
+                    <td><input v-model="item.cSalonName" /></td>
+                    <td><input v-model="item.cSalonContet" /></td>
+                </template>
+                <template v-else>
+                    <td>
+                        <button class="btn btn-primary" @@click="edit(item.cSalonId)">編輯</button>
+                        <button class="btn btn-danger" @@click="deleteSalon(item.cSalonId)">刪除</button>
+                    </td>
+                    <td>{{item.cSalonId}}</td>
+                    <td>{{item.cSalonName}}</td>
+                    <td>{{item.cSalonContet}}</td>
+                </template>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+
+<script>
+    let app =new Vue({
+        el:"#app",
+        data:{
+            SalonDTO:[],
+            oldcSalonName:"",
+            oldcSalonContet:""
+        },
+        mounted:function(){
+        let _this=this;
+            axios.get("/api/PetSalon/GetPetSalon").then(response => _this.SalonDTO = response.data)
+        },
+        methods:{
+            edit: function (cSalonId) {
+             let _this = this;
+             var SalonList = [];
+                for (var i = 0; i < _this.SalonDTO.length; i++) {
+                  var item = _this.SalonDTO[i];
+                  if (cSalonId == item.cSalonId) {
+                  item.Edit = true;
+                  _this.oldcSalonName = item.cSalonName;
+                  _this.oldcSalonContet = item.cSalonContet;
+
+                 }
+                 SalonList.push(item);
+             }
+                _this.SalonDTO = SalonList;
+            },
+            deleteSalon:function(){},
+            update:function(item){
+             let _this = this;
+             var request = {
+              CSalonId: item.cSalonId,
+              CSalonName: item.cSalonName,
+              CSalonContet: item.cSalonContet,
+             };
+                axios.put("/api/SalonAPI/PutPetSalon", request).then(response => {
+                 alert(response.data);
+
+             });
+            },
+            cancel:function(){}
+        }
+    })
+</script>

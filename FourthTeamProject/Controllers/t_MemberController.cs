@@ -9,6 +9,8 @@ using System.Net;
 using System.Text.Json;
 using FourthTeamProject.Services;
 using FourthTeamProject.PetHeavenModels;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
 
 namespace FourthTeamProject.Controllers
 {
@@ -167,6 +169,49 @@ namespace FourthTeamProject.Controllers
         }
         public IActionResult ForgetPassword()
         {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Forgetpassword(ForgetpasswordViewModel model)
+        {
+            var user = _db.Member.FirstOrDefault(x => x.MemberEmail == model.MemberEmail);
+
+            if (user == null)
+            {
+                ViewBag.Error = "帳號已經存在!!";
+                return View("Login");
+            }
+            //寄信
+            var obj = new AesValidationDto(model.MemberEmail, DateTime.Now.AddDays(3));
+            var jString = JsonSerializer.Serialize(obj);
+            var code = encrypt.AesEncryptToBase64(jString);
+
+
+            var mail = new MailMessage()
+            {
+                From = new MailAddress("mstyle912012@gmail.com"),
+                Subject = "忘記密碼",
+                Body = (@$"請點這<a href='https://localhost:7089/t_Member/enable?code= {code}'>這裡</a>來更新您的密碼"),
+                IsBodyHtml = true,
+                BodyEncoding = Encoding.UTF8,
+            };
+            mail.To.Add(new MailAddress(model.MemberEmail));
+
+            try
+            {
+                using (var sm = new SmtpClient("smtp.gmail.com", 587)) //465 ssl
+                {
+                    sm.EnableSsl = true;
+                    sm.Credentials = new NetworkCredential("mystyle912012@gmail.com", "zkghpbiqhsviyrus");
+                    sm.Send(mail);
+                }
+            }
+            catch (Exception ex)
+            {
+                //ViewBag.Error = "邮件发送失败：" + ex.Message;
+                throw;
+
+            }
             return View();
         }
     }

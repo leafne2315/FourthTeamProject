@@ -7,7 +7,7 @@
    "IncludeConnectionString": false,
    "ModelNamespace": null,
    "OutputContextPath": null,
-   "OutputPath": "Models",
+   "OutputPath": "PetHeavenModels",
    "PreserveCasingWithRegex": true,
    "ProjectRootNamespace": "FourthTeamProject",
    "Schemas": null,
@@ -27,7 +27,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[HotelCatogory]",
+         "Name": "[dbo].[HotelCatagory]",
          "ObjectType": 0
       },
       {
@@ -91,6 +91,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[ProductOrderDetail]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[ProductRating]",
          "ObjectType": 0
       },
@@ -124,10 +128,6 @@
       },
       {
          "Name": "[dbo].[ShoppingCart]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[t_ProductOrderDetail]",
          "ObjectType": 0
       },
       {

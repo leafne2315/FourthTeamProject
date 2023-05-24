@@ -1,4 +1,6 @@
-﻿namespace FourthTeamProject.Models.ViewModel
+﻿using FourthTeamProject.PetHeavenModels;
+
+namespace FourthTeamProject.Models.ViewModel
 {
     public class ProductViewModel
     {

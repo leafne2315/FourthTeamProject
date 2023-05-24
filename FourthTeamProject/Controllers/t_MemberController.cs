@@ -8,6 +8,7 @@ using System.Text;
 using System.Net;
 using System.Text.Json;
 using FourthTeamProject.Services;
+using FourthTeamProject.PetHeavenModels;
 
 namespace FourthTeamProject.Controllers
 {

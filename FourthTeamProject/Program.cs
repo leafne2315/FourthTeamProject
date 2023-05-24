@@ -1,5 +1,6 @@
 using FourthTeamProject.Data;
 using FourthTeamProject.Models;
+using FourthTeamProject.PetHeavenModels;
 using FourthTeamProject.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;

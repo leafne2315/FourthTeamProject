@@ -10,18 +10,25 @@
     <table class="table">
         <thead>
             <tr>
-                <th>PetHotelService</th>
-                <th>RoomTypeId</th>
-                <th>PetSizeId</th>
+                <th>PetHotelId</th>
+                <th>HotelCatagoryId</th>
+                <th>HotelName</th>
                 <th>UnitPrice</th>
+                <th>HotelContent</th>
+                <th>HotelContentDetail</th>
+                <th>HotelImageString</th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="data in petHotelDatas">
-                <td>{{data.service}}</td>
-                <td>{{data.roomTypeId}}</td>
-                <td>{{data.petSizeId}}</td>
+                <td>{{data.id}}</td>
+                <td>{{data.catagoryID}}</td>
+                <td>{{data.hotelName}}</td>
                 <td>{{data.unitPrice}}</td>
+                <td>{{data.hotelContent}}</td>
+                <td>{{data.hotelContentDetail}}</td>
+                <td>{{data.hotelImage}}</td>
+
             </tr>
         </tbody>
     </table>

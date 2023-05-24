@@ -42,31 +42,31 @@ namespace FourthTeamProject.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> EmployeeLogin(EmployeeLoginViewModel model)
-        {
+        //[HttpPost]
+        //public async Task<IActionResult> EmployeeLogin(EmployeeLoginViewModel model)
+        //{
         
-            var user = _db.TEmployees.FirstOrDefault(x => x.CEmployeeEmail == model.EmployeeEmail &&
-             x.CEmployeePassword == model.EmployeePassword);
+        //    var user = _db.TEmployees.FirstOrDefault(x => x.CEmployeeEmail == model.EmployeeEmail &&
+        //     x.CEmployeePassword == model.EmployeePassword);
 
-            if (user == null)
-            {
-                ViewBag.Error = "帳號密碼錯誤";
-                return View("EmployeeLogin");
-            }
+        //    if (user == null)
+        //    {
+        //        ViewBag.Error = "帳號密碼錯誤";
+        //        return View("EmployeeLogin");
+        //    }
 
 
-            var claims = new List<Claim>()
-            {
-                 new Claim(ClaimTypes.Name, user.CEmployeeName),
-               new Claim(ClaimTypes.Role, user.CEmployeeRole),
-            };
+        //    var claims = new List<Claim>()
+        //    {
+        //         new Claim(ClaimTypes.Name, user.CEmployeeName),
+        //       new Claim(ClaimTypes.Role, user.CEmployeeRole),
+        //    };
 
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-            await HttpContext.SignInAsync(claimsPrincipal);  //夾帶一個cookie出去
-            return RedirectToAction("EmployeeSystem", "t_Employees");
-        }
+        //    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        //    var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+        //    await HttpContext.SignInAsync(claimsPrincipal);  //夾帶一個cookie出去
+        //    return RedirectToAction("EmployeeSystem", "t_Employees");
+        //}
         public async Task<IActionResult> EmployeeLogout()
         {
             HttpContext.SignOutAsync();

@@ -16,5 +16,5 @@ public partial class Income
 
     public string Month { get; set; } = null!;
 
-    public virtual TMember Member { get; set; } = null!;
+    //public virtual TMember Member { get; set; } = null!;
 }

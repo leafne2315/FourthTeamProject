@@ -12,7 +12,7 @@ namespace FourthTeamProject.Models
         public string HotelName { get; set; }
         public int UnitPrice { get; set; }
         public string HotelContent { get; set; }
-        public byte[] HotelImage { get; set; }
+        public string HotelImage { get; set; }
         public string HotelContentDetail { get; set; }
 
         public virtual HotelCatogory HotelCatagory { get; set; }

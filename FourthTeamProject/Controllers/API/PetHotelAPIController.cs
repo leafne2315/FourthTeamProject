@@ -19,13 +19,16 @@ namespace FourthTeamProject.Controllers.API
         [HttpGet]
         public IActionResult Index()
         {
-            var petHotelDB = petHeavenDb.HotelService.ToList();
+            var petHotelDB = petHeavenDb.Hotel.ToList();
             var petHotelList = petHotelDB.Select(data => new PetHotelViewModel()
             {
-                Service = data.CService,
-                RoomTypeId = data.CRoomTypeId,
-                PetSizeId = data.CPetSizeId,
-                UnitPrice = data.CUnitPrice,
+                ID = data.HotelId,
+                CatagoryID = data.HotelCatagoryId,
+                HotelName = data.HotelName,
+                UnitPrice = data.UnitPrice,
+                HotelContent = data.HotelContent,
+                HotelContentDetail = data.HotelContentDetail,
+                HotelImage = data.HotelImage,
             });
 
 

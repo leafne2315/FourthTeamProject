@@ -165,5 +165,9 @@ namespace FourthTeamProject.Controllers
             await HttpContext.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+        public IActionResult ForgetPassword()
+        {
+            return View();
+        }
     }
 }

@@ -3,6 +3,7 @@ using FourthTeamProject.Models.ViewModel;
 using FourthTeamProject.PetHeavenModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FourthTeamProject.Controllers.API
 {
@@ -20,7 +21,7 @@ namespace FourthTeamProject.Controllers.API
         [HttpGet]
         public IActionResult Index()
         {
-            var petHotelDB = petHeavenDb.Hotel.ToList();
+            var petHotelDB = petHeavenDb.Hotel.Include(h=>h.HotelCatagory).ToList();
             var petHotelList = petHotelDB.Select(data => new PetHotelViewModel()
             {
                 ID = data.HotelId,
@@ -30,7 +31,8 @@ namespace FourthTeamProject.Controllers.API
                 HotelContent = data.HotelContent,
                 HotelContentDetail = data.HotelContentDetail,
                 HotelImage = data.HotelImage,
-            });
+                HotelTypeName = data.HotelCatagory.HotelCatagoryName,
+            }) ;
 
 
             return Ok(petHotelList);

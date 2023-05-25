@@ -9,5 +9,7 @@
         public string HotelContent { get; set; }
         public string HotelContentDetail { get; set; }
         public string HotelImage { get; set; }
+
+        public string HotelTypeName { get; set; }
     }
 }

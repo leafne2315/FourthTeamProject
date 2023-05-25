@@ -51,7 +51,7 @@ namespace FourthTeamProject.Controllers
             if (user != null)
             {
                 ViewBag.Error = "帳號已經存在!!";
-                return View("Login");
+                return View("t_Member/Login");
             }
 
             _db.Member.Add(new Member()

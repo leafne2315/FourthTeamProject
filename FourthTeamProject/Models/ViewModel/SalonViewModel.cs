@@ -5,6 +5,8 @@ namespace FourthTeamProject.Models.ViewModel
 {
     public class SalonViewModel
     {
+        public int SalonId { get; set; }
+        public int SalonSolutionId { get; set; }
         public string? SalonCatagoryName { get; set; }
         public string? SalonSolutionName { get; set; }
         public string? SalonSolutionDiscription { get; set; }

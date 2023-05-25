@@ -1,0 +1,13 @@
+﻿@model FourthTeamProject.PetHeavenModels.Product
+
+@if (Model.ProductImage != null)
+{
+    <img src="@Url.Action("ShowPhoto", "Product",
+    new {id=Model.ProductId})"
+         style="width:320px;height:240px"
+         title="@Model.ProductName" />
+}
+else
+{
+    <img src="@Url.Content("~/images/NoImage.png")" style="width:320px;height:240px" />
+}

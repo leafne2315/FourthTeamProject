@@ -161,15 +161,15 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
 
 .site-nav {
     background-color: #6998AB;
-    position: fixed;
     top: 0;
     z-index: 9;
     width: 100%;
 }
 
 .site-nav {
-  padding-top: 20px;
-  padding-bottom: 20px; }
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
   .site-nav h1 {
     margin: 0;
     padding: 0;

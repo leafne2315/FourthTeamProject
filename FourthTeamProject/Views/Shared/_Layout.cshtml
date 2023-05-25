@@ -23,7 +23,16 @@
     <link rel="stylesheet" href="~/css/daterangepicker.css">
     <link rel="stylesheet" href="~/css/aos.css">
     <link rel="stylesheet" href="~/css/style.css">
+    <style>
+        #top{
+            
+            
+        }
 
+        #header .site-nav {
+            min-height:81px
+        }
+    </style>
     <title>Pets Heaven</title>
 
     @await RenderSectionAsync("Styles", required: false)
@@ -31,7 +40,7 @@
 
 <body>
 
-    <header>
+    <header id="header">
 
         <div class="site-mobile-menu site-navbar-target">
             <div class="site-mobile-menu-header">
@@ -141,7 +150,10 @@
         </nav>
     </header>
     <main>
-        @RenderBody()
+        <div id="top">
+            @RenderBody()
+        </div>
+        
     </main>
 
     <div class="site-footer">

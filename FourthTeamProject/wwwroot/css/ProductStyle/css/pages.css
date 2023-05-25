@@ -6,7 +6,7 @@
 .box-module{background: rgba(255,255,255,0.8); border-radius: 2px;box-shadow: 0 1px 3px rgba(0,0,0,0.1);margin: 10px; position: relative;}
 .box-module .box-title{ background:#ffffff;height: 40px; border-bottom: 1px solid #dddddd; line-height: 40px;font-size: 16px; padding: 0 15px;  position: relative;}
 .box-module .box-title i{position: absolute; right:15px; cursor: pointer;}
-.box-module .box-content{position: relative;float: none; width: 100%; padding: 0; top:0!important;border: 0; display: block;overflow: hidden;}
+.box-module .box-content{position: relative;float: none; width: 100%; padding: 0; top:0!important;border: 0; display: block;overflow: auto;}
 /******************************/
 .UIform{position: relative;}
 .UIform li{border-bottom: 1px solid #dddddd;border-left: 1px solid #dddddd; line-height: 30px; float: left; width: 50%;}

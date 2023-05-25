@@ -1,18 +1,26 @@
-﻿<main class="form-signin w-100 m-auto text-center">
+﻿<main class="form-signin w-100  text-center">
     @{
         if (ViewBag.Error != "")
         {
-            <h1>@ViewBag.Error</h1>
+            <h1 class="errorShowBG">@ViewBag.Error</h1>
         }
         else
         {
-            <h1>@ViewBag.AlreadyLogin</h1>
+            <h1 class="errorShowBG">@ViewBag.AlreadyLogin</h1>
         }
     }
+
+    
+    <section class="vh-auto" style="background-color: #6998AB;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+
     <form action="/t_Employees/EmployeeLogin" method="post">
-        <img class="mb-4" src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg
-" alt="" width="72" height="57">
-        <h1 class="h3 mb-3 fw-normal">Please sign in Admin Mode</h1>
+        
+        <h1 class="h3 mb-3 fw-normal">企業登入</h1>
 
         <div class="form-floating">
             <input type="email" name="EmployeeEmail" class="form-control" id="floatingInput" placeholder="Email">
@@ -25,10 +33,21 @@
 
         <div class="checkbox mb-3">
             <label>
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" value="remember-me"> 記住我
             </label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-        <p class="mt-5 mb-3 text-body-secondary">© 2017–2023</p>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">登入</button>
     </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
+<style>
+    .errorShowBG{
+        background-color: #6998AB ;
+        margin-block-end : 0px
+    }
+</style>

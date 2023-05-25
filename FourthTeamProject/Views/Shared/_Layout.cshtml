@@ -23,7 +23,16 @@
     <link rel="stylesheet" href="~/css/daterangepicker.css">
     <link rel="stylesheet" href="~/css/aos.css">
     <link rel="stylesheet" href="~/css/style.css">
+    <style>
+        #top{
+            
+            margin-top: 81px;
+        }
 
+        #header .site-nav {
+            min-height:81px
+        }
+    </style>
     <title>Pets Heaven</title>
 
     @await RenderSectionAsync("Styles", required: false)
@@ -31,7 +40,7 @@
 
 <body>
 
-    <header>
+    <header id="header">
 
         <div class="site-mobile-menu site-navbar-target">
             <div class="site-mobile-menu-header">
@@ -112,6 +121,7 @@
                                     <ul class="dropdown">
                                         <li><a asp-controller="t_Employees" asp-action="EmployeeSystem">員工系統</a></li>
                                         <li><a asp-controller="t_Employees" asp-action="Productmanagement">商品管理系統</a></li>
+                                
                                     </ul>
                                 </li>
                                 }
@@ -140,7 +150,10 @@
         </nav>
     </header>
     <main>
-        @RenderBody()
+        <div id="top">
+            @RenderBody()
+        </div>
+        
     </main>
 
     <div class="site-footer">

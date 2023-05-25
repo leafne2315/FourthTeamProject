@@ -23,6 +23,9 @@
     <link rel="stylesheet" href="~/css/daterangepicker.css">
     <link rel="stylesheet" href="~/css/aos.css">
     <link rel="stylesheet" href="~/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <style>
         #top{
             
@@ -59,7 +62,7 @@
                     <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
                         <li class="active"><a asp-controller="Home" asp-action="Index">首頁</a></li>
                         <li class="has-children">
-                            <a asp-controller="" asp-action="">寵物商城</a>
+                            <a asp-controller="Product" asp-action="Index">寵物商城</a>
                             <ul class="dropdown">
                                 <li><a asp-controller="" asp-action="">狗狗食品</a></li>
                                 <li><a asp-controller="" asp-action="">貓咪食品</a></li>

@@ -15,6 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Product\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\css\System\images\app-logo.svg" />
     <None Include="wwwroot\css\System\images\portal-logo.svg" />
     <None Include="wwwroot\css\System\js\app.js" />

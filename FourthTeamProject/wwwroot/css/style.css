@@ -1389,3 +1389,150 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
       content: "\f095"; }
     .site-footer ul.quick-info li.address:before {
       content: "\e8b4"; }
+
+/* shop page */
+
+.card {
+    background-color: #ffffff;
+    border-radius: 3px;
+    border: 1px solid #a1a1a1;
+    padding: 20px;
+}
+
+    .card .pic img {
+        width: 100%;
+    }
+
+    .card .card-header {
+        border-bottom: none;
+        background-color: transparent;
+    }
+
+    .card .title {
+        color: #444444;
+    }
+
+    .card .text {
+        color: #444444;
+    }
+
+.card-footer {
+    border-top: none !important;
+    background-color: transparent !important;
+}
+
+#myTable {
+    padding: 20px;
+    margin: 20px;
+    border-collapse: collapse; /* Collapse borders */
+    width: 20%; /* Full-width */
+    border: 1px solid #ddd; /* Add a grey border */
+    font-size: 18px; /* Increase font-size */
+}
+
+
+
+    #myTable th, #myTable td {
+        text-align: left; /* Left-align text */
+        padding: 12px; /* Add padding */
+    }
+
+    #myTable tr {
+        /* Add a bottom border to all table rows */
+        border-bottom: 1px solid #ddd;
+    }
+
+        #myTable tr.header, #myTable tr:hover {
+            /* Add a grey background color to the table header and on hover */
+            background-color: #f1f1f1;
+        }
+
+
+.sidebar-box-style2 {
+    position: relative;
+    display: flex;
+    margin-top: 22px;
+}
+
+.single-sidebar-style2 {
+    position: relative;
+    display: block;
+    border: 2px solid #efefef;
+    padding: 35px 38px 30px;
+    margin-bottom: 30px;
+}
+
+    .single-sidebar-style2 .title {
+        position: relative;
+        display: block;
+        padding-bottom: 18px;
+    }
+
+        .single-sidebar-style2 .title h4 {
+            color: #22254a;
+            font-size: 16px;
+            line-height: 20px;
+            font-weight: 700;
+        }
+
+
+.filter-checkbox {
+    position: relative;
+    display: block;
+}
+
+    .filter-checkbox li {
+        position: relative;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+        .filter-checkbox li:last-child {
+            margin-bottom: 0;
+        }
+
+    .filter-checkbox .single-checkbox {
+        position: relative;
+        display: block;
+    }
+
+    .filter-checkbox label {
+        position: relative;
+        display: block;
+        padding-left: 30px;
+        margin-right: 0px;
+        margin-bottom: 0;
+        color: #22254a;
+        font-size: 14px;
+        line-height: 30px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+
+    .filter-checkbox input[type="checkbox"] {
+        position: absolute;
+        display: block;
+        top: 7px;
+        left: 0;
+        width: 15px;
+        height: 15px;
+        background-color: transparent;
+        border: 1px solid #cccccc;
+        cursor: pointer;
+        border-radius: 0;
+        transition: all 300ms ease;
+    }
+
+        .filter-checkbox input[type="checkbox"]:checked + label:before {
+            opacity: 1;
+        }
+
+.containershop {
+    display: flex;
+}
+
+.right {
+    flex: 1;
+}

@@ -17,26 +17,106 @@
     <link href="~/css/PetHotelCss/HotelMainPageStyles.css" rel="stylesheet" />*@
 
     <link href="~/css/PetHotelCss/myStyle.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <style>
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial img{
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+    </style>
 </head>
 
 <div id="app">
     
-    <div id="page-top">
-        <header class="masthead">
-            <div class="container">
-                <div class="masthead-subheading">Welcome To Our Studio!</div>
-                <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-                @*<a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>*@
-                
+    
+    <div class="untree_co-section testimonial-section mt-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 text-center">
+                    @*
+                    <h2 class="section-title text-center mb-5">Testimonials</h2>
+                    *@
+                    <div class="owl-single owl-carousel no-nav">
+
+                        <div class="testimonial mx-auto">
+                            
+                            <div style="height:350px">
+                            <img class="img-fluid rounded mb-4 mb-lg-0" 
+                                src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..." />
+                            </div>
+                        </div>
+                        <div class="testimonial mx-auto">
+                            <div style="height:350px;">
+                            <img class="img-fluid rounded mb-4 mb-lg-0"
+                                src="https://img.freepik.com/free-photo/beautiful-pet-portrait-small-dog-cat_23-2149218509.jpg" alt="..." />
+                            </div>
+                        </div>
+                        <div class="testimonial mx-auto">
+                            <div style="height:350px">
+                                <img class="img-fluid rounded mb-4 mb-lg-0"
+                                     src="https://img.freepik.com/free-photo/close-up-portrait-beautiful-cat_23-2149214414.jpg" alt="..." />
+                            </div>
+                        </div>
+                        <div class="testimonial mx-auto">
+                            <div style="height:350px">
+                                <img class="img-fluid rounded mb-4 mb-lg-0" 
+                                    src="https://img.freepik.com/free-photo/cute-animals-group-white-background_23-2150038548.jpg" alt="..." />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-5 text-center">
+                    <div class="mt-5">
+                        <h1 class="font-weight-light">Business Name or Tagline</h1>
+                        <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
+                        <a class="btn btn-primary" href="#!">Call to Action!</a>
+                    </div>
+                </div>
             </div>
-        </header>
+        </div>
     </div>
     
-    <div style="height: 10px;"></div>
+    
     <div class="container px-4 px-lg-5">
         <!-- Heading Row-->
         <div class="row gx-4 gx-lg-5 align-items-center my-5">
-            <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..." /></div>
+            <div class="col-lg-7">
+                <img class="img-fluid rounded mb-4 mb-lg-0" src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..." />
+            </div>
             <div class="col-lg-5">
                 <h1 class="font-weight-light">Business Name or Tagline</h1>
                 <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
@@ -132,4 +212,26 @@
             }
         }
     })
+</script>
+<!-- Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+        }
+    });
 </script>

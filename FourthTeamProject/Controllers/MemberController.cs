@@ -232,7 +232,7 @@ namespace FourthTeamProject.Controllers
             try
             {
                 _db.SaveChanges();
-                return View(); 
+                return View("Login"); 
             }
             catch (Exception ex)
             {

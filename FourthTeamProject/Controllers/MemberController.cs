@@ -192,7 +192,7 @@ namespace FourthTeamProject.Controllers
             {
                 From = new MailAddress("mstyle912012@gmail.com"),
                 Subject = "忘記密碼",
-                Body = (@$"請點這<a href='https://localhost:7089/t_Member/Reset?code= {code}'>這裡</a>來更新您的密碼"),
+                Body = (@$"請點這<a href='https://localhost:7089/Member/Reset?code= {code}'>這裡</a>來更新您的密碼"),
                 IsBodyHtml = true,
                 BodyEncoding = Encoding.UTF8,
             };

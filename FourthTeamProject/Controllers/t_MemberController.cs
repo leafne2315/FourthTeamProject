@@ -225,18 +225,18 @@ namespace FourthTeamProject.Controllers
             var user = _db.Member.FirstOrDefault(x => x.MemberEmail == model.MemberEmail);
             if (user == null)
             {
-                // 找不到使用者，進行錯誤處理
+                
                 return NotFound();
             }
             user.MemberPassword = model.NewPassword;
             try
             {
                 _db.SaveChanges();
-                return View(); // 密碼更新成功
+                return View(); 
             }
             catch (Exception ex)
             {
-                // 密碼更新失敗，進行錯誤處理
+                
                 return StatusCode(500, "密碼更新失敗：" + ex.Message);
             }
             

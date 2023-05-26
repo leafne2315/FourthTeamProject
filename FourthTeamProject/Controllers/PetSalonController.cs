@@ -9,7 +9,17 @@ namespace FourthTeamProject.Controllers
         {
             return View();
         }
-    }
+
+        public IActionResult DogSalon()
+        {
+            return View();
+        }
+
+		public IActionResult CatSalon()
+		{
+			return View();
+		}
+	}
 
 
 }

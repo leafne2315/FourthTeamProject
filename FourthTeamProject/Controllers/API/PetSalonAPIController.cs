@@ -17,6 +17,19 @@ namespace FourthTeamProject.Controllers.API
             _context = context;
         }
         
+    //    public async Task<IEnumerable<SalonViewModel>> GetDogSalon()
+    //    {
+    //        var temp = _context.Salon.Include(x => x.SalonCatagory).Where(x => x.SalonCatagoryName == "狗狗")
+    //            .Select(joinresult => new SalonViewModel
+    //            {
+				//	SalonCatagoryName = joinresult.SalonCatagoryName,
+				//	SalonName = joinresult.Salon.SalonName,
+				//	SalonImagePath = joinresult.Salon.SalonImagePath,
+				//	SalonId = joinresult.Salon.SalonId,
+				//});
+    //    }
+
+
         public async Task<IEnumerable<SalonViewModel>> GetPetSalon()
         {
             var temp = _context.Salon.Include(x => x.SalonCatagory)

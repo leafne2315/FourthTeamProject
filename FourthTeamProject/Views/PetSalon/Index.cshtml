@@ -1,46 +1,36 @@
-﻿<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-
-
-
-
+﻿
 <div class="form-group" id="app">
     <table class="table table-striped table-hover">
         <thead>
             <tr>
                 <th>編輯</th>
+                <th>寵物種類</th>
                 <th>美容項目</th>
-                <th>美容內容</th>
-                <th>美容價錢</th>
+                <th>美容圖片</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="item in SalonSolutionDTO">
+            <tr v-for="item in SalonSolutionDTO" >
+
                 <template v-if="item.Edit == true">
                     <td>
                         <button class="btn btn-success" @@click="update(item)">確定修改</button>
                         <button class="btn btn-warning" @@click="cancel">取消修改</button>
-                        <input type="file" @@change="onfile(item)" accept="image/*" />
+                        <input  type="file" @@change="onfile" accept="image/*" />
                     </td>
                     <td><input v-model="item.salonCatagoryName" /></td>
                     <td><input v-model="item.salonName" /></td>
-                    <td><img style="width:200px;height:200px" v-model="item.salonImagePath" /></td>
-                    @*<td><input v-model="item.salonImagePath" /></td>*@
+                    <td><img style="width:200px;height:200px" :src="imageUrl" /></td>
                 </template>
                 <template v-else>
                     <td>
-                        <button class="btn btn-primary" @@click="edit(item.SalonId)">編輯</button>
-                        <button class="btn btn-danger" @@click="deleteSalon(item.SalonId)">刪除</button>
+                        <button class="btn btn-primary" @@click="edit(item.salonId)">編輯</button>
+                        <button class="btn btn-danger" @@click="deleteSalon(item.salonId)">刪除</button>
                     </td>
                     <td>{{item.salonCatagoryName}}</td>
                     <td>{{item.salonName}}</td>
-                    <td><img style="width:200px;height:200px" src="@Url" />
+                    <td>
+                        <img style="width:200px;height:200px" src="item.salonImagePath" />
                         {{item.salonImagePath}}</td>
                 </template>
             </tr>
@@ -62,8 +52,10 @@
             SalonSolutionNameold: "",
             SalonSolutionDiscriptionold: "",
             SalonSolutionPriceold:"",
-
-
+            SalonCatagoryName: "",
+            SalonName:"",
+            selectedFile: null,
+            imageUrl: null,
         },
         mounted:function(){
         let _this=this;
@@ -80,9 +72,9 @@
                 var SalonSolutionList = [];
                 for (var i = 0; i < _this.SalonSolutionDTO.length; i++) {
                     var item = _this.SalonSolutionDTO[i];
-                    if (SalonId == item.SalonId) {
-                  item.Edit = true;
-                  _this.SalonId=item.salonId;
+                    if (SalonId == item.salonId) {
+                        item.Edit = true;
+                        _this.SalonId = item.salonId;
                         _this.SalonCatagoryName = item.salonCatagoryName;
                         _this.SalonName = item.salonName;
                         _this.SalonImagePath = item.salonImagePath;
@@ -99,10 +91,11 @@
             update:function(item){
              let _this = this;
              var request = {
-             SalonSolutionId: item.salonSolutionId,
-             SalonSolutionName: item.salonSolutionName,
-             SalonSolutionDiscription: item.salonSolutionDiscription,
-             SalonSolutionPrice: item.salonSolutionPrice
+                 SalonIdold:item.salonId
+             //SalonSolutionId: item.salonSolutionId,
+             //SalonSolutionName: item.salonSolutionName,
+             //SalonSolutionDiscription: item.salonSolutionDiscription,
+             //SalonSolutionPrice: item.salonSolutionPrice
              };
                 axios.put(`/api/PetSalon/PutPetSalon/${item.salonSolutionId}`, request).then(response => {
                 alert(response.data);
@@ -112,11 +105,25 @@
             },
             cancel:function(){},
 
-           onfile:function(item){
-               alert(JSON.stringify(item));
-               let _this=this;
-
-               }
+           onfile:function(e){
+                let _this=this;
+                _this.selectedFile = e.target.files[0];
+                _this.preview();
+               },
+            preview: function () {
+                let _this=this;
+                if (_this.selectedFile) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        _this.imageUrl = event.target.result;
+                    };
+                    reader.readAsDataURL(_this.selectedFile);
+                } else {
+                    _this.imageUrl = null;
+                }
+            }
+           
+            
         }
     })
 </script>

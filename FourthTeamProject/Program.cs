@@ -29,7 +29,7 @@ namespace FourthTeamProject
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme) //ÅçÃÒ¾÷¨î
                 .AddCookie(opt =>
                 {
-                    opt.LoginPath = "/t_Employees/EmployeeLogin";
+                    opt.LoginPath = "/Employees/EmployeeLogin";
                     
                     opt.ExpireTimeSpan = TimeSpan.FromMinutes(10);
                 });

@@ -6,38 +6,31 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FourthTeamProject.Controllers.API
 {
-    [Route("api/[controller]/[action]")]
-    [ApiController]
-    public class PetProdcutAPIController : ControllerBase
-    {
+	[Route("api/[controller]/[action]")]
+	[ApiController]
+	public class PetProdcutAPIController : ControllerBase
+	{
 
-        readonly PetHeavenDbContext _db;
+		readonly PetHeavenDbContext _db;
 
+		public PetProdcutAPIController(PetHeavenDbContext db)
+		{
+			_db = db;
+		}
 
-        public PetProdcutAPIController(PetHeavenDbContext db)
-        {
-            _db = db;
-        }
-
-        public IActionResult Index(ProductViewModel product)
-        {
-            var result = _db.Product.Select(p => new ProductViewModel
-            {
-                ProductId = p.ProductId,
-                ProductName = p.ProductName,
-                ProductContent = p.ProductContent,
-                ProductImage = p.ProductImage,
-                ProductCatagory = p.ProductCatagory,
-            });
-
-            return Ok(result);
-
-
-
-        }
-        
-
-        
+		[HttpPost]
+		public IActionResult GetProduct()
+		{
+			var result = _db.Product.Select(p => new ProductViewModel
+			{
+				ProductId = p.ProductId,
+				ProductName = p.ProductName,
+				ProductContent = p.ProductContent,
+				UnitPrice = p.UnitPrice,
+				Amount = 1
+			});
+			return Ok(result);
+		}
 
 
 
@@ -47,5 +40,8 @@ namespace FourthTeamProject.Controllers.API
 
 
 
-    }
+
+
+
+	}
 }

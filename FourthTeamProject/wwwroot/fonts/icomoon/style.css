@@ -2403,16 +2403,16 @@
 .icon-accessible:before {
   content: "\e914";
 }
-.icon-account_balance:before {
+.icon-accounbalance:before {
   content: "\e84f";
 }
-.icon-account_balance_wallet:before {
+.icon-accounbalance_wallet:before {
   content: "\e850";
 }
-.icon-account_box:before {
+.icon-accounbox:before {
   content: "\e851";
 }
-.icon-account_circle:before {
+.icon-accouncircle:before {
   content: "\e853";
 }
 .icon-adb:before {
@@ -2454,28 +2454,28 @@
 .icon-adjust2:before {
   content: "\e39e";
 }
-.icon-airline_seat_flat:before {
+.icon-airline_seaflat:before {
   content: "\e630";
 }
-.icon-airline_seat_flat_angled:before {
+.icon-airline_seaflaangled:before {
   content: "\e631";
 }
-.icon-airline_seat_individual_suite:before {
+.icon-airline_seaindividual_suite:before {
   content: "\e632";
 }
-.icon-airline_seat_legroom_extra:before {
+.icon-airline_sealegroom_extra:before {
   content: "\e633";
 }
-.icon-airline_seat_legroom_normal:before {
+.icon-airline_sealegroom_normal:before {
   content: "\e634";
 }
-.icon-airline_seat_legroom_reduced:before {
+.icon-airline_sealegroom_reduced:before {
   content: "\e635";
 }
-.icon-airline_seat_recline_extra:before {
+.icon-airline_searecline_extra:before {
   content: "\e636";
 }
-.icon-airline_seat_recline_normal:before {
+.icon-airline_searecline_normal:before {
   content: "\e637";
 }
 .icon-flight:before {
@@ -2487,7 +2487,7 @@
 .icon-airplay:before {
   content: "\e055";
 }
-.icon-airport_shuttle:before {
+.icon-airporshuttle:before {
   content: "\eb3c";
 }
 .icon-alarm_off:before {
@@ -2538,10 +2538,10 @@
 .icon-arrow_upward:before {
   content: "\e5d8";
 }
-.icon-art_track:before {
+.icon-artrack:before {
   content: "\e060";
 }
-.icon-aspect_ratio:before {
+.icon-aspecratio:before {
   content: "\e85b";
 }
 .icon-poll:before {
@@ -2550,19 +2550,19 @@
 .icon-assignment:before {
   content: "\e85d";
 }
-.icon-assignment_ind:before {
+.icon-assignmenind:before {
   content: "\e85e";
 }
-.icon-assignment_late:before {
+.icon-assignmenlate:before {
   content: "\e85f";
 }
-.icon-assignment_return:before {
+.icon-assignmenreturn:before {
   content: "\e860";
 }
-.icon-assignment_returned:before {
+.icon-assignmenreturned:before {
   content: "\e861";
 }
-.icon-assignment_turned_in:before {
+.icon-assignmenturned_in:before {
   content: "\e862";
 }
 .icon-assistant:before {
@@ -2727,7 +2727,7 @@
 .icon-build:before {
   content: "\e869";
 }
-.icon-burst_mode:before {
+.icon-bursmode:before {
   content: "\e43c";
 }
 .icon-domain:before {
@@ -2805,7 +2805,7 @@
 .icon-cast:before {
   content: "\e307";
 }
-.icon-cast_connected:before {
+.icon-casconnected:before {
   content: "\e308";
 }
 .icon-center_focus_strong:before {
@@ -2820,10 +2820,10 @@
 .icon-chat:before {
   content: "\e0b7";
 }
-.icon-chat_bubble:before {
+.icon-chabubble:before {
   content: "\e0ca";
 }
-.icon-chat_bubble_outline:before {
+.icon-chabubble_outline:before {
   content: "\e0cb";
 }
 .icon-check2:before {
@@ -2910,25 +2910,25 @@
 .icon-confirmation_number:before {
   content: "\e638";
 }
-.icon-contact_mail:before {
+.icon-contacmail:before {
   content: "\e0d0";
 }
-.icon-contact_phone:before {
+.icon-contacphone:before {
   content: "\e0cf";
 }
 .icon-contacts:before {
   content: "\e0ba";
 }
-.icon-content_copy:before {
+.icon-contencopy:before {
   content: "\e14d";
 }
-.icon-content_cut:before {
+.icon-contencut:before {
   content: "\e14e";
 }
-.icon-content_paste:before {
+.icon-contenpaste:before {
   content: "\e14f";
 }
-.icon-control_point_duplicate:before {
+.icon-control_poinduplicate:before {
   content: "\e3bb";
 }
 .icon-copyright2:before {
@@ -3063,13 +3063,13 @@
 .icon-dns:before {
   content: "\e875";
 }
-.icon-not_interested:before {
+.icon-nointerested:before {
   content: "\e033";
 }
-.icon-do_not_disturb_alt:before {
+.icon-do_nodisturb_alt:before {
   content: "\e611";
 }
-.icon-do_not_disturb_off:before {
+.icon-do_nodisturb_off:before {
   content: "\e643";
 }
 .icon-remove_circle:before {
@@ -3084,10 +3084,10 @@
 .icon-done_all:before {
   content: "\e877";
 }
-.icon-donut_large:before {
+.icon-donularge:before {
   content: "\e917";
 }
-.icon-donut_small:before {
+.icon-donusmall:before {
   content: "\e918";
 }
 .icon-drafts:before {
@@ -3102,7 +3102,7 @@
 .icon-dvr:before {
   content: "\e1b2";
 }
-.icon-edit_location:before {
+.icon-edilocation:before {
   content: "\e568";
 }
 .icon-eject2:before {
@@ -3129,22 +3129,22 @@
 .icon-ev_station:before {
   content: "\e56d";
 }
-.icon-insert_invitation:before {
+.icon-inserinvitation:before {
   content: "\e24f";
 }
-.icon-event_available:before {
+.icon-evenavailable:before {
   content: "\e614";
 }
-.icon-event_busy:before {
+.icon-evenbusy:before {
   content: "\e615";
 }
-.icon-event_note:before {
+.icon-evennote:before {
   content: "\e616";
 }
-.icon-event_seat:before {
+.icon-evenseat:before {
   content: "\e903";
 }
-.icon-exit_to_app:before {
+.icon-exito_app:before {
   content: "\e879";
 }
 .icon-expand_less:before {
@@ -3183,10 +3183,10 @@
 .icon-face:before {
   content: "\e87c";
 }
-.icon-fast_forward:before {
+.icon-fasforward:before {
   content: "\e01f";
 }
-.icon-fast_rewind:before {
+.icon-fasrewind:before {
   content: "\e020";
 }
 .icon-favorite:before {
@@ -3216,10 +3216,10 @@
 .icon-fiber_pin:before {
   content: "\e06a";
 }
-.icon-fiber_smart_record:before {
+.icon-fiber_smarrecord:before {
   content: "\e062";
 }
-.icon-get_app:before {
+.icon-geapp:before {
   content: "\e884";
 }
 .icon-file_upload:before {
@@ -3279,7 +3279,7 @@
 .icon-filter_none:before {
   content: "\e3e0";
 }
-.icon-filter_tilt_shift:before {
+.icon-filter_tilshift:before {
   content: "\e3e2";
 }
 .icon-filter_vintage:before {
@@ -3294,7 +3294,7 @@
 .icon-fingerprint:before {
   content: "\e90d";
 }
-.icon-first_page:before {
+.icon-firspage:before {
   content: "\e5dc";
 }
 .icon-fitness_center:before {
@@ -3312,10 +3312,10 @@
 .icon-flash_on:before {
   content: "\e3e7";
 }
-.icon-flight_land:before {
+.icon-flighland:before {
   content: "\e904";
 }
-.icon-flight_takeoff:before {
+.icon-flightakeoff:before {
   content: "\e905";
 }
 .icon-flip:before {
@@ -3339,76 +3339,76 @@
 .icon-folder_special:before {
   content: "\e617";
 }
-.icon-font_download:before {
+.icon-fondownload:before {
   content: "\e167";
 }
-.icon-format_align_center:before {
+.icon-formaalign_center:before {
   content: "\e234";
 }
-.icon-format_align_justify:before {
+.icon-formaalign_justify:before {
   content: "\e235";
 }
-.icon-format_align_left:before {
+.icon-formaalign_left:before {
   content: "\e236";
 }
-.icon-format_align_right:before {
+.icon-formaalign_right:before {
   content: "\e237";
 }
-.icon-format_bold:before {
+.icon-formabold:before {
   content: "\e238";
 }
-.icon-format_clear:before {
+.icon-formaclear:before {
   content: "\e239";
 }
-.icon-format_color_fill:before {
+.icon-formacolor_fill:before {
   content: "\e23a";
 }
-.icon-format_color_reset:before {
+.icon-formacolor_reset:before {
   content: "\e23b";
 }
-.icon-format_color_text:before {
+.icon-formacolor_text:before {
   content: "\e23c";
 }
-.icon-format_indent_decrease:before {
+.icon-formaindendecrease:before {
   content: "\e23d";
 }
-.icon-format_indent_increase:before {
+.icon-formaindenincrease:before {
   content: "\e23e";
 }
-.icon-format_italic:before {
+.icon-formaitalic:before {
   content: "\e23f";
 }
-.icon-format_line_spacing:before {
+.icon-formaline_spacing:before {
   content: "\e240";
 }
-.icon-format_list_bulleted:before {
+.icon-formalisbulleted:before {
   content: "\e241";
 }
-.icon-format_list_numbered:before {
+.icon-formalisnumbered:before {
   content: "\e242";
 }
-.icon-format_paint:before {
+.icon-formapaint:before {
   content: "\e243";
 }
-.icon-format_quote:before {
+.icon-formaquote:before {
   content: "\e244";
 }
-.icon-format_shapes:before {
+.icon-formashapes:before {
   content: "\e25e";
 }
-.icon-format_size:before {
+.icon-formasize:before {
   content: "\e245";
 }
-.icon-format_strikethrough:before {
+.icon-formastrikethrough:before {
   content: "\e246";
 }
-.icon-format_textdirection_l_to_r:before {
+.icon-formatextdirection_l_to_r:before {
   content: "\e247";
 }
-.icon-format_textdirection_r_to_l:before {
+.icon-formatextdirection_r_to_l:before {
   content: "\e248";
 }
-.icon-format_underlined:before {
+.icon-formaunderlined:before {
   content: "\e249";
 }
 .icon-question_answer:before {
@@ -3513,7 +3513,7 @@
 .icon-headset:before {
   content: "\e310";
 }
-.icon-headset_mic:before {
+.icon-headsemic:before {
   content: "\e311";
 }
 .icon-healing:before {
@@ -3534,7 +3534,7 @@
 .icon-highlight:before {
   content: "\e25f";
 }
-.icon-highlight_off:before {
+.icon-highlighoff:before {
   content: "\e888";
 }
 .icon-restore:before {
@@ -3543,7 +3543,7 @@
 .icon-home2:before {
   content: "\e88a";
 }
-.icon-hot_tub:before {
+.icon-hotub:before {
   content: "\eb46";
 }
 .icon-local_hotel:before {
@@ -3564,16 +3564,16 @@
 .icon-photo2:before {
   content: "\e410";
 }
-.icon-image_aspect_ratio:before {
+.icon-image_aspecratio:before {
   content: "\e3f5";
 }
-.icon-import_contacts:before {
+.icon-imporcontacts:before {
   content: "\e0e0";
 }
-.icon-import_export:before {
+.icon-imporexport:before {
   content: "\e0c3";
 }
-.icon-important_devices:before {
+.icon-importandevices:before {
   content: "\e912";
 }
 .icon-inbox2:before {
@@ -3591,10 +3591,10 @@
 .icon-input:before {
   content: "\e890";
 }
-.icon-insert_comment:before {
+.icon-insercomment:before {
   content: "\e24c";
 }
-.icon-insert_drive_file:before {
+.icon-inserdrive_file:before {
   content: "\e24d";
 }
 .icon-tag_faces:before {
@@ -3603,10 +3603,10 @@
 .icon-link2:before {
   content: "\e157";
 }
-.icon-invert_colors:before {
+.icon-invercolors:before {
   content: "\e891";
 }
-.icon-invert_colors_off:before {
+.icon-invercolors_off:before {
   content: "\e0c4";
 }
 .icon-iso:before {
@@ -3666,7 +3666,7 @@
 .icon-laptop_windows:before {
   content: "\e321";
 }
-.icon-last_page:before {
+.icon-laspage:before {
   content: "\e5dd";
 }
 .icon-open_in_new:before {
@@ -3738,7 +3738,7 @@
 .icon-local_convenience_store:before {
   content: "\e543";
 }
-.icon-restaurant_menu:before {
+.icon-restauranmenu:before {
   content: "\e561";
 }
 .icon-local_drink:before {
@@ -3942,7 +3942,7 @@
 .icon-new_releases:before {
   content: "\e031";
 }
-.icon-next_week:before {
+.icon-nexweek:before {
   content: "\e16a";
 }
 .icon-nfc:before {
@@ -4032,7 +4032,7 @@
 .icon-perm_camera_mic:before {
   content: "\e8a2";
 }
-.icon-perm_contact_calendar:before {
+.icon-perm_contaccalendar:before {
   content: "\e8a3";
 }
 .icon-perm_data_setting:before {
@@ -4116,13 +4116,13 @@
 .icon-photo_filter:before {
   content: "\e43b";
 }
-.icon-photo_size_select_actual:before {
+.icon-photo_size_selecactual:before {
   content: "\e432";
 }
-.icon-photo_size_select_large:before {
+.icon-photo_size_seleclarge:before {
   content: "\e433";
 }
-.icon-photo_size_select_small:before {
+.icon-photo_size_selecsmall:before {
   content: "\e434";
 }
 .icon-picture_as_pdf:before {
@@ -4137,7 +4137,7 @@
 .icon-pie_chart:before {
   content: "\e6c4";
 }
-.icon-pie_chart_outlined:before {
+.icon-pie_charoutlined:before {
   content: "\e6c5";
 }
 .icon-pin_drop:before {
@@ -4155,13 +4155,13 @@
 .icon-play_for_work:before {
   content: "\e906";
 }
-.icon-playlist_add:before {
+.icon-playlisadd:before {
   content: "\e03b";
 }
-.icon-playlist_add_check:before {
+.icon-playlisadd_check:before {
   content: "\e065";
 }
-.icon-playlist_play:before {
+.icon-playlisplay:before {
   content: "\e05f";
 }
 .icon-plus_one:before {
@@ -4188,10 +4188,10 @@
 .icon-power_settings_new:before {
   content: "\e8ac";
 }
-.icon-pregnant_woman:before {
+.icon-pregnanwoman:before {
   content: "\e91e";
 }
-.icon-present_to_all:before {
+.icon-presento_all:before {
   content: "\e0df";
 }
 .icon-priority_high:before {
@@ -4221,7 +4221,7 @@
 .icon-receipt:before {
   content: "\e8b0";
 }
-.icon-recent_actors:before {
+.icon-recenactors:before {
   content: "\e03f";
 }
 .icon-record_voice_over:before {
@@ -4254,7 +4254,7 @@
 .icon-repeat2:before {
   content: "\e040";
 }
-.icon-repeat_one:before {
+.icon-repeaone:before {
   content: "\e041";
 }
 .icon-replay:before {
@@ -4353,25 +4353,25 @@
 .icon-security:before {
   content: "\e32a";
 }
-.icon-select_all:before {
+.icon-selecall:before {
   content: "\e162";
 }
 .icon-send2:before {
   content: "\e163";
 }
-.icon-sentiment_dissatisfied:before {
+.icon-sentimendissatisfied:before {
   content: "\e811";
 }
-.icon-sentiment_neutral:before {
+.icon-sentimenneutral:before {
   content: "\e812";
 }
-.icon-sentiment_satisfied:before {
+.icon-sentimensatisfied:before {
   content: "\e813";
 }
-.icon-sentiment_very_dissatisfied:before {
+.icon-sentimenvery_dissatisfied:before {
   content: "\e814";
 }
-.icon-sentiment_very_satisfied:before {
+.icon-sentimenvery_satisfied:before {
   content: "\e815";
 }
 .icon-settings:before {
@@ -4395,16 +4395,16 @@
 .icon-settings_ethernet:before {
   content: "\e8be";
 }
-.icon-settings_input_antenna:before {
+.icon-settings_inpuantenna:before {
   content: "\e8bf";
 }
-.icon-settings_input_composite:before {
+.icon-settings_inpucomposite:before {
   content: "\e8c1";
 }
-.icon-settings_input_hdmi:before {
+.icon-settings_inpuhdmi:before {
   content: "\e8c2";
 }
-.icon-settings_input_svideo:before {
+.icon-settings_inpusvideo:before {
   content: "\e8c3";
 }
 .icon-settings_overscan:before {
@@ -4437,7 +4437,7 @@
 .icon-shopping_basket:before {
   content: "\e8cb";
 }
-.icon-short_text:before {
+.icon-shortext:before {
   content: "\e261";
 }
 .icon-show_chart:before {
@@ -4449,7 +4449,7 @@
 .icon-signal_cellular_4_bar:before {
   content: "\e1c8";
 }
-.icon-signal_cellular_connected_no_internet_4_bar:before {
+.icon-signal_cellular_connected_no_interne4_bar:before {
   content: "\e1cd";
 }
 .icon-signal_cellular_null:before {
@@ -4503,7 +4503,7 @@
 .icon-sort2:before {
   content: "\e164";
 }
-.icon-sort_by_alpha:before {
+.icon-sorby_alpha:before {
   content: "\e053";
 }
 .icon-spa:before {
@@ -4629,19 +4629,19 @@
 .icon-tablet2:before {
   content: "\e32f";
 }
-.icon-tablet_android:before {
+.icon-tableandroid:before {
   content: "\e330";
 }
-.icon-tablet_mac:before {
+.icon-tablemac:before {
   content: "\e331";
 }
 .icon-tap_and_play:before {
   content: "\e62b";
 }
-.icon-text_fields:before {
+.icon-texfields:before {
   content: "\e262";
 }
-.icon-text_format:before {
+.icon-texformat:before {
   content: "\e165";
 }
 .icon-texture:before {
@@ -4914,6 +4914,6 @@
 .icon-zoom_out:before {
   content: "\e901";
 }
-.icon-zoom_out_map:before {
+.icon-zoom_oumap:before {
   content: "\e56b";
 }

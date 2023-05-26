@@ -2,7 +2,7 @@ root {display: block;}
 html, body, div, label, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, p, blockquote, th, td ,img,textarea{border: 0px;margin: 0px;outline: 0px;padding: 0px;}
 fieldset, img { border: 0; }
 img { display:inline-block; }
-html{overflow-x: hidden; overflow-y: hidden;}
+html{overflow-x: hidden; overflow-y: auto;}
 :focus { outline: 0; }
 li {display: list-item;text-align: -webkit-match-parent;}
 em, i, u {font-style: normal;}
@@ -677,17 +677,17 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   background-color: #f0f0f0;
 }
 .Module_info{ vertical-align:middle}
-.Module_info .left_img.bg_color_bule{ background-color:#60A7D0}
-.Module_info .left_img.bg_color_red{ background-color: #FF7171}
-.Module_info .left_img.bg_color_green{ background-color:#9CD159}
-.Module_info .left_img.bg_color_azure{ background-color:#4EE0BF}
-.Module_info .left_img.bg_color_orange{ background-color:#FF8E68}
-.Module_info .left_img.bg_color_purple{ background-color:#AD96D6}
-.Module_info .left_img.bg_color_yellow{ background-color: #FDDF39}
-.Module_info .left_img.bg_color_gray{ background-color: #f2f2f2}
-.Module_info .left_img{ width:100px; height:80px;position:absolute;top:0px; left:0px;}
-.Module_info .left_img i{ font-size:36px; margin-top:15px;}
-.Module_info .right_info{position:relative;padding: 0 10px; height:80px; margin-left:100px; vertical-align:middle; top:0px; text-align:center; font-size:24px; line-height:80px;}
+.Module_info .lefimg.bg_color_bule{ background-color:#60A7D0}
+.Module_info .lefimg.bg_color_red{ background-color: #FF7171}
+.Module_info .lefimg.bg_color_green{ background-color:#9CD159}
+.Module_info .lefimg.bg_color_azure{ background-color:#4EE0BF}
+.Module_info .lefimg.bg_color_orange{ background-color:#FF8E68}
+.Module_info .lefimg.bg_color_purple{ background-color:#AD96D6}
+.Module_info .lefimg.bg_color_yellow{ background-color: #FDDF39}
+.Module_info .lefimg.bg_color_gray{ background-color: #f2f2f2}
+.Module_info .lefimg{ width:100px; height:80px;position:absolute;top:0px; left:0px;}
+.Module_info .lefimg i{ font-size:36px; margin-top:15px;}
+.Module_info .righinfo{position:relative;padding: 0 10px; height:80px; margin-left:100px; vertical-align:middle; top:0px; text-align:center; font-size:24px; line-height:80px;}
 .loading{
 	position: absolute; 
 	top:50%; 
@@ -766,12 +766,12 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 .tab_memu .memu_title.selected{background-color:#CB2D30!important; border-color: #CB2D30; color: #ffffff!important}
 .tab-box .tab-conent {color: #000000; display: none}
 .tab-box .active{display: block;}
-.prompt_style .prompt_info{ color: #333333; border-bottom: 1px dotted #dddddd;}
-.prompt_style .prompt_info:hover{background: #f0f0f0}
-.prompt_style .prompt_info .tz_title{font-size: 14px; color: #000000; margin-bottom: 5px;}
-.prompt_style .prompt_info .icon_prompt{ position: absolute; font-size: 26px; text-align: center;  margin-top: 7px; float: left; width: 35px; height: 35px; border-radius: 50%; margin-right: 5px; color: #ffffff; line-height: 35px;}
-.prompt_style .prompt-xinxi{ display: block; margin-left:50px;}
-.prompt_style .prompt_link{  display: block; padding:10px;color: #333333; line-height: 24px;font-size: 12px;}
+.prompstyle .prompinfo{ color: #333333; border-bottom: 1px dotted #dddddd;}
+.prompstyle .prompinfo:hover{background: #f0f0f0}
+.prompstyle .prompinfo .tz_title{font-size: 14px; color: #000000; margin-bottom: 5px;}
+.prompstyle .prompinfo .icon_prompt{ position: absolute; font-size: 26px; text-align: center;  margin-top: 7px; float: left; width: 35px; height: 35px; border-radius: 50%; margin-right: 5px; color: #ffffff; line-height: 35px;}
+.prompstyle .prompt-xinxi{ display: block; margin-left:50px;}
+.prompstyle .promplink{  display: block; padding:10px;color: #333333; line-height: 24px;font-size: 12px;}
 /*********************内容样式***************************/
 .message-section iframe {
     position: absolute;
@@ -847,10 +847,10 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     top: 0;
 }
 .bk-con-menu .radius i{top:50%; position: absolute; left: 50%;font-size: 26px; margin-left: -13px; margin-top: -18px;}
-.bk-con-menu .left_roll:before{content: '';border-right:1px solid #ffffff; position:absolute; right:0px; top:0px; height:100%; width: 1px;}
-.bk-con-menu .left_roll {left: 0px;border-right: solid 1px #ddd;}
-.bk-con-menu .right_roll {right:0px;border-left: solid 1px #ddd;}
-.bk-con-menu .right_roll:before{content: '';border-right:1px solid #ffffff; position:absolute; left:0px; top:0px; height:100%; width: 1px;} 
+.bk-con-menu .lefroll:before{content: '';border-right:1px solid #ffffff; position:absolute; right:0px; top:0px; height:100%; width: 1px;}
+.bk-con-menu .lefroll {left: 0px;border-right: solid 1px #ddd;}
+.bk-con-menu .righroll {right:0px;border-left: solid 1px #ddd;}
+.bk-con-menu .righroll:before{content: '';border-right:1px solid #ffffff; position:absolute; left:0px; top:0px; height:100%; width: 1px;} 
 /******************底部样式******************/
 .footer-top{border-top: 1px solid #333333;}
 .tab-list-container{border-top: 1px solid #dddddd;}

@@ -11,6 +11,7 @@ using FourthTeamProject.Services;
 using FourthTeamProject.PetHeavenModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
+using System.Security.Principal;
 
 namespace FourthTeamProject.Controllers
 {
@@ -217,6 +218,28 @@ namespace FourthTeamProject.Controllers
         public IActionResult Reset()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult Reset(ForgetpasswordViewModel model)
+        {
+            var user = _db.Member.FirstOrDefault(x => x.MemberEmail == model.MemberEmail);
+            if (user == null)
+            {
+                // 找不到使用者，進行錯誤處理
+                return NotFound();
+            }
+            user.MemberPassword = model.NewPassword;
+            try
+            {
+                _db.SaveChanges();
+                return View(); // 密碼更新成功
+            }
+            catch (Exception ex)
+            {
+                // 密碼更新失敗，進行錯誤處理
+                return StatusCode(500, "密碼更新失敗：" + ex.Message);
+            }
+            
         }
     }
 }

@@ -7,35 +7,41 @@
 <div>1</div>
 <div>1</div>
 
+
+
+
 <div class="form-group" id="app">
     <table class="table table-striped table-hover">
         <thead>
             <tr>
                 <th>編輯</th>
-                <th>編號</th>
-                <th>項目</th>
-                <th>內容</th>
+                <th>美容項目</th>
+                <th>美容內容</th>
+                <th>美容價錢</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="item in SalonDTO">
+            <tr v-for="item in SalonSolutionDTO">
                 <template v-if="item.Edit == true">
                     <td>
                         <button class="btn btn-success" @@click="update(item)">確定修改</button>
                         <button class="btn btn-warning" @@click="cancel">取消修改</button>
+                        <input type="file" @@change="onfile(item)" accept="image/*" />
                     </td>
-                    <td>{{item.cSalonId}}</td>
-                    <td><input v-model="item.cSalonName" /></td>
-                    <td><input v-model="item.cSalonContet" /></td>
+                    <td><input v-model="item.salonCatagoryName" /></td>
+                    <td><input v-model="item.salonName" /></td>
+                    <td><img style="width:200px;height:200px" v-model="item.salonImagePath" /></td>
+                    @*<td><input v-model="item.salonImagePath" /></td>*@
                 </template>
                 <template v-else>
                     <td>
-                        <button class="btn btn-primary" @@click="edit(item.cSalonId)">編輯</button>
-                        <button class="btn btn-danger" @@click="deleteSalon(item.cSalonId)">刪除</button>
+                        <button class="btn btn-primary" @@click="edit(item.SalonId)">編輯</button>
+                        <button class="btn btn-danger" @@click="deleteSalon(item.SalonId)">刪除</button>
                     </td>
-                    <td>{{item.cSalonId}}</td>
-                    <td>{{item.cSalonName}}</td>
-                    <td>{{item.cSalonContet}}</td>
+                    <td>{{item.salonCatagoryName}}</td>
+                    <td>{{item.salonName}}</td>
+                    <td><img style="width:200px;height:200px" src="@Url" />
+                        {{item.salonImagePath}}</td>
                 </template>
             </tr>
 
@@ -51,44 +57,66 @@
     let app =new Vue({
         el:"#app",
         data:{
-            SalonDTO:[],
-            oldcSalonName:"",
-            oldcSalonContet:""
+            Filter: "",
+            SalonSolutionDTO: [],
+            SalonSolutionNameold: "",
+            SalonSolutionDiscriptionold: "",
+            SalonSolutionPriceold:"",
+
+
         },
         mounted:function(){
         let _this=this;
-            axios.get("/api/PetSalon/GetPetSalon").then(response => _this.SalonDTO = response.data)
+            axios.get(`/api/PetSalon/GetPetSalon`).then(response => _this.SalonSolutionDTO = response.data)
         },
         methods:{
-            edit: function (cSalonId) {
-             let _this = this;
-             var SalonList = [];
-                for (var i = 0; i < _this.SalonDTO.length; i++) {
-                  var item = _this.SalonDTO[i];
-                  if (cSalonId == item.cSalonId) {
-                  item.Edit = true;
-                  _this.oldcSalonName = item.cSalonName;
-                  _this.oldcSalonContet = item.cSalonContet;
+            FilterSalonSolutionDTO:function(){
+                let _this = this;
+                axios.get(`/api/PetSalon/GetPetSalon`).then(response => _this.SalonSolutionDTO = response.data)
+            },
 
+            edit: function (SalonId) {
+             let _this = this;
+                var SalonSolutionList = [];
+                for (var i = 0; i < _this.SalonSolutionDTO.length; i++) {
+                    var item = _this.SalonSolutionDTO[i];
+                    if (SalonId == item.SalonId) {
+                  item.Edit = true;
+                  _this.SalonId=item.salonId;
+                        _this.SalonCatagoryName = item.salonCatagoryName;
+                        _this.SalonName = item.salonName;
+                        _this.SalonImagePath = item.salonImagePath;
+
+                  //_this.SalonSolutionNameold = item.salonSolutionName;
+                  //_this.SalonSolutionDiscriptionold = item.salonSolutionDiscription;
+                  //_this.SalonSolutionPriceold = item.salonSolutionPrice
                  }
-                 SalonList.push(item);
+                 SalonSolutionList.push(item);
              }
-                _this.SalonDTO = SalonList;
+                _this.SalonSolutionDTO = SalonSolutionList;
             },
             deleteSalon:function(){},
             update:function(item){
              let _this = this;
              var request = {
-              CSalonId: item.cSalonId,
-              CSalonName: item.cSalonName,
-              CSalonContet: item.cSalonContet,
+             SalonSolutionId: item.salonSolutionId,
+             SalonSolutionName: item.salonSolutionName,
+             SalonSolutionDiscription: item.salonSolutionDiscription,
+             SalonSolutionPrice: item.salonSolutionPrice
              };
-                axios.put("/api/SalonAPI/PutPetSalon", request).then(response => {
-                 alert(response.data);
-
+                axios.put(`/api/PetSalon/PutPetSalon/${item.salonSolutionId}`, request).then(response => {
+                alert(response.data);
+                _this.cancel();
+                _this.FilterSalonSolutionDTO();
              });
             },
-            cancel:function(){}
+            cancel:function(){},
+
+           onfile:function(item){
+               alert(JSON.stringify(item));
+               let _this=this;
+
+               }
         }
     })
 </script>

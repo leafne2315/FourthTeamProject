@@ -10,12 +10,12 @@ using System.Security.Claims;
 
 namespace FourthTeamProject.Controllers
 {
-    public class t_EmployeesController : Controller
+    public class EmployeesController : Controller
     {
         private readonly PetHeavenDbContext _db;
        
 
-        public t_EmployeesController(PetHeavenDbContext context)
+        public EmployeesController(PetHeavenDbContext context)
         {
             this._db = context;
         }
@@ -81,6 +81,7 @@ namespace FourthTeamProject.Controllers
             return View();
         }
 
+
         // POST: Products/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -98,6 +99,38 @@ namespace FourthTeamProject.Controllers
             ViewData["ProductTypeId"] = new SelectList(_db.ProductType, "ProductTypeId", "ProductTypeName", product.ProductTypeId);
             return View(product);
         }
+ 
+        public async Task <IActionResult> PutOn([Bind("ProductId,ProductStatus")]Product product)
+        {
+            if (product == null || product.ProductId == 0)
+            {
+                return NotFound();
+            }
+
+            var productInDb = await _db.Product.FindAsync(product.ProductId);
+
+            if (productInDb == null)
+            {
+                return NotFound();
+            }
+
+            if (productInDb.ProductStatus == false)
+            {
+                productInDb.ProductStatus = true;
+                _db.Update(productInDb);
+                await _db.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Productmanagement));
+        }
+
+
+        //public IActionResult PutDown()
+        //{
+
+        //}
+
+
 
         public IActionResult ShowPhoto()
         {
@@ -107,7 +140,7 @@ namespace FourthTeamProject.Controllers
             // 检查文件是否存在
             if (!System.IO.File.Exists(filePath))
             {
-                return NotFound();
+                return ViewBag.Error;
             }
 
             // 读取文件内容
@@ -243,7 +276,7 @@ namespace FourthTeamProject.Controllers
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
             await HttpContext.SignInAsync(claimsPrincipal);  //夾帶一個cookie出去
-            return RedirectToAction("EmployeeSystem", "t_Employees");
+            return RedirectToAction("EmployeeSystem", "Employees");
         }
         public async Task<IActionResult> EmployeeLogout()
         {

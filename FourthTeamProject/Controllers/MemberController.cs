@@ -12,18 +12,18 @@ using FourthTeamProject.PetHeavenModels;
 
 namespace FourthTeamProject.Controllers
 {
-    public class t_MemberController : Controller
+    public class MemberController : Controller
     {
         private readonly PetHeavenDbContext _db;
         private readonly EncryptService encrypt;
 
-        public t_MemberController(PetHeavenDbContext context, EncryptService encrypt)
+        public MemberController(PetHeavenDbContext context, EncryptService encrypt)
         {
             _db = context;
             this.encrypt = encrypt;
         }
 
-        //public t_MemberController(PetHeavenDbContext context)
+        //public MemberController(PetHeavenDbContext context)
         //{
         //    this._db = context;
         //}
@@ -51,7 +51,7 @@ namespace FourthTeamProject.Controllers
             if (user != null)
             {
                 ViewBag.Error = "帳號已經存在!!";
-                return View("t_Member/Login");
+                return View("Member/Login");
             }
 
             _db.Member.Add(new Member()
@@ -79,7 +79,7 @@ namespace FourthTeamProject.Controllers
             {
                 From = new MailAddress("mstyle912012@gmail.com"),
                 Subject = "啟用網站驗證",
-                Body = (@$"請點這<a href='https://localhost:7089/t_Member/enable?code= {code}'>這裡</a>來啟用你的帳號"),
+                Body = (@$"請點這<a href='https://localhost:7089/Member/enable?code= {code}'>這裡</a>來啟用你的帳號"),
                 IsBodyHtml = true,
                 BodyEncoding = Encoding.UTF8,
             };

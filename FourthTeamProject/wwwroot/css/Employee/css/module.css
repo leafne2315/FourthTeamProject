@@ -303,9 +303,9 @@ h4.bigger {font-size: 19px;}
 .wap-menulist .column-name a{padding: 0px 10px;}
 .wap-Bombbox{position: fixed!important;width: 100%!important;right:0!important;z-index:111;}
 /***************************内页移动样式****************************/
-.mobileStyle .Shops_info .left_shop .left_shop_logo{width: 100%;position: inherit; margin-bottom: 10px;left: 0;}
-.mobileStyle .Shops_info .left_shop .shop_logo{  margin: 0 auto;overflow: hidden; margin-bottom: 15px;}
-.mobileStyle .Shops_info .left_shop .Shops_content{margin: 0;}
-.mobileStyle .Shops_info .right_shop{width: 100%;position: inherit; border-top: 1px solid #dddddd;border-left: 0px;}
+.mobileStyle .Shops_info .lefshop .lefshop_logo{width: 100%;position: inherit; margin-bottom: 10px;left: 0;}
+.mobileStyle .Shops_info .lefshop .shop_logo{  margin: 0 auto;overflow: hidden; margin-bottom: 15px;}
+.mobileStyle .Shops_info .lefshop .Shops_content{margin: 0;}
+.mobileStyle .Shops_info .righshop{width: 100%;position: inherit; border-top: 1px solid #dddddd;border-left: 0px;}
 .mobileStyle .dd_echarts{overflow-x:scroll;}
 .mobileStyle .mainwidth{width: 700px;}

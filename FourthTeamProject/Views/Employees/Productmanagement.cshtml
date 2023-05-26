@@ -3,6 +3,10 @@
 @{
     ViewData["Title"] = "Productmanagement";
 }
+
+@{
+    ViewBag.Error = "找不到圖片";
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,10 +35,7 @@
     <div class="pages-style">
         <!--左侧菜单栏-->
         <div class="bk-con-menu " id="bk-con-menu">
-            <div class="menubtn">
-                <span class="close_btn samebtn"><i>隱藏</i></span>
-                <span class="show_btn samebtn"><i>顯示</i></span>
-            </div>
+        
             <div class="title-menu">商品上架系統</div>
             <div class="breadcrumb" id="breadcrumb">
                 <ul class="clearfix menu-section menulist" id="menu-section">
@@ -45,11 +46,12 @@
         <div class="bk-con-message message-section" id="iframe_box">
             <!--编辑内容-->
             <div class="operation  mb15">
-                <button  class="btn button_btn btn-danger" type="button"><a asp-controller="Home" asp-action="Index">回到首頁</a></button>
-                <a href="@Url.Action("Create")" class="btn btn-success">新增</a>
-                <button id="btnBatchDelete" class="btn button_btn btn-danger" type="button"><i class="iconfont"></i>&nbsp;批量刪除</button>
-                <button class="btn button_btn bg-deep-blue" type="button" onclick=""><i class="iconfont"></i>&nbsp;添加廣告</button>
-                <button class="btn button_btn bg-deep-gray" type="button" onclick=""><i class="iconfont"></i>&nbsp;添加分類</button>
+                <button  class="btn button_btn btn-success" type="button"><a asp-controller="Home" asp-action="Index">回到首頁</a></button>
+                <a href="@Url.Action("Create")" class="btn btn-success">新增商品</a>   
+                <a href="@Url.Action("PutOn")" class="btn btn-success">上架商品</a>
+                <a href="@Url.Action("PutDown")" class="btn btn-success">下架商品</a>
+                <button id="btnBatchDelete" class="btn button_btn btn-success" type="button"><i class="iconfont"></i>&nbsp;批量刪除</button>
+              
             </div>
             <!--列表内容-->
             <div class="page_content clearfix mb15 table-module">
@@ -143,7 +145,7 @@
 
     //    // Send AJAX request to server
     //    $.ajax({
-    //        url: "@Url.Action("BatchDelete", "t_EmployeesController")",
+    //        url: "@Url.Action("BatchDelete", "EmployeesController")",
     //        type: "POST",
     //        data: JSON.stringify(selectedIds),
     //        contentType: "application/json; charset=utf-8",

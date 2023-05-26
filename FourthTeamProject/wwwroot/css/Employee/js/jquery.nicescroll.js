@@ -1928,7 +1928,7 @@
       return self;
     }
    
-// modified by MDN https://developer.mozilla.org/en-US/docs/DOM/Mozilla_event_reference/wheel
+// modified by MDN https://developer.mozilla.org/en-US/docs/DOM/Mozilla_evenreference/wheel
     function _modernWheelEvent(dom,name,fn,bubble) {      
       self._bind(dom,name,function(e){
         var  e = (e) ? e : window.event;

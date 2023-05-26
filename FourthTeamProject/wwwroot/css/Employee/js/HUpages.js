@@ -9,7 +9,7 @@
 			tabs: '#tab-navigation',
 			niconfont:'iconfont',//字体库显示图标名称(自定义字体库名称)
 			skinicon:'icon-duigou',//皮肤选中状态图标
-			prompt_btn: '.dropdown',
+			prompbtn: '.dropdown',
 			iframe: '.show_iframe',//显示窗口位置属性
 			content: '.content-section',//内容区
 			message: '#iframe_box',//设置窗体显示位置
@@ -127,14 +127,14 @@
 					//name.removeClass("selected");
 					//name.find('a').removeClass("selected");
 				}
-				if(target.is(settings.prompt_btn)) {
-					if($(settings.prompt_btn).hasClass("promptclose")) {
+				if(target.is(settings.prompbtn)) {
+					if($(settings.prompbtn).hasClass("promptclose")) {
 						$('.dropdown-menu').css({
 							"right":0,
 							"display": "none",
 							top: $('.dropdown-menu').outerHeight(),
 						}).animate({"right": -($('.dropdown-menu').outerWidth()),}, 500);
-						$(settings.prompt_btn).attr('class', 'dropdown '+settings.niconfont+' '+settings.mouIconClose).removeClass("promptclose");
+						$(settings.prompbtn).attr('class', 'dropdown '+settings.niconfont+' '+settings.mouIconClose).removeClass("promptclose");
 					} else {
 						if(footerform.hasClass('footer-top')){
 							$('.dropdown-menu').css({
@@ -149,16 +149,16 @@
 							top: -($('.dropdown-menu').outerHeight() + 2),
 						}).animate({"right": 0}, 500);
 						}
-						$(settings.prompt_btn).attr('class', 'dropdown '+settings.niconfont + ' ' + settings.mouIconOpen).addClass("promptclose");
+						$(settings.prompbtn).attr('class', 'dropdown '+settings.niconfont + ' ' + settings.mouIconOpen).addClass("promptclose");
 					}
 				}
-				if(!target.is(settings.prompt_btn)) {
+				if(!target.is(settings.prompbtn)) {
 					$('.dropdown-menu').animate({
 						"right": -($('.dropdown-menu').outerWidth()),
 					}, 500).css({
 						"display": "none"
 					});
-					$(settings.prompt_btn).attr('class', 'dropdown  '+settings.niconfont + ' ' + settings.mouIconClose).removeClass("promptclose");
+					$(settings.prompbtn).attr('class', 'dropdown  '+settings.niconfont + ' ' + settings.mouIconClose).removeClass("promptclose");
 				}					
 				},
 				tabNavallwidth:function(){
@@ -228,7 +228,7 @@
 				var topWindow = $(window.parent.document);
 				var show_nav = topWindow.find(settings.tabs);
 				var id_name = $(settings.iframe).each(function(i) {
-					$(this).attr('id', "Sort_link_" + i);
+					$(this).attr('id', "Sorlink_" + i);
 					if(i==0){
 						$(this).addClass("index_iframe");
 					}

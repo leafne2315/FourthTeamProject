@@ -68,7 +68,7 @@ return fn;
 };
 }();
 var cssHelper=function(){
-var _3={BLOCKS:/[^\s{][^{]*\{(?:[^{}]*\{[^{}]*\}[^{}]*|[^{}]*)*\}/g,BLOCKS_INSIDE:/[^\s{][^{]*\{[^{}]*\}/g,DECLARATIONS:/[a-zA-Z\-]+[^;]*:[^;]+;/g,RELATIVE_URLS:/url\(['"]?([^\/\)'"][^:\)'"]+)['"]?\)/g,REDUNDANT_COMPONENTS:/(?:\/\*([^*\\\\]|\*(?!\/))+\*\/|@import[^;]+;)/g,REDUNDANT_WHITESPACE:/\s*(,|:|;|\{|\})\s*/g,MORE_WHITESPACE:/\s{2,}/g,FINAL_SEMICOLONS:/;\}/g,NOT_WHITESPACE:/\S+/g};
+var _3={BLOCKS:/[^\s{][^{]*\{(?:[^{}]*\{[^{}]*\}[^{}]*|[^{}]*)*\}/g,BLOCKS_INSIDE:/[^\s{][^{]*\{[^{}]*\}/g,DECLARATIONS:/[a-zA-Z\-]+[^;]*:[^;]+;/g,RELATIVE_URLS:/url\(['"]?([^\/\)'"][^:\)'"]+)['"]?\)/g,REDUNDANCOMPONENTS:/(?:\/\*([^*\\\\]|\*(?!\/))+\*\/|@import[^;]+;)/g,REDUNDANWHITESPACE:/\s*(,|:|;|\{|\})\s*/g,MORE_WHITESPACE:/\s{2,}/g,FINAL_SEMICOLONS:/;\}/g,NOWHITESPACE:/\S+/g};
 var _4,_5=false;
 var _6=[];
 var _7=function(fn){
@@ -129,8 +129,8 @@ r=null;
 r.send("");
 };
 var _11=function(_12){
-_12=_12.replace(_3.REDUNDANT_COMPONENTS,"");
-_12=_12.replace(_3.REDUNDANT_WHITESPACE,"$1");
+_12=_12.replace(_3.REDUNDANCOMPONENTS,"");
+_12=_12.replace(_3.REDUNDANWHITESPACE,"$1");
 _12=_12.replace(_3.MORE_WHITESPACE," ");
 _12=_12.replace(_3.FINAL_SEMICOLONS,"}");
 return _12;
@@ -169,7 +169,7 @@ s=s||"";
 var not=false,_14;
 var exp=[];
 var _15=true;
-var _16=s.match(_3.NOT_WHITESPACE);
+var _16=s.match(_3.NOWHITESPACE);
 for(var i=0;i<_16.length;i++){
 var _17=_16[i];
 if(!_14&&(_17==="not"||_17==="only")){
@@ -484,7 +484,7 @@ return _2f("Height");
 }();
 domReady(function enableCssMediaQueries(){
 var _37;
-var _38={LENGTH_UNIT:/[0-9]+(em|ex|px|in|cm|mm|pt|pc)$/,RESOLUTION_UNIT:/[0-9]+(dpi|dpcm)$/,ASPECT_RATIO:/^[0-9]+\/[0-9]+$/,ABSOLUTE_VALUE:/^[0-9]*(\.[0-9]+)*$/};
+var _38={LENGTH_UNIT:/[0-9]+(em|ex|px|in|cm|mm|pt|pc)$/,RESOLUTION_UNIT:/[0-9]+(dpi|dpcm)$/,ASPECRATIO:/^[0-9]+\/[0-9]+$/,ABSOLUTE_VALUE:/^[0-9]*(\.[0-9]+)*$/};
 var _39=[];
 var _3a=function(){
 var id="css3-mediaqueries-test";
@@ -531,7 +531,7 @@ _43="resolution";
 _44=parseInt(_42,10);
 var _45=_42.substring((_44+"").length);
 }else{
-if(_38.ASPECT_RATIO.exec(_42)){
+if(_38.ASPECRATIO.exec(_42)){
 _43="aspect-ratio";
 _44=_42.split("/");
 }else{

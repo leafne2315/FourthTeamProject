@@ -175,7 +175,7 @@
   };
 
   const isDisabled = element => {
-    if (!element || element.nodeType !== Node.ELEMENT_NODE) {
+    if (!element || element.nodeType !== Node.ELEMENNODE) {
       return true;
     }
 
@@ -713,7 +713,7 @@
 
     dispose() {
       Data.remove(this._element, this.constructor.DATA_KEY);
-      EventHandler.off(this._element, this.constructor.EVENT_KEY);
+      EventHandler.off(this._element, this.constructor.EVENKEY);
       Object.getOwnPropertyNames(this).forEach(propertyName => {
         this[propertyName] = null;
       });
@@ -745,7 +745,7 @@
       return `bs.${this.NAME}`;
     }
 
-    static get EVENT_KEY() {
+    static get EVENKEY() {
       return `.${this.DATA_KEY}`;
     }
 
@@ -759,7 +759,7 @@
    */
 
   const enableDismissTrigger = (component, method = 'hide') => {
-    const clickEvent = `click.dismiss${component.EVENT_KEY}`;
+    const clickEvent = `click.dismiss${component.EVENKEY}`;
     const name = component.NAME;
     EventHandler.on(document, clickEvent, `[data-bs-dismiss="${name}"]`, function (event) {
       if (['A', 'AREA'].includes(this.tagName)) {
@@ -791,9 +791,9 @@
 
   const NAME$d = 'alert';
   const DATA_KEY$c = 'bs.alert';
-  const EVENT_KEY$c = `.${DATA_KEY$c}`;
-  const EVENT_CLOSE = `close${EVENT_KEY$c}`;
-  const EVENT_CLOSED = `closed${EVENT_KEY$c}`;
+  const EVENKEY$c = `.${DATA_KEY$c}`;
+  const EVENCLOSE = `close${EVENKEY$c}`;
+  const EVENCLOSED = `closed${EVENKEY$c}`;
   const CLASS_NAME_FADE$5 = 'fade';
   const CLASS_NAME_SHOW$8 = 'show';
   /**
@@ -810,7 +810,7 @@
 
 
     close() {
-      const closeEvent = EventHandler.trigger(this._element, EVENT_CLOSE);
+      const closeEvent = EventHandler.trigger(this._element, EVENCLOSE);
 
       if (closeEvent.defaultPrevented) {
         return;
@@ -827,7 +827,7 @@
     _destroyElement() {
       this._element.remove();
 
-      EventHandler.trigger(this._element, EVENT_CLOSED);
+      EventHandler.trigger(this._element, EVENCLOSED);
       this.dispose();
     } // Static
 
@@ -880,11 +880,11 @@
 
   const NAME$c = 'button';
   const DATA_KEY$b = 'bs.button';
-  const EVENT_KEY$b = `.${DATA_KEY$b}`;
+  const EVENKEY$b = `.${DATA_KEY$b}`;
   const DATA_API_KEY$7 = '.data-api';
   const CLASS_NAME_ACTIVE$3 = 'active';
   const SELECTOR_DATA_TOGGLE$5 = '[data-bs-toggle="button"]';
-  const EVENT_CLICK_DATA_API$6 = `click${EVENT_KEY$b}${DATA_API_KEY$7}`;
+  const EVENCLICK_DATA_API$6 = `click${EVENKEY$b}${DATA_API_KEY$7}`;
   /**
    * ------------------------------------------------------------------------
    * Class Definition
@@ -922,7 +922,7 @@
    */
 
 
-  EventHandler.on(document, EVENT_CLICK_DATA_API$6, SELECTOR_DATA_TOGGLE$5, event => {
+  EventHandler.on(document, EVENCLICK_DATA_API$6, SELECTOR_DATA_TOGGLE$5, event => {
     event.preventDefault();
     const button = event.target.closest(SELECTOR_DATA_TOGGLE$5);
     const data = Button.getOrCreateInstance(button);
@@ -1035,7 +1035,7 @@
       const parents = [];
       let ancestor = element.parentNode;
 
-      while (ancestor && ancestor.nodeType === Node.ELEMENT_NODE && ancestor.nodeType !== NODE_TEXT) {
+      while (ancestor && ancestor.nodeType === Node.ELEMENNODE && ancestor.nodeType !== NODE_TEXT) {
         if (ancestor.matches(selector)) {
           parents.push(ancestor);
         }
@@ -1095,11 +1095,11 @@
 
   const NAME$b = 'carousel';
   const DATA_KEY$a = 'bs.carousel';
-  const EVENT_KEY$a = `.${DATA_KEY$a}`;
+  const EVENKEY$a = `.${DATA_KEY$a}`;
   const DATA_API_KEY$6 = '.data-api';
-  const ARROW_LEFT_KEY = 'ArrowLeft';
-  const ARROW_RIGHT_KEY = 'ArrowRight';
-  const TOUCHEVENT_COMPAT_WAIT = 500; // Time for mouse compat events to fire after touch
+  const ARROW_LEFKEY = 'ArrowLeft';
+  const ARROW_RIGHKEY = 'ArrowRight';
+  const TOUCHEVENCOMPAWAIT = 500; // Time for mouse compat events to fire after touch
 
   const SWIPE_THRESHOLD = 40;
   const Default$a = {
@@ -1123,22 +1123,22 @@
   const DIRECTION_LEFT = 'left';
   const DIRECTION_RIGHT = 'right';
   const KEY_TO_DIRECTION = {
-    [ARROW_LEFT_KEY]: DIRECTION_RIGHT,
-    [ARROW_RIGHT_KEY]: DIRECTION_LEFT
+    [ARROW_LEFKEY]: DIRECTION_RIGHT,
+    [ARROW_RIGHKEY]: DIRECTION_LEFT
   };
-  const EVENT_SLIDE = `slide${EVENT_KEY$a}`;
-  const EVENT_SLID = `slid${EVENT_KEY$a}`;
-  const EVENT_KEYDOWN = `keydown${EVENT_KEY$a}`;
-  const EVENT_MOUSEENTER = `mouseenter${EVENT_KEY$a}`;
-  const EVENT_MOUSELEAVE = `mouseleave${EVENT_KEY$a}`;
-  const EVENT_TOUCHSTART = `touchstart${EVENT_KEY$a}`;
-  const EVENT_TOUCHMOVE = `touchmove${EVENT_KEY$a}`;
-  const EVENT_TOUCHEND = `touchend${EVENT_KEY$a}`;
-  const EVENT_POINTERDOWN = `pointerdown${EVENT_KEY$a}`;
-  const EVENT_POINTERUP = `pointerup${EVENT_KEY$a}`;
-  const EVENT_DRAG_START = `dragstart${EVENT_KEY$a}`;
-  const EVENT_LOAD_DATA_API$2 = `load${EVENT_KEY$a}${DATA_API_KEY$6}`;
-  const EVENT_CLICK_DATA_API$5 = `click${EVENT_KEY$a}${DATA_API_KEY$6}`;
+  const EVENSLIDE = `slide${EVENKEY$a}`;
+  const EVENSLID = `slid${EVENKEY$a}`;
+  const EVENKEYDOWN = `keydown${EVENKEY$a}`;
+  const EVENMOUSEENTER = `mouseenter${EVENKEY$a}`;
+  const EVENMOUSELEAVE = `mouseleave${EVENKEY$a}`;
+  const EVENTOUCHSTART = `touchstart${EVENKEY$a}`;
+  const EVENTOUCHMOVE = `touchmove${EVENKEY$a}`;
+  const EVENTOUCHEND = `touchend${EVENKEY$a}`;
+  const EVENPOINTERDOWN = `pointerdown${EVENKEY$a}`;
+  const EVENPOINTERUP = `pointerup${EVENKEY$a}`;
+  const EVENDRAG_START = `dragstart${EVENKEY$a}`;
+  const EVENLOAD_DATA_API$2 = `load${EVENKEY$a}${DATA_API_KEY$6}`;
+  const EVENCLICK_DATA_API$5 = `click${EVENKEY$a}${DATA_API_KEY$6}`;
   const CLASS_NAME_CAROUSEL = 'carousel';
   const CLASS_NAME_ACTIVE$2 = 'active';
   const CLASS_NAME_SLIDE = 'slide';
@@ -1151,7 +1151,7 @@
   const SELECTOR_ACTIVE_ITEM = '.active.carousel-item';
   const SELECTOR_ITEM = '.carousel-item';
   const SELECTOR_ITEM_IMG = '.carousel-item img';
-  const SELECTOR_NEXT_PREV = '.carousel-item-next, .carousel-item-prev';
+  const SELECTOR_NEXPREV = '.carousel-item-next, .carousel-item-prev';
   const SELECTOR_INDICATORS = '.carousel-indicators';
   const SELECTOR_INDICATOR = '[data-bs-target]';
   const SELECTOR_DATA_SLIDE = '[data-bs-slide], [data-bs-slide-to]';
@@ -1214,7 +1214,7 @@
         this._isPaused = true;
       }
 
-      if (SelectorEngine.findOne(SELECTOR_NEXT_PREV, this._element)) {
+      if (SelectorEngine.findOne(SELECTOR_NEXPREV, this._element)) {
         triggerTransitionEnd(this._element);
         this.cycle(true);
       }
@@ -1250,7 +1250,7 @@
       }
 
       if (this._isSliding) {
-        EventHandler.one(this._element, EVENT_SLID, () => this.to(index));
+        EventHandler.one(this._element, EVENSLID, () => this.to(index));
         return;
       }
 
@@ -1294,12 +1294,12 @@
 
     _addEventListeners() {
       if (this._config.keyboard) {
-        EventHandler.on(this._element, EVENT_KEYDOWN, event => this._keydown(event));
+        EventHandler.on(this._element, EVENKEYDOWN, event => this._keydown(event));
       }
 
       if (this._config.pause === 'hover') {
-        EventHandler.on(this._element, EVENT_MOUSEENTER, event => this.pause(event));
-        EventHandler.on(this._element, EVENT_MOUSELEAVE, event => this.cycle(event));
+        EventHandler.on(this._element, EVENMOUSEENTER, event => this.pause(event));
+        EventHandler.on(this._element, EVENMOUSELEAVE, event => this.cycle(event));
       }
 
       if (this._config.touch && this._touchSupported) {
@@ -1342,23 +1342,23 @@
             clearTimeout(this.touchTimeout);
           }
 
-          this.touchTimeout = setTimeout(event => this.cycle(event), TOUCHEVENT_COMPAT_WAIT + this._config.interval);
+          this.touchTimeout = setTimeout(event => this.cycle(event), TOUCHEVENCOMPAWAIT + this._config.interval);
         }
       };
 
       SelectorEngine.find(SELECTOR_ITEM_IMG, this._element).forEach(itemImg => {
-        EventHandler.on(itemImg, EVENT_DRAG_START, e => e.preventDefault());
+        EventHandler.on(itemImg, EVENDRAG_START, e => e.preventDefault());
       });
 
       if (this._pointerEvent) {
-        EventHandler.on(this._element, EVENT_POINTERDOWN, event => start(event));
-        EventHandler.on(this._element, EVENT_POINTERUP, event => end(event));
+        EventHandler.on(this._element, EVENPOINTERDOWN, event => start(event));
+        EventHandler.on(this._element, EVENPOINTERUP, event => end(event));
 
         this._element.classList.add(CLASS_NAME_POINTER_EVENT);
       } else {
-        EventHandler.on(this._element, EVENT_TOUCHSTART, event => start(event));
-        EventHandler.on(this._element, EVENT_TOUCHMOVE, event => move(event));
-        EventHandler.on(this._element, EVENT_TOUCHEND, event => end(event));
+        EventHandler.on(this._element, EVENTOUCHSTART, event => start(event));
+        EventHandler.on(this._element, EVENTOUCHMOVE, event => move(event));
+        EventHandler.on(this._element, EVENTOUCHEND, event => end(event));
       }
     }
 
@@ -1391,7 +1391,7 @@
 
       const fromIndex = this._getItemIndex(SelectorEngine.findOne(SELECTOR_ACTIVE_ITEM, this._element));
 
-      return EventHandler.trigger(this._element, EVENT_SLIDE, {
+      return EventHandler.trigger(this._element, EVENSLIDE, {
         relatedTarget,
         direction: eventDirectionName,
         from: fromIndex,
@@ -1482,7 +1482,7 @@
       this._activeElement = nextElement;
 
       const triggerSlidEvent = () => {
-        EventHandler.trigger(this._element, EVENT_SLID, {
+        EventHandler.trigger(this._element, EVENSLID, {
           relatedTarget: nextElement,
           direction: eventDirectionName,
           from: activeElementIndex,
@@ -1609,8 +1609,8 @@
    */
 
 
-  EventHandler.on(document, EVENT_CLICK_DATA_API$5, SELECTOR_DATA_SLIDE, Carousel.dataApiClickHandler);
-  EventHandler.on(window, EVENT_LOAD_DATA_API$2, () => {
+  EventHandler.on(document, EVENCLICK_DATA_API$5, SELECTOR_DATA_SLIDE, Carousel.dataApiClickHandler);
+  EventHandler.on(window, EVENLOAD_DATA_API$2, () => {
     const carousels = SelectorEngine.find(SELECTOR_DATA_RIDE);
 
     for (let i = 0, len = carousels.length; i < len; i++) {
@@ -1640,7 +1640,7 @@
 
   const NAME$a = 'collapse';
   const DATA_KEY$9 = 'bs.collapse';
-  const EVENT_KEY$9 = `.${DATA_KEY$9}`;
+  const EVENKEY$9 = `.${DATA_KEY$9}`;
   const DATA_API_KEY$5 = '.data-api';
   const Default$9 = {
     toggle: true,
@@ -1650,11 +1650,11 @@
     toggle: 'boolean',
     parent: '(null|element)'
   };
-  const EVENT_SHOW$5 = `show${EVENT_KEY$9}`;
-  const EVENT_SHOWN$5 = `shown${EVENT_KEY$9}`;
-  const EVENT_HIDE$5 = `hide${EVENT_KEY$9}`;
-  const EVENT_HIDDEN$5 = `hidden${EVENT_KEY$9}`;
-  const EVENT_CLICK_DATA_API$4 = `click${EVENT_KEY$9}${DATA_API_KEY$5}`;
+  const EVENSHOW$5 = `show${EVENKEY$9}`;
+  const EVENSHOWN$5 = `shown${EVENKEY$9}`;
+  const EVENHIDE$5 = `hide${EVENKEY$9}`;
+  const EVENHIDDEN$5 = `hidden${EVENKEY$9}`;
+  const EVENCLICK_DATA_API$4 = `click${EVENKEY$9}${DATA_API_KEY$5}`;
   const CLASS_NAME_SHOW$7 = 'show';
   const CLASS_NAME_COLLAPSE = 'collapse';
   const CLASS_NAME_COLLAPSING = 'collapsing';
@@ -1743,7 +1743,7 @@
         }
       }
 
-      const startEvent = EventHandler.trigger(this._element, EVENT_SHOW$5);
+      const startEvent = EventHandler.trigger(this._element, EVENSHOW$5);
 
       if (startEvent.defaultPrevented) {
         return;
@@ -1781,7 +1781,7 @@
         this._element.classList.add(CLASS_NAME_COLLAPSE, CLASS_NAME_SHOW$7);
 
         this._element.style[dimension] = '';
-        EventHandler.trigger(this._element, EVENT_SHOWN$5);
+        EventHandler.trigger(this._element, EVENSHOWN$5);
       };
 
       const capitalizedDimension = dimension[0].toUpperCase() + dimension.slice(1);
@@ -1797,7 +1797,7 @@
         return;
       }
 
-      const startEvent = EventHandler.trigger(this._element, EVENT_HIDE$5);
+      const startEvent = EventHandler.trigger(this._element, EVENHIDE$5);
 
       if (startEvent.defaultPrevented) {
         return;
@@ -1832,7 +1832,7 @@
 
         this._element.classList.add(CLASS_NAME_COLLAPSE);
 
-        EventHandler.trigger(this._element, EVENT_HIDDEN$5);
+        EventHandler.trigger(this._element, EVENHIDDEN$5);
       };
 
       this._element.style[dimension] = '';
@@ -1921,7 +1921,7 @@
    */
 
 
-  EventHandler.on(document, EVENT_CLICK_DATA_API$4, SELECTOR_DATA_TOGGLE$4, function (event) {
+  EventHandler.on(document, EVENCLICK_DATA_API$4, SELECTOR_DATA_TOGGLE$4, function (event) {
     // preventDefault only for <a> elements (which change the URL) not inside the collapsible element
     if (event.target.tagName === 'A' || event.delegateTarget && event.delegateTarget.tagName === 'A') {
       event.preventDefault();
@@ -1958,23 +1958,23 @@
 
   const NAME$9 = 'dropdown';
   const DATA_KEY$8 = 'bs.dropdown';
-  const EVENT_KEY$8 = `.${DATA_KEY$8}`;
+  const EVENKEY$8 = `.${DATA_KEY$8}`;
   const DATA_API_KEY$4 = '.data-api';
   const ESCAPE_KEY$2 = 'Escape';
   const SPACE_KEY = 'Space';
   const TAB_KEY$1 = 'Tab';
   const ARROW_UP_KEY = 'ArrowUp';
   const ARROW_DOWN_KEY = 'ArrowDown';
-  const RIGHT_MOUSE_BUTTON = 2; // MouseEvent.button value for the secondary button, usually the right button
+  const RIGHMOUSE_BUTTON = 2; // MouseEvent.button value for the secondary button, usually the right button
 
   const REGEXP_KEYDOWN = new RegExp(`${ARROW_UP_KEY}|${ARROW_DOWN_KEY}|${ESCAPE_KEY$2}`);
-  const EVENT_HIDE$4 = `hide${EVENT_KEY$8}`;
-  const EVENT_HIDDEN$4 = `hidden${EVENT_KEY$8}`;
-  const EVENT_SHOW$4 = `show${EVENT_KEY$8}`;
-  const EVENT_SHOWN$4 = `shown${EVENT_KEY$8}`;
-  const EVENT_CLICK_DATA_API$3 = `click${EVENT_KEY$8}${DATA_API_KEY$4}`;
-  const EVENT_KEYDOWN_DATA_API = `keydown${EVENT_KEY$8}${DATA_API_KEY$4}`;
-  const EVENT_KEYUP_DATA_API = `keyup${EVENT_KEY$8}${DATA_API_KEY$4}`;
+  const EVENHIDE$4 = `hide${EVENKEY$8}`;
+  const EVENHIDDEN$4 = `hidden${EVENKEY$8}`;
+  const EVENSHOW$4 = `show${EVENKEY$8}`;
+  const EVENSHOWN$4 = `shown${EVENKEY$8}`;
+  const EVENCLICK_DATA_API$3 = `click${EVENKEY$8}${DATA_API_KEY$4}`;
+  const EVENKEYDOWN_DATA_API = `keydown${EVENKEY$8}${DATA_API_KEY$4}`;
+  const EVENKEYUP_DATA_API = `keyup${EVENKEY$8}${DATA_API_KEY$4}`;
   const CLASS_NAME_SHOW$6 = 'show';
   const CLASS_NAME_DROPUP = 'dropup';
   const CLASS_NAME_DROPEND = 'dropend';
@@ -1984,12 +1984,12 @@
   const SELECTOR_MENU = '.dropdown-menu';
   const SELECTOR_NAVBAR_NAV = '.navbar-nav';
   const SELECTOR_VISIBLE_ITEMS = '.dropdown-menu .dropdown-item:not(.disabled):not(:disabled)';
-  const PLACEMENT_TOP = isRTL() ? 'top-end' : 'top-start';
-  const PLACEMENT_TOPEND = isRTL() ? 'top-start' : 'top-end';
-  const PLACEMENT_BOTTOM = isRTL() ? 'bottom-end' : 'bottom-start';
-  const PLACEMENT_BOTTOMEND = isRTL() ? 'bottom-start' : 'bottom-end';
-  const PLACEMENT_RIGHT = isRTL() ? 'left-start' : 'right-start';
-  const PLACEMENT_LEFT = isRTL() ? 'right-start' : 'left-start';
+  const PLACEMENTOP = isRTL() ? 'top-end' : 'top-start';
+  const PLACEMENTOPEND = isRTL() ? 'top-start' : 'top-end';
+  const PLACEMENBOTTOM = isRTL() ? 'bottom-end' : 'bottom-start';
+  const PLACEMENBOTTOMEND = isRTL() ? 'bottom-start' : 'bottom-end';
+  const PLACEMENRIGHT = isRTL() ? 'left-start' : 'right-start';
+  const PLACEMENLEFT = isRTL() ? 'right-start' : 'left-start';
   const Default$8 = {
     offset: [0, 2],
     boundary: 'clippingParents',
@@ -2047,7 +2047,7 @@
       const relatedTarget = {
         relatedTarget: this._element
       };
-      const showEvent = EventHandler.trigger(this._element, EVENT_SHOW$4, relatedTarget);
+      const showEvent = EventHandler.trigger(this._element, EVENSHOW$4, relatedTarget);
 
       if (showEvent.defaultPrevented) {
         return;
@@ -2062,7 +2062,7 @@
       } // If this is a touch-enabled device we add extra
       // empty mouseover listeners to the body's immediate children;
       // only needed because of broken event delegation on iOS
-      // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
+      // https://www.quirksmode.org/blog/archives/2014/02/mouse_evenbub.html
 
 
       if ('ontouchstart' in document.documentElement && !parent.closest(SELECTOR_NAVBAR_NAV)) {
@@ -2077,7 +2077,7 @@
 
       this._element.classList.add(CLASS_NAME_SHOW$6);
 
-      EventHandler.trigger(this._element, EVENT_SHOWN$4, relatedTarget);
+      EventHandler.trigger(this._element, EVENSHOWN$4, relatedTarget);
     }
 
     hide() {
@@ -2110,7 +2110,7 @@
 
 
     _completeHide(relatedTarget) {
-      const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE$4, relatedTarget);
+      const hideEvent = EventHandler.trigger(this._element, EVENHIDE$4, relatedTarget);
 
       if (hideEvent.defaultPrevented) {
         return;
@@ -2133,7 +2133,7 @@
       this._element.setAttribute('aria-expanded', 'false');
 
       Manipulator.removeDataAttribute(this._menu, 'popper');
-      EventHandler.trigger(this._element, EVENT_HIDDEN$4, relatedTarget);
+      EventHandler.trigger(this._element, EVENHIDDEN$4, relatedTarget);
     }
 
     _getConfig(config) {
@@ -2188,21 +2188,21 @@
       const parentDropdown = this._element.parentNode;
 
       if (parentDropdown.classList.contains(CLASS_NAME_DROPEND)) {
-        return PLACEMENT_RIGHT;
+        return PLACEMENRIGHT;
       }
 
       if (parentDropdown.classList.contains(CLASS_NAME_DROPSTART)) {
-        return PLACEMENT_LEFT;
+        return PLACEMENLEFT;
       } // We need to trim the value because custom properties can also include spaces
 
 
       const isEnd = getComputedStyle(this._menu).getPropertyValue('--bs-position').trim() === 'end';
 
       if (parentDropdown.classList.contains(CLASS_NAME_DROPUP)) {
-        return isEnd ? PLACEMENT_TOPEND : PLACEMENT_TOP;
+        return isEnd ? PLACEMENTOPEND : PLACEMENTOP;
       }
 
-      return isEnd ? PLACEMENT_BOTTOMEND : PLACEMENT_BOTTOM;
+      return isEnd ? PLACEMENBOTTOMEND : PLACEMENBOTTOM;
     }
 
     _detectNavbar() {
@@ -2286,7 +2286,7 @@
     }
 
     static clearMenus(event) {
-      if (event && (event.button === RIGHT_MOUSE_BUTTON || event.type === 'keyup' && event.key !== TAB_KEY$1)) {
+      if (event && (event.button === RIGHMOUSE_BUTTON || event.type === 'keyup' && event.key !== TAB_KEY$1)) {
         return;
       }
 
@@ -2389,11 +2389,11 @@
    */
 
 
-  EventHandler.on(document, EVENT_KEYDOWN_DATA_API, SELECTOR_DATA_TOGGLE$3, Dropdown.dataApiKeydownHandler);
-  EventHandler.on(document, EVENT_KEYDOWN_DATA_API, SELECTOR_MENU, Dropdown.dataApiKeydownHandler);
-  EventHandler.on(document, EVENT_CLICK_DATA_API$3, Dropdown.clearMenus);
-  EventHandler.on(document, EVENT_KEYUP_DATA_API, Dropdown.clearMenus);
-  EventHandler.on(document, EVENT_CLICK_DATA_API$3, SELECTOR_DATA_TOGGLE$3, function (event) {
+  EventHandler.on(document, EVENKEYDOWN_DATA_API, SELECTOR_DATA_TOGGLE$3, Dropdown.dataApiKeydownHandler);
+  EventHandler.on(document, EVENKEYDOWN_DATA_API, SELECTOR_MENU, Dropdown.dataApiKeydownHandler);
+  EventHandler.on(document, EVENCLICK_DATA_API$3, Dropdown.clearMenus);
+  EventHandler.on(document, EVENKEYUP_DATA_API, Dropdown.clearMenus);
+  EventHandler.on(document, EVENCLICK_DATA_API$3, SELECTOR_DATA_TOGGLE$3, function (event) {
     event.preventDefault();
     Dropdown.getOrCreateInstance(this).toggle();
   });
@@ -2535,7 +2535,7 @@
   const NAME$8 = 'backdrop';
   const CLASS_NAME_FADE$4 = 'fade';
   const CLASS_NAME_SHOW$5 = 'show';
-  const EVENT_MOUSEDOWN = `mousedown.bs.${NAME$8}`;
+  const EVENMOUSEDOWN = `mousedown.bs.${NAME$8}`;
 
   class Backdrop {
     constructor(config) {
@@ -2610,7 +2610,7 @@
 
       this._config.rootElement.append(this._getElement());
 
-      EventHandler.on(this._getElement(), EVENT_MOUSEDOWN, () => {
+      EventHandler.on(this._getElement(), EVENMOUSEDOWN, () => {
         execute(this._config.clickCallback);
       });
       this._isAppended = true;
@@ -2621,7 +2621,7 @@
         return;
       }
 
-      EventHandler.off(this._element, EVENT_MOUSEDOWN);
+      EventHandler.off(this._element, EVENMOUSEDOWN);
 
       this._element.remove();
 
@@ -2651,9 +2651,9 @@
   };
   const NAME$7 = 'focustrap';
   const DATA_KEY$7 = 'bs.focustrap';
-  const EVENT_KEY$7 = `.${DATA_KEY$7}`;
-  const EVENT_FOCUSIN$1 = `focusin${EVENT_KEY$7}`;
-  const EVENT_KEYDOWN_TAB = `keydown.tab${EVENT_KEY$7}`;
+  const EVENKEY$7 = `.${DATA_KEY$7}`;
+  const EVENFOCUSIN$1 = `focusin${EVENKEY$7}`;
+  const EVENKEYDOWN_TAB = `keydown.tab${EVENKEY$7}`;
   const TAB_KEY = 'Tab';
   const TAB_NAV_FORWARD = 'forward';
   const TAB_NAV_BACKWARD = 'backward';
@@ -2679,10 +2679,10 @@
         trapElement.focus();
       }
 
-      EventHandler.off(document, EVENT_KEY$7); // guard against infinite focus loop
+      EventHandler.off(document, EVENKEY$7); // guard against infinite focus loop
 
-      EventHandler.on(document, EVENT_FOCUSIN$1, event => this._handleFocusin(event));
-      EventHandler.on(document, EVENT_KEYDOWN_TAB, event => this._handleKeydown(event));
+      EventHandler.on(document, EVENFOCUSIN$1, event => this._handleFocusin(event));
+      EventHandler.on(document, EVENKEYDOWN_TAB, event => this._handleKeydown(event));
       this._isActive = true;
     }
 
@@ -2692,7 +2692,7 @@
       }
 
       this._isActive = false;
-      EventHandler.off(document, EVENT_KEY$7);
+      EventHandler.off(document, EVENKEY$7);
     } // Private
 
 
@@ -2751,7 +2751,7 @@
 
   const NAME$6 = 'modal';
   const DATA_KEY$6 = 'bs.modal';
-  const EVENT_KEY$6 = `.${DATA_KEY$6}`;
+  const EVENKEY$6 = `.${DATA_KEY$6}`;
   const DATA_API_KEY$3 = '.data-api';
   const ESCAPE_KEY$1 = 'Escape';
   const Default$5 = {
@@ -2764,17 +2764,17 @@
     keyboard: 'boolean',
     focus: 'boolean'
   };
-  const EVENT_HIDE$3 = `hide${EVENT_KEY$6}`;
-  const EVENT_HIDE_PREVENTED = `hidePrevented${EVENT_KEY$6}`;
-  const EVENT_HIDDEN$3 = `hidden${EVENT_KEY$6}`;
-  const EVENT_SHOW$3 = `show${EVENT_KEY$6}`;
-  const EVENT_SHOWN$3 = `shown${EVENT_KEY$6}`;
-  const EVENT_RESIZE = `resize${EVENT_KEY$6}`;
-  const EVENT_CLICK_DISMISS = `click.dismiss${EVENT_KEY$6}`;
-  const EVENT_KEYDOWN_DISMISS$1 = `keydown.dismiss${EVENT_KEY$6}`;
-  const EVENT_MOUSEUP_DISMISS = `mouseup.dismiss${EVENT_KEY$6}`;
-  const EVENT_MOUSEDOWN_DISMISS = `mousedown.dismiss${EVENT_KEY$6}`;
-  const EVENT_CLICK_DATA_API$2 = `click${EVENT_KEY$6}${DATA_API_KEY$3}`;
+  const EVENHIDE$3 = `hide${EVENKEY$6}`;
+  const EVENHIDE_PREVENTED = `hidePrevented${EVENKEY$6}`;
+  const EVENHIDDEN$3 = `hidden${EVENKEY$6}`;
+  const EVENSHOW$3 = `show${EVENKEY$6}`;
+  const EVENSHOWN$3 = `shown${EVENKEY$6}`;
+  const EVENRESIZE = `resize${EVENKEY$6}`;
+  const EVENCLICK_DISMISS = `click.dismiss${EVENKEY$6}`;
+  const EVENKEYDOWN_DISMISS$1 = `keydown.dismiss${EVENKEY$6}`;
+  const EVENMOUSEUP_DISMISS = `mouseup.dismiss${EVENKEY$6}`;
+  const EVENMOUSEDOWN_DISMISS = `mousedown.dismiss${EVENKEY$6}`;
+  const EVENCLICK_DATA_API$2 = `click${EVENKEY$6}${DATA_API_KEY$3}`;
   const CLASS_NAME_OPEN = 'modal-open';
   const CLASS_NAME_FADE$3 = 'fade';
   const CLASS_NAME_SHOW$4 = 'show';
@@ -2820,7 +2820,7 @@
         return;
       }
 
-      const showEvent = EventHandler.trigger(this._element, EVENT_SHOW$3, {
+      const showEvent = EventHandler.trigger(this._element, EVENSHOW$3, {
         relatedTarget
       });
 
@@ -2844,8 +2844,8 @@
 
       this._setResizeEvent();
 
-      EventHandler.on(this._dialog, EVENT_MOUSEDOWN_DISMISS, () => {
-        EventHandler.one(this._element, EVENT_MOUSEUP_DISMISS, event => {
+      EventHandler.on(this._dialog, EVENMOUSEDOWN_DISMISS, () => {
+        EventHandler.one(this._element, EVENMOUSEUP_DISMISS, event => {
           if (event.target === this._element) {
             this._ignoreBackdropClick = true;
           }
@@ -2860,7 +2860,7 @@
         return;
       }
 
-      const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE$3);
+      const hideEvent = EventHandler.trigger(this._element, EVENHIDE$3);
 
       if (hideEvent.defaultPrevented) {
         return;
@@ -2882,14 +2882,14 @@
 
       this._element.classList.remove(CLASS_NAME_SHOW$4);
 
-      EventHandler.off(this._element, EVENT_CLICK_DISMISS);
-      EventHandler.off(this._dialog, EVENT_MOUSEDOWN_DISMISS);
+      EventHandler.off(this._element, EVENCLICK_DISMISS);
+      EventHandler.off(this._dialog, EVENMOUSEDOWN_DISMISS);
 
       this._queueCallback(() => this._hideModal(), this._element, isAnimated);
     }
 
     dispose() {
-      [window, this._dialog].forEach(htmlElement => EventHandler.off(htmlElement, EVENT_KEY$6));
+      [window, this._dialog].forEach(htmlElement => EventHandler.off(htmlElement, EVENKEY$6));
 
       this._backdrop.dispose();
 
@@ -2931,7 +2931,7 @@
 
       const modalBody = SelectorEngine.findOne(SELECTOR_MODAL_BODY, this._dialog);
 
-      if (!this._element.parentNode || this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
+      if (!this._element.parentNode || this._element.parentNode.nodeType !== Node.ELEMENNODE) {
         // Don't move modal's DOM position
         document.body.append(this._element);
       }
@@ -2962,7 +2962,7 @@
         }
 
         this._isTransitioning = false;
-        EventHandler.trigger(this._element, EVENT_SHOWN$3, {
+        EventHandler.trigger(this._element, EVENSHOWN$3, {
           relatedTarget
         });
       };
@@ -2972,7 +2972,7 @@
 
     _setEscapeEvent() {
       if (this._isShown) {
-        EventHandler.on(this._element, EVENT_KEYDOWN_DISMISS$1, event => {
+        EventHandler.on(this._element, EVENKEYDOWN_DISMISS$1, event => {
           if (this._config.keyboard && event.key === ESCAPE_KEY$1) {
             event.preventDefault();
             this.hide();
@@ -2981,15 +2981,15 @@
           }
         });
       } else {
-        EventHandler.off(this._element, EVENT_KEYDOWN_DISMISS$1);
+        EventHandler.off(this._element, EVENKEYDOWN_DISMISS$1);
       }
     }
 
     _setResizeEvent() {
       if (this._isShown) {
-        EventHandler.on(window, EVENT_RESIZE, () => this._adjustDialog());
+        EventHandler.on(window, EVENRESIZE, () => this._adjustDialog());
       } else {
-        EventHandler.off(window, EVENT_RESIZE);
+        EventHandler.off(window, EVENRESIZE);
       }
     }
 
@@ -3011,12 +3011,12 @@
 
         this._scrollBar.reset();
 
-        EventHandler.trigger(this._element, EVENT_HIDDEN$3);
+        EventHandler.trigger(this._element, EVENHIDDEN$3);
       });
     }
 
     _showBackdrop(callback) {
-      EventHandler.on(this._element, EVENT_CLICK_DISMISS, event => {
+      EventHandler.on(this._element, EVENCLICK_DISMISS, event => {
         if (this._ignoreBackdropClick) {
           this._ignoreBackdropClick = false;
           return;
@@ -3041,7 +3041,7 @@
     }
 
     _triggerBackdropTransition() {
-      const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE_PREVENTED);
+      const hideEvent = EventHandler.trigger(this._element, EVENHIDE_PREVENTED);
 
       if (hideEvent.defaultPrevented) {
         return;
@@ -3126,20 +3126,20 @@
    */
 
 
-  EventHandler.on(document, EVENT_CLICK_DATA_API$2, SELECTOR_DATA_TOGGLE$2, function (event) {
+  EventHandler.on(document, EVENCLICK_DATA_API$2, SELECTOR_DATA_TOGGLE$2, function (event) {
     const target = getElementFromSelector(this);
 
     if (['A', 'AREA'].includes(this.tagName)) {
       event.preventDefault();
     }
 
-    EventHandler.one(target, EVENT_SHOW$3, showEvent => {
+    EventHandler.one(target, EVENSHOW$3, showEvent => {
       if (showEvent.defaultPrevented) {
         // only register focus restorer if modal will actually get shown
         return;
       }
 
-      EventHandler.one(target, EVENT_HIDDEN$3, () => {
+      EventHandler.one(target, EVENHIDDEN$3, () => {
         if (isVisible(this)) {
           this.focus();
         }
@@ -3172,9 +3172,9 @@
 
   const NAME$5 = 'offcanvas';
   const DATA_KEY$5 = 'bs.offcanvas';
-  const EVENT_KEY$5 = `.${DATA_KEY$5}`;
+  const EVENKEY$5 = `.${DATA_KEY$5}`;
   const DATA_API_KEY$2 = '.data-api';
-  const EVENT_LOAD_DATA_API$1 = `load${EVENT_KEY$5}${DATA_API_KEY$2}`;
+  const EVENLOAD_DATA_API$1 = `load${EVENKEY$5}${DATA_API_KEY$2}`;
   const ESCAPE_KEY = 'Escape';
   const Default$4 = {
     backdrop: true,
@@ -3189,12 +3189,12 @@
   const CLASS_NAME_SHOW$3 = 'show';
   const CLASS_NAME_BACKDROP = 'offcanvas-backdrop';
   const OPEN_SELECTOR = '.offcanvas.show';
-  const EVENT_SHOW$2 = `show${EVENT_KEY$5}`;
-  const EVENT_SHOWN$2 = `shown${EVENT_KEY$5}`;
-  const EVENT_HIDE$2 = `hide${EVENT_KEY$5}`;
-  const EVENT_HIDDEN$2 = `hidden${EVENT_KEY$5}`;
-  const EVENT_CLICK_DATA_API$1 = `click${EVENT_KEY$5}${DATA_API_KEY$2}`;
-  const EVENT_KEYDOWN_DISMISS = `keydown.dismiss${EVENT_KEY$5}`;
+  const EVENSHOW$2 = `show${EVENKEY$5}`;
+  const EVENSHOWN$2 = `shown${EVENKEY$5}`;
+  const EVENHIDE$2 = `hide${EVENKEY$5}`;
+  const EVENHIDDEN$2 = `hidden${EVENKEY$5}`;
+  const EVENCLICK_DATA_API$1 = `click${EVENKEY$5}${DATA_API_KEY$2}`;
+  const EVENKEYDOWN_DISMISS = `keydown.dismiss${EVENKEY$5}`;
   const SELECTOR_DATA_TOGGLE$1 = '[data-bs-toggle="offcanvas"]';
   /**
    * ------------------------------------------------------------------------
@@ -3232,7 +3232,7 @@
         return;
       }
 
-      const showEvent = EventHandler.trigger(this._element, EVENT_SHOW$2, {
+      const showEvent = EventHandler.trigger(this._element, EVENSHOW$2, {
         relatedTarget
       });
 
@@ -3262,7 +3262,7 @@
           this._focustrap.activate();
         }
 
-        EventHandler.trigger(this._element, EVENT_SHOWN$2, {
+        EventHandler.trigger(this._element, EVENSHOWN$2, {
           relatedTarget
         });
       };
@@ -3275,7 +3275,7 @@
         return;
       }
 
-      const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE$2);
+      const hideEvent = EventHandler.trigger(this._element, EVENHIDE$2);
 
       if (hideEvent.defaultPrevented) {
         return;
@@ -3304,7 +3304,7 @@
           new ScrollBarHelper().reset();
         }
 
-        EventHandler.trigger(this._element, EVENT_HIDDEN$2);
+        EventHandler.trigger(this._element, EVENHIDDEN$2);
       };
 
       this._queueCallback(completeCallback, this._element, true);
@@ -3345,7 +3345,7 @@
     }
 
     _addEventListeners() {
-      EventHandler.on(this._element, EVENT_KEYDOWN_DISMISS, event => {
+      EventHandler.on(this._element, EVENKEYDOWN_DISMISS, event => {
         if (this._config.keyboard && event.key === ESCAPE_KEY) {
           this.hide();
         }
@@ -3377,7 +3377,7 @@
    */
 
 
-  EventHandler.on(document, EVENT_CLICK_DATA_API$1, SELECTOR_DATA_TOGGLE$1, function (event) {
+  EventHandler.on(document, EVENCLICK_DATA_API$1, SELECTOR_DATA_TOGGLE$1, function (event) {
     const target = getElementFromSelector(this);
 
     if (['A', 'AREA'].includes(this.tagName)) {
@@ -3388,7 +3388,7 @@
       return;
     }
 
-    EventHandler.one(target, EVENT_HIDDEN$2, () => {
+    EventHandler.one(target, EVENHIDDEN$2, () => {
       // focus on trigger when it is closed
       if (isVisible(this)) {
         this.focus();
@@ -3404,7 +3404,7 @@
     const data = Offcanvas.getOrCreateInstance(target);
     data.toggle(this);
   });
-  EventHandler.on(window, EVENT_LOAD_DATA_API$1, () => SelectorEngine.find(OPEN_SELECTOR).forEach(el => Offcanvas.getOrCreateInstance(el).show()));
+  EventHandler.on(window, EVENLOAD_DATA_API$1, () => SelectorEngine.find(OPEN_SELECTOR).forEach(el => Offcanvas.getOrCreateInstance(el).show()));
   enableDismissTrigger(Offcanvas);
   /**
    * ------------------------------------------------------------------------
@@ -3541,7 +3541,7 @@
 
   const NAME$4 = 'tooltip';
   const DATA_KEY$4 = 'bs.tooltip';
-  const EVENT_KEY$4 = `.${DATA_KEY$4}`;
+  const EVENKEY$4 = `.${DATA_KEY$4}`;
   const CLASS_PREFIX$1 = 'bs-tooltip';
   const DISALLOWED_ATTRIBUTES = new Set(['sanitize', 'allowList', 'sanitizeFn']);
   const DefaultType$3 = {
@@ -3590,16 +3590,16 @@
     popperConfig: null
   };
   const Event$2 = {
-    HIDE: `hide${EVENT_KEY$4}`,
-    HIDDEN: `hidden${EVENT_KEY$4}`,
-    SHOW: `show${EVENT_KEY$4}`,
-    SHOWN: `shown${EVENT_KEY$4}`,
-    INSERTED: `inserted${EVENT_KEY$4}`,
-    CLICK: `click${EVENT_KEY$4}`,
-    FOCUSIN: `focusin${EVENT_KEY$4}`,
-    FOCUSOUT: `focusout${EVENT_KEY$4}`,
-    MOUSEENTER: `mouseenter${EVENT_KEY$4}`,
-    MOUSELEAVE: `mouseleave${EVENT_KEY$4}`
+    HIDE: `hide${EVENKEY$4}`,
+    HIDDEN: `hidden${EVENKEY$4}`,
+    SHOW: `show${EVENKEY$4}`,
+    SHOWN: `shown${EVENKEY$4}`,
+    INSERTED: `inserted${EVENKEY$4}`,
+    CLICK: `click${EVENKEY$4}`,
+    FOCUSIN: `focusin${EVENKEY$4}`,
+    FOCUSOUT: `focusout${EVENKEY$4}`,
+    MOUSEENTER: `mouseenter${EVENKEY$4}`,
+    MOUSELEAVE: `mouseleave${EVENKEY$4}`
   };
   const CLASS_NAME_FADE$2 = 'fade';
   const CLASS_NAME_MODAL = 'modal';
@@ -3608,7 +3608,7 @@
   const HOVER_STATE_OUT = 'out';
   const SELECTOR_TOOLTIP_INNER = '.tooltip-inner';
   const SELECTOR_MODAL = `.${CLASS_NAME_MODAL}`;
-  const EVENT_MODAL_HIDE = 'hide.bs.modal';
+  const EVENMODAL_HIDE = 'hide.bs.modal';
   const TRIGGER_HOVER = 'hover';
   const TRIGGER_FOCUS = 'focus';
   const TRIGGER_CLICK = 'click';
@@ -3697,7 +3697,7 @@
 
     dispose() {
       clearTimeout(this._timeout);
-      EventHandler.off(this._element.closest(SELECTOR_MODAL), EVENT_MODAL_HIDE, this._hideModalHandler);
+      EventHandler.off(this._element.closest(SELECTOR_MODAL), EVENMODAL_HIDE, this._hideModalHandler);
 
       if (this.tip) {
         this.tip.remove();
@@ -3768,7 +3768,7 @@
       } // If this is a touch-enabled device we add extra
       // empty mouseover listeners to the body's immediate children;
       // only needed because of broken event delegation on iOS
-      // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
+      // https://www.quirksmode.org/blog/archives/2014/02/mouse_evenbub.html
 
 
       if ('ontouchstart' in document.documentElement) {
@@ -4027,7 +4027,7 @@
         }
       };
 
-      EventHandler.on(this._element.closest(SELECTOR_MODAL), EVENT_MODAL_HIDE, this._hideModalHandler);
+      EventHandler.on(this._element.closest(SELECTOR_MODAL), EVENMODAL_HIDE, this._hideModalHandler);
 
       if (this._config.selector) {
         this._config = { ...this._config,
@@ -4240,7 +4240,7 @@
 
   const NAME$3 = 'popover';
   const DATA_KEY$3 = 'bs.popover';
-  const EVENT_KEY$3 = `.${DATA_KEY$3}`;
+  const EVENKEY$3 = `.${DATA_KEY$3}`;
   const CLASS_PREFIX = 'bs-popover';
   const Default$2 = { ...Tooltip.Default,
     placement: 'right',
@@ -4253,16 +4253,16 @@
     content: '(string|element|function)'
   };
   const Event$1 = {
-    HIDE: `hide${EVENT_KEY$3}`,
-    HIDDEN: `hidden${EVENT_KEY$3}`,
-    SHOW: `show${EVENT_KEY$3}`,
-    SHOWN: `shown${EVENT_KEY$3}`,
-    INSERTED: `inserted${EVENT_KEY$3}`,
-    CLICK: `click${EVENT_KEY$3}`,
-    FOCUSIN: `focusin${EVENT_KEY$3}`,
-    FOCUSOUT: `focusout${EVENT_KEY$3}`,
-    MOUSEENTER: `mouseenter${EVENT_KEY$3}`,
-    MOUSELEAVE: `mouseleave${EVENT_KEY$3}`
+    HIDE: `hide${EVENKEY$3}`,
+    HIDDEN: `hidden${EVENKEY$3}`,
+    SHOW: `show${EVENKEY$3}`,
+    SHOWN: `shown${EVENKEY$3}`,
+    INSERTED: `inserted${EVENKEY$3}`,
+    CLICK: `click${EVENKEY$3}`,
+    FOCUSIN: `focusin${EVENKEY$3}`,
+    FOCUSOUT: `focusout${EVENKEY$3}`,
+    MOUSEENTER: `mouseenter${EVENKEY$3}`,
+    MOUSELEAVE: `mouseleave${EVENKEY$3}`
   };
   const SELECTOR_TITLE = '.popover-header';
   const SELECTOR_CONTENT = '.popover-body';
@@ -4350,7 +4350,7 @@
 
   const NAME$2 = 'scrollspy';
   const DATA_KEY$2 = 'bs.scrollspy';
-  const EVENT_KEY$2 = `.${DATA_KEY$2}`;
+  const EVENKEY$2 = `.${DATA_KEY$2}`;
   const DATA_API_KEY$1 = '.data-api';
   const Default$1 = {
     offset: 10,
@@ -4362,17 +4362,17 @@
     method: 'string',
     target: '(string|element)'
   };
-  const EVENT_ACTIVATE = `activate${EVENT_KEY$2}`;
-  const EVENT_SCROLL = `scroll${EVENT_KEY$2}`;
-  const EVENT_LOAD_DATA_API = `load${EVENT_KEY$2}${DATA_API_KEY$1}`;
+  const EVENACTIVATE = `activate${EVENKEY$2}`;
+  const EVENSCROLL = `scroll${EVENKEY$2}`;
+  const EVENLOAD_DATA_API = `load${EVENKEY$2}${DATA_API_KEY$1}`;
   const CLASS_NAME_DROPDOWN_ITEM = 'dropdown-item';
   const CLASS_NAME_ACTIVE$1 = 'active';
   const SELECTOR_DATA_SPY = '[data-bs-spy="scroll"]';
-  const SELECTOR_NAV_LIST_GROUP$1 = '.nav, .list-group';
+  const SELECTOR_NAV_LISGROUP$1 = '.nav, .list-group';
   const SELECTOR_NAV_LINKS = '.nav-link';
   const SELECTOR_NAV_ITEMS = '.nav-item';
-  const SELECTOR_LIST_ITEMS = '.list-group-item';
-  const SELECTOR_LINK_ITEMS = `${SELECTOR_NAV_LINKS}, ${SELECTOR_LIST_ITEMS}, .${CLASS_NAME_DROPDOWN_ITEM}`;
+  const SELECTOR_LISITEMS = '.list-group-item';
+  const SELECTOR_LINK_ITEMS = `${SELECTOR_NAV_LINKS}, ${SELECTOR_LISITEMS}, .${CLASS_NAME_DROPDOWN_ITEM}`;
   const SELECTOR_DROPDOWN$1 = '.dropdown';
   const SELECTOR_DROPDOWN_TOGGLE$1 = '.dropdown-toggle';
   const METHOD_OFFSET = 'offset';
@@ -4392,7 +4392,7 @@
       this._targets = [];
       this._activeTarget = null;
       this._scrollHeight = 0;
-      EventHandler.on(this._scrollElement, EVENT_SCROLL, () => this._process());
+      EventHandler.on(this._scrollElement, EVENSCROLL, () => this._process());
       this.refresh();
 
       this._process();
@@ -4437,7 +4437,7 @@
     }
 
     dispose() {
-      EventHandler.off(this._scrollElement, EVENT_KEY$2);
+      EventHandler.off(this._scrollElement, EVENKEY$2);
       super.dispose();
     } // Private
 
@@ -4514,10 +4514,10 @@
       if (link.classList.contains(CLASS_NAME_DROPDOWN_ITEM)) {
         SelectorEngine.findOne(SELECTOR_DROPDOWN_TOGGLE$1, link.closest(SELECTOR_DROPDOWN$1)).classList.add(CLASS_NAME_ACTIVE$1);
       } else {
-        SelectorEngine.parents(link, SELECTOR_NAV_LIST_GROUP$1).forEach(listGroup => {
+        SelectorEngine.parents(link, SELECTOR_NAV_LISGROUP$1).forEach(listGroup => {
           // Set triggered links parents as active
           // With both <ul> and <nav> markup a parent is the previous sibling of any nav ancestor
-          SelectorEngine.prev(listGroup, `${SELECTOR_NAV_LINKS}, ${SELECTOR_LIST_ITEMS}`).forEach(item => item.classList.add(CLASS_NAME_ACTIVE$1)); // Handle special case when .nav-link is inside .nav-item
+          SelectorEngine.prev(listGroup, `${SELECTOR_NAV_LINKS}, ${SELECTOR_LISITEMS}`).forEach(item => item.classList.add(CLASS_NAME_ACTIVE$1)); // Handle special case when .nav-link is inside .nav-item
 
           SelectorEngine.prev(listGroup, SELECTOR_NAV_ITEMS).forEach(navItem => {
             SelectorEngine.children(navItem, SELECTOR_NAV_LINKS).forEach(item => item.classList.add(CLASS_NAME_ACTIVE$1));
@@ -4525,7 +4525,7 @@
         });
       }
 
-      EventHandler.trigger(this._scrollElement, EVENT_ACTIVATE, {
+      EventHandler.trigger(this._scrollElement, EVENACTIVATE, {
         relatedTarget: target
       });
     }
@@ -4559,7 +4559,7 @@
    */
 
 
-  EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
+  EventHandler.on(window, EVENLOAD_DATA_API, () => {
     SelectorEngine.find(SELECTOR_DATA_SPY).forEach(spy => new ScrollSpy(spy));
   });
   /**
@@ -4585,19 +4585,19 @@
 
   const NAME$1 = 'tab';
   const DATA_KEY$1 = 'bs.tab';
-  const EVENT_KEY$1 = `.${DATA_KEY$1}`;
+  const EVENKEY$1 = `.${DATA_KEY$1}`;
   const DATA_API_KEY = '.data-api';
-  const EVENT_HIDE$1 = `hide${EVENT_KEY$1}`;
-  const EVENT_HIDDEN$1 = `hidden${EVENT_KEY$1}`;
-  const EVENT_SHOW$1 = `show${EVENT_KEY$1}`;
-  const EVENT_SHOWN$1 = `shown${EVENT_KEY$1}`;
-  const EVENT_CLICK_DATA_API = `click${EVENT_KEY$1}${DATA_API_KEY}`;
+  const EVENHIDE$1 = `hide${EVENKEY$1}`;
+  const EVENHIDDEN$1 = `hidden${EVENKEY$1}`;
+  const EVENSHOW$1 = `show${EVENKEY$1}`;
+  const EVENSHOWN$1 = `shown${EVENKEY$1}`;
+  const EVENCLICK_DATA_API = `click${EVENKEY$1}${DATA_API_KEY}`;
   const CLASS_NAME_DROPDOWN_MENU = 'dropdown-menu';
   const CLASS_NAME_ACTIVE = 'active';
   const CLASS_NAME_FADE$1 = 'fade';
   const CLASS_NAME_SHOW$1 = 'show';
   const SELECTOR_DROPDOWN = '.dropdown';
-  const SELECTOR_NAV_LIST_GROUP = '.nav, .list-group';
+  const SELECTOR_NAV_LISGROUP = '.nav, .list-group';
   const SELECTOR_ACTIVE = '.active';
   const SELECTOR_ACTIVE_UL = ':scope > li > .active';
   const SELECTOR_DATA_TOGGLE = '[data-bs-toggle="tab"], [data-bs-toggle="pill"], [data-bs-toggle="list"]';
@@ -4617,14 +4617,14 @@
 
 
     show() {
-      if (this._element.parentNode && this._element.parentNode.nodeType === Node.ELEMENT_NODE && this._element.classList.contains(CLASS_NAME_ACTIVE)) {
+      if (this._element.parentNode && this._element.parentNode.nodeType === Node.ELEMENNODE && this._element.classList.contains(CLASS_NAME_ACTIVE)) {
         return;
       }
 
       let previous;
       const target = getElementFromSelector(this._element);
 
-      const listElement = this._element.closest(SELECTOR_NAV_LIST_GROUP);
+      const listElement = this._element.closest(SELECTOR_NAV_LISGROUP);
 
       if (listElement) {
         const itemSelector = listElement.nodeName === 'UL' || listElement.nodeName === 'OL' ? SELECTOR_ACTIVE_UL : SELECTOR_ACTIVE;
@@ -4632,10 +4632,10 @@
         previous = previous[previous.length - 1];
       }
 
-      const hideEvent = previous ? EventHandler.trigger(previous, EVENT_HIDE$1, {
+      const hideEvent = previous ? EventHandler.trigger(previous, EVENHIDE$1, {
         relatedTarget: this._element
       }) : null;
-      const showEvent = EventHandler.trigger(this._element, EVENT_SHOW$1, {
+      const showEvent = EventHandler.trigger(this._element, EVENSHOW$1, {
         relatedTarget: previous
       });
 
@@ -4646,10 +4646,10 @@
       this._activate(this._element, listElement);
 
       const complete = () => {
-        EventHandler.trigger(previous, EVENT_HIDDEN$1, {
+        EventHandler.trigger(previous, EVENHIDDEN$1, {
           relatedTarget: this._element
         });
-        EventHandler.trigger(this._element, EVENT_SHOWN$1, {
+        EventHandler.trigger(this._element, EVENSHOWN$1, {
           relatedTarget: previous
         });
       };
@@ -4748,7 +4748,7 @@
    */
 
 
-  EventHandler.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
+  EventHandler.on(document, EVENCLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
     if (['A', 'AREA'].includes(this.tagName)) {
       event.preventDefault();
     }
@@ -4783,15 +4783,15 @@
 
   const NAME = 'toast';
   const DATA_KEY = 'bs.toast';
-  const EVENT_KEY = `.${DATA_KEY}`;
-  const EVENT_MOUSEOVER = `mouseover${EVENT_KEY}`;
-  const EVENT_MOUSEOUT = `mouseout${EVENT_KEY}`;
-  const EVENT_FOCUSIN = `focusin${EVENT_KEY}`;
-  const EVENT_FOCUSOUT = `focusout${EVENT_KEY}`;
-  const EVENT_HIDE = `hide${EVENT_KEY}`;
-  const EVENT_HIDDEN = `hidden${EVENT_KEY}`;
-  const EVENT_SHOW = `show${EVENT_KEY}`;
-  const EVENT_SHOWN = `shown${EVENT_KEY}`;
+  const EVENKEY = `.${DATA_KEY}`;
+  const EVENMOUSEOVER = `mouseover${EVENKEY}`;
+  const EVENMOUSEOUT = `mouseout${EVENKEY}`;
+  const EVENFOCUSIN = `focusin${EVENKEY}`;
+  const EVENFOCUSOUT = `focusout${EVENKEY}`;
+  const EVENHIDE = `hide${EVENKEY}`;
+  const EVENHIDDEN = `hidden${EVENKEY}`;
+  const EVENSHOW = `show${EVENKEY}`;
+  const EVENSHOWN = `shown${EVENKEY}`;
   const CLASS_NAME_FADE = 'fade';
   const CLASS_NAME_HIDE = 'hide'; // @deprecated - kept here only for backwards compatibility
 
@@ -4839,7 +4839,7 @@
 
 
     show() {
-      const showEvent = EventHandler.trigger(this._element, EVENT_SHOW);
+      const showEvent = EventHandler.trigger(this._element, EVENSHOW);
 
       if (showEvent.defaultPrevented) {
         return;
@@ -4854,7 +4854,7 @@
       const complete = () => {
         this._element.classList.remove(CLASS_NAME_SHOWING);
 
-        EventHandler.trigger(this._element, EVENT_SHOWN);
+        EventHandler.trigger(this._element, EVENSHOWN);
 
         this._maybeScheduleHide();
       };
@@ -4876,7 +4876,7 @@
         return;
       }
 
-      const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE);
+      const hideEvent = EventHandler.trigger(this._element, EVENHIDE);
 
       if (hideEvent.defaultPrevented) {
         return;
@@ -4890,7 +4890,7 @@
 
         this._element.classList.remove(CLASS_NAME_SHOW);
 
-        EventHandler.trigger(this._element, EVENT_HIDDEN);
+        EventHandler.trigger(this._element, EVENHIDDEN);
       };
 
       this._element.classList.add(CLASS_NAME_SHOWING);
@@ -4961,10 +4961,10 @@
     }
 
     _setListeners() {
-      EventHandler.on(this._element, EVENT_MOUSEOVER, event => this._onInteraction(event, true));
-      EventHandler.on(this._element, EVENT_MOUSEOUT, event => this._onInteraction(event, false));
-      EventHandler.on(this._element, EVENT_FOCUSIN, event => this._onInteraction(event, true));
-      EventHandler.on(this._element, EVENT_FOCUSOUT, event => this._onInteraction(event, false));
+      EventHandler.on(this._element, EVENMOUSEOVER, event => this._onInteraction(event, true));
+      EventHandler.on(this._element, EVENMOUSEOUT, event => this._onInteraction(event, false));
+      EventHandler.on(this._element, EVENFOCUSIN, event => this._onInteraction(event, true));
+      EventHandler.on(this._element, EVENFOCUSOUT, event => this._onInteraction(event, false));
     }
 
     _clearTimeout() {

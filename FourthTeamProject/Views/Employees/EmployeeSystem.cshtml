@@ -147,7 +147,7 @@
 									<li><a class="dropdown-item" href="account.html">Account</a></li>
 									<li><a class="dropdown-item" href="settings.html">Settings</a></li>
 									<li><hr class="dropdown-divider"></li>
-									<li><a class="dropdown-item" asp-controller="t_Employees" asp-action="EmployeeLogout">Log Out</a></li>
+									<li><a class="dropdown-item" asp-controller="Employees" asp-action="EmployeeLogout">Log Out</a></li>
 								</ul>
 							</div><!--//app-user-dropdown-->
 						</div><!--//app-utilities-->
@@ -225,8 +225,10 @@
 							<div id="submenu-1" class="collapse submenu submenu-1" data-bs-parent="#menu-accordion">
 								<ul class="submenu-list list-unstyled">
 									<li class="submenu-item"><a asp-controller="Home" asp-action="index" class="submenu-link" >回到首頁</a></li>
-									<li class="submenu-item"><a asp-controller="t_Employees" asp-action="Productmanagement" class="submenu-link" >商品管理</a></li>
-									<li class="submenu-item"><a asp-controller="PetHotel" asp-action="" class="submenu-link" >旅館管理</a></li>
+									<li class="submenu-item"><a asp-controller="Employees" asp-action="Productmanagement" class="submenu-link" >商品管理</a></li>
+									<li class="submenu-item"><a asp-controller="PetHotel" asp-action="index" class="submenu-link" >旅館管理</a></li>
+									<li class="submenu-item"><a asp-controller="Product" asp-action="index" class="submenu-link">寵物商城</a></li>
+									<li class="submenu-item"><a asp-controller="PetSalon" asp-action="index" class="submenu-link">寵物美容</a></li>
 								</ul>
 							</div>
 						</li><!--//nav-item-->

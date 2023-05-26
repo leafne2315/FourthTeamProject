@@ -35,7 +35,7 @@
 </html>
 <script id="listhtml" type="text/html">
 	<% for(var i = 0; i < list.length; i++) { %>
-	<li class="page_list_content">
+	<li class="page_liscontent">
       <a href="#" class="link_name" title="<%=list[i].title%>"></a>
      <a href="javascript:void(0)" onclick="page_delete(this,'<%=list[i].id%>')" class="page_delete  display Single_operate"><i class="iconfont">&#xe627</i></a>
      <a href="javascript:void(0)" onclick="page_modify(this,'<%=list[i].id%>')" class="page_modify  display Single_operate"><i class="iconfont">&#xe61a</i></a>
@@ -91,7 +91,7 @@
 					list: listArr.data
 				});
 				articlehtml.append(html);
-				var status = articlehtml.find('.page_list_content');
+				var status = articlehtml.find('.page_liscontent');
 				for(var i = 0; i < status.length; i++) {
 					var statusid = articlehtml.find('.name_status').eq(i).attr('data-id');
 					if(statusid != 1) {

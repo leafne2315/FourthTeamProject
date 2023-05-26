@@ -30,7 +30,7 @@
 			boxname: '',//设置你需要弹框模块的名称
 			Promp: '.PrompClose ',//提示盒子
 			homepage:"home.html", // 默认显示页
-			prompt_btn: '.dropdown', 
+			prompbtn: '.dropdown', 
 			iframe: '.show_iframe',
 			fullscreen: '#fullscreen',
 			tabs: '#tab-navigation',
@@ -583,7 +583,7 @@
 				if(target.is('.clickBombbox') || target.parent().is('.clickBombbox')) {
 					if(target.hasClass("selected")) {
 						target.next('.Bombbox').css({
-							"right": -(settings.prompt_width),
+							"right": -(settings.prompwidth),
 							"display": "none",
 						}).animate({
 							"top": settings.hrederheight
@@ -617,16 +617,16 @@
 					name.removeClass("selected");
 					name.find('a').removeClass("selected");
 				}
-				if(target.is(settings.prompt_btn)) {
-					if($(settings.prompt_btn).hasClass("promptclose")) {
+				if(target.is(settings.prompbtn)) {
+					if($(settings.prompbtn).hasClass("promptclose")) {
 						$('.dropdown-menu').css({
-							"right": -(settings.prompt_width),
+							"right": -(settings.prompwidth),
 							"display": "none",
 							top: $('.dropdown-menu').outerHeight(),
 						}).animate({
 							"right": -($('.dropdown-menu').outerWidth()),
 						}, 500);
-						$(settings.prompt_btn).attr('class', 'dropdown '+settings.iconfont+' icon-iconfonticontrianglecopy').removeClass("promptclose");
+						$(settings.prompbtn).attr('class', 'dropdown '+settings.iconfont+' icon-iconfonticontrianglecopy').removeClass("promptclose");
 					} else {
 						if(footerform.hasClass('footer-top')){
 							$('.dropdown-menu').css({
@@ -647,16 +647,16 @@
 						}, 500);
 						
 						}
-						$(settings.prompt_btn).attr('class', 'dropdown '+settings.iconfont+' icon-35_xiangxiajiantou').addClass("promptclose");
+						$(settings.prompbtn).attr('class', 'dropdown '+settings.iconfont+' icon-35_xiangxiajiantou').addClass("promptclose");
 					}
 				}
-				if(!target.is(settings.prompt_btn)) {
+				if(!target.is(settings.prompbtn)) {
 					$('.dropdown-menu').animate({
 						"right": -($('.dropdown-menu').outerWidth()),
 					}, 500).css({
 						"display": "none"
 					});
-					$(settings.prompt_btn).attr('class', 'dropdown  '+settings.iconfont+' icon-iconfonticontrianglecopy').removeClass("promptclose");
+					$(settings.prompbtn).attr('class', 'dropdown  '+settings.iconfont+' icon-iconfonticontrianglecopy').removeClass("promptclose");
 				}
 				if(target.is('.baglayer')){
 					showmenu.show();
@@ -684,7 +684,7 @@
 					$('.tabReload').on('click', $.learuntab.refreshTab);
 					frame.on('click', $.learuntab.clickBombbox);//点击弹出层
 					Prompname.on('click', $.learuntab.prompt); //提示框关闭
-					$(settings.prompt_btn).on('click', $.learuntab.onTabList);
+					$(settings.prompbtn).on('click', $.learuntab.onTabList);
 					$(settings.fullscreen).on('click', function() {
 						if(!$(this).attr('data-fullscreen')) {
 							$(this).attr('data-fullscreen', 'true').find("i").attr('class', ''+settings.iconfont+' icon-msnui-fullsceen-exit');
@@ -934,7 +934,7 @@
 			    var topWindow = $(window.parent.document);
 				var show_nav = topWindow.find(settings.tabs);
 				var id_name = $(settings.iframe).each(function(i) {
-					$(this).attr('id', "Sort_link_" + i);
+					$(this).attr('id', "Sorlink_" + i);
 					if(i==0){
 						$(this).addClass("index_iframe");
 					}

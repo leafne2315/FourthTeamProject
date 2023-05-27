@@ -1,4 +1,4 @@
-﻿using FourthTeamProject.Models;
+﻿using FourthTeamProject.Models.ViewModel;
 using FourthTeamProject.PetHeavenModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -99,8 +99,8 @@ namespace FourthTeamProject.Controllers
             ViewData["ProductTypeId"] = new SelectList(_db.ProductType, "ProductTypeId", "ProductTypeName", product.ProductTypeId);
             return View(product);
         }
- 
-        public async Task <IActionResult> PutOn([Bind("ProductId,ProductStatus")]Product product)
+
+        public async Task<IActionResult> PutOn([Bind("ProductId,ProductStatus")] Product product)
         {
             if (product == null || product.ProductId == 0)
             {
@@ -114,15 +114,16 @@ namespace FourthTeamProject.Controllers
                 return NotFound();
             }
 
-            if (productInDb.ProductStatus == false)
+            if (product.ProductStatus != productInDb.ProductStatus)
             {
-                productInDb.ProductStatus = true;
-                _db.Update(productInDb);
+                productInDb.ProductStatus = product.ProductStatus;
+                _db.Product.Update(productInDb);
                 await _db.SaveChangesAsync();
             }
 
             return RedirectToAction(nameof(Productmanagement));
         }
+
 
 
         //public IActionResult PutDown()
@@ -246,6 +247,11 @@ namespace FourthTeamProject.Controllers
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Productmanagement));
         }
+
+
+   
+
+
 
         private bool ProductExists(int id)
         {

@@ -1,5 +1,4 @@
-﻿using FourthTeamProject.Models;
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -12,6 +11,8 @@ using FourthTeamProject.PetHeavenModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using System.Security.Principal;
+using FourthTeamProject.Models.ViewModel;
+using FourthTeamProject.Models.PetHeavenModels;
 
 namespace FourthTeamProject.Controllers
 {

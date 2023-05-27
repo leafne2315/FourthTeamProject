@@ -33,7 +33,7 @@
 
 <body id="situation" style="height:100%  overflow-y:auto">
     <div class="pages-style">
-        <!--左侧菜单栏-->
+    
         <div class="bk-con-menu " id="bk-con-menu">
         
             <div class="title-menu">商品上架系統</div>
@@ -42,23 +42,32 @@
                 </ul>
             </div>
         </div>
-        <!--右侧内容-->
+    
         <div class="bk-con-message message-section" id="iframe_box">
-            <!--编辑内容-->
+          
+            <form id="batchDeleteForm" method="post" action="@Url.Action("BatchDelete", "Product")">
+                <button id="btnBatchDelete" class="btn button_btn btn-success float-left" type="button" onclick="confirmBatchDelete()">批量删除</button>
+            </form>
             <div class="operation  mb15">
                 <button  class="btn button_btn btn-success" type="button"><a asp-controller="Home" asp-action="Index">回到首頁</a></button>
                 <a href="@Url.Action("Create")" class="btn btn-success">新增商品</a>   
                 <a href="@Url.Action("PutOn")" class="btn btn-success">上架商品</a>
                 <a href="@Url.Action("PutDown")" class="btn btn-success">下架商品</a>
-                <button id="btnBatchDelete" class="btn button_btn btn-success" type="button"><i class="iconfont"></i>&nbsp;批量刪除</button>
+            
+
               
             </div>
-            <!--列表内容-->
+
+           
             <div class="page_content clearfix mb15 table-module">
                 <table class="gallery table table_list table_striped table-bordered" id="">
                     <thead>
                         <tr>
-                            <th><label><input id="btnBatchDelete" type="checkbox" class="ace"><span class="lbl"></span></label></th>
+                            <th>
+                                <label>
+                                    <input id="SelectAll" type="checkbox" class="ace"><span class="lbl"></span>
+                                </label>
+                            </th>
                             <th>商品名稱</th>
                             <th>商品規格</th>
                             <th>商品內容</th>
@@ -76,19 +85,30 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td><input type="checkbox"id="" class="ace product-checkbox"><span class="lbl"></span></td>
+                                <td>
+                                    <input type="checkbox" class="ace product-checkbox" value="@item.ProductId" />
+                                    <span class="lbl"></span>
+                                </td>
                                 <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
                                 <td>@Html.DisplayFor(modelItem => item.ProductSpecification)</td>
                                 <td>@Html.DisplayFor(modelItem => item.ProductContent)</td>
                                 <td>@Html.DisplayFor(modelItem => item.UnitPrice)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Stock)</td>
-                                <td>@Html.DisplayFor(modelItem => item.ProductStatus)</td>
+                                <td>
+                                    @if (item.ProductStatus)
+                                    {
+                                        <span>上架中</span>
+                                    }
+                                    else
+                                    {
+                                        <span>下架中</span>
+                                    }
+                                </td>
                                 <td>@Html.DisplayFor(modelItem => item.ProductCatagory.ProductCatagoryName)</td>
                                 <td>@Html.DisplayFor(modelItem => item.ProductType.ProductTypeName)</td>
                                 <td>
                                     <partial name="_ShowPhotoPartial" model="@item" />
                                 </td>
-
                                 <td>
                                     <a href="@Url.Action("Edit", new { id = item.ProductId })" class="btn btn-primary">編輯</a>
                                     <a href="@Url.Action("Details", new { id = item.ProductId })" class="btn btn-info">明細</a>
@@ -104,7 +124,35 @@
 </body>
 </html>
 <script>
+    function confirmBatchDelete() {
+      
+        var selectedIds = $(".product-checkbox:checked").map(function () {
+            return $(this).val();
+        }).get();
+
+        if (selectedIds.length === 0) {
+            alert("請選擇至少一個商品來刪除。");
+            return;
+        }
+
+    
+        if (confirm("確定要刪除選中的商品嗎？")) {
+          
+            $("#batchDeleteForm").submit();
+        }
+    }
+
     $(function () {
+        $(document).ready(function () {
+         
+            $("#SelectAll").click(function () {
+                
+                var isChecked = $(this).prop("checked");
+
+             
+                $(".product-checkbox").prop("checked", isChecked);
+            });
+        });
 
         $("#situation").Hupage({
             slide: '#breadcrumb',
@@ -127,42 +175,46 @@
                 $(settings.pagecontent).css("margin-bottom") != null ? pc = parseInt($(settings.pagecontent).css("margin-bottom").replace("px", "")) : '';
                 $(settings.pagecontent).css({ height: $(window).height() - $(settings.operation).outerHeight() - pc - (settings.padding * 2) })
                 settings.scrollbar($(settings.slide) && $(settings.pagecontent));
-            }//自定义方法
+            }
         });
     });
 
 
-    //$("#btnBatchDelete").click(function () {
-    //    // Get all selected product IDs
-    //    var selectedIds = $(".product-checkbox:checked").map(function () {
-    //        return $(this).val();
-    //    }).get();
+    $(document).ready(function () {
+       
+        $("#btnBatchDelete").click(function () {
+          
+            var selectedIds = $(".product-checkbox:checked").map(function () {
+                return $(this).val();
+            }).get();
 
-    //    if (selectedIds.length === 0) {
-    //        alert("請選擇至少一個產品來刪除。");
-    //        return;
-    //    }
+            if (selectedIds.length === 0) {
+                alert("請選擇至少一個商品來刪除。");
+                return;
+            }
 
-    //    // Send AJAX request to server
-    //    $.ajax({
-    //        url: "@Url.Action("BatchDelete", "EmployeesController")",
-    //        type: "POST",
-    //        data: JSON.stringify(selectedIds),
-    //        contentType: "application/json; charset=utf-8",
-    //        success: function (result) {
-    //            if (result.success) {
-    //                // Refresh the page or do something else
-    //                location.reload();
-    //            } else {
-    //                // Show error message
-    //                alert(result.message);
-    //            }
-    //        },
-    //        error: function () {
-    //            alert("伺服器連線錯誤！");
-    //        }
-    //    });
-    //});
+            
+            $.ajax({
+                url: '@Url.Action("BatchDelete", "Product")',
+                type: 'POST',
+                data: JSON.stringify(selectedIds),
+                contentType: 'application/json',
+                success: function (result) {
+                    if (result.success) {
+                       
+                        location.reload();
+                    } else {
+                       
+                        alert(result.message);
+                    }
+                },
+                error: function () {
+                    alert("伺服器連線錯誤！");
+                }
+            });
+        });
+    });
+  
 
 
     $(".upload-image").change(function () {
@@ -170,12 +222,12 @@
         var formData = new FormData();
         var files = $(this).get(0).files;
 
-        // 添加上传的文件到FormData对象
+    
         for (var i = 0; i < files.length; i++) {
             formData.append("file", files[i]);
         }
 
-        // 使用AJAX请求发送FormData对象进行图片上传操作
+       
         $.ajax({
             url: "@Url.Action("UploadImage", "productId")".replace("&#123;id&#125;", productId),
             type: "POST",
@@ -184,10 +236,10 @@
             contentType: false,
             success: function (result) {
                 if (result.success) {
-                    // Assuming 'imageUrl' is a field in the response object that contains the URL of the uploaded image
+                 
                     var imageUrl = result.imageUrl;
 
-                    // Update the img tag for this product
+               
                     $("#img_" + productId).attr("src", imageUrl);
 
                     alert("圖片上傳成功！");

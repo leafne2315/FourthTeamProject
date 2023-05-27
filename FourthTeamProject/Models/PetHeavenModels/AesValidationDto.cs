@@ -1,4 +1,4 @@
-﻿namespace FourthTeamProject.Models
+﻿namespace FourthTeamProject.Models.PetHeavenModels
 {
     public class AesValidationDto
     {

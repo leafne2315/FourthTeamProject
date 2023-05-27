@@ -1,8 +1,7 @@
-﻿using FourthTeamProject.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace FourthTeamProject.Models;
+namespace FourthTeamProject.Models.PetHeavenModels;
 
 public partial class Income
 {

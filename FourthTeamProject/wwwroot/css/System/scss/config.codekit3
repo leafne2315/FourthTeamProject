@@ -3119,15 +3119,15 @@
         "active" : 0,
         "flagValue" : -1
       },
-      "hoist_funs" : {
+      "hoisfuns" : {
         "active" : 0,
         "flagValue" : -1
       },
-      "hoist_props" : {
+      "hoisprops" : {
         "active" : 1,
         "flagValue" : -1
       },
-      "hoist_vars" : {
+      "hoisvars" : {
         "active" : 0,
         "flagValue" : -1
       },
@@ -3139,11 +3139,11 @@
         "active" : 1,
         "flagValue" : -1
       },
-      "indent_level" : {
+      "indenlevel" : {
         "active" : 0,
         "flagValue" : 4
       },
-      "indent_start" : {
+      "indenstart" : {
         "active" : 0,
         "flagValue" : 0
       },

@@ -49,42 +49,66 @@ namespace FourthTeamProject.Controllers.API
             return await temp.ToArrayAsync();
         }
 
-
-
-
-
         [HttpPut("{id}")]
-        public async Task<string> PutPetSalon(int id, [FromBody] SalonViewModel SalonDTO)
+        public async Task<IActionResult> UploadImage([FromBody] SalonViewModel data)
         {
-            if (id != SalonDTO.SalonSolutionId)
-            {
-                return "無此商品編號";
-            }
-            SalonSolution emp = await _context.SalonSolution.FindAsync(id);
-            emp.SalonSolutionId = SalonDTO.SalonSolutionId;
-            emp.SalonSolutionName = SalonDTO.SalonSolutionName;
-            emp.SalonSolutionDiscription = SalonDTO.SalonSolutionDiscription;
-            emp.SalonSolutionPrice = SalonDTO.SalonSolutionPrice;
-            _context.Entry(emp).State = EntityState.Modified;
+            byte[] SalonImagePath = data.SalonImagePath;
+            
+            string salonId = data.SalonId.ToString();
+            string salonCatagoryName = data.SalonCatagoryName;
+            string salonName = data.SalonName;
+            string fileName = $"{salonCatagoryName}_{salonName}";
+            
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SalonSolutionExists(id))
-                {
-                    return "修改失敗";
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                //string filePath = Path.Combine("wwwroot", "Salonimage", fileName);
 
-            return "修改成功";
+                //using (var stream = new FileStream(filePath, FileMode.Create))
+                //{
+                //    await data.SalonImagePath.CopyToAsync(stream);
+                //}
+
+
+            
+
+            return Ok();
+
         }
+
+
+
+
+        //[HttpPut("{id}")]
+        //public async Task<string> PutPetSalon(int id, [FromBody] SalonViewModel SalonDTO)
+        //{
+        //    if (id != SalonDTO.SalonSolutionId)
+        //    {
+        //        return "無此商品編號";
+        //    }
+        //    SalonSolution emp = await _context.SalonSolution.FindAsync(id);
+        //    emp.SalonSolutionId = SalonDTO.SalonSolutionId;
+        //    emp.SalonSolutionName = SalonDTO.SalonSolutionName;
+        //    emp.SalonSolutionDiscription = SalonDTO.SalonSolutionDiscription;
+        //    emp.SalonSolutionPrice = SalonDTO.SalonSolutionPrice;
+        //    _context.Entry(emp).State = EntityState.Modified;
+
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!SalonSolutionExists(id))
+        //        {
+        //            return "修改失敗";
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+
+        //    return "修改成功";
+        //}
 
         private bool SalonSolutionExists(int id)
         {

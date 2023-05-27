@@ -88,21 +88,21 @@
                 _this.SalonSolutionDTO = SalonSolutionList;
             },
             deleteSalon:function(){},
-            update:function(item){
-             let _this = this;
-             var request = {
-                 SalonIdold:item.salonId
-             //SalonSolutionId: item.salonSolutionId,
-             //SalonSolutionName: item.salonSolutionName,
-             //SalonSolutionDiscription: item.salonSolutionDiscription,
-             //SalonSolutionPrice: item.salonSolutionPrice
-             };
-                axios.put(`/api/PetSalon/PutPetSalon/${item.salonSolutionId}`, request).then(response => {
-                alert(response.data);
-                _this.cancel();
-                _this.FilterSalonSolutionDTO();
-             });
-            },
+            //update:function(item){
+            // let _this = this;
+            // var request = {
+            //     SalonIdold:item.salonId
+            // //SalonSolutionId: item.salonSolutionId,
+            // //SalonSolutionName: item.salonSolutionName,
+            // //SalonSolutionDiscription: item.salonSolutionDiscription,
+            // //SalonSolutionPrice: item.salonSolutionPrice
+            // };
+            //    axios.put(`/api/PetSalon/PutPetSalon/${item.salonId}`, request).then(response => {
+            //    alert(response.data);
+            //    _this.cancel();
+            //    _this.FilterSalonSolutionDTO();
+            // });
+            //},
             cancel:function(){},
 
            onfile:function(e){
@@ -121,9 +121,25 @@
                 } else {
                     _this.imageUrl = null;
                 }
-            }
+            },
+
+            update: function (item){
+                let _this = this;
+                alert(JSON.stringify(item));
+                const data = new {
+                    SalonId: item.salonId,
+                    SalonCatagoryName: item.salonCatagoryName,
+                    SalonName: item.salonName,
+                };
+
+                axios.put(`/api/PetSalon/UploadImage/${item.salonId}`, data).then(res => {
+                        alert(response.data);
+                        _this.cancel();
+                        _this.FilterSalonSolutionDTO();
+                });
+            },
            
-            
+                      
         }
     })
 </script>

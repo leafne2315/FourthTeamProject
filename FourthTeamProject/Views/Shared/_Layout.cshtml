@@ -85,7 +85,7 @@
                             </ul>
                         </li>
                         <li class="has-children">
-                            <a asp-controller="" asp-action="">會員中心</a>
+                            <a asp-controller="Member" asp-action="Index">會員中心</a>
                             <ul class="dropdown">
                                 <li><a asp-controller="" asp-action="">會員資料</a></li>
                                 <li><a asp-controller="" asp-action="">安全中心</a></li>
@@ -98,6 +98,7 @@
                         @{
                             if (User.Identity.IsAuthenticated)
                             {
+                                
                                 <li>
                                     <a asp-controller="Member" asp-action="Logout">會員登出</a>
                                 </li>

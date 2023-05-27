@@ -51,24 +51,22 @@ namespace FourthTeamProject.Controllers.API
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UploadImage([FromBody] SalonViewModel data)
-        {
-            byte[] SalonImagePath = data.SalonImagePath;
-            
-            string salonId = data.SalonId.ToString();
-            string salonCatagoryName = data.SalonCatagoryName;
-            string salonName = data.SalonName;
-            string fileName = $"{salonCatagoryName}_{salonName}";
-            
-
-                //string filePath = Path.Combine("wwwroot", "Salonimage", fileName);
-
-                //using (var stream = new FileStream(filePath, FileMode.Create))
-                //{
-                //    await data.SalonImagePath.CopyToAsync(stream);
-                //}
+        {           
+            //string salonId = data.SalonId.ToString();
+            //string salonCatagoryName = data.SalonCatagoryName;
+            //string salonName = data.SalonName;
+            //string fileName = $"{salonCatagoryName}_{salonName}";
 
 
-            
+            //string filePath = Path.Combine("wwwroot", "Salonimage", fileName);
+
+            //using (var stream = new FileStream(filePath, FileMode.Create))
+            //{
+            //    await data.SalonImagePath.CopyToAsync(stream);
+            //}
+
+
+
 
             return Ok();
 

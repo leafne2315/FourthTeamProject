@@ -5,11 +5,14 @@ namespace FourthTeamProject.Models.ViewModel
 {
     public class SalonViewModel
     {
-        [Display(Name = "寵物美容編號")]
-        public int CSalonId { get; set; }
-        [Display(Name = "寵物美容項目")]
-        public string CSalonName { get; set; }
-        [Display(Name = "寵物美容內容")]
-        public string CSalonContet { get; set; }
+        public int SalonId { get; set; }
+        public int SalonSolutionId { get; set; }
+        public string? SalonCatagoryName { get; set; }
+        public string? SalonSolutionName { get; set; }
+        public string? SalonSolutionDiscription { get; set; }
+        public int SalonSolutionPrice { get; set; }
+        public string? SalonName { get; set; }
+
+        public byte[]? SalonImagePath { get; set; }
     }
 }

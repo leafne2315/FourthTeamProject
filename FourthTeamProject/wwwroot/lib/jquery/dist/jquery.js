@@ -4219,8 +4219,8 @@ var acceptData = function( owner ) {
 
 	// Accepts only:
 	//  - Node
-	//    - Node.ELEMENT_NODE
-	//    - Node.DOCUMENT_NODE
+	//    - Node.ELEMENNODE
+	//    - Node.DOCUMENNODE
 	//  - Object
 	//    - Any
 	return owner.nodeType === 1 || owner.nodeType === 9 || !( +owner.nodeType );

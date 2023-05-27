@@ -337,7 +337,7 @@ $.validator.addMethod( "creditcard", function( value, element ) {
 	value = value.replace( /\D/g, "" );
 
 	// Basing min and max length on
-	// https://developer.ean.com/general_info/Valid_Credit_Card_Types
+	// https://developer.ean.com/general_info/Valid_CrediCard_Types
 	if ( value.length < 13 || value.length > 19 ) {
 		return false;
 	}

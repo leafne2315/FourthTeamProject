@@ -23,6 +23,9 @@
     <link rel="stylesheet" href="~/css/daterangepicker.css">
     <link rel="stylesheet" href="~/css/aos.css">
     <link rel="stylesheet" href="~/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <style>
         #top{
             
@@ -59,7 +62,7 @@
                     <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
                         <li class="active"><a asp-controller="Home" asp-action="Index">首頁</a></li>
                         <li class="has-children">
-                            <a asp-controller="" asp-action="">寵物商城</a>
+                            <a asp-controller="Product" asp-action="Index">寵物商城</a>
                             <ul class="dropdown">
                                 <li><a asp-controller="" asp-action="">狗狗食品</a></li>
                                 <li><a asp-controller="" asp-action="">貓咪食品</a></li>
@@ -96,13 +99,13 @@
                             if (User.Identity.IsAuthenticated)
                             {
                                 <li>
-                                    <a asp-controller="t_Member" asp-action="Logout">會員登出</a>
+                                    <a asp-controller="Member" asp-action="Logout">會員登出</a>
                                 </li>
                             }
                             else
                             {
                                 <li>
-                                    <a asp-controller="t_Member" asp-action="Login">會員登入</a>
+                                    <a asp-controller="Member" asp-action="Login">會員登入</a>
                                 </li>
                             }
                         }
@@ -116,11 +119,11 @@
                                     <span class="nav-link text-capitalize">使用者:@User.Claims.FirstOrDefault(x=> x.Type == ClaimTypes.Name).Value</span>
                                 </li>
                                 <li class="has-children">
-                                    <a asp-controller="t_Employees" asp-action="EmployeeLogout">企業登出</a>
+                                    <a asp-controller="Employees" asp-action="EmployeeLogout">企業登出</a>
 
                                     <ul class="dropdown">
-                                        <li><a asp-controller="t_Employees" asp-action="EmployeeSystem">員工系統</a></li>
-                                        <li><a asp-controller="t_Employees" asp-action="Productmanagement">商品管理系統</a></li>
+                                        <li><a asp-controller="Employees" asp-action="EmployeeSystem">員工系統</a></li>
+                                        <li><a asp-controller="Employees" asp-action="Productmanagement">商品管理系統</a></li>
                                 
                                     </ul>
                                 </li>
@@ -128,7 +131,7 @@
                                 else
                                 {
                                 <li>
-                                    <a asp-controller="t_Employees" asp-action="EmployeeLogin">企業登入</a>
+                                    <a asp-controller="Employees" asp-action="EmployeeLogin">企業登入</a>
                                 </li>
 
                                 }
@@ -257,7 +260,7 @@
             })
 
             var typed = new Typed('.typed-words', {
-                strings: ["San Francisco.", " Paris.", " New Zealand.", " Maui.", " London."],
+                strings: ["Hotel Rooms.", " Salon.", " Selections.", " Health Care."],
                 typeSpeed: 80,
                 backSpeed: 80,
                 backDelay: 4000,

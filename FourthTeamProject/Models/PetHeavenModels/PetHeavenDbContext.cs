@@ -101,7 +101,7 @@ namespace FourthTeamProject.PetHeavenModels
                     .WithMany(p => p.Hotel)
                     .HasForeignKey(d => d.HotelCatagoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_Hotel_HotelCatogory");
+                    .HasConstraintName("FK_Hotel_HotelCatogory");
             });
 
             modelBuilder.Entity<HotelCatagory>(entity =>
@@ -127,13 +127,13 @@ namespace FourthTeamProject.PetHeavenModels
                     .WithMany()
                     .HasForeignKey(d => d.HotelId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_HotelImage_t_Hotel");
+                    .HasConstraintName("FK_HotelImage_Hotel");
             });
 
             modelBuilder.Entity<HotelOrder>(entity =>
             {
                 entity.HasKey(e => e.HoyelOrderId)
-                    .HasName("PK_t_HotelOrder");
+                    .HasName("PK_HotelOrder");
 
                 entity.Property(e => e.HoyelOrderId).HasColumnName("HoyelOrderID");
 
@@ -148,17 +148,17 @@ namespace FourthTeamProject.PetHeavenModels
                 entity.HasOne(d => d.Invoice)
                     .WithMany(p => p.HotelOrder)
                     .HasForeignKey(d => d.InvoiceId)
-                    .HasConstraintName("FK_t_HotelOrder_t_Invoice");
+                    .HasConstraintName("FK_HotelOrder_Invoice");
 
                 entity.HasOne(d => d.Member)
                     .WithMany(p => p.HotelOrder)
                     .HasForeignKey(d => d.MemberId)
-                    .HasConstraintName("FK_t_HotelOrder_t_Member");
+                    .HasConstraintName("FK_HotelOrder_Member");
 
                 entity.HasOne(d => d.Pay)
                     .WithMany(p => p.HotelOrder)
                     .HasForeignKey(d => d.PayId)
-                    .HasConstraintName("FK_t_HotelOrder_t_Payment");
+                    .HasConstraintName("FK_HotelOrder_Payment");
             });
 
             modelBuilder.Entity<HotelOrderDetail>(entity =>
@@ -176,7 +176,7 @@ namespace FourthTeamProject.PetHeavenModels
                 entity.HasOne(d => d.HotelOrder)
                     .WithMany(p => p.HotelOrderDetail)
                     .HasForeignKey(d => d.HotelOrderId)
-                    .HasConstraintName("FK_t_HotelOrderDetail_t_HotelOrder");
+                    .HasConstraintName("FK_HotelOrderDetail_HotelOrder");
             });
 
             modelBuilder.Entity<HotelService>(entity =>
@@ -198,13 +198,13 @@ namespace FourthTeamProject.PetHeavenModels
                     .WithMany()
                     .HasForeignKey(d => d.HotelId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_HotelToService_t_Hotel");
+                    .HasConstraintName("FK_HotelToService_Hotel");
 
                 entity.HasOne(d => d.HotelService)
                     .WithMany()
                     .HasForeignKey(d => d.HotelServiceId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_HotelToService_t_HotelService");
+                    .HasConstraintName("FK_HotelToService_HotelService");
             });
 
             modelBuilder.Entity<Invoice>(entity =>
@@ -230,19 +230,19 @@ namespace FourthTeamProject.PetHeavenModels
                 entity.HasOne(d => d.Discount)
                     .WithMany()
                     .HasForeignKey(d => d.DiscountId)
-                    .HasConstraintName("FK_MemberDiscount_t_Discount");
+                    .HasConstraintName("FK_MemberDiscounDiscount");
 
                 entity.HasOne(d => d.Member)
                     .WithMany()
                     .HasForeignKey(d => d.MemberId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_MemberDiscount_t_Member");
+                    .HasConstraintName("FK_MemberDiscounMember");
             });
 
             modelBuilder.Entity<Payment>(entity =>
             {
                 entity.HasKey(e => e.PayId)
-                    .HasName("PK_t_Payment");
+                    .HasName("PK_Payment");
 
                 entity.Property(e => e.PayId).HasColumnName("PayID");
             });
@@ -260,12 +260,12 @@ namespace FourthTeamProject.PetHeavenModels
                 entity.HasOne(d => d.Member)
                     .WithMany(p => p.Pet)
                     .HasForeignKey(d => d.MemberId)
-                    .HasConstraintName("FK_t_Pet_t_Member");
+                    .HasConstraintName("FK_PeMember");
 
                 entity.HasOne(d => d.PetType)
                     .WithMany(p => p.Pet)
                     .HasForeignKey(d => d.PetTypeId)
-                    .HasConstraintName("FK_t_Pet_t_PetType");
+                    .HasConstraintName("FK_PePetType");
             });
 
             modelBuilder.Entity<PetType>(entity =>
@@ -293,13 +293,13 @@ namespace FourthTeamProject.PetHeavenModels
                     .WithMany(p => p.Product)
                     .HasForeignKey(d => d.ProductCatagoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_Product_t_ProductCatagory");
+                    .HasConstraintName("FK_ProducProductCatagory");
 
                 entity.HasOne(d => d.ProductType)
                     .WithMany(p => p.Product)
                     .HasForeignKey(d => d.ProductTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_Product_t_ProductType1");
+                    .HasConstraintName("FK_ProducProductType1");
             });
 
             modelBuilder.Entity<ProductCatagory>(entity =>
@@ -320,13 +320,13 @@ namespace FourthTeamProject.PetHeavenModels
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.ProductImage)
                     .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK_t_ProductImage_t_Product");
+                    .HasConstraintName("FK_ProductImage_Product");
             });
 
             modelBuilder.Entity<ProductOrder>(entity =>
             {
                 entity.HasKey(e => e.OrderId)
-                    .HasName("PK_t_ProductOrder");
+                    .HasName("PK_ProductOrder");
 
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
@@ -350,25 +350,25 @@ namespace FourthTeamProject.PetHeavenModels
                     .WithMany(p => p.ProductOrder)
                     .HasForeignKey(d => d.InvoiceId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_ProductOrder_t_Invoice");
+                    .HasConstraintName("FK_ProductOrder_Invoice");
 
                 entity.HasOne(d => d.Member)
                     .WithMany(p => p.ProductOrder)
                     .HasForeignKey(d => d.MemberId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_ProductOrder_t_Member");
+                    .HasConstraintName("FK_ProductOrder_Member");
 
                 entity.HasOne(d => d.Pay)
                     .WithMany(p => p.ProductOrder)
                     .HasForeignKey(d => d.PayId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_ProductOrder_t_Payment");
+                    .HasConstraintName("FK_ProductOrder_Payment");
             });
 
             modelBuilder.Entity<ProductOrderDetail>(entity =>
             {
                 entity.HasKey(e => e.OrderDetailId)
-                    .HasName("PK_t_ProductOrderDetail");
+                    .HasName("PK_ProductOrderDetail");
 
                 entity.Property(e => e.OrderDetailId).HasColumnName("OrderDetailID");
 
@@ -386,7 +386,7 @@ namespace FourthTeamProject.PetHeavenModels
                     .WithMany(p => p.ProductOrderDetail)
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_t_ProductOrderDetail_t_ProductOrder");
+                    .HasConstraintName("FK_ProductOrderDetail_ProductOrder");
             });
 
             modelBuilder.Entity<ProductRating>(entity =>
@@ -402,7 +402,7 @@ namespace FourthTeamProject.PetHeavenModels
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.ProductRating)
                     .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK_t_ProductRating_t_Product");
+                    .HasConstraintName("FK_ProductRating_Product");
             });
 
             modelBuilder.Entity<ProductType>(entity =>
@@ -458,19 +458,19 @@ namespace FourthTeamProject.PetHeavenModels
                     .WithMany(p => p.SalonOrder)
                     .HasForeignKey(d => d.InvoiceId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_SalonOrder_t_Invoice");
+                    .HasConstraintName("FK_SalonOrder_Invoice");
 
                 entity.HasOne(d => d.Member)
                     .WithMany(p => p.SalonOrder)
                     .HasForeignKey(d => d.MemberId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_SalonOrder_t_Member");
+                    .HasConstraintName("FK_SalonOrder_Member");
 
                 entity.HasOne(d => d.Pay)
                     .WithMany(p => p.SalonOrder)
                     .HasForeignKey(d => d.PayId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_SalonOrder_t_Payment");
+                    .HasConstraintName("FK_SalonOrder_Payment");
             });
 
             modelBuilder.Entity<SalonOrderDetail>(entity =>

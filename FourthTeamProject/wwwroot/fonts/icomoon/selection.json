@@ -18535,19 +18535,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "account_balance"
+          "accounbalance"
         ],
         "defaultCode": 59471,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "account_balance",
+        "ligatures": "accounbalance",
         "id": 7,
         "order": 18,
         "prevSize": 24,
         "code": 59471,
-        "name": "account_balance"
+        "name": "accounbalance"
       },
       "setIdx": 2,
       "setId": 2,
@@ -18562,19 +18562,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "account_balance_wallet"
+          "accounbalance_wallet"
         ],
         "defaultCode": 59472,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "account_balance_wallet",
+        "ligatures": "accounbalance_wallet",
         "id": 8,
         "order": 19,
         "prevSize": 24,
         "code": 59472,
-        "name": "account_balance_wallet"
+        "name": "accounbalance_wallet"
       },
       "setIdx": 2,
       "setId": 2,
@@ -18589,19 +18589,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "account_box"
+          "accounbox"
         ],
         "defaultCode": 59473,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "account_box",
+        "ligatures": "accounbox",
         "id": 9,
         "order": 20,
         "prevSize": 24,
         "code": 59473,
-        "name": "account_box"
+        "name": "accounbox"
       },
       "setIdx": 2,
       "setId": 2,
@@ -18616,19 +18616,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "account_circle"
+          "accouncircle"
         ],
         "defaultCode": 59475,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "account_circle",
+        "ligatures": "accouncircle",
         "id": 10,
         "order": 21,
         "prevSize": 24,
         "code": 59475,
-        "name": "account_circle"
+        "name": "accouncircle"
       },
       "setIdx": 2,
       "setId": 2,
@@ -18994,19 +18994,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "airline_seat_flat"
+          "airline_seaflat"
         ],
         "defaultCode": 58928,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "airline_seat_flat",
+        "ligatures": "airline_seaflat",
         "id": 24,
         "order": 35,
         "prevSize": 24,
         "code": 58928,
-        "name": "airline_seat_flat"
+        "name": "airline_seaflat"
       },
       "setIdx": 2,
       "setId": 2,
@@ -19021,19 +19021,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "airline_seat_flat_angled"
+          "airline_seaflaangled"
         ],
         "defaultCode": 58929,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "airline_seat_flat_angled",
+        "ligatures": "airline_seaflaangled",
         "id": 25,
         "order": 36,
         "prevSize": 24,
         "code": 58929,
-        "name": "airline_seat_flat_angled"
+        "name": "airline_seaflaangled"
       },
       "setIdx": 2,
       "setId": 2,
@@ -19048,19 +19048,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "airline_seat_individual_suite"
+          "airline_seaindividual_suite"
         ],
         "defaultCode": 58930,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "airline_seat_individual_suite",
+        "ligatures": "airline_seaindividual_suite",
         "id": 26,
         "order": 37,
         "prevSize": 24,
         "code": 58930,
-        "name": "airline_seat_individual_suite"
+        "name": "airline_seaindividual_suite"
       },
       "setIdx": 2,
       "setId": 2,
@@ -19075,19 +19075,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "airline_seat_legroom_extra"
+          "airline_sealegroom_extra"
         ],
         "defaultCode": 58931,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "airline_seat_legroom_extra",
+        "ligatures": "airline_sealegroom_extra",
         "id": 27,
         "order": 38,
         "prevSize": 24,
         "code": 58931,
-        "name": "airline_seat_legroom_extra"
+        "name": "airline_sealegroom_extra"
       },
       "setIdx": 2,
       "setId": 2,
@@ -19102,19 +19102,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "airline_seat_legroom_normal"
+          "airline_sealegroom_normal"
         ],
         "defaultCode": 58932,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "airline_seat_legroom_normal",
+        "ligatures": "airline_sealegroom_normal",
         "id": 28,
         "order": 39,
         "prevSize": 24,
         "code": 58932,
-        "name": "airline_seat_legroom_normal"
+        "name": "airline_sealegroom_normal"
       },
       "setIdx": 2,
       "setId": 2,
@@ -19129,19 +19129,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "airline_seat_legroom_reduced"
+          "airline_sealegroom_reduced"
         ],
         "defaultCode": 58933,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "airline_seat_legroom_reduced",
+        "ligatures": "airline_sealegroom_reduced",
         "id": 29,
         "order": 40,
         "prevSize": 24,
         "code": 58933,
-        "name": "airline_seat_legroom_reduced"
+        "name": "airline_sealegroom_reduced"
       },
       "setIdx": 2,
       "setId": 2,
@@ -19156,19 +19156,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "airline_seat_recline_extra"
+          "airline_searecline_extra"
         ],
         "defaultCode": 58934,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "airline_seat_recline_extra",
+        "ligatures": "airline_searecline_extra",
         "id": 30,
         "order": 41,
         "prevSize": 24,
         "code": 58934,
-        "name": "airline_seat_recline_extra"
+        "name": "airline_searecline_extra"
       },
       "setIdx": 2,
       "setId": 2,
@@ -19183,19 +19183,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "airline_seat_recline_normal"
+          "airline_searecline_normal"
         ],
         "defaultCode": 58935,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "airline_seat_recline_normal",
+        "ligatures": "airline_searecline_normal",
         "id": 31,
         "order": 42,
         "prevSize": 24,
         "code": 58935,
-        "name": "airline_seat_recline_normal"
+        "name": "airline_searecline_normal"
       },
       "setIdx": 2,
       "setId": 2,
@@ -19291,19 +19291,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "airport_shuttle"
+          "airporshuttle"
         ],
         "defaultCode": 60220,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "airport_shuttle",
+        "ligatures": "airporshuttle",
         "id": 35,
         "order": 46,
         "prevSize": 24,
         "code": 60220,
-        "name": "airport_shuttle"
+        "name": "airporshuttle"
       },
       "setIdx": 2,
       "setId": 2,
@@ -19750,19 +19750,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "art_track"
+          "artrack"
         ],
         "defaultCode": 57440,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "art_track",
+        "ligatures": "artrack",
         "id": 52,
         "order": 63,
         "prevSize": 24,
         "code": 57440,
-        "name": "art_track"
+        "name": "artrack"
       },
       "setIdx": 2,
       "setId": 2,
@@ -19777,19 +19777,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "aspect_ratio"
+          "aspecratio"
         ],
         "defaultCode": 59483,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "aspect_ratio",
+        "ligatures": "aspecratio",
         "id": 53,
         "order": 64,
         "prevSize": 24,
         "code": 59483,
-        "name": "aspect_ratio"
+        "name": "aspecratio"
       },
       "setIdx": 2,
       "setId": 2,
@@ -19811,7 +19811,7 @@
       },
       "attrs": [],
       "properties": {
-        "ligatures": "assessment, insert_chart, poll",
+        "ligatures": "assessment, inserchart, poll",
         "id": 54,
         "order": 65,
         "prevSize": 24,
@@ -19858,19 +19858,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "assignment_ind"
+          "assignmenind"
         ],
         "defaultCode": 59486,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "assignment_ind",
+        "ligatures": "assignmenind",
         "id": 56,
         "order": 67,
         "prevSize": 24,
         "code": 59486,
-        "name": "assignment_ind"
+        "name": "assignmenind"
       },
       "setIdx": 2,
       "setId": 2,
@@ -19885,19 +19885,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "assignment_late"
+          "assignmenlate"
         ],
         "defaultCode": 59487,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "assignment_late",
+        "ligatures": "assignmenlate",
         "id": 57,
         "order": 68,
         "prevSize": 24,
         "code": 59487,
-        "name": "assignment_late"
+        "name": "assignmenlate"
       },
       "setIdx": 2,
       "setId": 2,
@@ -19912,19 +19912,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "assignment_return"
+          "assignmenreturn"
         ],
         "defaultCode": 59488,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "assignment_return",
+        "ligatures": "assignmenreturn",
         "id": 58,
         "order": 69,
         "prevSize": 24,
         "code": 59488,
-        "name": "assignment_return"
+        "name": "assignmenreturn"
       },
       "setIdx": 2,
       "setId": 2,
@@ -19939,19 +19939,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "assignment_returned"
+          "assignmenreturned"
         ],
         "defaultCode": 59489,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "assignment_returned",
+        "ligatures": "assignmenreturned",
         "id": 59,
         "order": 70,
         "prevSize": 24,
         "code": 59489,
-        "name": "assignment_returned"
+        "name": "assignmenreturned"
       },
       "setIdx": 2,
       "setId": 2,
@@ -19966,19 +19966,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "assignment_turned_in"
+          "assignmenturned_in"
         ],
         "defaultCode": 59490,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "assignment_turned_in",
+        "ligatures": "assignmenturned_in",
         "id": 60,
         "order": 71,
         "prevSize": 24,
         "code": 59490,
-        "name": "assignment_turned_in"
+        "name": "assignmenturned_in"
       },
       "setIdx": 2,
       "setId": 2,
@@ -20027,7 +20027,7 @@
       },
       "attrs": [],
       "properties": {
-        "ligatures": "assistant_photo, flag",
+        "ligatures": "assistanphoto, flag",
         "id": 62,
         "order": 73,
         "prevSize": 24,
@@ -21451,19 +21451,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "burst_mode"
+          "bursmode"
         ],
         "defaultCode": 58428,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "burst_mode",
+        "ligatures": "bursmode",
         "id": 115,
         "order": 126,
         "prevSize": 24,
         "code": 58428,
-        "name": "burst_mode"
+        "name": "bursmode"
       },
       "setIdx": 2,
       "setId": 2,
@@ -22153,19 +22153,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "cast_connected"
+          "casconnected"
         ],
         "defaultCode": 58120,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "cast_connected",
+        "ligatures": "casconnected",
         "id": 141,
         "order": 152,
         "prevSize": 24,
         "code": 58120,
-        "name": "cast_connected"
+        "name": "casconnected"
       },
       "setIdx": 2,
       "setId": 2,
@@ -22288,19 +22288,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "chat_bubble"
+          "chabubble"
         ],
         "defaultCode": 57546,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "chat_bubble",
+        "ligatures": "chabubble",
         "id": 146,
         "order": 157,
         "prevSize": 24,
         "code": 57546,
-        "name": "chat_bubble"
+        "name": "chabubble"
       },
       "setIdx": 2,
       "setId": 2,
@@ -22315,19 +22315,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "chat_bubble_outline"
+          "chabubble_outline"
         ],
         "defaultCode": 57547,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "chat_bubble_outline",
+        "ligatures": "chabubble_outline",
         "id": 147,
         "order": 158,
         "prevSize": 24,
         "code": 57547,
-        "name": "chat_bubble_outline"
+        "name": "chabubble_outline"
       },
       "setIdx": 2,
       "setId": 2,
@@ -23098,19 +23098,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "contact_mail"
+          "contacmail"
         ],
         "defaultCode": 57552,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "contact_mail",
+        "ligatures": "contacmail",
         "id": 176,
         "order": 187,
         "prevSize": 24,
         "code": 57552,
-        "name": "contact_mail"
+        "name": "contacmail"
       },
       "setIdx": 2,
       "setId": 2,
@@ -23125,19 +23125,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "contact_phone"
+          "contacphone"
         ],
         "defaultCode": 57551,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "contact_phone",
+        "ligatures": "contacphone",
         "id": 177,
         "order": 188,
         "prevSize": 24,
         "code": 57551,
-        "name": "contact_phone"
+        "name": "contacphone"
       },
       "setIdx": 2,
       "setId": 2,
@@ -23179,19 +23179,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "content_copy"
+          "contencopy"
         ],
         "defaultCode": 57677,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "content_copy",
+        "ligatures": "contencopy",
         "id": 179,
         "order": 190,
         "prevSize": 24,
         "code": 57677,
-        "name": "content_copy"
+        "name": "contencopy"
       },
       "setIdx": 2,
       "setId": 2,
@@ -23206,19 +23206,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "content_cut"
+          "contencut"
         ],
         "defaultCode": 57678,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "content_cut",
+        "ligatures": "contencut",
         "id": 180,
         "order": 191,
         "prevSize": 24,
         "code": 57678,
-        "name": "content_cut"
+        "name": "contencut"
       },
       "setIdx": 2,
       "setId": 2,
@@ -23233,19 +23233,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "content_paste"
+          "contenpaste"
         ],
         "defaultCode": 57679,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "content_paste",
+        "ligatures": "contenpaste",
         "id": 181,
         "order": 192,
         "prevSize": 24,
         "code": 57679,
-        "name": "content_paste"
+        "name": "contenpaste"
       },
       "setIdx": 2,
       "setId": 2,
@@ -23260,19 +23260,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "control_point_duplicate"
+          "control_poinduplicate"
         ],
         "defaultCode": 58299,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "control_point_duplicate",
+        "ligatures": "control_poinduplicate",
         "id": 182,
         "order": 193,
         "prevSize": 24,
         "code": 58299,
-        "name": "control_point_duplicate"
+        "name": "control_poinduplicate"
       },
       "setIdx": 2,
       "setId": 2,
@@ -23375,7 +23375,7 @@
       },
       "attrs": [],
       "properties": {
-        "ligatures": "credit_card, payment",
+        "ligatures": "credicard, payment",
         "id": 186,
         "order": 197,
         "prevSize": 24,
@@ -24475,19 +24475,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "not_interested"
+          "nointerested"
         ],
         "defaultCode": 57395,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "do_not_disturb, not_interested",
+        "ligatures": "do_nodisturb, nointerested",
         "id": 227,
         "order": 238,
         "prevSize": 24,
         "code": 57395,
-        "name": "not_interested"
+        "name": "nointerested"
       },
       "setIdx": 2,
       "setId": 2,
@@ -24502,19 +24502,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "do_not_disturb_alt"
+          "do_nodisturb_alt"
         ],
         "defaultCode": 58897,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "do_not_disturb_alt",
+        "ligatures": "do_nodisturb_alt",
         "id": 228,
         "order": 239,
         "prevSize": 24,
         "code": 58897,
-        "name": "do_not_disturb_alt"
+        "name": "do_nodisturb_alt"
       },
       "setIdx": 2,
       "setId": 2,
@@ -24529,19 +24529,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "do_not_disturb_off"
+          "do_nodisturb_off"
         ],
         "defaultCode": 58947,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "do_not_disturb_off",
+        "ligatures": "do_nodisturb_off",
         "id": 229,
         "order": 240,
         "prevSize": 24,
         "code": 58947,
-        "name": "do_not_disturb_off"
+        "name": "do_nodisturb_off"
       },
       "setIdx": 2,
       "setId": 2,
@@ -24563,7 +24563,7 @@
       },
       "attrs": [],
       "properties": {
-        "ligatures": "do_not_disturb_on, remove_circle",
+        "ligatures": "do_nodisturb_on, remove_circle",
         "id": 230,
         "order": 241,
         "prevSize": 24,
@@ -24664,19 +24664,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "donut_large"
+          "donularge"
         ],
         "defaultCode": 59671,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "donut_large",
+        "ligatures": "donularge",
         "id": 234,
         "order": 245,
         "prevSize": 24,
         "code": 59671,
-        "name": "donut_large"
+        "name": "donularge"
       },
       "setIdx": 2,
       "setId": 2,
@@ -24691,19 +24691,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "donut_small"
+          "donusmall"
         ],
         "defaultCode": 59672,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "donut_small",
+        "ligatures": "donusmall",
         "id": 235,
         "order": 246,
         "prevSize": 24,
         "code": 59672,
-        "name": "donut_small"
+        "name": "donusmall"
       },
       "setIdx": 2,
       "setId": 2,
@@ -24826,19 +24826,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "edit_location"
+          "edilocation"
         ],
         "defaultCode": 58728,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "edit_location",
+        "ligatures": "edilocation",
         "id": 240,
         "order": 251,
         "prevSize": 24,
         "code": 58728,
-        "name": "edit_location"
+        "name": "edilocation"
       },
       "setIdx": 2,
       "setId": 2,
@@ -24887,7 +24887,7 @@
       },
       "attrs": [],
       "properties": {
-        "ligatures": "email, local_post_office, mail, markunread",
+        "ligatures": "email, local_posoffice, mail, markunread",
         "id": 242,
         "order": 253,
         "prevSize": 24,
@@ -25069,19 +25069,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "insert_invitation"
+          "inserinvitation"
         ],
         "defaultCode": 57935,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "event, insert_invitation",
+        "ligatures": "event, inserinvitation",
         "id": 249,
         "order": 260,
         "prevSize": 24,
         "code": 57935,
-        "name": "insert_invitation"
+        "name": "inserinvitation"
       },
       "setIdx": 2,
       "setId": 2,
@@ -25096,19 +25096,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "event_available"
+          "evenavailable"
         ],
         "defaultCode": 58900,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "event_available",
+        "ligatures": "evenavailable",
         "id": 250,
         "order": 261,
         "prevSize": 24,
         "code": 58900,
-        "name": "event_available"
+        "name": "evenavailable"
       },
       "setIdx": 2,
       "setId": 2,
@@ -25123,19 +25123,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "event_busy"
+          "evenbusy"
         ],
         "defaultCode": 58901,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "event_busy",
+        "ligatures": "evenbusy",
         "id": 251,
         "order": 262,
         "prevSize": 24,
         "code": 58901,
-        "name": "event_busy"
+        "name": "evenbusy"
       },
       "setIdx": 2,
       "setId": 2,
@@ -25150,19 +25150,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "event_note"
+          "evennote"
         ],
         "defaultCode": 58902,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "event_note",
+        "ligatures": "evennote",
         "id": 252,
         "order": 263,
         "prevSize": 24,
         "code": 58902,
-        "name": "event_note"
+        "name": "evennote"
       },
       "setIdx": 2,
       "setId": 2,
@@ -25177,19 +25177,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "event_seat"
+          "evenseat"
         ],
         "defaultCode": 59651,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "event_seat",
+        "ligatures": "evenseat",
         "id": 253,
         "order": 264,
         "prevSize": 24,
         "code": 59651,
-        "name": "event_seat"
+        "name": "evenseat"
       },
       "setIdx": 2,
       "setId": 2,
@@ -25204,19 +25204,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "exit_to_app"
+          "exito_app"
         ],
         "defaultCode": 59513,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "exit_to_app",
+        "ligatures": "exito_app",
         "id": 254,
         "order": 265,
         "prevSize": 24,
         "code": 59513,
-        "name": "exit_to_app"
+        "name": "exito_app"
       },
       "setIdx": 2,
       "setId": 2,
@@ -25555,19 +25555,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "fast_forward"
+          "fasforward"
         ],
         "defaultCode": 57375,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "fast_forward",
+        "ligatures": "fasforward",
         "id": 267,
         "order": 278,
         "prevSize": 24,
         "code": 57375,
-        "name": "fast_forward"
+        "name": "fasforward"
       },
       "setIdx": 2,
       "setId": 2,
@@ -25582,19 +25582,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "fast_rewind"
+          "fasrewind"
         ],
         "defaultCode": 57376,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "fast_rewind",
+        "ligatures": "fasrewind",
         "id": 268,
         "order": 279,
         "prevSize": 24,
         "code": 57376,
-        "name": "fast_rewind"
+        "name": "fasrewind"
       },
       "setIdx": 2,
       "setId": 2,
@@ -25852,19 +25852,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "fiber_smart_record"
+          "fiber_smarrecord"
         ],
         "defaultCode": 57442,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "fiber_smart_record",
+        "ligatures": "fiber_smarrecord",
         "id": 278,
         "order": 289,
         "prevSize": 24,
         "code": 57442,
-        "name": "fiber_smart_record"
+        "name": "fiber_smarrecord"
       },
       "setIdx": 2,
       "setId": 2,
@@ -25879,19 +25879,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "get_app"
+          "geapp"
         ],
         "defaultCode": 59524,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "file_download, get_app",
+        "ligatures": "file_download, geapp",
         "id": 279,
         "order": 290,
         "prevSize": 24,
         "code": 59524,
-        "name": "get_app"
+        "name": "geapp"
       },
       "setIdx": 2,
       "setId": 2,
@@ -26419,19 +26419,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "filter_tilt_shift"
+          "filter_tilshift"
         ],
         "defaultCode": 58338,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "filter_tilt_shift",
+        "ligatures": "filter_tilshift",
         "id": 299,
         "order": 310,
         "prevSize": 24,
         "code": 58338,
-        "name": "filter_tilt_shift"
+        "name": "filter_tilshift"
       },
       "setIdx": 2,
       "setId": 2,
@@ -26554,19 +26554,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "first_page"
+          "firspage"
         ],
         "defaultCode": 58844,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "first_page",
+        "ligatures": "firspage",
         "id": 304,
         "order": 315,
         "prevSize": 24,
         "code": 58844,
-        "name": "first_page"
+        "name": "firspage"
       },
       "setIdx": 2,
       "setId": 2,
@@ -26716,19 +26716,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "flight_land"
+          "flighland"
         ],
         "defaultCode": 59652,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "flight_land",
+        "ligatures": "flighland",
         "id": 310,
         "order": 321,
         "prevSize": 24,
         "code": 59652,
-        "name": "flight_land"
+        "name": "flighland"
       },
       "setIdx": 2,
       "setId": 2,
@@ -26743,19 +26743,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "flight_takeoff"
+          "flightakeoff"
         ],
         "defaultCode": 59653,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "flight_takeoff",
+        "ligatures": "flightakeoff",
         "id": 311,
         "order": 322,
         "prevSize": 24,
         "code": 59653,
-        "name": "flight_takeoff"
+        "name": "flightakeoff"
       },
       "setIdx": 2,
       "setId": 2,
@@ -26959,19 +26959,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "font_download"
+          "fondownload"
         ],
         "defaultCode": 57703,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "font_download",
+        "ligatures": "fondownload",
         "id": 319,
         "order": 330,
         "prevSize": 24,
         "code": 57703,
-        "name": "font_download"
+        "name": "fondownload"
       },
       "setIdx": 2,
       "setId": 2,
@@ -26986,19 +26986,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_align_center"
+          "formaalign_center"
         ],
         "defaultCode": 57908,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_align_center",
+        "ligatures": "formaalign_center",
         "id": 320,
         "order": 331,
         "prevSize": 24,
         "code": 57908,
-        "name": "format_align_center"
+        "name": "formaalign_center"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27013,19 +27013,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_align_justify"
+          "formaalign_justify"
         ],
         "defaultCode": 57909,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_align_justify",
+        "ligatures": "formaalign_justify",
         "id": 321,
         "order": 332,
         "prevSize": 24,
         "code": 57909,
-        "name": "format_align_justify"
+        "name": "formaalign_justify"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27040,19 +27040,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_align_left"
+          "formaalign_left"
         ],
         "defaultCode": 57910,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_align_left",
+        "ligatures": "formaalign_left",
         "id": 322,
         "order": 333,
         "prevSize": 24,
         "code": 57910,
-        "name": "format_align_left"
+        "name": "formaalign_left"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27067,19 +27067,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_align_right"
+          "formaalign_right"
         ],
         "defaultCode": 57911,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_align_right",
+        "ligatures": "formaalign_right",
         "id": 323,
         "order": 334,
         "prevSize": 24,
         "code": 57911,
-        "name": "format_align_right"
+        "name": "formaalign_right"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27094,19 +27094,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_bold"
+          "formabold"
         ],
         "defaultCode": 57912,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_bold",
+        "ligatures": "formabold",
         "id": 324,
         "order": 335,
         "prevSize": 24,
         "code": 57912,
-        "name": "format_bold"
+        "name": "formabold"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27121,19 +27121,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_clear"
+          "formaclear"
         ],
         "defaultCode": 57913,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_clear",
+        "ligatures": "formaclear",
         "id": 325,
         "order": 336,
         "prevSize": 24,
         "code": 57913,
-        "name": "format_clear"
+        "name": "formaclear"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27148,19 +27148,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_color_fill"
+          "formacolor_fill"
         ],
         "defaultCode": 57914,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_color_fill",
+        "ligatures": "formacolor_fill",
         "id": 326,
         "order": 337,
         "prevSize": 24,
         "code": 57914,
-        "name": "format_color_fill"
+        "name": "formacolor_fill"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27175,19 +27175,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_color_reset"
+          "formacolor_reset"
         ],
         "defaultCode": 57915,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_color_reset",
+        "ligatures": "formacolor_reset",
         "id": 327,
         "order": 338,
         "prevSize": 24,
         "code": 57915,
-        "name": "format_color_reset"
+        "name": "formacolor_reset"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27202,19 +27202,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_color_text"
+          "formacolor_text"
         ],
         "defaultCode": 57916,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_color_text",
+        "ligatures": "formacolor_text",
         "id": 328,
         "order": 339,
         "prevSize": 24,
         "code": 57916,
-        "name": "format_color_text"
+        "name": "formacolor_text"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27229,19 +27229,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_indent_decrease"
+          "formaindendecrease"
         ],
         "defaultCode": 57917,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_indent_decrease",
+        "ligatures": "formaindendecrease",
         "id": 329,
         "order": 340,
         "prevSize": 24,
         "code": 57917,
-        "name": "format_indent_decrease"
+        "name": "formaindendecrease"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27256,19 +27256,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_indent_increase"
+          "formaindenincrease"
         ],
         "defaultCode": 57918,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_indent_increase",
+        "ligatures": "formaindenincrease",
         "id": 330,
         "order": 341,
         "prevSize": 24,
         "code": 57918,
-        "name": "format_indent_increase"
+        "name": "formaindenincrease"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27283,19 +27283,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_italic"
+          "formaitalic"
         ],
         "defaultCode": 57919,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_italic",
+        "ligatures": "formaitalic",
         "id": 331,
         "order": 342,
         "prevSize": 24,
         "code": 57919,
-        "name": "format_italic"
+        "name": "formaitalic"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27310,19 +27310,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_line_spacing"
+          "formaline_spacing"
         ],
         "defaultCode": 57920,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_line_spacing",
+        "ligatures": "formaline_spacing",
         "id": 332,
         "order": 343,
         "prevSize": 24,
         "code": 57920,
-        "name": "format_line_spacing"
+        "name": "formaline_spacing"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27337,19 +27337,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_list_bulleted"
+          "formalisbulleted"
         ],
         "defaultCode": 57921,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_list_bulleted",
+        "ligatures": "formalisbulleted",
         "id": 333,
         "order": 344,
         "prevSize": 24,
         "code": 57921,
-        "name": "format_list_bulleted"
+        "name": "formalisbulleted"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27364,19 +27364,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_list_numbered"
+          "formalisnumbered"
         ],
         "defaultCode": 57922,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_list_numbered",
+        "ligatures": "formalisnumbered",
         "id": 334,
         "order": 345,
         "prevSize": 24,
         "code": 57922,
-        "name": "format_list_numbered"
+        "name": "formalisnumbered"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27391,19 +27391,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_paint"
+          "formapaint"
         ],
         "defaultCode": 57923,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_paint",
+        "ligatures": "formapaint",
         "id": 335,
         "order": 346,
         "prevSize": 24,
         "code": 57923,
-        "name": "format_paint"
+        "name": "formapaint"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27418,19 +27418,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_quote"
+          "formaquote"
         ],
         "defaultCode": 57924,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_quote",
+        "ligatures": "formaquote",
         "id": 336,
         "order": 347,
         "prevSize": 24,
         "code": 57924,
-        "name": "format_quote"
+        "name": "formaquote"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27445,19 +27445,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_shapes"
+          "formashapes"
         ],
         "defaultCode": 57950,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_shapes",
+        "ligatures": "formashapes",
         "id": 337,
         "order": 348,
         "prevSize": 24,
         "code": 57950,
-        "name": "format_shapes"
+        "name": "formashapes"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27472,19 +27472,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_size"
+          "formasize"
         ],
         "defaultCode": 57925,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_size",
+        "ligatures": "formasize",
         "id": 338,
         "order": 349,
         "prevSize": 24,
         "code": 57925,
-        "name": "format_size"
+        "name": "formasize"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27499,19 +27499,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_strikethrough"
+          "formastrikethrough"
         ],
         "defaultCode": 57926,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_strikethrough",
+        "ligatures": "formastrikethrough",
         "id": 339,
         "order": 350,
         "prevSize": 24,
         "code": 57926,
-        "name": "format_strikethrough"
+        "name": "formastrikethrough"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27526,19 +27526,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_textdirection_l_to_r"
+          "formatextdirection_l_to_r"
         ],
         "defaultCode": 57927,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_textdirection_l_to_r",
+        "ligatures": "formatextdirection_l_to_r",
         "id": 340,
         "order": 351,
         "prevSize": 24,
         "code": 57927,
-        "name": "format_textdirection_l_to_r"
+        "name": "formatextdirection_l_to_r"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27553,19 +27553,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_textdirection_r_to_l"
+          "formatextdirection_r_to_l"
         ],
         "defaultCode": 57928,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_textdirection_r_to_l",
+        "ligatures": "formatextdirection_r_to_l",
         "id": 341,
         "order": 352,
         "prevSize": 24,
         "code": 57928,
-        "name": "format_textdirection_r_to_l"
+        "name": "formatextdirection_r_to_l"
       },
       "setIdx": 2,
       "setId": 2,
@@ -27580,19 +27580,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "format_underlined"
+          "formaunderlined"
         ],
         "defaultCode": 57929,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "format_underlined",
+        "ligatures": "formaunderlined",
         "id": 342,
         "order": 353,
         "prevSize": 24,
         "code": 57929,
-        "name": "format_underlined"
+        "name": "formaunderlined"
       },
       "setIdx": 2,
       "setId": 2,
@@ -28072,7 +28072,7 @@
       },
       "attrs": [],
       "properties": {
-        "ligatures": "gps_not_fixed, location_searching",
+        "ligatures": "gps_nofixed, location_searching",
         "id": 360,
         "order": 371,
         "prevSize": 24,
@@ -28524,19 +28524,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "headset_mic"
+          "headsemic"
         ],
         "defaultCode": 58129,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "headset_mic",
+        "ligatures": "headsemic",
         "id": 377,
         "order": 388,
         "prevSize": 24,
         "code": 58129,
-        "name": "headset_mic"
+        "name": "headsemic"
       },
       "setIdx": 2,
       "setId": 2,
@@ -28713,19 +28713,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "highlight_off"
+          "highlighoff"
         ],
         "defaultCode": 59528,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "highlight_off",
+        "ligatures": "highlighoff",
         "id": 384,
         "order": 395,
         "prevSize": 24,
         "code": 59528,
-        "name": "highlight_off"
+        "name": "highlighoff"
       },
       "setIdx": 2,
       "setId": 2,
@@ -28794,19 +28794,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "hot_tub"
+          "hotub"
         ],
         "defaultCode": 60230,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "hot_tub",
+        "ligatures": "hotub",
         "id": 387,
         "order": 398,
         "prevSize": 24,
         "code": 60230,
-        "name": "hot_tub"
+        "name": "hotub"
       },
       "setIdx": 2,
       "setId": 2,
@@ -28963,7 +28963,7 @@
       },
       "attrs": [],
       "properties": {
-        "ligatures": "image, insert_photo, photo",
+        "ligatures": "image, inserphoto, photo",
         "id": 393,
         "order": 404,
         "prevSize": 24,
@@ -28983,19 +28983,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "image_aspect_ratio"
+          "image_aspecratio"
         ],
         "defaultCode": 58357,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "image_aspect_ratio",
+        "ligatures": "image_aspecratio",
         "id": 394,
         "order": 405,
         "prevSize": 24,
         "code": 58357,
-        "name": "image_aspect_ratio"
+        "name": "image_aspecratio"
       },
       "setIdx": 2,
       "setId": 2,
@@ -29010,19 +29010,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "import_contacts"
+          "imporcontacts"
         ],
         "defaultCode": 57568,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "import_contacts",
+        "ligatures": "imporcontacts",
         "id": 395,
         "order": 406,
         "prevSize": 24,
         "code": 57568,
-        "name": "import_contacts"
+        "name": "imporcontacts"
       },
       "setIdx": 2,
       "setId": 2,
@@ -29037,19 +29037,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "import_export"
+          "imporexport"
         ],
         "defaultCode": 57539,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "import_export",
+        "ligatures": "imporexport",
         "id": 396,
         "order": 407,
         "prevSize": 24,
         "code": 57539,
-        "name": "import_export"
+        "name": "imporexport"
       },
       "setIdx": 2,
       "setId": 2,
@@ -29064,19 +29064,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "important_devices"
+          "importandevices"
         ],
         "defaultCode": 59666,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "important_devices",
+        "ligatures": "importandevices",
         "id": 397,
         "order": 408,
         "prevSize": 24,
         "code": 59666,
-        "name": "important_devices"
+        "name": "importandevices"
       },
       "setIdx": 2,
       "setId": 2,
@@ -29226,19 +29226,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "insert_comment"
+          "insercomment"
         ],
         "defaultCode": 57932,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "insert_comment",
+        "ligatures": "insercomment",
         "id": 403,
         "order": 414,
         "prevSize": 24,
         "code": 57932,
-        "name": "insert_comment"
+        "name": "insercomment"
       },
       "setIdx": 2,
       "setId": 2,
@@ -29253,19 +29253,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "insert_drive_file"
+          "inserdrive_file"
         ],
         "defaultCode": 57933,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "insert_drive_file",
+        "ligatures": "inserdrive_file",
         "id": 404,
         "order": 415,
         "prevSize": 24,
         "code": 57933,
-        "name": "insert_drive_file"
+        "name": "inserdrive_file"
       },
       "setIdx": 2,
       "setId": 2,
@@ -29287,7 +29287,7 @@
       },
       "attrs": [],
       "properties": {
-        "ligatures": "insert_emoticon, mood, tag_faces",
+        "ligatures": "inseremoticon, mood, tag_faces",
         "id": 405,
         "order": 416,
         "prevSize": 24,
@@ -29314,7 +29314,7 @@
       },
       "attrs": [],
       "properties": {
-        "ligatures": "insert_link, link",
+        "ligatures": "inserlink, link",
         "id": 406,
         "order": 417,
         "prevSize": 24,
@@ -29334,19 +29334,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "invert_colors"
+          "invercolors"
         ],
         "defaultCode": 59537,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "invert_colors",
+        "ligatures": "invercolors",
         "id": 407,
         "order": 418,
         "prevSize": 24,
         "code": 59537,
-        "name": "invert_colors"
+        "name": "invercolors"
       },
       "setIdx": 2,
       "setId": 2,
@@ -29361,19 +29361,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "invert_colors_off"
+          "invercolors_off"
         ],
         "defaultCode": 57540,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "invert_colors_off",
+        "ligatures": "invercolors_off",
         "id": 408,
         "order": 419,
         "prevSize": 24,
         "code": 57540,
-        "name": "invert_colors_off"
+        "name": "invercolors_off"
       },
       "setIdx": 2,
       "setId": 2,
@@ -29901,19 +29901,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "last_page"
+          "laspage"
         ],
         "defaultCode": 58845,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "last_page",
+        "ligatures": "laspage",
         "id": 428,
         "order": 439,
         "prevSize": 24,
         "code": 58845,
-        "name": "last_page"
+        "name": "laspage"
       },
       "setIdx": 2,
       "setId": 2,
@@ -30549,19 +30549,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "restaurant_menu"
+          "restauranmenu"
         ],
         "defaultCode": 58721,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "local_dining, restaurant_menu",
+        "ligatures": "local_dining, restauranmenu",
         "id": 452,
         "order": 463,
         "prevSize": 24,
         "code": 58721,
-        "name": "restaurant_menu"
+        "name": "restauranmenu"
       },
       "setIdx": 2,
       "setId": 2,
@@ -32386,19 +32386,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "next_week"
+          "nexweek"
         ],
         "defaultCode": 57706,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "next_week",
+        "ligatures": "nexweek",
         "id": 520,
         "order": 531,
         "prevSize": 24,
         "code": 57706,
-        "name": "next_week"
+        "name": "nexweek"
       },
       "setIdx": 2,
       "setId": 2,
@@ -33196,19 +33196,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "perm_contact_calendar"
+          "perm_contaccalendar"
         ],
         "defaultCode": 59555,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "perm_contact_calendar",
+        "ligatures": "perm_contaccalendar",
         "id": 550,
         "order": 561,
         "prevSize": 24,
         "code": 59555,
-        "name": "perm_contact_calendar"
+        "name": "perm_contaccalendar"
       },
       "setIdx": 2,
       "setId": 2,
@@ -33952,19 +33952,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "photo_size_select_actual"
+          "photo_size_selecactual"
         ],
         "defaultCode": 58418,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "photo_size_select_actual",
+        "ligatures": "photo_size_selecactual",
         "id": 578,
         "order": 589,
         "prevSize": 24,
         "code": 58418,
-        "name": "photo_size_select_actual"
+        "name": "photo_size_selecactual"
       },
       "setIdx": 2,
       "setId": 2,
@@ -33979,19 +33979,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "photo_size_select_large"
+          "photo_size_seleclarge"
         ],
         "defaultCode": 58419,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "photo_size_select_large",
+        "ligatures": "photo_size_seleclarge",
         "id": 579,
         "order": 590,
         "prevSize": 24,
         "code": 58419,
-        "name": "photo_size_select_large"
+        "name": "photo_size_seleclarge"
       },
       "setIdx": 2,
       "setId": 2,
@@ -34006,19 +34006,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "photo_size_select_small"
+          "photo_size_selecsmall"
         ],
         "defaultCode": 58420,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "photo_size_select_small",
+        "ligatures": "photo_size_selecsmall",
         "id": 580,
         "order": 591,
         "prevSize": 24,
         "code": 58420,
-        "name": "photo_size_select_small"
+        "name": "photo_size_selecsmall"
       },
       "setIdx": 2,
       "setId": 2,
@@ -34141,19 +34141,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "pie_chart_outlined"
+          "pie_charoutlined"
         ],
         "defaultCode": 59077,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "pie_chart_outlined",
+        "ligatures": "pie_charoutlined",
         "id": 585,
         "order": 596,
         "prevSize": 24,
         "code": 59077,
-        "name": "pie_chart_outlined"
+        "name": "pie_charoutlined"
       },
       "setIdx": 2,
       "setId": 2,
@@ -34303,19 +34303,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "playlist_add"
+          "playlisadd"
         ],
         "defaultCode": 57403,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "playlist_add",
+        "ligatures": "playlisadd",
         "id": 591,
         "order": 602,
         "prevSize": 24,
         "code": 57403,
-        "name": "playlist_add"
+        "name": "playlisadd"
       },
       "setIdx": 2,
       "setId": 2,
@@ -34330,19 +34330,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "playlist_add_check"
+          "playlisadd_check"
         ],
         "defaultCode": 57445,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "playlist_add_check",
+        "ligatures": "playlisadd_check",
         "id": 592,
         "order": 603,
         "prevSize": 24,
         "code": 57445,
-        "name": "playlist_add_check"
+        "name": "playlisadd_check"
       },
       "setIdx": 2,
       "setId": 2,
@@ -34357,19 +34357,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "playlist_play"
+          "playlisplay"
         ],
         "defaultCode": 57439,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "playlist_play",
+        "ligatures": "playlisplay",
         "id": 593,
         "order": 604,
         "prevSize": 24,
         "code": 57439,
-        "name": "playlist_play"
+        "name": "playlisplay"
       },
       "setIdx": 2,
       "setId": 2,
@@ -34600,19 +34600,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "pregnant_woman"
+          "pregnanwoman"
         ],
         "defaultCode": 59678,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "pregnant_woman",
+        "ligatures": "pregnanwoman",
         "id": 602,
         "order": 613,
         "prevSize": 24,
         "code": 59678,
-        "name": "pregnant_woman"
+        "name": "pregnanwoman"
       },
       "setIdx": 2,
       "setId": 2,
@@ -34627,19 +34627,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "present_to_all"
+          "presento_all"
         ],
         "defaultCode": 57567,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "present_to_all",
+        "ligatures": "presento_all",
         "id": 603,
         "order": 614,
         "prevSize": 24,
         "code": 57567,
-        "name": "present_to_all"
+        "name": "presento_all"
       },
       "setIdx": 2,
       "setId": 2,
@@ -34897,19 +34897,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "recent_actors"
+          "recenactors"
         ],
         "defaultCode": 57407,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "recent_actors",
+        "ligatures": "recenactors",
         "id": 613,
         "order": 624,
         "prevSize": 24,
         "code": 57407,
-        "name": "recent_actors"
+        "name": "recenactors"
       },
       "setIdx": 2,
       "setId": 2,
@@ -35194,19 +35194,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "repeat_one"
+          "repeaone"
         ],
         "defaultCode": 57409,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "repeat_one",
+        "ligatures": "repeaone",
         "id": 624,
         "order": 635,
         "prevSize": 24,
         "code": 57409,
-        "name": "repeat_one"
+        "name": "repeaone"
       },
       "setIdx": 2,
       "setId": 2,
@@ -35417,7 +35417,7 @@
       },
       "attrs": [],
       "properties": {
-        "ligatures": "report_problem, warning",
+        "ligatures": "reporproblem, warning",
         "id": 632,
         "order": 643,
         "prevSize": 24,
@@ -36085,19 +36085,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "select_all"
+          "selecall"
         ],
         "defaultCode": 57698,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "select_all",
+        "ligatures": "selecall",
         "id": 657,
         "order": 668,
         "prevSize": 24,
         "code": 57698,
-        "name": "select_all"
+        "name": "selecall"
       },
       "setIdx": 2,
       "setId": 2,
@@ -36139,19 +36139,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "sentiment_dissatisfied"
+          "sentimendissatisfied"
         ],
         "defaultCode": 59409,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "sentiment_dissatisfied",
+        "ligatures": "sentimendissatisfied",
         "id": 659,
         "order": 670,
         "prevSize": 24,
         "code": 59409,
-        "name": "sentiment_dissatisfied"
+        "name": "sentimendissatisfied"
       },
       "setIdx": 2,
       "setId": 2,
@@ -36166,19 +36166,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "sentiment_neutral"
+          "sentimenneutral"
         ],
         "defaultCode": 59410,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "sentiment_neutral",
+        "ligatures": "sentimenneutral",
         "id": 660,
         "order": 671,
         "prevSize": 24,
         "code": 59410,
-        "name": "sentiment_neutral"
+        "name": "sentimenneutral"
       },
       "setIdx": 2,
       "setId": 2,
@@ -36193,19 +36193,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "sentiment_satisfied"
+          "sentimensatisfied"
         ],
         "defaultCode": 59411,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "sentiment_satisfied",
+        "ligatures": "sentimensatisfied",
         "id": 661,
         "order": 672,
         "prevSize": 24,
         "code": 59411,
-        "name": "sentiment_satisfied"
+        "name": "sentimensatisfied"
       },
       "setIdx": 2,
       "setId": 2,
@@ -36220,19 +36220,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "sentiment_very_dissatisfied"
+          "sentimenvery_dissatisfied"
         ],
         "defaultCode": 59412,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "sentiment_very_dissatisfied",
+        "ligatures": "sentimenvery_dissatisfied",
         "id": 662,
         "order": 673,
         "prevSize": 24,
         "code": 59412,
-        "name": "sentiment_very_dissatisfied"
+        "name": "sentimenvery_dissatisfied"
       },
       "setIdx": 2,
       "setId": 2,
@@ -36247,19 +36247,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "sentiment_very_satisfied"
+          "sentimenvery_satisfied"
         ],
         "defaultCode": 59413,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "sentiment_very_satisfied",
+        "ligatures": "sentimenvery_satisfied",
         "id": 663,
         "order": 674,
         "prevSize": 24,
         "code": 59413,
-        "name": "sentiment_very_satisfied"
+        "name": "sentimenvery_satisfied"
       },
       "setIdx": 2,
       "setId": 2,
@@ -36463,19 +36463,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "settings_input_antenna"
+          "settings_inpuantenna"
         ],
         "defaultCode": 59583,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "settings_input_antenna",
+        "ligatures": "settings_inpuantenna",
         "id": 671,
         "order": 682,
         "prevSize": 24,
         "code": 59583,
-        "name": "settings_input_antenna"
+        "name": "settings_inpuantenna"
       },
       "setIdx": 2,
       "setId": 2,
@@ -36490,19 +36490,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "settings_input_composite"
+          "settings_inpucomposite"
         ],
         "defaultCode": 59585,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "settings_input_component, settings_input_composite",
+        "ligatures": "settings_inpucomponent, settings_inpucomposite",
         "id": 672,
         "order": 683,
         "prevSize": 24,
         "code": 59585,
-        "name": "settings_input_composite"
+        "name": "settings_inpucomposite"
       },
       "setIdx": 2,
       "setId": 2,
@@ -36517,19 +36517,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "settings_input_hdmi"
+          "settings_inpuhdmi"
         ],
         "defaultCode": 59586,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "settings_input_hdmi",
+        "ligatures": "settings_inpuhdmi",
         "id": 673,
         "order": 684,
         "prevSize": 24,
         "code": 59586,
-        "name": "settings_input_hdmi"
+        "name": "settings_inpuhdmi"
       },
       "setIdx": 2,
       "setId": 2,
@@ -36544,19 +36544,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "settings_input_svideo"
+          "settings_inpusvideo"
         ],
         "defaultCode": 59587,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "settings_input_svideo",
+        "ligatures": "settings_inpusvideo",
         "id": 674,
         "order": 685,
         "prevSize": 24,
         "code": 59587,
-        "name": "settings_input_svideo"
+        "name": "settings_inpusvideo"
       },
       "setIdx": 2,
       "setId": 2,
@@ -36841,19 +36841,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "short_text"
+          "shortext"
         ],
         "defaultCode": 57953,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "short_text",
+        "ligatures": "shortext",
         "id": 685,
         "order": 696,
         "prevSize": 24,
         "code": 57953,
-        "name": "short_text"
+        "name": "shortext"
       },
       "setIdx": 2,
       "setId": 2,
@@ -36949,19 +36949,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "signal_cellular_connected_no_internet_4_bar"
+          "signal_cellular_connected_no_interne4_bar"
         ],
         "defaultCode": 57805,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "signal_cellular_connected_no_internet_4_bar",
+        "ligatures": "signal_cellular_connected_no_interne4_bar",
         "id": 689,
         "order": 700,
         "prevSize": 24,
         "code": 57805,
-        "name": "signal_cellular_connected_no_internet_4_bar"
+        "name": "signal_cellular_connected_no_interne4_bar"
       },
       "setIdx": 2,
       "setId": 2,
@@ -37280,7 +37280,7 @@
       },
       "attrs": [],
       "properties": {
-        "ligatures": "smartphone, stay_current_portrait, stay_primary_portrait",
+        "ligatures": "smartphone, stay_currenportrait, stay_primary_portrait",
         "id": 701,
         "order": 712,
         "prevSize": 24,
@@ -37435,19 +37435,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "sort_by_alpha"
+          "sorby_alpha"
         ],
         "defaultCode": 57427,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "sort_by_alpha",
+        "ligatures": "sorby_alpha",
         "id": 707,
         "order": 718,
         "prevSize": 24,
         "code": 57427,
-        "name": "sort_by_alpha"
+        "name": "sorby_alpha"
       },
       "setIdx": 2,
       "setId": 2,
@@ -37766,7 +37766,7 @@
       },
       "attrs": [],
       "properties": {
-        "ligatures": "stay_current_landscape, stay_primary_landscape",
+        "ligatures": "stay_currenlandscape, stay_primary_landscape",
         "id": 719,
         "order": 730,
         "prevSize": 24,
@@ -38569,19 +38569,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "tablet_android"
+          "tableandroid"
         ],
         "defaultCode": 58160,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "tablet_android",
+        "ligatures": "tableandroid",
         "id": 749,
         "order": 760,
         "prevSize": 24,
         "code": 58160,
-        "name": "tablet_android"
+        "name": "tableandroid"
       },
       "setIdx": 2,
       "setId": 2,
@@ -38596,19 +38596,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "tablet_mac"
+          "tablemac"
         ],
         "defaultCode": 58161,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "tablet_mac",
+        "ligatures": "tablemac",
         "id": 750,
         "order": 761,
         "prevSize": 24,
         "code": 58161,
-        "name": "tablet_mac"
+        "name": "tablemac"
       },
       "setIdx": 2,
       "setId": 2,
@@ -38650,19 +38650,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "text_fields"
+          "texfields"
         ],
         "defaultCode": 57954,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "text_fields",
+        "ligatures": "texfields",
         "id": 752,
         "order": 763,
         "prevSize": 24,
         "code": 57954,
-        "name": "text_fields"
+        "name": "texfields"
       },
       "setIdx": 2,
       "setId": 2,
@@ -38677,19 +38677,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "text_format"
+          "texformat"
         ],
         "defaultCode": 57701,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "text_format",
+        "ligatures": "texformat",
         "id": 753,
         "order": 764,
         "prevSize": 24,
         "code": 57701,
-        "name": "text_format"
+        "name": "texformat"
       },
       "setIdx": 2,
       "setId": 2,
@@ -41134,19 +41134,19 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "tags": [
-          "zoom_out_map"
+          "zoom_oumap"
         ],
         "defaultCode": 58731,
         "grid": 24
       },
       "attrs": [],
       "properties": {
-        "ligatures": "zoom_out_map",
+        "ligatures": "zoom_oumap",
         "id": 844,
         "order": 855,
         "prevSize": 24,
         "code": 58731,
-        "name": "zoom_out_map"
+        "name": "zoom_oumap"
       },
       "setIdx": 2,
       "setId": 2,

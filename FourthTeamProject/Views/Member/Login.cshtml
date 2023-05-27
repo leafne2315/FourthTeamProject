@@ -1,0 +1,178 @@
+﻿<main class="form-signin h-100 w-100 m-auto text-center">
+    @{
+        if (ViewBag.Error != "")
+        {
+            <h3 n" style="margin-block-end :0px">@ViewBag.Error</h3>
+        }
+
+    }
+
+    
+    <section style="background-color: #6998AB;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+
+                            <!-- Pills navs -->
+                            <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" id="tab-login" data-toggle="pill" href="#pills-login" role="tab"
+                                       aria-controls="pills-login" aria-selected="true">登入</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" id="tab-register" data-toggle="pill" href="#pills-register" role="tab"
+                                       aria-controls="pills-register" aria-selected="false">註冊</a>
+                                </li>
+                            </ul>
+                            <!-- Pills navs -->
+                            <!-- Pills content -->
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+                                    <form action="/Member/Login" method="post">
+                                        <div class="text-center mb-3">
+                                            <p>第三方登入：</p>
+                                            <button type="button" class="btn btn-link btn-floating mx-1">
+                                                <i class="icon-facebook"><a href=""></a></i>
+                                            </button>
+
+                                            <button type="button" class="btn btn-link btn-floating mx-1">
+                                                <i class="icon-google"><a href=""></a></i>
+                                            </button>
+                                        </div>
+
+                                        <p class="text-center">已有帳號：</p>
+
+                                        <!-- Email input -->
+                                        <div class="form-group">
+                                            <input type="text" id="loginName" name="MemberAccount" class="form-control" placeholder="請輸入帳號" />
+                                            <label class="form-control-placeholder" for="loginName">帳號</label>
+                                        </div>
+
+                                        <!-- Password input -->
+                                        <div class="form-group">
+                                            <input type="password" id="loginPassword" name="MemberPassword" class="form-control" placeholder="請輸入密碼" />
+                                            <label class="form-control-placeholder" for="loginPassword">密碼</label>
+                                        </div>
+
+                                        <!-- 2 column grid layout -->
+                                        <div class="form-row mb-4">
+                                            <div class="col-md-6">
+                                                <!-- Checkbox -->
+                                                <div class="form-check mb-3 mb-md-0">
+                                                    <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
+                                                    <label class="form-check-label" for="loginCheck"> 記住我 </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6 text-md-right">
+                                                <!-- Simple link -->
+                                                <a asp-controller="Member" asp-action="ForgetPassword" class="text-decoration-none">忘記密碼？</a>
+                                            </div>
+                                        </div>
+
+                                        <!-- Submit button -->
+                                        <button type="submit" class="btn btn-primary btn-block mb-4">登入</button>
+
+                                        <!-- Register buttons -->
+                                        <div class="text-center">
+                                            <p>還不是會員？<a href="#!" class="text-decoration-none">註冊會員</a></p>
+                                        </div>
+                                    </form>
+
+
+                                </div>
+                                <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
+
+                                    <!-- Register form -->
+                                    <form action="/Member/Register" method="post">
+                                        <div class="text-center mb-3">
+                                            <p>第三方註冊：</p>
+                                            <button type="button" class="btn btn-link btn-floating mx-1">
+                                                <i class="icon-facebook"><a href=""></a></i>
+                                            </button>
+
+                                            <button type="button" class="btn btn-link btn-floating mx-1">
+                                                <i class="icon-google"><a href=""></a></i>
+                                            </button>
+                                        </div>
+
+                                        <p class="text-center">一般註冊：</p>
+
+                                        <!-- Name input -->
+                                        <div class="form-group">
+                                            <input type="text" id="exampleInputEmail" class="form-control" id="exampleInputEmail"
+                                                   placeholder="" name="c_MemberName">
+                                            <label class="form-control-placeholder" for="registerName">姓名</label>
+                                        </div>
+                                      
+
+                                        <!-- Username input -->
+                                        <div class="form-group">
+                                            <input type="text" id="Account" class="form-control" placeholder="" name="c_MemberAccount">
+                                            <label class="form-control-placeholder" for="Account">帳號</label>
+                                        </div>
+                                 
+
+                                        <!-- Email input -->
+                                        <div class="form-group">
+                                            <input type="password" id="Password" class="form-control" placeholder="" name="c_MemberPassword">
+                                            <label class="form-control-placeholder" for="Password">密碼</label>
+                                        </div>
+
+                                    
+                                        <!-- Password input -->
+
+                                        <div class="form-group">
+                                            <input type="email" id="Email" class="form-control" placeholder="" name="c_MemberEmail">
+                                            <label class="form-control-placeholder" for="Email">信箱</label>
+                                        </div>
+
+                                    
+
+                                        <!-- Repeat Password input -->
+
+
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user" id="exampleLastName"
+                                                   placeholder="" name="c_MemberPhone">
+                                            <label class="form-control-placeholder" for="Phone">手機</label>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <select id="gender" name="c_MemberGender">
+                                                <label class="form-control-placeholder" for="registerRepeatPassword">性別</label>
+                                                <option value="male">男</option>
+                                                <option value="female">女</option>
+                                            </select>
+                                        </div>
+
+
+                              
+
+                                        <!-- Checkbox -->
+                                        <div class="form-check d-flex mb-4">
+                                            <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
+                                                   aria-describedby="registerCheckHelpText" />
+                                            <label class="form-check-label" for="registerCheck">
+                                                我同意
+                                            </label>
+                                        </div>
+
+                                        <!-- Submit button -->
+                                        <button class="w-100 btn btn-lg btn-primary" type="submit">註冊</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Pills content -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+</main>

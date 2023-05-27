@@ -1,64 +1,76 @@
-﻿<div class="containershop">
-	<section class="left">
-		<div class="col-xl-3 col-lg-4 col-md-7">
-			<div class="sidebar-box-style2">
-				<!--Start Single Sidebar style2-->
-				<div class="single-sidebar-style2">
-					<div class="title">
-						<h4>寵物類型</h4>
-					</div>
-					<ul class="filter-checkbox">
-						<li>
-							<div class="single-checkbox">
-								<input type="checkbox" id="all" checked>
-								<label for="all"><span></span>All</label>
-							</div>
-						</li>
-						<li>
-							<div class="single-checkbox">
-								<input type="checkbox" id="dog">
-								<label for="dog"><span></span>Dogs</label>
-							</div>
-						</li>
-						<li>
-							<div class="single-checkbox">
-								<input type="checkbox" id="cat">
-								<label for="cat"><span></span>Cats</label>
-							</div>
-						</li>
-					</ul>
+﻿<div class="container-fluid">
+	<div class="row">
+		<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-body-tertiary sidebar collapse">
+			<div class="position-sticky pt-3 sidebar-sticky">
+				<ul class="nav flex-column">
+					<li class="nav-item">
+						<a class="nav-link" id="tab-material" data-toggle="pill" href="#pills-material" role="tab"
+						   aria-controls="pills-material" aria-selected="true">個人資料</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="tab-security" data-toggle="pill" href="#pills-security" role="tab"
+						   aria-controls="pills-security" aria-selected="false">安全中心</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="tab-Welfare" data-toggle="pill" href="#pills-Welfare" role="tab"
+						   aria-controls="pills-Welfare" aria-selected="false">會員福利</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="tab-login" data-toggle="pill" href="#" role="tab"
+						   aria-controls="pills-login" aria-selected="false">訂單管理</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="tab-login" data-toggle="pill" href="" role="tab"
+						   aria-controls="pills-login" aria-selected="false">寵物資料</a>
+					</li>
 
-					<div class="title">
-						<h4>商品類型</h4>
-					</div>
-					<ul class="filter-checkbox">
-						<li>
-							<div class="single-checkbox">
-								<input type="checkbox" id="allP" checked>
-								<label for="allP"><span></span>All</label>
-							</div>
-						</li>
-						<li>
-							<div class="single-checkbox">
-								<input type="checkbox" id="food">
-								<label for="food"><span></span>Food</label>
-							</div>
-						</li>
-						<li>
-							<div class="single-checkbox">
-								<input type="checkbox" id="item">
-								<label for="item"><span></span>Items</label>
-							</div>
-						</li>
-						<li>
-							<div class="single-checkbox">
-								<input type="checkbox" id="health">
-								<label for="health"><span></span>HealthCare</label>
-							</div>
-						</li>
-					</ul>
-				</div>
+				</ul>
 			</div>
-		</div>
-		<!--End Single Sidebar style2-->
-	</section>
+		</nav>
+
+		<main class=" card-body col-md-9 ms-sm-auto col-lg-10 px-md-4">
+			<div class="container">
+				
+					<div class="tab-pane fade show active col stacked-sm " id="pills-material" role="tabpanel" aria-labelledby="tab-material">
+						<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+							<h1 class="h2">會員資料</h1>
+						</div>
+
+						<div class="form-group">
+							<label for="name">姓名：</label>
+							<input type="text" id="name" class="form-control" readonly />
+						</div>
+						<div class="form-group">
+							<label for="email">電子郵件：</label>
+							<input type="email" id="email" class="form-control" readonly />
+						</div>
+						<div class="form-group">
+							<label for="address">地址：</label>
+							<input type="text" id="address" class="form-control" readonly />
+						</div>
+					</div>
+					<div class="tab-pane fade col stacked-sm " id="pills-security" role="tabpanel" aria-labelledby="tab-security">
+						<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+							<h1 class="h2">安全中心</h1>
+						</div>
+						<div class="form-group">
+							<label for="password">密碼：</label>
+							<input type="password" id="password" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label for="securityQuestions">安全問題：</label>
+							<!-- 安全問題相關的表單元素 -->
+						</div>
+						<button class="btn btn-primary" onclick="saveSecuritySettings()">儲存</button>
+					</div>
+					<div class="tab-pane fade col stacked-sm" id="pills-Welfare" role="tabpanel" aria-labelledby="tab-Welfare">
+						<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+							<h1 class="h2">福利</h1>
+						</div>
+					</div>
+				
+			</div>
+
+		</main>
+	</div>
+</div>

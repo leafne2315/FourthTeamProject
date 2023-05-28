@@ -1,4 +1,4 @@
-﻿namespace FourthTeamProject.Models
+﻿namespace FourthTeamProject.Models.ViewModel
 {
     public class ForgetpasswordViewModel
     {

@@ -17,6 +17,19 @@ namespace FourthTeamProject.Controllers.API
             _context = context;
         }
         
+    //    public async Task<IEnumerable<SalonViewModel>> GetDogSalon()
+    //    {
+    //        var temp = _context.Salon.Include(x => x.SalonCatagory).Where(x => x.SalonCatagoryName == "狗狗")
+    //            .Select(joinresult => new SalonViewModel
+    //            {
+				//	SalonCatagoryName = joinresult.SalonCatagoryName,
+				//	SalonName = joinresult.Salon.SalonName,
+				//	SalonImagePath = joinresult.Salon.SalonImagePath,
+				//	SalonId = joinresult.Salon.SalonId,
+				//});
+    //    }
+
+
         public async Task<IEnumerable<SalonViewModel>> GetPetSalon()
         {
             var temp = _context.Salon.Include(x => x.SalonCatagory)
@@ -36,42 +49,64 @@ namespace FourthTeamProject.Controllers.API
             return await temp.ToArrayAsync();
         }
 
-
-
-
-
         [HttpPut("{id}")]
-        public async Task<string> PutPetSalon(int id, [FromBody] SalonViewModel SalonDTO)
-        {
-            if (id != SalonDTO.SalonSolutionId)
-            {
-                return "無此商品編號";
-            }
-            SalonSolution emp = await _context.SalonSolution.FindAsync(id);
-            emp.SalonSolutionId = SalonDTO.SalonSolutionId;
-            emp.SalonSolutionName = SalonDTO.SalonSolutionName;
-            emp.SalonSolutionDiscription = SalonDTO.SalonSolutionDiscription;
-            emp.SalonSolutionPrice = SalonDTO.SalonSolutionPrice;
-            _context.Entry(emp).State = EntityState.Modified;
+        public async Task<IActionResult> UploadImage([FromBody] SalonViewModel data)
+        {           
+            //string salonId = data.SalonId.ToString();
+            //string salonCatagoryName = data.SalonCatagoryName;
+            //string salonName = data.SalonName;
+            //string fileName = $"{salonCatagoryName}_{salonName}";
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SalonSolutionExists(id))
-                {
-                    return "修改失敗";
-                }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return "修改成功";
+            //string filePath = Path.Combine("wwwroot", "Salonimage", fileName);
+
+            //using (var stream = new FileStream(filePath, FileMode.Create))
+            //{
+            //    await data.SalonImagePath.CopyToAsync(stream);
+            //}
+
+
+
+
+            return Ok();
+
         }
+
+
+
+
+        //[HttpPut("{id}")]
+        //public async Task<string> PutPetSalon(int id, [FromBody] SalonViewModel SalonDTO)
+        //{
+        //    if (id != SalonDTO.SalonSolutionId)
+        //    {
+        //        return "無此商品編號";
+        //    }
+        //    SalonSolution emp = await _context.SalonSolution.FindAsync(id);
+        //    emp.SalonSolutionId = SalonDTO.SalonSolutionId;
+        //    emp.SalonSolutionName = SalonDTO.SalonSolutionName;
+        //    emp.SalonSolutionDiscription = SalonDTO.SalonSolutionDiscription;
+        //    emp.SalonSolutionPrice = SalonDTO.SalonSolutionPrice;
+        //    _context.Entry(emp).State = EntityState.Modified;
+
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!SalonSolutionExists(id))
+        //        {
+        //            return "修改失敗";
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+
+        //    return "修改成功";
+        //}
 
         private bool SalonSolutionExists(int id)
         {

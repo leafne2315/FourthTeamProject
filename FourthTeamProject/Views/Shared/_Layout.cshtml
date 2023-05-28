@@ -23,8 +23,6 @@
     <link rel="stylesheet" href="~/css/daterangepicker.css">
     <link rel="stylesheet" href="~/css/aos.css">
     <link rel="stylesheet" href="~/css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <style>
         #top{
@@ -61,15 +59,7 @@
 
                     <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
                         <li class="active"><a asp-controller="Home" asp-action="Index">首頁</a></li>
-                        <li class="has-children">
-                            <a asp-controller="Product" asp-action="Index">寵物商城</a>
-                            <ul class="dropdown">
-                                <li><a asp-controller="" asp-action="">狗狗食品</a></li>
-                                <li><a asp-controller="" asp-action="">貓咪食品</a></li>
-                                <li><a asp-controller="" asp-action="">寵物玩具</a></li>
-                                <li><a asp-controller="" asp-action="">寵物保健</a></li>
-                            </ul>
-                        </li>
+                        <a asp-controller="Product" asp-action="Index" style="color: #ffffffB3">寵物商城</a>
                         <li class="has-children">
                             <a asp-controller="PetHotel" asp-action="Index">寵物旅館</a>
                             <ul class="dropdown">
@@ -78,10 +68,11 @@
                             </ul>
                         </li>
                         <li class="has-children">
-                            <a asp-controller="PetSalon" asp-action="Index">寵物美容</a>
+                            <a asp-controller="PetSalon" asp-action="SalonIndex">寵物美容</a>
                             <ul class="dropdown">
-                                <li><a asp-controller="" asp-action="">服務項目</a></li>
-                                <li><a asp-controller="" asp-action="">預約時間</a></li>
+                                <li><a asp-controller="PetSalon" asp-action="Index">調整寵物美容後端</a></li>
+                                <li><a asp-controller="PetSalon" asp-action="DogSalon">狗狗美容</a></li>
+                                <li><a asp-controller="" asp-action="">貓咪美容</a></li>
                             </ul>
                         </li>
                         <li class="has-children">

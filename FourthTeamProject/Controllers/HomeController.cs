@@ -1,4 +1,5 @@
 ﻿using FourthTeamProject.Models;
+using FourthTeamProject.Models.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;

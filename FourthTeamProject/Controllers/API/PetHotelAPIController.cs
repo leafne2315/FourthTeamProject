@@ -38,10 +38,25 @@ namespace FourthTeamProject.Controllers.API
             return Ok(petHotelList);
         }
 
+        
+        [HttpGet("HotelDetail/{hotelId}")]
+        public IActionResult RoomDetail(int hotelId)
+        {
+            var petHotelDB = petHeavenDb.Hotel.Include(h => h.HotelCatagory).ToList();
+            var roomDatas = petHotelDB.Where(h => h.HotelId == hotelId).Select(data => new PetHotelViewModel()
+            {
+                ID = data.HotelId,
+                CatagoryID = data.HotelCatagoryId,
+                HotelName = data.HotelName,
+                UnitPrice = data.UnitPrice,
+                HotelContent = data.HotelContent,
+                HotelContentDetail = data.HotelContentDetail,
+                HotelImage = data.HotelImage,
+                HotelTypeName = data.HotelCatagory.HotelCatagoryName,
+            });
 
-        //public IActionResult getRoomDataById(int roomId)
-        //{
-
-        //}
+            var HotelSelected = roomDatas.FirstOrDefault();
+            return Ok(HotelSelected);
+        }
     }
 }

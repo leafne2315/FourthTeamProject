@@ -57,7 +57,9 @@
         }
 
 
-
+        .room{
+            background-size:cover;
+        }
         .overlay {
             position: absolute;
             top: 0;
@@ -159,9 +161,13 @@
 
     <div id="hotelShow">
         <div class="row">
-            <div v-for="roomData in tempDogHotelData" class="room col-12 col-sm-6 col-lg-4 px-0" :style="{ 'background-image': `url(${roomData.hotelImage})` }">
+            <div v-for="roomData in tempDogHotelData" class="room col-12 col-sm-6 col-lg-4 px-0" 
+                :style="{ 'background-image': `url(${roomData.hotelImage})` }"
+                 v-on:click="showHotelDetail(roomData.hotelID)">
                 <div style="height:400px ;">
                     @*
+                    v-on:click="showHotelDetail(${roomData.hotelID})"
+
                     <div style="height:300px"></div>
                     <div class="ml-5 mt-3" style="color:white">
                     <h2 class="mb-0">標準房</h2>
@@ -194,7 +200,11 @@
                     <div class="ml-5 mt-3" style="color:white">
                     <h2 class="mb-0">標準房</h2>
                     </div>
+                    
+                    
+                    <button v-on:click="goToDetailPage(hotel.id)">詳細</button>
                     *@
+                    
                 </div>
                 <div class="roomTitle">
                     {{roomData.roomName}}
@@ -269,19 +279,21 @@
         el: '#app',
         data: {
             petHotelDatas: [],
-            test: 201,
             tempDogHotelData: [
                 {
                     hotelImage: 'https://img.freepik.com/free-photo/close-up-beautiful-dachshund-eating_23-2149202513.jpg',
                     roomName: '標準房',
+                    hotelID: 1,
                 },
                 {
                     hotelImage: 'https://img.freepik.com/free-photo/closeup-shot-adorable-small-golden-retriever-pup-lying-purple-carpet-with-blue-toy_181624-32890.jpg',
                     roomName: 'Vip房',
+                    hotelID: 2,
                 },
                 {
                     hotelImage: 'https://img.freepik.com/free-photo/beagle-dog-living-room-waiting-his-owner_640221-454.jpg',
-                    roomName: '尊貴房'
+                    roomName: '尊貴房',
+                    hotelID: 3,
                 }
             ]
         },
@@ -296,6 +308,12 @@
                     self.petHotelDatas = response.data; // Store the fetched data in the component's data property
                 })
                 console.log('getData');
+            },
+            showHotelDetail:function(hotelId){
+                const url = `/PetHotel/HotelDetail/${hotelId}`;
+
+                // Navigate to the detail page using window.location.href
+                window.location.href = url;
             }
         }
     })

@@ -1,0 +1,59 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div id="app">
+    <h1>PetHotelDetailData</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>PetHotelId</th>
+                <th>HotelCatagoryId</th>
+                <th>HotelName</th>
+                <th>UnitPrice</th>
+                <th>HotelContent</th>
+                <th>HotelContentDetail</th>
+                <th>HotelImageString</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{HotelData.id}}</td>
+                <td>{{HotelData.catagoryID}}</td>
+                <td>{{HotelData.hotelName}}</td>
+                <td>{{HotelData.unitPrice}}</td>
+                <td>{{HotelData.hotelContent}}</td>
+                <td>{{HotelData.hotelContentDetail}}</td>
+                <td>{{HotelData.hotelImage}}</td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    let app = new Vue({
+        el: '#app',
+        data: {
+            HotelData:{},
+            hotelId:1,
+        },
+        mounted: function () {
+            this.getData();
+            console.log('mounted')
+        },
+        methods: {
+            getData: function () {
+                let self = this;
+                var test = axios.get(`/api/PetHotelAPI/HotelDetail/${this.hotelId}`).then(response => {
+                    self.HotelData = response.data; // Store the fetched data in the component's data property
+                })
+                console.log('getData');
+            }
+        }
+
+    })
+</script>

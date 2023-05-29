@@ -16,35 +16,31 @@ namespace FourthTeamProject.Controllers.API
         {
             _context = context;
         }
-        
-    //    public async Task<IEnumerable<SalonViewModel>> GetDogSalon()
-    //    {
-    //        var temp = _context.Salon.Include(x => x.SalonCatagory).Where(x => x.SalonCatagoryName == "狗狗")
-    //            .Select(joinresult => new SalonViewModel
-    //            {
-				//	SalonCatagoryName = joinresult.SalonCatagoryName,
-				//	SalonName = joinresult.Salon.SalonName,
-				//	SalonImagePath = joinresult.Salon.SalonImagePath,
-				//	SalonId = joinresult.Salon.SalonId,
-				//});
-    //    }
 
-
-        public async Task<IEnumerable<SalonViewModel>> GetPetSalon()
+        public async Task<IEnumerable<SalonViewModel>> GetSalonSolution()
         {
-            var temp = _context.Salon.Include(x => x.SalonCatagory)
-                //.Join(_context.SalonSolution, Salon => Salon.SalonId, SalonSolution => SalonSolution.SalonSolutionId, (Salon, SalonSolution)
-                //=> new { Salon = Salon, SalonSolution = SalonSolution })
-                .Select(joinresult => new SalonViewModel
+            var temp = _context.SalonSolution.Select(option => new SalonViewModel
                 {
-                    SalonCatagoryName = joinresult.SalonCatagory.SalonCatagoryName,
-                    //SalonSolutionId = joinresult.SalonSolution.SalonSolutionId,
-                    //SalonSolutionName = joinresult.SalonSolution.SalonSolutionName,
-                    //SalonSolutionDiscription = joinresult.SalonSolution.SalonSolutionDiscription,
-                    //SalonSolutionPrice = joinresult.SalonSolution.SalonSolutionPrice,
-                    SalonName = joinresult.SalonName,
-                    SalonImagePath = joinresult.SalonImagePath,
-                    SalonId = joinresult.SalonId,
+                    SalonSolutionId=option.SalonSolutionId,
+                    SalonSolutionName = option.SalonSolutionName,
+                    SalonSolutionDiscription = option.SalonSolutionDiscription,
+                    SalonSolutionPrice = option.SalonSolutionPrice,
+                });
+            return await temp.ToArrayAsync();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IEnumerable<SalonViewModel>> GetSalon( SalonViewModel SalonSolutionId)
+        {
+            var temp = _context.SalonSolution
+                .Join(_context.SalonSolutionSalon, a => a.SalonSolutionId, ab => ab.SalonSolutionId, (a, ab)=> new { SalonSolution = a, SalonSolutionSalon = ab })
+                .Join(_context.Salon, ab => ab.SalonSolutionSalon.SalonId,b => b.SalonId,(ab, b) => new { SalonSolution = ab.SalonSolution, Salon = b })         
+                .Select(option => new SalonViewModel
+                {
+                    SalonId=option.Salon.SalonId,
+                    SalonCatagoryName = option.Salon.SalonCatagory.SalonCatagoryName,
+                    SalonName = option.Salon.SalonName,
+                    SalonImagePath = option.Salon.SalonImagePath,
                 });
             return await temp.ToArrayAsync();
         }
@@ -75,38 +71,38 @@ namespace FourthTeamProject.Controllers.API
 
 
 
-        //[HttpPut("{id}")]
-        //public async Task<string> PutPetSalon(int id, [FromBody] SalonViewModel SalonDTO)
-        //{
-        //    if (id != SalonDTO.SalonSolutionId)
-        //    {
-        //        return "無此商品編號";
-        //    }
-        //    SalonSolution emp = await _context.SalonSolution.FindAsync(id);
-        //    emp.SalonSolutionId = SalonDTO.SalonSolutionId;
-        //    emp.SalonSolutionName = SalonDTO.SalonSolutionName;
-        //    emp.SalonSolutionDiscription = SalonDTO.SalonSolutionDiscription;
-        //    emp.SalonSolutionPrice = SalonDTO.SalonSolutionPrice;
-        //    _context.Entry(emp).State = EntityState.Modified;
+        [HttpPut("{id}")]
+        public async Task<string> PutSalonSolution(int id, [FromBody] SalonViewModel SalonDTO)
+        {
+            if (id != SalonDTO.SalonSolutionId)
+            {
+                return "商品編號錯誤";
+            }
+            SalonSolution DTO = await _context.SalonSolution.FindAsync(id);
+            DTO.SalonSolutionId = SalonDTO.SalonSolutionId;
+            DTO.SalonSolutionName = SalonDTO.SalonSolutionName;
+            DTO.SalonSolutionDiscription = SalonDTO.SalonSolutionDiscription;
+            DTO.SalonSolutionPrice = SalonDTO.SalonSolutionPrice;
+            _context.Entry(DTO).State = EntityState.Modified;
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!SalonSolutionExists(id))
-        //        {
-        //            return "修改失敗";
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!SalonSolutionExists(id))
+                {
+                    return "無對應資料，無法修改";
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-        //    return "修改成功";
-        //}
+            return "修改成功";
+        }
 
         private bool SalonSolutionExists(int id)
         {
@@ -146,5 +142,34 @@ namespace FourthTeamProject.Controllers.API
 
         //    return $"員工編號:{emp.SalonSolutionId}";
         //}
+
+        [HttpPost]
+        public async Task<string> CteateSalonSolution (SalonViewModel SalonSolutionDTO)
+        {
+            SalonSolution DTO = new SalonSolution
+            {
+                SalonSolutionId = SalonSolutionDTO.SalonSolutionId,
+                SalonSolutionName= SalonSolutionDTO.SalonSolutionName,
+                SalonSolutionDiscription= SalonSolutionDTO.SalonSolutionDiscription,
+                SalonSolutionPrice=SalonSolutionDTO.SalonSolutionPrice
+            };
+            _context.SalonSolution.Add(DTO);
+            await _context.SaveChangesAsync();
+            return $"服務類型:{DTO.SalonSolutionName}";
+        }
+
+        [HttpPost]
+        public async Task<string> CteateSalon(SalonViewModel SalonDTO)
+        {
+            Salon DTO = new Salon
+            {
+                SalonId = SalonDTO.SalonId,
+                SalonName = SalonDTO.SalonName,
+                SalonImagePath = SalonDTO.SalonImagePath,
+            };
+            _context.Salon.Add(DTO);
+            await _context.SaveChangesAsync();
+            return $"服務類型:{DTO.SalonName}";
+        }
     }
 }

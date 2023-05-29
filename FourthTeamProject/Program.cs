@@ -25,7 +25,14 @@ namespace FourthTeamProject
             {
                 opt.UseSqlServer(builder.Configuration.GetConnectionString("PetHeavenConnection"));
             });
-            
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme) 
+            .AddCookie(opt =>
+             {
+             opt.LoginPath = "/Employees/EmployeeLogin";
+
+             opt.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+             });
 
             builder.Services.AddTransient<EncryptService>();
 

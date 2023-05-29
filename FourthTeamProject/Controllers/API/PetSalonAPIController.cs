@@ -29,8 +29,8 @@ namespace FourthTeamProject.Controllers.API
             return await temp.ToArrayAsync();
         }
 
-        [HttpGet("{id}")]
-        public async Task<IEnumerable<SalonViewModel>> GetSalon( SalonViewModel SalonSolutionId)
+        [HttpPost("{id}")]
+        public async Task<IEnumerable<SalonViewModel>> GetSalon(int id, [FromBody] SalonViewModel SalonSolutionId)
         {
             var temp = _context.SalonSolution
                 .Join(_context.SalonSolutionSalon, a => a.SalonSolutionId, ab => ab.SalonSolutionId, (a, ab)=> new { SalonSolution = a, SalonSolutionSalon = ab })

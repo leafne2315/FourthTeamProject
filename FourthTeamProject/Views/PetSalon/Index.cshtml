@@ -217,10 +217,9 @@
                     SalonList.push(item);
 
                 }
-                alert(JSON.stringify(SalonList));
                 _this.SalonSolutionDTO = SalonList;
-
             },
+
             updateSalonSolution: function (item) {
                 let _this = this;
                 var request = {
@@ -249,8 +248,8 @@
                     }
                 salonList.push(item);
                 }
-
-                axios.get(`/api/PetSalon/GetSalon`).then(response => _this.SalonDTO = response.data)
+                alert(JSON.stringify(salonList));
+                axios.post(`/api/PetSalon/GetSalon/${item.salonSolutionId}`, salonList).then(response => _this.SalonDTO = response.data)
               //  $("#editSalon").modal('show');
 
 

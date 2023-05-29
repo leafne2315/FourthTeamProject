@@ -10,19 +10,6 @@ namespace FourthTeamProject.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult FB()
-        {
-            var prop = new AuthenticationProperties
-            {
-                RedirectUri = Url.Action("FBR")
-            };
-            return Challenge(prop, FacebookDefaults.AuthenticationScheme);
-        }
-
-        public IActionResult FBR()
-        {
-            return Ok();
-        }
 
         private readonly ILogger<HomeController> _logger;
 

@@ -8,78 +8,229 @@
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
-    
+
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet"
-          type="text/css" />
-    
+    type="text/css" />
+
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="~/css/PetHotelCss/HotelMainPageStyles.css" rel="stylesheet" />*@
 
     <link href="~/css/PetHotelCss/myStyle.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <style>
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+            .swiper-slide img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        .testimonial img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)); /* Adjust the opacity as needed */
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .room:hover .overlay {
+            opacity: 1;
+        }
+
+        .roomTitle {
+            position: absolute;
+            top: 83%;
+            left: 20%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 30px;
+            text-align: left;
+            z-index: 1;
+        }
+        .hotel-notice{
+            font-size: 16px;
+            color:floralwhite;
+        }
+
+    </style>
 </head>
 
 <div id="app">
-    
-    <div id="page-top">
-        <header class="masthead">
-            <div class="container">
-                <div class="masthead-subheading">Welcome To Our Studio!</div>
-                <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-                @*<a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>*@
-                
-            </div>
-        </header>
-    </div>
-    
-    <div style="height: 10px;"></div>
-    <div class="container px-4 px-lg-5">
-        <!-- Heading Row-->
-        <div class="row gx-4 gx-lg-5 align-items-center my-5">
-            <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..." /></div>
-            <div class="col-lg-5">
-                <h1 class="font-weight-light">Business Name or Tagline</h1>
-                <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
-                <a class="btn btn-primary" href="#!">Call to Action!</a>
-            </div>
-        </div>
-        <!-- Call to Action-->
-        <div class="card text-white bg-secondary my-5 py-4 text-center">
-            <div class="card-body"><p class="text-white m-0">This call to action card is a great place to showcase some important information or display a clever tagline!</p></div>
-        </div>
-        <!-- Content Row-->
-        <div class="row gx-4 gx-lg-5">
-            <div class="col-md-4 mb-5">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h2 class="card-title">Card One</h2>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+
+
+    <div class="untree_co-section testimonial-section mt-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 text-center">
+                    @*
+                    <h2 class="section-title text-center mb-5">Testimonials</h2>
+                    *@
+                    <div class="owl-single owl-carousel no-nav">
+
+                        <div class="testimonial mx-auto">
+
+                            <div style="height:350px">
+                                <img class="img-fluid rounded mb-4 mb-lg-0"
+                                     src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..." />
+                            </div>
+                        </div>
+                        <div class="testimonial mx-auto">
+                            <div style="height:350px;">
+                                <img class="img-fluid rounded mb-4 mb-lg-0"
+                                     src="https://img.freepik.com/free-photo/beautiful-pet-portrait-small-dog-cat_23-2149218509.jpg" alt="..." />
+                            </div>
+                        </div>
+                        <div class="testimonial mx-auto">
+                            <div style="height:350px">
+                                <img class="img-fluid rounded mb-4 mb-lg-0"
+                                     src="https://img.freepik.com/free-photo/close-up-portrait-beautiful-cat_23-2149214414.jpg" alt="..." />
+                            </div>
+                        </div>
+                        <div class="testimonial mx-auto">
+                            <div style="height:350px">
+                                <img class="img-fluid rounded mb-4 mb-lg-0"
+                                     src="https://img.freepik.com/free-photo/cute-animals-group-white-background_23-2150038548.jpg" alt="..." />
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
+
                 </div>
-            </div>
-            <div class="col-md-4 mb-5">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h2 class="card-title">Card Two</h2>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod tenetur ex natus at dolorem enim! Nesciunt pariatur voluptatem sunt quam eaque, vel, non in id dolore voluptates quos eligendi labore.</p>
+                <div class="col-lg-6 text-center">
+                    <div class="mt-5">
+                        <h1 class="font-weight-light mb-3">歡迎來到日安旅館</h1>
+                        <div class="px-5" style="height:180px; text-align: center;display: flex; align-items: center;
+                                    justify-content: center;">
+                            <p class="mb-3 ">
+                                在你工作或旅遊期間給你的毛寵物最完整的住宿服務，
+                                讓您可以安心出遊。日安旅館提供各種照護服務，包含短期的安親服務，也有多天數的住宿服務。
+                            </p>
+                        </div>
+                        <a class="btn btn-primary" href="#!">立即訂房</a>
                     </div>
-                    <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-5">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h2 class="card-title">Card Three</h2>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
-                    </div>
-                    <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
                 </div>
             </div>
         </div>
     </div>
 
 
+    <div class="container px-4 px-lg-5 mt-3">
+
+        <div class="d-flex flex-row mb-2">
+            <div class="mr-2" style="width:8px;height:28px; background-color:#6998AB"></div>
+            <h3>狗狗的房間</h3>
+        </div>
+    </div>
+
+    <div id="hotelShow">
+        <div class="row">
+            <div v-for="roomData in tempDogHotelData" class="room col-12 col-sm-6 col-lg-4 px-0" :style="{ 'background-image': `url(${roomData.hotelImage})` }">
+                <div style="height:400px ;">
+                    @*
+                    <div style="height:300px"></div>
+                    <div class="ml-5 mt-3" style="color:white">
+                    <h2 class="mb-0">標準房</h2>
+                    </div>
+                    *@
+                </div>
+                <div class="roomTitle">
+                    {{roomData.roomName}}
+                    <hr style="border:1px solid white;margin: 0; width:250%">
+                </div>
+                <div class="overlay"></div>
+            </div>
+        </div>
+    </div>
+    <div style="height:100px"></div>
+    <div class="container px-4 px-lg-5 mt-3">
+
+        <div class="d-flex flex-row mb-2">
+            <div class="mr-2" style="width:8px;height:28px; background-color:#6998AB"></div>
+            <h3>貓咪的房間</h3>
+        </div>
+    </div>
+
+    <div id="hotelShow">
+        <div class="row">
+            <div v-for="roomData in tempDogHotelData" class="room col-12 col-sm-6 col-lg-4 px-0" :style="{ 'background-image': `url(${roomData.hotelImage})` }">
+                <div style="height:400px ;">
+                    @*
+                    <div style="height:300px"></div>
+                    <div class="ml-5 mt-3" style="color:white">
+                    <h2 class="mb-0">標準房</h2>
+                    </div>
+                    *@
+                </div>
+                <div class="roomTitle">
+                    {{roomData.roomName}}
+                    <hr style="border:1px solid white;margin: 0; width:250%">
+                </div>
+                <div class="overlay"></div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="py-5" style="background-color:#6998AB">
+        <div class="container px-4 px-lg-5 mt-3">
+
+            <div class="d-flex flex-row mb-2">
+                <div class="mr-2" style="width:8px;height:28px; background-color:#3C4354;"></div>
+                <h3 style="color:floralwhite">入住須知</h3>
+            </div>
+            <ol class="hotel-notice">
+                <li>入住時間：每日 15:00 – 20:30 ｜ 退房時間：每日14:00前 (提早入住或延後退房將按照時數收取超時費)。</li>
+                <li>照護專員在場照護區間：11:45 – 21:20 (如有異動將提前徵詢飼主同意)。</li>
+                <li>6 個月齡以下幼貓幼犬入住須出示預防針接種滿 7 天證明以確保有足夠免疫力。</li>
+                <li>需要持續專業醫療的毛小孩貴賓 (包含針筒注射、擠尿等) 不接受入住。</li>
+                <li>為了維護旅館環境整潔安全，請於入住前三日幫您的毛孩點妥體外寄生蟲藥 (如寵愛滴劑)。
+                    入住期間如發現貓狗身上有跳蚤，旅館將拍照通知，並於退房時收取每晚 700 元的環境除蟲費用。</li>
+                <li>辦理入住時，請務必「預留 20 分鐘時間」讓我們與您進行寵物照護資料確認，也期望您能額外花幾分鐘親自
+                    與毛孩說說話再離開以減少毛孩緊張感。</li>
+                <li>入住時須預先結清住宿費用並簽署「寄宿同意書」。</li>
+                <li>建議攜帶一件主人的衣物物放置房內，家人的氣味可以增加毛小孩的安全感。</li>
+            </ol>
+        </div>
+        
+
+
+    </div>
+    @*
     <h1>PetHotelData</h1>
     <table class="table">
         <thead>
@@ -106,6 +257,8 @@
             </tr>
         </tbody>
     </table>
+
+    *@
 </div>
 
 
@@ -117,6 +270,20 @@
         data: {
             petHotelDatas: [],
             test: 201,
+            tempDogHotelData: [
+                {
+                    hotelImage: 'https://img.freepik.com/free-photo/close-up-beautiful-dachshund-eating_23-2149202513.jpg',
+                    roomName: '標準房',
+                },
+                {
+                    hotelImage: 'https://img.freepik.com/free-photo/closeup-shot-adorable-small-golden-retriever-pup-lying-purple-carpet-with-blue-toy_181624-32890.jpg',
+                    roomName: 'Vip房',
+                },
+                {
+                    hotelImage: 'https://img.freepik.com/free-photo/beagle-dog-living-room-waiting-his-owner_640221-454.jpg',
+                    roomName: '尊貴房'
+                }
+            ]
         },
         mounted: function () {
             this.getData();
@@ -132,4 +299,26 @@
             }
         }
     })
+</script>
+<!-- Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+        }
+    });
 </script>

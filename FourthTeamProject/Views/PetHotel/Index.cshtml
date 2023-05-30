@@ -310,7 +310,8 @@
                 console.log('getData');
             },
             showHotelDetail:function(hotelId){
-                const url = `/PetHotel/HotelDetail/${hotelId}`;
+
+                const url = `/PetHotel/HotelDetail?hotelId=${hotelId}`;
 
                 // Navigate to the detail page using window.location.href
                 window.location.href = url;

@@ -1,10 +1,14 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model int
 @{
+    var hotelId = Model;
 }
+
 <div id="app">
-    <h1>PetHotelDetailData</h1>
+    <p>Hotel ID: @hotelId</p>
+    <h1>PetHotelDetailData </h1>
     <table class="table">
         <thead>
             <tr>
@@ -39,20 +43,28 @@
         el: '#app',
         data: {
             HotelData:{},
-            hotelId:1,
+            currenthotelId: @hotelId,
         },
         mounted: function () {
+            //this.currenthotelId = this.getUrlParameter('hotelId');
+            //this.currenthotelId = JSON.parse(document.getElementById('app').dataset.hotelId);
             this.getData();
-            console.log('mounted')
+            console.log('mounted');
+            
         },
         methods: {
             getData: function () {
                 let self = this;
-                var test = axios.get(`/api/PetHotelAPI/HotelDetail/${this.hotelId}`).then(response => {
-                    self.HotelData = response.data; // Store the fetched data in the component's data property
+                var test = axios.get(`/api/PetHotelAPI/HotelDetail/${this.currenthotelId}`).then(response => {
+                    self.HotelData = response.data; 
                 })
                 console.log('getData');
-            }
+            },
+
+            //getUrlParameter(name) {
+            //    const urlParams = new URLSearchParams(window.location.search);
+            //    return urlParams.get(name);
+            //},
         }
 
     })

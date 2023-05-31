@@ -15,5 +15,10 @@ namespace FourthTeamProject.Controllers
 
             return View(hotelId);
         }
+        
+        public IActionResult HotelOrder(int hotelId) 
+        { 
+            return View(); 
+        }
     }
 }

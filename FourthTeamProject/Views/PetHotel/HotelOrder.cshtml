@@ -1,0 +1,177 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var hotelId = Context.Request.Query["hotelId"];
+}
+<head>
+    
+
+    <style>
+        #orderForm {
+            background-color: #6998AB;
+            padding-left: 150px;
+            padding-right: 150px;
+            padding-top:50px;
+            padding-bottom:50px;
+        }
+
+        .form-text {
+            color: floralwhite;
+        }
+
+        hr.solid {
+            border-top: 1px solid floralwhite;
+            width: 200px;
+            margin-left: 0;
+        }
+
+        .input {
+            display: flex;
+            flex-direction: column-reverse;
+            position: relative;
+            padding-top: 1.5rem;
+            &+.input
+
+        {
+            margin-top: 1.5rem;
+        }
+
+        }
+
+        .input-label {
+            color: #8eb6c6;
+            position: absolute;
+            top: 1.5rem;
+            transition: .25s ease;
+            
+        }
+
+        .input-field {
+            border: 0;
+            z-index: 1;
+            background-color: transparent;
+            border-bottom: 2px solid #8eb6c6;
+            font: inherit;
+            font-size: 1.125rem;
+            color: floralwhite; 
+            padding: .25rem 0;
+            &:focus, &:valid  @*填入focus時*@
+            {
+                outline: 0;
+            border-bottom-color: floralwhite;
+                &+.input-label
+                {
+                    color: floralwhite;
+                    transform: translateY(-1.5rem);
+                }
+            }
+        }
+        
+    </style>
+</head>
+
+<div id="app">
+    <p>Hotel ID: @hotelId</p>
+    <h1>PetHotelOrderPage </h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>PetHotelId</th>
+                <th>HotelCatagoryId</th>
+                <th>HotelName</th>
+                <th>UnitPrice</th>
+                <th>HotelContent</th>
+                <th>HotelContentDetail</th>
+                <th>HotelImageString</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @*
+                <td>{{HotelData.id}}</td>
+                <td>{{HotelData.catagoryID}}</td>
+                <td>{{HotelData.hotelName}}</td>
+                <td>{{HotelData.unitPrice}}</td>
+                <td>{{HotelData.hotelContent}}</td>
+                <td>{{HotelData.hotelContentDetail}}</td>
+                <td>{{HotelData.hotelImage}}</td>
+                *@
+            </tr>
+        </tbody>
+    </table>
+    <div id="orderForm">
+        <div class="px-4 px-lg-5 mt-3 form-text">
+
+            <h2>線上訂房</h2>
+            <hr class="solid">
+            <div style="height:50px"></div>
+            <form class="card-form">
+
+                <div class="mb-3">
+                    <p>選擇房型</p>
+                    <select name="" id="" class="form-control custom-select">
+                        <optgroup label="狗">
+                            <option value="">狗狗基本高級房</option>
+                            <option value="">狗狗進階升級房</option>
+                            <option value="">狗狗尊享VIP房</option>
+                        </optgroup>
+                        <optgroup label="貓">
+                            <option value="">貓咪登高望遠房</option>
+                            <option value="">貓咪更上一層樓房</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="">
+                    <div class="row">
+                        <div class="col col-md-6 mb-3">
+                            <p>入住日期</p>
+                            <input type="date" class="form-control custom-select">
+                        </div>
+                        <div class="col col-md-6 mb-3">
+                            <p>離宿日期</p>
+                            <input type="date" class="form-control custom-select">
+                        </div>
+                    </div> 
+                </div> 
+                <div class="input">
+                    <input type="text" class="input-field" required />
+                    <label class="input-label">聯絡人*</label>
+                </div>
+                <div class="input">
+                    <input type="number" class="input-field" required />
+                    <label class="input-label">聯絡手機*</label>
+                </div>
+                <div class="action">
+                    <button class="action-button">Get started</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+    let app = new Vue({
+        el: '#app',
+        data: {
+
+        },
+        mounted: function () {
+
+
+        },
+        methods: {
+
+
+            //getUrlParameter(name) {
+            //    const urlParams = new URLSearchParams(window.location.search);
+            //    return urlParams.get(name);
+            //},
+        }
+
+    })
+</script>

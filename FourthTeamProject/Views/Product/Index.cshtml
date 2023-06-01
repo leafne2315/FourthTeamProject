@@ -70,6 +70,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </nav>
     <!-- fiiter -->
     <div class="containershop">
@@ -169,25 +170,29 @@
                 </template>
             </ul>
         </div>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item " @@click.prevent="setPage(currentPage-1)">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item" :class="{'active': (currentPage === (n))}"
-                    v-for="(n, index) in totalPage" :key="index" @@click.prevent="setPage(n)">
-                    <a class="page-link" href="#">{{ n }}</a>
-                </li>
-                <li class="page-item" @@click.prevent="setPage(currentPage+1)">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
     </div>
+
+
+<div>
+    <nav aria-label="Page navigation example" class="">
+        <ul class="pagination justify-content-center">
+            <li class="page-item " @@click.prevent="setPage(currentPage-1)">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" :class="{'active': (currentPage === (n))}"
+                v-for="(n, index) in totalPage" :key="index" @@click.prevent="setPage(n)">
+                <a class="page-link" href="#">{{ n }}</a>
+            </li>
+            <li class="page-item" @@click.prevent="setPage(currentPage+1)">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
 </div>
 
     <!-- Pages	 -->

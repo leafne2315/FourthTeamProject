@@ -21,17 +21,20 @@ namespace FourthTeamProject.Controllers.API
 		[HttpPost]
 		public IActionResult GetProduct()
 		{
-			var result = _db.Product.Select(p => new ProductViewModel
-			{
-				ProductId = p.ProductId,
-				ProductStatus = p.ProductStatus,
-				ProductName = p.ProductName,
-				ProductContent = p.ProductContent,
-				UnitPrice = p.UnitPrice,
-				Amount = 1
-			});
-			return Ok(result);
-		}
+            var result = _db.Product.Select(p => new ProductViewModel
+            {
+                ProductId = p.ProductId,
+                ProductTypeId = p.ProductTypeId,
+                ProductStatus = p.ProductStatus,
+                ProductName = p.ProductName,
+                ProductContent = p.ProductContent,
+                ProductCatagoryId = p.ProductCatagoryId,
+                UnitPrice = p.UnitPrice,
+                ProductImage = p.ProductImage,
+                Amount = 1
+            });
+            return Ok(result);
+        }
 
 
 

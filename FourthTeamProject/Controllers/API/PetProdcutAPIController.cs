@@ -24,6 +24,7 @@ namespace FourthTeamProject.Controllers.API
 			var result = _db.Product.Select(p => new ProductViewModel
 			{
 				ProductId = p.ProductId,
+				ProductStatus = p.ProductStatus,
 				ProductName = p.ProductName,
 				ProductContent = p.ProductContent,
 				UnitPrice = p.UnitPrice,

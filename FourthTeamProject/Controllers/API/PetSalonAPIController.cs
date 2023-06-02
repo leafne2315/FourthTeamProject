@@ -17,7 +17,7 @@ namespace FourthTeamProject.Controllers.API
             _context = context;
         }
 
-        public async Task<IEnumerable<SalonViewModel>> GetSalonSolution()
+        public IEnumerable<SalonViewModel> GetSalonSolution()
         {
             var temp = _context.SalonSolution.Select(option => new SalonViewModel
                 {
@@ -26,46 +26,38 @@ namespace FourthTeamProject.Controllers.API
                     SalonSolutionDiscription = option.SalonSolutionDiscription,
                     SalonSolutionPrice = option.SalonSolutionPrice,
                 });
-            return await temp.ToArrayAsync();
+            return temp;
+        }
+
+        public IEnumerable<SalonViewModel> GetSalon()
+        {
+
+            var temp = _context.Salon.Include(x => x.SalonCatagory)
+                .Select(option => new SalonViewModel
+                {
+                    SalonCatagoryName = option.SalonCatagory.SalonCatagoryName,
+                    SalonName = option.SalonName,
+                    SalonImagePath = option.SalonImagePath,
+                    SalonId = option.SalonId,
+                });
+            return  temp;
         }
 
         [HttpPost("{id}")]
-        public async Task<IEnumerable<SalonViewModel>> GetSalon(int id, [FromBody] SalonViewModel SalonSolutionId)
+        public async Task<IActionResult> UploadImage(int id, IFormFile SalonImagePath)
         {
-            var temp = _context.SalonSolution
-                .Join(_context.SalonSolutionSalon, a => a.SalonSolutionId, ab => ab.SalonSolutionId, (a, ab)=> new { SalonSolution = a, SalonSolutionSalon = ab })
-                .Join(_context.Salon, ab => ab.SalonSolutionSalon.SalonId,b => b.SalonId,(ab, b) => new { SalonSolution = ab.SalonSolution, Salon = b })         
-                .Select(option => new SalonViewModel
-                {
-                    SalonId=option.Salon.SalonId,
-                    SalonCatagoryName = option.Salon.SalonCatagory.SalonCatagoryName,
-                    SalonName = option.Salon.SalonName,
-                    SalonImagePath = option.Salon.SalonImagePath,
-                });
-            return await temp.ToArrayAsync();
-        }
+            byte[] image;
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                await SalonImagePath.CopyToAsync(memoryStream);
+                image = memoryStream.ToArray();
+            }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UploadImage([FromBody] SalonViewModel data)
-        {           
-            //string salonId = data.SalonId.ToString();
-            //string salonCatagoryName = data.SalonCatagoryName;
-            //string salonName = data.SalonName;
-            //string fileName = $"{salonCatagoryName}_{salonName}";
+            Salon salon = await _context.Salon.FindAsync(id);
 
-
-            //string filePath = Path.Combine("wwwroot", "Salonimage", fileName);
-
-            //using (var stream = new FileStream(filePath, FileMode.Create))
-            //{
-            //    await data.SalonImagePath.CopyToAsync(stream);
-            //}
-
-
-
-
-            return Ok();
-
+            salon.SalonImagePath = image;
+            await _context.SaveChangesAsync();
+            return Ok("可");
         }
 
 
@@ -108,40 +100,6 @@ namespace FourthTeamProject.Controllers.API
         {
             return (_context.SalonSolution?.Any(e => e.SalonSolutionId == id)).GetValueOrDefault();
         }
-
-        //[HttpPost("Filter")]
-        //public async Task<IEnumerable<SalonViewModel>> FilterSalonSolutionDTO([FromBody] SalonViewModel SalonDTO)
-        //{
-        //    return _context.SalonSolution.Where(
-        //        emp => emp.SalonSolutionId == SalonDTO.SalonSolutionId ||
-        //               emp.SalonSolutionName.Contains(SalonDTO.SalonSolutionName) ||
-        //               emp.SalonSolutionDiscription.Contains(SalonDTO.SalonSolutionDiscription) ||
-        //               emp.SalonSolutionPrice == SalonDTO.SalonSolutionPrice)
-        //        .Select(emp => new SalonViewModel
-        //        {
-        //            SalonSolutionId = emp.SalonSolutionId,
-        //            SalonSolutionName = emp.SalonSolutionName,
-        //            SalonSolutionDiscription = emp.SalonSolutionDiscription,
-        //            SalonSolutionPrice = emp.SalonSolutionPrice
-        //        });
-        //}
-
-        //[HttpPost]
-        //public async Task<string> PostPetSalon(SalonViewModel SalonDTO)
-        //{
-
-        //    SalonSolution emp = new SalonSolution
-        //    {
-        //        SalonSolutionId = SalonDTO.SalonSolutionId,
-        //        SalonSolutionName = SalonDTO.SalonSolutionName,
-        //        SalonSolutionDiscription = SalonDTO.SalonSolutionDiscription,
-        //        SalonSolutionPrice = SalonDTO.SalonSolutionPrice,
-        //    };
-        //    _context.SalonSolution.Add(emp);
-        //    await _context.SaveChangesAsync();
-
-        //    return $"員工編號:{emp.SalonSolutionId}";
-        //}
 
         [HttpPost]
         public async Task<string> CteateSalonSolution (SalonViewModel SalonSolutionDTO)

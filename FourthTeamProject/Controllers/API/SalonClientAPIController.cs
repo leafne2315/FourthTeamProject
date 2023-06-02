@@ -11,13 +11,12 @@ namespace FourthTeamProject.Controllers.API
     public class SalonClientAPIController : ControllerBase
     {
         private readonly PetHeavenDbContext _context;
-        public SalonClientAPIController (PetHeavenDbContext context)
+        public SalonClientAPIController(PetHeavenDbContext context)
         {
             _context = context;
         }
 
-
-        public async Task<IEnumerable<SalonViewModel>> GetSalonClient()
+        public IEnumerable<SalonViewModel> GetSalonClient()
         {
             var temp = _context.SalonSolution.Select(option => new SalonViewModel
             {
@@ -26,8 +25,7 @@ namespace FourthTeamProject.Controllers.API
                 SalonSolutionDiscription = option.SalonSolutionDiscription,
                 SalonSolutionPrice = option.SalonSolutionPrice,
             });
-            return  await temp.ToArrayAsync();
+            return temp;
         }
-
     }
 }

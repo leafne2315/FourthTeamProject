@@ -7,6 +7,11 @@
         display: -webkit-box;
         -webkit-line-clamp: 3;
     }
+
+    .DiscriptionImage{
+        width:100px;
+        height:180px;
+    }
 </style>
 
 <div id="app">
@@ -19,64 +24,16 @@
                 <li data-target="#myCarousel" data-slide-to="2"></li>
             </ol>
             <div class="carousel-inner">
-                <div class="carousel-item active">
+                <div class="carousel-item" v-for="(salonsrc, salonindex) in imageSalonSolution" :key="salonindex" v-bind:class="{ active: salonindex === 0 }">
                     <div class="container-fluid">
                         <div class="carousel-caption relative">
-                            <div class="row d_flex" v-for="(item, index) in SalonSolutionDTO" v-if="item.salonSolutionId == 1">
+                            <div class="row d_flex">
                                 <div class="col-md-6">
-                                    <img style="width:600px;height:500px" src="~/salonimage/dogmaxsalon.jpg" alt="#" />
+                                    <img style="width:600px;height:500px" :src="rootPath + salonsrc" alt="#" />
                                 </div>
                                 <div class="col-md-6 ">
-                                    <h1>{{item.salonSolutionName}}</h1>
-                                    <p>{{item.salonSolutionDiscription}}</p>
-                                    <button type="button" class="btn btn-outline-danger">查看服務項目</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="container-fluid">
-                        <div class="carousel-caption relative">
-                            <div class="row d_flex" v-for="(item, index) in SalonSolutionDTO" v-if="item.salonSolutionId == 2">
-                                <div class="col-md-6">
-                                    <img style="width:600px;height:500px" src="~/salonimage/dogminisalon.jpg" alt="#" />
-                                </div>
-                                <div class="col-md-6">
-                                    <h1>{{item.salonSolutionName}}</h1>
-                                    <p>{{item.salonSolutionDiscription}}</p>
-                                    <button type="button" class="btn btn-outline-danger">查看服務項目</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="container-fluid">
-                        <div class="carousel-caption relative">
-                            <div class="row d_flex" v-for="(item, index) in SalonSolutionDTO" v-if="item.salonSolutionId == 5">
-                                <div class="col-md-6">
-                                    <img style="width:600px;height:500px" src="~/salonimage/catmaxsalon.jpg" alt="#" />
-                                </div>
-                                <div class="col-md-6">
-                                    <h1>{{item.salonSolutionName}}</h1>
-                                    <p>{{item.salonSolutionDiscription}}</p>
-                                    <button type="button" class="btn btn-outline-danger">查看服務項目</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="container-fluid">
-                        <div class="carousel-caption relative">
-                            <div class="row d_flex" v-for="(item, index) in SalonSolutionDTO" v-if="item.salonSolutionId == 6">
-                                <div class="col-md-6">
-                                    <img style="width:600px;height:500px" src="~/salonimage/catminisalon.jpg" alt="#" />
-                                </div>
-                                <div class="col-md-6">
-                                    <h1>{{item.salonSolutionName}}</h1>
-                                    <p>{{item.salonSolutionDiscription}}</p>
+                                    <h1>{{SalonSolutionDTO[salonindex].salonSolutionName}}</h1>
+                                    <p>{{SalonSolutionDTO[salonindex].salonSolutionDiscription}}</p>
                                     <button type="button" class="btn btn-outline-danger">查看服務項目</button>
                                 </div>
                             </div>
@@ -157,18 +114,18 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3 col-sm-6" v-for="item in SalonSolutionDTO">
+                <div class="col-md-3 col-sm-6" v-for="(src, index) in imageDiscription" :key="index">
                     <div class="card">
                         <div class="pic">
-                            <img src="https://picsum.photos/300/?random=10">
+                            <img class="DiscriptionImage" :src="rootPath + src">
                         </div>
                         <div class="card-body">
                             <div class="pricing_box_ti">
-                                <h3> <span>$</span>{{item.salonSolutionPrice}}<strong>/一次</strong></h3>
+                                <h3> <span>$</span>{{SalonSolutionDTO[index].salonSolutionPrice}}<strong>/一次</strong></h3>
                             </div>
                             <div class="our_pricing">
-                                <span>{{item.salonSolutionName}}</span>
-                                <p class="Discription" :title="item.salonSolutionDiscription">{{item.salonSolutionDiscription}}</p>
+                                <h5><span>{{SalonSolutionDTO[index].salonSolutionName}}</span></h5>
+                                <p class="Discription" :title="SalonSolutionDTO[index].salonSolutionDiscription">{{SalonSolutionDTO[index].salonSolutionDiscription}}</p>
                             </div>
                             <a href="#" class="btn btn-primary">預約寵物美容</a>
                         </div>
@@ -179,6 +136,7 @@
     </div>
 </div>
 
+
 @section Scripts
     {
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
@@ -188,11 +146,23 @@
             el: "#app",
             data: {
                 SalonSolutionDTO: [],
+                rootPath: "/Salonimage/",
+                imageDiscription: [
+                    "DOGMaxDiscription.jpg",
+                    "DOGMiniDiscription.jpg",
+                    "CATMaxDiscription.jpg",
+                    "CATMiniDiscription.jpg",      
+                ],
+                imageSalonSolution:[
+                    "DOGmaxSalon.jpg",
+                    "DOGminiSalon.jpg",
+                    "CATmaxSalon.jpg",
+                    "CATminiSalon.jpg",
+                ]
             },
             mounted: function () {
                 let _this = this;
                 axios.get(`/api/SalonClient/GetSalonClient`).then(response => _this.SalonSolutionDTO = response.data)
-
             },
             methods: {
             },

@@ -95,7 +95,7 @@ namespace FourthTeamProject.Controllers.API
 
             petHeavenDb.HotelOrderDetail.Add(hotelOrderDetail);
             petHeavenDb.SaveChanges();
-            return Ok();
+            return Ok(hotelOrderDetail);
         }
 
     }

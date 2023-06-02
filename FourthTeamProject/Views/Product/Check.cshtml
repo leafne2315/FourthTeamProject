@@ -1,0 +1,138 @@
+﻿
+@{
+    
+}
+
+
+@section  Styles{
+
+}
+
+<div>@ViewBag.Email</div>
+
+<header class="bg-dark text-white py-4">
+    <h1 class="text-center">訂單詳情</h1>
+</header>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>移除商品</th>
+                        <th>商品圖片</th>
+                        <th>品項</th>
+                        <th>數量</th>
+                        <th>價格</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a data-toggle="modal" data-target="#removeModal" data-whatever="" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                                </svg>
+                        </td>
+                        <td>
+                            <img src="https://picsum.photos/120/?random=10" alt="商品1" class="order-item-image">
+                        </td>
+                        <td><span class="order-item-title">商品1</span></td>
+                        <td>
+                            <input type="number" class="form-control order-item-quantity" value="1" min="1">
+                        </td>
+                        <td class="order-item-price">$10.99</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a data-toggle="modal" data-target="#removeModal" data-whatever="" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                                </svg>
+                        </td>
+                        <td>
+                            <img src="https://picsum.photos/120/?random=10" alt="商品2" class="order-item-image">
+                        </td>
+                        <td><span class="order-item-title">商品2</span></td>
+                        <td>
+                            <input type="number" class="form-control order-item-quantity" value="1" min="1">
+                        </td>
+                        <td class="order-item-price">$19.99</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Discount</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>總共 n 件商品</td>
+                        <td class="order-total">總價：$30.98</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="mt-4">
+                <h4>收件人資料</h4>
+                <div class="form-group">
+                    <label for="name">姓名：</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">地址：</label>
+                    <input type="text" class="form-control" id="address" name="address" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">電話：</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                </div>
+
+                <button class="btn btn-primary btn-block">使用已儲存的會員資料</button>
+                <button class="btn btn-primary btn-block">結帳</button>
+            </div>
+        </div>
+
+        <div class="col-md-4 mt-4 mt-md-0">
+            <h4>推薦商品</h4>
+            <div class="row">
+                <div class="col-sm-6 col-md-12">
+                    <div class="recommended-item">
+                        <img src="https://picsum.photos/120/?random=10" alt="推薦商品1"><br>
+                        <button class="btn btn-primary">加到購物車</button>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-12">
+                    <div class="recommended-item">
+                        <img src="https://picsum.photos/120/?random=10" alt="推薦商品2"><br>
+                        <button class="btn btn-primary">加到購物車</button>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-12">
+                    <div class="recommended-item">
+                        <img src="https://picsum.photos/120/?random=10" alt="推薦商品3"><br>
+                        <button class="btn btn-primary">加到購物車</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
+}

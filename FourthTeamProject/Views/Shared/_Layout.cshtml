@@ -75,7 +75,13 @@
                                 <li><a asp-controller="" asp-action="">貓咪美容</a></li>
                             </ul>
                         </li>
-                        <li class="has-children">
+                        
+
+                        @{
+                            
+                            if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="has-children">
                             <a asp-controller="Member" asp-action="Index">會員中心</a>
                             <ul class="dropdown">
                                 <li><a asp-controller="" asp-action="">會員資料</a></li>
@@ -85,11 +91,6 @@
                                 <li><a asp-controller="" asp-action="">訂單管理</a></li>
                             </ul>
                         </li>
-
-                        @{
-                            if (User.Identity.IsAuthenticated)
-                            {
-                                
                                 <li>
                                     <a asp-controller="Member" asp-action="Logout">會員登出</a>
                                 </li>

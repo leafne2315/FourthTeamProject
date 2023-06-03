@@ -16,11 +16,11 @@
 						   aria-controls="pills-Welfare" aria-selected="false">會員福利</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="tab-login" data-toggle="pill" href="#" role="tab"
+						<a class="nav-link" id="tab-login" data-toggle="pill" href="#pills-order" role="tab"
 						   aria-controls="pills-login" aria-selected="false">訂單管理</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="tab-login" data-toggle="pill" href="" role="tab"
+						<a class="nav-link" id="tab-login" data-toggle="pill" href="#pills-pet" role="tab"
 						   aria-controls="pills-login" aria-selected="false">寵物資料</a>
 					</li>
 				</ul>
@@ -28,48 +28,110 @@
 		</nav>
 
 		<main class=" card-body col-md-9 ms-sm-auto col-lg-10 px-md-4">
-			<div class="container">
-				
-					<div class="tab-pane fade show active col stacked-sm " id="pills-material" role="tabpanel" aria-labelledby="tab-material">
-						<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-							<h1 class="h2">會員資料</h1>
-						</div>
+			<div id="app" class="container">
 
-						<div class="form-group">
-							<label for="name">姓名：</label>
-							<input type="text" id="name" class="form-control" readonly />
-						</div>
-						<div class="form-group">
-							<label for="email">電子郵件：</label>
-							<input type="email" id="email" class="form-control" readonly />
-						</div>
-						<div class="form-group">
-							<label for="address">地址：</label>
-							<input type="text" id="address" class="form-control" readonly />
-						</div>
+				<div class="tab-pane fade show active col stacked-sm " id="pills-material" role="tabpanel" aria-labelledby="tab-material">
+					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+						<h1 class="h2">會員資料</h1>
 					</div>
-					<div class="tab-pane fade col stacked-sm " id="pills-security" role="tabpanel" aria-labelledby="tab-security">
-						<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-							<h1 class="h2">安全中心</h1>
-						</div>
-						<div class="form-group">
-							<label for="password">密碼：</label>
-							<input type="password" id="password" class="form-control" />
-						</div>
-						<div class="form-group">
-							<label for="securityQuestions">安全問題：</label>
-							<!-- 安全問題相關的表單元素 -->
-						</div>
-						<button class="btn btn-primary" onclick="saveSecuritySettings()">儲存</button>
+
+					<div class="form-group">
+						<label for="name">帳號：</label>
+						<input type="text" id="account" class="form-control" v-model="member.account" readonly />
 					</div>
-					<div class="tab-pane fade col stacked-sm" id="pills-Welfare" role="tabpanel" aria-labelledby="tab-Welfare">
-						<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-							<h1 class="h2">福利</h1>
-						</div>
+					<div class="form-group">
+						<label for="name">姓名：</label>
+						<input type="text" id="name" class="form-control" v-model="member.name" readonly />
 					</div>
-				
+					<div class="form-group">
+						<label for="email">電子郵件：</label>
+						<input type="email" id="email" class="form-control" v-model="member.email" readonly />
+					</div>
+					<div class="form-group">
+						<label for="address">地址：</label>
+						<input type="text" id="address" class="form-control" v-model="member.address" readonly />
+					</div>
+				</div>
+				<div class="tab-pane fade col stacked-sm " id="pills-security" role="tabpanel" aria-labelledby="tab-security">
+					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+						<h1 class="h2">安全中心</h1>
+					</div>
+					<div class="form-group">
+						<label for="password">當前密碼：</label>
+						<input type="password" id="account" class="form-control" readonly />
+					</div>
+
+					<div class="form-group">
+						<label for="password">修改密碼：</label>
+						<input type="password" id="password" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label for="address">修改地址：</label>
+						<input type="text" id="address" class="form-control" />
+					</div>
+					<button class="btn btn-primary" onclick="saveSecuritySettings()">儲存</button>
+				</div>
+				<div class="tab-pane fade col stacked-sm" id="pills-Welfare" role="tabpanel" aria-labelledby="tab-Welfare">
+					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+						<h1 class="h2">福利</h1>
+					</div>
+				</div>
+				<div class="tab-pane fade col stacked-sm" id="pills-order" role="tabpanel" aria-labelledby="tab-order">
+					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+						<h1 class="h2">訂單管理</h1>
+					</div>
+				</div>
+				<div class="tab-pane fade col stacked-sm" id="pills-pet" role="tabpanel" aria-labelledby="tab-pet">
+					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+						<h1 class="h2">寵物資料</h1>
+					</div>
+					<div class="form-group">
+						<label for="name">寵物名子：</label>
+						<input type="text" id="account" class="form-control"  readonly />
+					</div>
+					<div class="form-group">
+						<label for="name">寵物性別：</label>
+						<input type="text" id="account" class="form-control"  readonly />
+					</div>
+					<div class="form-group">
+						<label for="name">寵物生日：</label>
+						<input type="text" id="account" class="form-control"  readonly />
+					</div>
+					<div class="form-group">
+						<label for="name">寵物品種：</label>
+						<input type="text" id="account" class="form-control"  readonly />
+					</div>
+				</div>
+
 			</div>
 
 		</main>
 	</div>
 </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+	let app = new Vue({
+		el: '#app',
+		data: {
+			member: []
+		},
+		mounted() {
+			this.fetchMember();
+		},
+		methods: {
+			fetchMember: function () {
+				let self = this;
+				var testmember = axios.get('/api/member/GetCurrentMember')
+					.then(response => {
+						// 獲取會員資訊並將其賦值給組件的 data 屬性
+						self.member = response.data;
+					})
+				console.log(testmember);
+			}
+		}
+	});
+</script>

@@ -10,12 +10,13 @@ namespace FourthTeamProject.Models.ViewModel
 		public string ProductContent { get; set; }
 		public int UnitPrice { get; set; }
 		public int ProductCatagoryId { get; set; }
+        public bool ProductStatus { get; set; }
 
-		public int Amount { get; set; }
+        public int Amount { get; set; }
 
 		//public virtual ProductCatagory ProductCatagory { get; set; }
 		//public virtual ProductType ProductType { get; set; }
-		//public virtual ICollection<ProductImage> ProductImage { get; set; }
+		public virtual ICollection<ProductImage> ProductImage { get; set; }
 
 	}
 }

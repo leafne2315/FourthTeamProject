@@ -1,24 +1,19 @@
-﻿@*<div class="text-center">
-    <a href="/Home/FB" class="btn btn-primary">FB</a>
-    <h1 class="display-4">WELCOME</h1>
-    <p>ABOUT<a href="https://learn.microsoft.com/zh-tw/aspnet/core/security/authentication/social/facebook-logins?view=aspnetcore-7.0">ASP.NET</a>.</p>
-</div>*@
-
+﻿<link href="~/css/saloncss/style.css" rel="stylesheet" />
 
 <div id="app" class="container">
-    <div class="form-group">
-        @*<-----------新增美容服務-------------->*@
-        <button type="button" @@click="CteateSalonSolution" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalId">
-            新增美容類型
-        </button>
-
-        <button type="button" @@click="CteateSalon" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalId">
-            新增美容項目
-        </button>
-    </div>
-
-    <div class="form-group">
-        @*<-----------編輯美容服務-------------->*@
+    @*<-----------新增與編輯美容項目-------------->*@
+    <nav class="navbar navbar-expand bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0">
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0">
+                <a class="nav-item nav-link" @@click="SalonSolutionPage">編輯美容服務</a>
+                <a class="nav-item nav-link" @@click="SalonPage">編輯美容項目</a>
+                <a class="nav-item nav-link" @@click="CteateSalonPage">新增美容項目</a>
+            </div>
+        </div>
+    </nav>
+    
+    @*<-----------編輯美容服務頁面-------------->*@
+    <div class="form-group" v-if="CurrentPage === 'SalonSolution'">
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -30,315 +25,346 @@
             </thead>
             <tbody>
                 <tr v-for="item in SalonSolutionDTO">
-                    <template v-if="item.editSalonSolution == true">
+                    <template v-if="item.editSalonSolution === true">
                         <td>
-                            <button class="btn btn-success" @@click="updateSalonSolution(item)">確定修改</button>
-                            <button class="btn btn-warning" @@click="cancelSalonSolution">取消修改</button>
+                            <button class="btn btn-success" @@click="UpdateSalonSolution(item)">確定修改</button>
+                            <button class="btn btn-warning" @@click="CancelSalonSolution">取消修改</button>
                         </td>
-                        <td><input v-model="item.salonSolutionName" /></td>
-                        <td><input v-model="item.salonSolutionDiscription" /></td>
-                        <td><input v-model="item.salonSolutionPrice" /></td>
+                        <td><input type="text" v-model="item.salonSolutionName" /></td>
+                        <td>
+                            <textarea type="text" style="width:350px; height:100px;" v-model="item.salonSolutionDiscription">{{item.salonSolutionDiscription}}</textarea>
+                        </td>
+                        <td><input type="number" v-model="item.salonSolutionPrice" /></td>
                     </template>
                     <template v-else>
                         <td>
-                            <button class="btn btn-primary" @@click="editSalonSolution(item.salonSolutionId)">編輯美容類型</button>
-                            <button class="btn btn-primary" @@click="editSalon(item.salonSolutionId)">編輯美容項目</button>
+                            <button class="btn btn-primary" @@click="EditSalonSolution(item.salonSolutionId)">編輯美容類型</button>
                         </td>
                         <td>{{item.salonSolutionName}}</td>
                         <td>{{item.salonSolutionDiscription}}</td>
                         <td>{{item.salonSolutionPrice}}</td>
                     </template>
                 </tr>
-
             </tbody>
         </table>
     </div>
 
-
-    @*<----------------互動視窗----------------->*@
-
-    <div class="form-group">
-        @*<----------------新增美容服務類型----------------->*@
-        <div class="modal fade" id="addSalonSolution" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalTitleId">美容服務</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label class="form-label">美容類型</label>
-                            <input class="form-control" v-model="salonSolutionName" />
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">美容內容</label>
-                            <input class="form-control" v-model="salonSolutionDiscription" />
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">價格</label>
-                            <input class="form-control" v-model="salonSolutionPrice" />
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                        <button type="button" class="btn btn-primary" @@click="InsertSalonSolution">新增</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    @*<-----------編輯美容項目頁面-------------->*@
+    <div class="form-group" v-else-if="CurrentPage === 'Salon'">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>編輯</th>
+                    <th>寵物種類</th>
+                    <th>美容項目</th>
+                    <th>美容圖片</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in SalonDTO">
+                    <template v-if="item.editSalon == true">
+                        <td>
+                            <button class="btn btn-success" @@click="Updatesalon(item)">確定修改</button>
+                            <button class="btn btn-warning" @@click="Cancelsalon">取消修改</button>
+                            <input type="file" @@change="Onfile" accept="image/*" />
+                        </td>
+                        <td>{{item.salonCatagoryName}}</td>
+                        <td><input v-model="item.salonName" /></td>
+                        <td><img style="width:200px;height:200px" :src="imageUrl" /></td>
+                    </template>
+                    <template v-else>
+                        <td>
+                            <button class="btn btn-primary" @@click="Editsalon(item.salonId)">編輯</button>
+                        </td>
+                        <td>{{item.salonCatagoryName}}</td>
+                        <td>{{item.salonName}}</td>
+                        <td>
+                            <img style="width:200px;height:200px" :src="GetImageUrl(item.salonImagePath)" />
+                        </td>
+                    </template>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
+    @*<----------------新增美容服務項目----------------->*@
+    <div class="form-group" v-else-if="CurrentPage == 'CteateSalon'">
+        <table class="table table-striped table-hover">
 
-    <div class="form-group">
-        @*<----------------新增美容服務項目----------------->*@
-        <div class="modal fade" id="addSalon" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalTitleId">美容項目</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">寵物種類</label>
-                            <input class="form-control" v-model="salonCatagoryName" />
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">美容項目</label>
-                            <input class="form-control" v-model="salonName" />
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">圖片</label>
-                            <input class="form-control" v-model="salonImagePath" />
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                        <button type="button" class="btn btn-primary" @@click="InsertSalon">新增</button>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label class="form-label">美容服務</label>
+                <select class="form-control mr-1">
+                    <option value="0" disabled selected>--請選擇--</option>
+                    <option v-for="item in CteateSalonDTO" :key="item.salonSolutionId">{{ item.salonSolutionName }}</option>
+                </select>
             </div>
-        </div>
-
-    </div>
-
-
-    <div class="form-group">
-        @*<----------------編輯美容服務項目----------------->*@
-        <div class="modal fade" id="editSalon" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalTitleId">美容項目</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">寵物種類</label>
-                            <input class="form-control" v-model="salonCatagoryName" />
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">美容項目</label>
-                            <input class="form-control" v-model="salonName" />
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">圖片</label>
-                            <input class="form-control" v-model="salonImagePath" />
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                        <button type="button" class="btn btn-primary" @@click="InsertSalon">新增</button>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label class="form-label">寵物種類</label>
+                <select class="form-control mr-1">
+                    <option value="0" disabled selected>--請選擇--</option>
+                    <option v-for="item in CteateSalonDTO" :key="item.salonCatagoryId">{{ item.salonCatagoryName }}</option>
+                </select>
             </div>
-        </div>
+            <div class="form-group">
+                <label class="form-label">已有的服務項目</label>
+                <input type="radio" name="SalonType" />
+                <label class="form-label">增加新服務項目</label>
+                <input type="radio" name="SalonType" />
+                <button></button>
+            </div>
 
+
+            <thead>
+                <tr>
+                    <th>編輯</th>
+                    <th>寵物種類</th>
+                    <th>美容項目</th>
+                    <th>美容圖片</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in CteateSalonDTO">
+                    <template v-if="item.editSalon == true">
+                        <td>
+                            <button class="btn btn-success" @@click="UpdateCurrentsalon(item)">確定修改</button>
+                            <button class="btn btn-warning" @@click="CancelCurrentsalon">取消修改</button>
+                            <input type="file" @@change="Onfile" accept="image/*" />
+                        </td>
+                        <td>{{item.salonCatagoryName}}</td>
+                        <td><input v-model="item.salonName" /></td>
+                        <td><img style="width:200px;height:200px" :src="imageUrl" /></td>
+                    </template>
+                    <template v-else>
+                        <td>
+                            <button class="btn btn-primary" @@click="EditCurrentsalon(item.salonId)">編輯</button>
+                            <button class="btn btn-danger" @@click="DeleteCurrentsalon(item.salonId)">刪除</button>
+                        </td>
+                        <td>{{item.salonCatagoryName}}</td>
+                        <td>{{item.salonName}}</td>
+                        <td>
+                            <img style="width:200px;height:200px" :src="GetImageUrl(item.salonImagePath)" />
+                        </td>
+                    </template>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+@section Scripts
+    {
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
 
-<script>
-    let app = new Vue({
-        el: "#app",
-        data: {
-            Filter: "",
-            SalonSolutionDTO: [],
-            SalonDTO:[],
-            SalonSolutionIdOld: "",
-            SalonSolutionNameOld: "",
-            SalonSolutionDiscriptionOld: "",
-            SalonSolutionPriceOld: "",
-            SalonCatagoryNameOld: "",
-            SalonNameOld: "",
-            SalonImagePathOld: "",
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data: {
+                SalonSolutionDTO: [],
+                SalonDTO: [],
+                CteateSalonDTO: [],
+                CurrentPage:"",
 
+                SalonSolutionIdOld:"",
+                SalonSolutionNameOld: "",
+                SalonSolutionDiscriptionOld: "",
+                SalonSolutionPriceOld: "",
+                SalonSolutionSalonId:"",
+                SalonSolutionName:"",
+                SalonSolutionDiscription:"",
+                SalonSolutionPrice:"",
 
-            salonSolutionName: "",
-            salonSolutionDiscription: "",
-            salonSolutionPrice: "",
+                SalonId:"",
+                SalonName:"",
+                SalonImagePath:"",
+                SalonIdOld:"",
+                SalonNameOld:"",
+                SalonImagePathOld:"",
+                salonName:"",
+                salonImagePath:null,
 
-            salonCatagoryName: "",
-            salonName: "",
-            salonImagePath: "",
-
-
-            selectedFile: null,
-            imageUrl: null,
-        },
-        mounted: function () {
-            let _this = this;
-            axios.get(`/api/PetSalon/GetSalonSolution`).then(response => _this.SalonSolutionDTO = response.data)
-        },
-        methods: {
-            FilterSalonSolutionDTO: function () {
-                let _this = this;
-                axios.get(`/api/PetSalon/GetSalonSolution`).then(response => _this.SalonSolutionDTO = response.data)
+                selectedFile: null,
+                originalImageUrl: null,
+                imageUrl:null,
             },
-            editSalonSolution: function (SalonSolutionId) {
+            mounted: function () {
                 let _this = this;
-                var SalonList = [];
-                var reslt
-                for (var i = 0; i < _this.SalonSolutionDTO.length; i++) {
-                    var item = _this.SalonSolutionDTO[i];
-                    if (SalonSolutionId == item.salonSolutionId) {
-                        item.editSalonSolution = true;
-                        _this.SalonSolutionNameold = item.salonSolutionName;
-                        _this.SalonSolutionDiscriptionold = item.salonSolutionDiscription;
-                        _this.SalonSolutionPriceold = item.salonSolutionPrice
-                    }
-                    SalonList.push(item);
-
-                }
-                _this.SalonSolutionDTO = SalonList;
+                _this.SalonSolutionPage();
             },
-
-            updateSalonSolution: function (item) {
-                let _this = this;
-                var request = {
-                    SalonSolutionId: item.salonSolutionId,
-                    SalonSolutionName: item.salonSolutionName,
-                    SalonSolutionDiscription: item.salonSolutionDiscription,
-                    SalonSolutionPrice: item.salonSolutionPrice
-                };
-                axios.put(`/api/PetSalon/PutSalonSolution/${item.salonSolutionId}`, request).then(response => {
-                    alert(response.data);
-                    _this.cancelSalonSolution();
+            methods: {
+                //<--------------頁面顯示----------------------->
+                FilterSalonSolutionDTO: function () {
+                    let _this = this;
+                    axios.get(`/api/PetSalon/GetSalonSolution`).then(response => _this.SalonSolutionDTO = response.data)
+                },
+                SalonSolutionPage: function () {
+                    let _this = this;
+                    _this.CurrentPage = 'SalonSolution';
                     _this.FilterSalonSolutionDTO();
-                });
-            },
-            CteateSalonSolution: function () {
-                $("#addSalonSolution").modal('show');
-            },
-
-            editSalon: function (SalonSolutionId) {
-                let _this = this;
-                var salonList = [];
-                for (var i = 0; i < _this.SalonSolutionDTO.length; i++) {
-                    var item = _this.SalonSolutionDTO[i];
-                    if (SalonSolutionId == item.salonSolutionId) {
-                        _this.SalonSolutionIdOld = item.salonSolutionId;
-                    }
-                salonList.push(item);
-                }
-                alert(JSON.stringify(salonList));
-                axios.post(`/api/PetSalon/GetSalon/${item.salonSolutionId}`, salonList).then(response => _this.SalonDTO = response.data)
-              //  $("#editSalon").modal('show');
-
+                },
+                SalonPage:function(){
+                    let _this = this;    
+                    _this.CurrentPage = 'Salon';
+                    axios.get(`/api/PetSalon/GetSalon`).then(response => _this.SalonDTO = response.data)
+                },
+                CteateSalonPage:function(){
+                    let _this = this;
+                    _this.CurrentPage = 'CteateSalon';
+                    axios.get(`/api/PetSalon/GetAddSalon`).then(response => _this.CteateSalonDTO = response.data);
 
                 },
 
-
-                cancelSalonSolution: function () {
+                //<--------------美容服務CRUD功能----------------------->
+                EditSalonSolution: function (SalonSolutionId) {
                     let _this = this;
-                    var SalonList = [];
+                    var SalonSolutionList = [];
+                    for (var i = 0; i < _this.SalonSolutionDTO.length; i++) {
+                        var item = _this.SalonSolutionDTO[i];
+                        if (SalonSolutionId == item.salonSolutionId) {
+                            item.editSalonSolution = true;
+                            _this.SalonSolutionNameOld = item.salonSolutionName;
+                            _this.SalonSolutionDiscriptionOld = item.salonSolutionDiscription;
+                            _this.SalonSolutionPriceOld = item.salonSolutionPrice
+                        }
+                        SalonSolutionList.push(item);
+
+                    }
+                    _this.SalonSolutionDTO = SalonSolutionList;
+                },
+                UpdateSalonSolution: function (item) {
+                    let _this = this;
+                    var request = {
+                        SalonSolutionId: item.salonSolutionId,
+                        SalonSolutionName: item.salonSolutionName,
+                        SalonSolutionDiscription: item.salonSolutionDiscription,
+                        SalonSolutionPrice: item.salonSolutionPrice
+                    };
+                    axios.put(`/api/PetSalon/PutSalonSolution/${item.salonSolutionId}`, request).then(response => {
+                        alert(response.data);
+                        _this.CancelSalonSolution();
+                        _this.SalonSolutionPage();
+                    }).catch(error => {
+                        console.log(error);
+                    });                    
+                },
+                CancelSalonSolution: function () {
+                    let _this = this;
+                    var SalonSolutionList = [];
                     for (var i = 0; i < _this.SalonSolutionDTO.length; i++) {
                         var item = _this.SalonSolutionDTO[i];
                         if (item.editSalonSolution == true) {
                             item.editSalonSolution = false;
-                            _this.SalonSolutionNameOld = item.salonSolutionName;
-                            _this.SalonSolutionDiscriptionOld = item.salonSolutionDiscription;
-                            _this.SalonSolutionPriceOld = item.salonSolutionPrice;
+                            item.salonSolutionName = _this.SalonSolutionIdOld;
+                            item.salonSolutionName = _this.SalonSolutionNameOld;
+                            item.salonSolutionDiscription = _this.SalonSolutionDiscriptionOld;
+                            item.salonSolutionPrice = _this.SalonSolutionPriceOld;
+                        }
+                        SalonSolutionList.push(item);
+                    }
+                    _this.SalonSolutionDTO = SalonSolutionList;
+                },
+
+                //<--------------美容項目CRUD功能----------------------->
+                Editsalon: function (SalonId) {
+                    let _this = this;
+                    var SalonList = [];
+                    for (var i = 0; i < _this.SalonDTO.length; i++) {
+                        var item = _this.SalonDTO[i];
+                        if (SalonId == item.salonId) {
+                            item.editSalon = true;
+                            _this.SalonIdOld = item.salonId;
+                            _this.SalonNameOld = item.salonName;
+                            _this.SalonImagePathOld = item.salonImagePath;
+                            _this.imageUrl = _this.GetImageUrl(item.salonImagePath);
                         }
                         SalonList.push(item);
                     }
-                    _this.SalonSolutionDTO = SalonList;
+                    _this.SalonDTO = SalonList;
                 },
-
-                onfile: function (e) {
+                Cancelsalon: function () {
                     let _this = this;
-                    _this.selectedFile = e.target.files[0];
-                    _this.preview();
+                    var SalonList = [];
+                    for (var i = 0; i < _this.SalonDTO.length; i++) {
+                        var item = _this.SalonDTO[i];
+                        if (item.editSalon == true) {
+                            item.editSalon = false;
+                            item.salonId = _this.SalonIdOld;
+                            item.salonName = _this.SalonNameOld;
+                            item.salonImagePath = _this.SalonImagePathOld;
+                        }
+                        SalonList.push(item);
+                    }
+                    _this.SalonDTO = SalonList;
                 },
-                preview: function () {
+                Onfile: function (e) {
                     let _this = this;
-                    if (_this.selectedFile) {
+                    const newFile = e.target.files[0];
+                    if (newFile) {
+                        _this.selectedFile = newFile;
                         const reader = new FileReader();
                         reader.onload = (event) => {
                             _this.imageUrl = event.target.result;
                         };
-                        reader.readAsDataURL(_this.selectedFile);
+                        reader.readAsDataURL(newFile);
                     } else {
-                        _this.imageUrl = null;
+                        _this.imageUrl = _this.originalImageUrl;
+                        _this.selectedFile = null;
                     }
                 },
-
-                //update: function (item) {
-                //    let _this = this;
-
-                //    const data = {
-                //        SalonId: item.salonId,
-                //        SalonCatagoryName: item.salonCatagoryName,
-                //        SalonName: item.salonName,
-                //    };
-
-                //    axios.put(`/api/PetSalon/UploadImage/${item.salonId}`, data).then(res => {
-                //        alert(response.data);
-                //        _this.cancel();
-                //        _this.FilterSalonSolutionDTO();
-                //    });
-                //},
-                CteateSalonSolution: function() {
-                    $("#addSalonSolution").modal('show');
-                },
-                CteateSalon: function() {
-                    $("#addSalon").modal('show');
-                },
-                InsertSalonSolution: function () {
+                Updatesalon: function (item) {
                     let _this = this;
-                    var SalonSolutionDTO = {
-                        SalonSolutionSalonId: 0,
-                        SalonSolutionName: _this.salonSolutionName,
-                        SalonSolutionDiscription: _this.salonSolutionDiscription,
-                        SalonSolutionPrice: _this.salonSolutionPrice
-                    };
-                    axios.post(`/api/PetSalon/CteateSalonSolution`, SalonSolutionDTO).then(response => {
-                        alert(response.data);
-                        $("#addSalonSolution").modal("hide");
-                        _this.SalonSolutionDTO();
-                    });
+                    if (!_this.selectedFile)
+                    {
+                        var request = {
+                            SalonId: item.salonId,
+                            SalonName: item.salonName,
+                        };
+                        axios.put(`/api/PetSalon/UploadSalontext/${item.salonId}`, request)
+                        .then(response => {
+                            alert(response.data);
+                            _this.SalonPage();
+                        })
+                    }
+                    else
+                    {
+                        var data = new FormData();
+                        data.append("SalonImagePath", _this.selectedFile);
+                        data.append("SalonId", item.salonId);
+                        data.append("SalonName", item.salonName);
+                        axios.put(`/api/PetSalon/UploadImage/${item.salonId}`, data)
+                            .then(response => {
+                                alert(response.data);
+                                _this.SalonPage();
+                            }).catch(error => {
+                                console.log(error);
+                            });
+                    }
+                },
+                GetImageUrl: function (salonId) {
+                    return `data:image/jpg;base64,${salonId}`;
+                },
+
+                CteateSalon: function () {
+                    axios.get(`/api/PetSalon/GetAddSalon`).then(response => _this.NewSalonType = response.data);
+                    $("#addSalon").modal('show');
                 },
                 InsertSalon: function () {
                     let _this = this;
-                    var SalonDTO = {
+                    var InsertDTO = {
                         SalonSolutionSalonId: 0,
                         SalonSolutionName: _this.salonSolutionName,
                         SalonSolutionDiscription: _this.salonSolutionDiscription,
                         SalonSolutionPrice: _this.salonSolutionPrice
                     };
-                    axios.post(`/api/PetSalon/CteateSalon`, SalonDTO).then(response => {
+                    axios.post(`/api/PetSalon/CteateSalon`, InsertDTO).then(response => {
                         alert(response.data);
                         $("#addSalon").modal("hide");
-                        _this.SalonSolutionDTO();
+                        _this.SalonPage();
                     });
                 },
             }
         })
-</script>
+    </script>
+}

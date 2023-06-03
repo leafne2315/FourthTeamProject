@@ -1,0 +1,352 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var hotelId = Context.Request.Query["hotelId"];
+}
+<head>
+    
+
+    <style>
+        #orderForm {
+            background-color: #6998AB;
+            padding-left: 150px;
+            padding-right: 150px;
+            padding-top:50px;
+            padding-bottom:50px;
+        }
+
+        .form-text {
+            color: floralwhite;
+        }
+
+        hr.solid {
+            border-top: 1px solid floralwhite;
+            width: 200px;
+            margin-left: 0;
+        }
+
+        .input {
+            display: flex;
+            flex-direction: column-reverse;
+            position: relative;
+            padding-top: 1.5rem;
+            &+.input
+
+        {
+            margin-top: 1.5rem;
+        }
+
+        }
+
+        .input-label {
+            color: #8eb6c6;
+            position: absolute;
+            top: 1.5rem;
+            transition: .25s ease;
+            
+        }
+
+        .input-field {
+            border: 0;
+            z-index: 1;
+            background-color: transparent;
+            border-bottom: 2px solid #8eb6c6;
+            font: inherit;
+            font-size: 1.125rem;
+            color: floralwhite; 
+            padding: .25rem 0;
+            &:focus, &:valid  
+            {
+                outline: 0;
+            border-bottom-color: floralwhite;
+                &+.input-label
+                {
+                    color: floralwhite;
+                    transform: translateY(-1.5rem);
+                }
+            }
+        }
+
+        .notice {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        ::placeholder {
+            color: #8eb6c6;
+        }
+        
+    </style>
+</head>
+
+<div id="app">
+    <p>Hotel ID: @hotelId</p>
+    <h1>PetHotelOrderPage </h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>PetHotelId</th>
+                <th>HotelCatagoryId</th>
+                <th>HotelName</th>
+                <th>UnitPrice</th>
+                <th>HotelContent</th>
+                <th>HotelContentDetail</th>
+                <th>HotelImageString</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @*
+                <td>{{HotelData.id}}</td>
+                <td>{{HotelData.catagoryID}}</td>
+                <td>{{HotelData.hotelName}}</td>
+                <td>{{HotelData.unitPrice}}</td>
+                <td>{{HotelData.hotelContent}}</td>
+                <td>{{HotelData.hotelContentDetail}}</td>
+                <td>{{HotelData.hotelImage}}</td>
+                *@
+            </tr>
+        </tbody>
+    </table>
+    <div id="orderForm">
+        <div class="px-4 px-lg-5 mt-3 form-text">
+
+            <h2>線上訂房</h2>
+            <hr class="solid">
+            <div style="height:50px"></div>
+            <form class="card-form" v-on:submit.prevent="createOrder">
+
+                <div class="mb-3">
+                    <p>選擇寵物類型</p>
+                    <select name="" id="" class="form-control custom-select" v-model="selectedPetTypeId" required>
+                        <option :value="1">狗</option>
+                        <option :value="2">貓</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <p>選擇房型</p>
+                    <select name="" id="" class="form-control custom-select" v-model="orderDetailData.HotelId" required>
+                        <option v-for="data in selectedPetHotels" :value="data.id">{{data.hotelName}}</option>
+                    </select>
+                </div>
+                @*
+                <div class="mb-3">
+                    <p>選擇房型</p>
+                    <select name="" id="" class="form-control custom-select" v-model="orderDetailData.HotelId" required>
+                        <optgroup label="狗">
+                            <option v-for="data in petHotelForDog" :value="data.id">{{data.hotelName}}</option>
+                        </optgroup>
+                        <optgroup label="貓">
+                            <option v-for="data in petHotelForCat" :value="data.id">{{data.hotelName}}</option>
+                        </optgroup>
+                    </select>
+                </div>
+                *@
+                <div class="">
+                    <div class="row">
+                        <div class="col col-md-6 mb-3">
+                            <p>入住日期</p>
+                            <input type="date" v-model="orderDetailData.CheckIntime" class="form-control custom-select" required>
+                        </div>
+                        <div class="col col-md-6 mb-3">
+                            <p>離宿日期</p>
+                            <input type="date" v-model="orderDetailData.CheckOutTime" class="form-control custom-select" required>
+                            <p class="notice" v-if="showNotice">{{ noticeText }}</p>
+                        </div>
+                    </div> 
+                </div> 
+                @*
+                <div class="input">
+                    <input type="text" class="input-field" required />
+                    <label class="input-label">聯絡人*</label>
+                </div>
+                <div class="input">
+                    <input type="number" class="input-field" required />
+                    <label class="input-label">聯絡手機*</label>
+                </div>
+
+                *@
+                <div class = "input">
+                    <textarea class="input-field" rows="3" placeholder="你想補充什麼?"></textarea>
+                    <label class="input-label">其他備註</label>
+                </div>
+                <div class="action mt-5">
+                    <button type="submit" class="btn btn-primary">提交訂單</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+    let app = new Vue({
+        el: '#app',
+        data: {
+            orderData:{
+                MemberId:null,
+                PayId: null,
+                InvoiceId:null,
+            },
+
+            orderDetailData:{
+                
+                HotelOrderId:null,
+                HotelId:null,
+                CheckIntime:null,
+                CheckOutTime:null,
+                OrderAmount:null,
+                UnitPrice:null,
+                DetailStatus:null,
+                HotelName:null,
+                HotelCatagoryName:null,
+            },
+            selectedPetTypeId:1,
+            selectedPetHotels:null,
+
+            //資料分類
+            petHotelForDog:[],
+            petHotelForCat:[],
+            petHotelDatas:[],
+
+            //時段確認
+            showNotice: false,
+            noticeText: '',
+        },
+        mounted: async function () {
+
+            await this.getHotelDatas();
+            this.InitialForm();
+        },
+        
+        watch:{
+            selectedPetTypeId: function (newVal, oldVal){
+                console.log("new:",newVal);
+                this.changeSelectedCategory(newVal);
+                this.setChangedHoteltype();
+            },
+        },
+        methods: {
+
+            getHotelDatas: async function () {
+
+                let self = this;
+                var test = await axios.get('/api/PetHotelAPI').then(response => {
+                    this.petHotelDatas = response.data; // Store the fetched data in the component's data property
+
+                    console.log(this.petHotelDatas);
+                    this.petHotelForDog = this.petHotelDatas.filter(data => data.catagoryID == 1);
+                    this.petHotelForCat = this.petHotelDatas.filter(data => data.catagoryID == 2);
+
+                })
+                console.log('getData');
+            },
+
+            createOrder:function(){
+
+                    this.formSubmit();
+                    if (this.showNotice) {
+                        console.log('中斷建立訂單');
+                        return;
+                    }
+
+                    console.log('create Order');
+
+                    this.orderData.MemberId = 1;
+                    this.orderData.PayId = 1;
+                    this.orderData.InvoiceId = 1;
+
+                    axios.post('/api/PetHotelAPI/HotelOrderCreate',this.orderData)
+                    .then( (response) => {
+                        console.log('Order:',response);
+
+                        this.orderDetailData.HotelOrderId = response.data.hoyelOrderId;
+                        //this.orderDetailData.HotelId = 1;
+                        //this.orderDetailData.CheckIntime =new Date( '2023-06-15 13:45:30.000');
+                        //this.orderDetailData.CheckOutTime =new Date( '2023-06-16 13:45:30.000');
+                        //this.orderDetailData.OrderAmount = 1;
+                        //this.orderDetailData.UnitPrice = 1200;
+                        //this.orderDetailData.DetailStatus = true;
+                        //this.orderDetailData.HotelName = '測試中旅館名';
+                        //this.orderDetailData.HotelCatagoryName = '貓';
+
+                        axios.post('/api/PetHotelAPI/OrderDetailCreate',this.orderDetailData).then((x)=>console.log('OrderDetail:',x));
+                    });
+            },
+
+
+            formSubmit: function () {
+
+                this.checkCheckOutTimeValid();
+
+                var hotelChosen = this.getHotelByID(this.orderDetailData.HotelId);
+
+                console.log('chosenHotel:', hotelChosen);
+                this.completeOrderDetail(hotelChosen);
+                console.log('submit:', this.orderDetailData);
+            },
+
+            getHotelByID: function (hotelId) {
+                var hotelChosen = this.petHotelDatas.find(h => h.id == hotelId);
+                return hotelChosen;
+            },
+
+            completeOrderDetail: function (hotelData) {
+
+                this.orderDetailData.HotelId = hotelData.id;
+                this.orderDetailData.OrderAmount = 1;
+                this.orderDetailData.UnitPrice = hotelData.unitPrice;
+                this.orderDetailData.DetailStatus = true;
+                this.orderDetailData.HotelName = hotelData.hotelName;
+                this.orderDetailData.HotelCatagoryName = hotelData.hotelTypeName;
+            },
+            
+            changeSelectedCategory:function(categoryID){
+                switch(categoryID)
+                {
+                    case 1:
+                        this.selectedPetHotels = this.petHotelForDog;
+                        break;
+                    case 2:
+                        this.selectedPetHotels = this.petHotelForCat;
+                        break;
+                    default:
+                        console.log('Invalid CategoryID has been found!!')
+                        break;
+                }
+            },
+
+            setChangedHoteltype:function(){
+                this.orderDetailData.HotelId = this.selectedPetHotels[0].id;
+            },
+
+            InitialForm:function(){
+                this.selectedPetHotels = this.petHotelForDog;
+                console.log('set selectedPetHotels:', this.petHotelForDog);
+                this.setChangedHoteltype();
+            },
+
+            checkCheckOutTimeValid: function()
+            {
+                var isInvalid = (this.orderDetailData.CheckOutTime <= this.orderDetailData.CheckIntime);
+                this.showNotice = isInvalid;
+
+                if (isInvalid)
+                {
+                    console.log("checkOut Time is invalid");
+                    this.noticeText = '時間不正確,請確認是否有誤';
+                    
+                    this.orderDetailData.CheckOutTime = null;
+                }
+               
+            },
+
+        },
+
+    })
+</script>

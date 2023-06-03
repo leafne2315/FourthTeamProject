@@ -25,13 +25,12 @@
     <link rel="stylesheet" href="~/css/style.css">
 
     <style>
-        #top{
-            
+        #top {
             margin-top: 81px;
         }
 
         #header .site-nav {
-            min-height:81px
+            min-height: 81px
         }
     </style>
     <title>Pets Heaven</title>
@@ -71,8 +70,6 @@
                             <a asp-controller="PetSalon" asp-action="SalonIndex">寵物美容</a>
                             <ul class="dropdown">
                                 <li><a asp-controller="PetSalon" asp-action="Index">調整寵物美容後端</a></li>
-                                <li><a asp-controller="PetSalon" asp-action="DogSalon">狗狗美容</a></li>
-                                <li><a asp-controller="" asp-action="">貓咪美容</a></li>
                             </ul>
                         </li>
                         
@@ -82,15 +79,15 @@
                             if (User.Identity.IsAuthenticated)
                             {
                                 <li class="has-children">
-                            <a asp-controller="Member" asp-action="Index">會員中心</a>
-                            <ul class="dropdown">
-                                <li><a asp-controller="" asp-action="">會員資料</a></li>
-                                <li><a asp-controller="" asp-action="">安全中心</a></li>
-                                <li><a asp-controller="" asp-action="">寵物資料</a></li>
-                                <li><a asp-controller="" asp-action="">會員福利</a></li>
-                                <li><a asp-controller="" asp-action="">訂單管理</a></li>
-                            </ul>
-                        </li>
+                                    <a asp-controller="Member" asp-action="Index">會員中心</a>
+                                    <ul class="dropdown">
+                                        <li><a asp-controller="" asp-action="">會員資料</a></li>
+                                        <li><a asp-controller="" asp-action="">安全中心</a></li>
+                                        <li><a asp-controller="" asp-action="">寵物資料</a></li>
+                                        <li><a asp-controller="" asp-action="">會員福利</a></li>
+                                        <li><a asp-controller="" asp-action="">訂單管理</a></li>
+                                    </ul>
+                                </li>
                                 <li>
                                     <a asp-controller="Member" asp-action="Logout">會員登出</a>
                                 </li>
@@ -108,32 +105,26 @@
                             @{
                                 if (User.Identity.IsAuthenticated)
                                 {
-                                <li>
-                                    <span class="nav-link text-capitalize">使用者:@User.Claims.FirstOrDefault(x=> x.Type == ClaimTypes.Name).Value</span>
-                                </li>
-                                <li class="has-children">
-                                    <a asp-controller="Employees" asp-action="EmployeeLogout">企業登出</a>
-
-                                    <ul class="dropdown">
-                                        <li><a asp-controller="Employees" asp-action="EmployeeSystem">員工系統</a></li>
-                                        <li><a asp-controller="Employees" asp-action="Productmanagement">商品管理系統</a></li>
-                                
-                                    </ul>
-                                </li>
+                                    <li>
+                                        <span class="nav-link text-capitalize">使用者:@User.Claims.FirstOrDefault(x=> x.Type == ClaimTypes.Name).Value</span>
+                                    </li>
+                                    <li class="has-children">
+                                        <a asp-area="Admin" asp-controller="Employees" asp-action="EmployeeSystem">員工系統</a>
+                                        <ul class="dropdown">
+                                            <li><a asp-area="Admin" asp-controller="Employees" asp-action="Productmanagement">商品管理系統</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class=""></li>
+                                    <a asp-controller="Employees" asp-action="EmployeeLogout">登出</a>
                                 }
                                 else
                                 {
-                                <li>
-                                    <a asp-controller="Employees" asp-action="EmployeeLogin">企業登入</a>
-                                </li>
+                                    <li>
+                                        <a asp-controller="Employees" asp-action="EmployeeLogin">企業登入</a>
+                                    </li>
 
                                 }
                             }
-                        </li>
-
-
-
-
 
                     </ul>
 
@@ -149,17 +140,19 @@
         <div id="top">
             @RenderBody()
         </div>
-        
+
     </main>
+
+    <button id="goToTop">Top</button>
 
     <div class="site-footer">
         <div class="inner first">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-md-12 col-lg-6">
                         <div class="widget">
-                            <h3 class="heading">About Tour</h3>
-                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                            <h3 class="heading">關於日安</h3>
+                            <p>致力為毛孩們提供更好的生活品質，給予陪伴我們的他們最好的呵護。</p>
                         </div>
                         <div class="widget">
                             <ul class="list-unstyled social">
@@ -174,33 +167,14 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-2 pl-lg-5">
-                        <div class="widget">
-                            <h3 class="heading">Pages</h3>
-                            <ul class="links list-unstyled">
-                                <li><a asp-controller="" asp-action="">Blog</a></li>
-                                <li><a asp-controller="" asp-action="">About</a></li>
-                                <li><a asp-controller="" asp-action="">Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-2">
-                        <div class="widget">
-                            <h3 class="heading">Resources</h3>
-                            <ul class="links list-unstyled">
-                                <li><a asp-controller="" asp-action="">Blog</a></li>
-                                <li><a asp-controller="" asp-action="">About</a></li>
-                                <li><a asp-controller="" asp-action="">Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
+
+                    <div class="col-md-12 col-lg-6">
                         <div class="widget">
                             <h3 class="heading">Contact</h3>
                             <ul class="list-unstyled quick-info links">
-                                <li class="email"><a asp-controller="" asp-action="">mail@example.com</a></li>
-                                <li class="phone"><a asp-controller="" asp-action="">+1 222 212 3819</a></li>
-                                <li class="address"><a asp-controller="" asp-action="">43 Raymouth Rd. Baltemoer, London 3910</a></li>
+                                <li class="email"><a href="#">thm101team04@gmail.com</a></li>
+                                <li class="phone"><a href="#">+886 987 654 321</a></li>
+                                <li class="address"><a href="https://goo.gl/maps/BpxiWM1wBejFiBH8A?coh=178573&entry=tt">寵物 · 日安—台北商業大學旗艦館</a></li>
                             </ul>
                         </div>
                     </div>
@@ -269,6 +243,13 @@
 
             });
         })
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var goToTopButton = document.getElementById('goToTop');
+            goToTopButton.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
     </script>
 
     <script src="~/js/custom.js"></script>

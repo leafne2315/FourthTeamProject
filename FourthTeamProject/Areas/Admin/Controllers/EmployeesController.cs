@@ -1,21 +1,22 @@
 ﻿using FourthTeamProject.Models.ViewModel;
 using FourthTeamProject.PetHeavenModels;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Security.Claims;
 
-namespace FourthTeamProject.Controllers
+namespace FourthTeamProject.Areas.Admin.Controllers
 {
-
-
-	public class EmployeesController : Controller
+    [Area("Admin")]
+    [Authorize(Roles = "admin")]
+    public class EmployeesController : Controller
     {
         private readonly PetHeavenDbContext _db;
-       
+
 
         public EmployeesController(PetHeavenDbContext context)
         {
@@ -23,50 +24,38 @@ namespace FourthTeamProject.Controllers
         }
 
 
-        public IActionResult EmployeeLogin()
-        {
-            return View();
-        }
-
-        public async Task<IActionResult> Ordermanagement()
-        {
+        //[Authorize(Roles = "admin")]
+    
+		public async Task<IActionResult> Ordermanagement()
+		{
 			//var petHeavenDbContext = _db.ProductOrder.Include(p => p.ProductOrderDetail).Include(p => p.OrderId);
 			var petHeavenDbContext = _db.ProductOrder
-                .Include(p => p.Payment)
-                .Include(p => p.Invoice)
-                .Include(p=>p.Member)
-                .Include(p=>p.ProductOrderDetail);
+				.Include(p => p.Payment)
+				.Include(p => p.Invoice)
+				.Include(p => p.Member)
+				.Include(p => p.ProductOrderDetail);
 
 			return View(await petHeavenDbContext.ToListAsync());
 		}
 
 
-   //     public async Task<IActionResult> OrderDetail()
-   //     {
-   //         var petHeavenDbContext=_db.ProductOrderDetail
-   //             .Include(p=>p.)
-
-			//return View();
-   //     }
-
-		[Authorize(Roles = "admin")]
-        public IActionResult EmployeeSystem()
+		//[Authorize(Roles = "admin")]
+		public IActionResult EmployeeSystem()
         {
-
             return View();
         }
 
 
 
-
-        [Authorize(Roles = "admin")]
+  
+        //[Authorize(Roles = "admin")]
         public async Task<IActionResult> Productmanagement()
-		{
+        {
             var petHeavenDbContext = _db.Product.Include(p => p.ProductCatagory).Include(p => p.ProductType);
             return View(await petHeavenDbContext.ToListAsync());
         }
 
-
+        //[Authorize(Roles = "admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _db.Product == null)
@@ -86,11 +75,11 @@ namespace FourthTeamProject.Controllers
             return View(product);
         }
 
-        // GET: Products/Create
-        
+       
 
 
 
+     
         public IActionResult Create()
         {
             ViewData["ProductCatagoryId"] = new SelectList(_db.ProductCatagory, "ProductCatagoryId", "ProductCatagoryName");
@@ -102,6 +91,7 @@ namespace FourthTeamProject.Controllers
         // POST: Products/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+    
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,ProductTypeId,ProductName,ProductSpecification,ProductContent,UnitPrice,Stock,ProductStatus,ProductCatagoryId")] Product product)
@@ -119,7 +109,9 @@ namespace FourthTeamProject.Controllers
 
 
 
-        // GET: Products/Edit/5
+
+    
+    
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _db.Product == null)
@@ -140,6 +132,7 @@ namespace FourthTeamProject.Controllers
         // POST: Products/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductTypeId,ProductName,ProductSpecification,ProductContent,UnitPrice,Stock,ProductStatus,ProductCatagoryId")] Product product)
@@ -174,7 +167,7 @@ namespace FourthTeamProject.Controllers
             return View(product);
         }
 
-        // GET: Products/Delete/5
+    
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _db.Product == null)
@@ -194,7 +187,6 @@ namespace FourthTeamProject.Controllers
             return View(product);
         }
 
-        // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -214,16 +206,12 @@ namespace FourthTeamProject.Controllers
         }
 
 
-   
-
-
-
         private bool ProductExists(int id)
         {
             return (_db.Product?.Any(e => e.ProductId == id)).GetValueOrDefault();
         }
 
-
+      
         [HttpPost]
         public async Task<IActionResult> EmployeeLogin(EmployeeLoginViewModel model)
         {
@@ -249,11 +237,11 @@ namespace FourthTeamProject.Controllers
             await HttpContext.SignInAsync(claimsPrincipal);  //夾帶一個cookie出去
             return RedirectToAction("EmployeeSystem", "Employees");
         }
+        
         public async Task<IActionResult> EmployeeLogout()
         {
             HttpContext.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-
     }
 }

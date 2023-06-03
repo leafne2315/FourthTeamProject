@@ -16,7 +16,7 @@ namespace FourthTeamProject.Models.ViewModel
 
 		//public virtual ProductCatagory ProductCatagory { get; set; }
 		//public virtual ProductType ProductType { get; set; }
-		//public virtual ICollection<ProductImage> ProductImage { get; set; }
+		public virtual ICollection<ProductImage> ProductImage { get; set; }
 
 	}
 }

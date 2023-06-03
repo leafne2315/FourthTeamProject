@@ -15,5 +15,6 @@ namespace FourthTeamProject.Models.ViewModel
         public string? SalonName { get; set; }
 
         public byte[]? SalonImagePath { get; set; }
+
     }
 }

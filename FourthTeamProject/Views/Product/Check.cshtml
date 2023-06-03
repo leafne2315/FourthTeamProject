@@ -75,8 +75,8 @@
                     <label for="phone">連絡電話：</label>
                     <input type="tel" class="form-control" id="phone" name="phone" v-model="memberInfo.memberPhone" required>
                 </div>
-                @*href="/Product/OrderDone"*@
-                <a class="btn btn-primary btn-block" @@click="sendOrder()">結帳</a>
+                @**@
+                <a class="btn btn-primary btn-block" @@click="sendOrder()">結帳(href="/Product/OrderDone")</a>
             </div>
         </div>
 
@@ -200,11 +200,15 @@
                         OrderMemberEmail: _this.memberInfo.memberEmail,
                     };
                     console.log(request);
-                    axios.post('/api/PetProdcutAPI/CreatOrder', request).then(res => _this.orderId = res.data);
-                    var cartItems = localStorage.getItem('CartItem');
-                    var obj = JSON.parse(cartItems);
-                    console.log(obj[0].carts);
-                    //axios.post('/api/PetProdcutAPI/CreatOrderDetail', request).then(res => _this.orderId = res.data);
+                    axios.post('/api/PetProdcutAPI/CreatOrder', request).then(res => {
+                        _this.orderId = res.data;
+                        var cartItems = localStorage.getItem('CartItem');
+                        var productDetail = JSON.parse(cartItems);
+                        console.log(productDetail[0].carts);
+                        //console.log(_this.orderId);
+                        axios.post('/api/PetProdcutAPI/CreatOrderDetail', productDetail[0].carts, { params: { orderId: this.orderId } }).then(res => console.log('OK'));
+                        
+                    });                 
                 },
             }
         })

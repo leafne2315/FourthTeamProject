@@ -70,9 +70,30 @@ namespace FourthTeamProject.Controllers.API
         }
 
 
+       
+        [HttpPost]
+        public IActionResult CreatOrderDetail([FromBody] List<ProductViewModel> request,int orderId)
+        {
 
-
-
+            foreach (var item in request)
+            {
+                var CatagoryName = _db.ProductCatagory.Where(x => x.ProductCatagoryId == item.ProductCatagoryId).Select(x => x.ProductCatagoryName).SingleOrDefault();
+                var result = new ProductOrderDetail()
+                {
+                    Quantity = item.Amount,
+                    ProductName = item.ProductName,
+                    ProductContent = item.ProductContent,
+                    UnitPrice = item.UnitPrice,
+                    ProductId = item.ProductId,
+                    DetailStatus = true,
+                    ProductCatagoryName = CatagoryName,
+                    OrderId= orderId,
+                };
+                _db.ProductOrderDetail.Add(result);
+                _db.SaveChanges();
+            }
+            return Ok();
+        }
 
 
 

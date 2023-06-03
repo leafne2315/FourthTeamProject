@@ -2,18 +2,18 @@
 
 <div id="app" class="container">
     @*<-----------新增與編輯美容項目-------------->*@
-    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0">
+    <nav class="navbar navbar-expand bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0">
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                <buttor class="nav-item nav-link" v-if="ButtonPage == 'SalonSolutionButton'" @@click="SalonSolutionPage">編輯美容服務</buttor>
-                <buttor class="nav-item nav-link" v-else="ButtonPage == 'SalonButton'" @@click="SalonPage">編輯美容項目</buttor>
-                <buttor class="nav-item nav-link" @@click="CteateSalon">新增美容項目</buttor>
+                <a class="nav-item nav-link" @@click="SalonSolutionPage">編輯美容服務</a>
+                <a class="nav-item nav-link" @@click="SalonPage">編輯美容項目</a>
+                <a class="nav-item nav-link" @@click="CteateSalonPage">新增美容項目</a>
             </div>
         </div>
     </nav>
     
     @*<-----------編輯美容服務頁面-------------->*@
-    <div class="form-group" v-if="CurrentPage == 'SalonSolution'">
+    <div class="form-group" v-if="CurrentPage === 'SalonSolution'">
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -25,7 +25,7 @@
             </thead>
             <tbody>
                 <tr v-for="item in SalonSolutionDTO">
-                    <template v-if="item.editSalonSolution == true">
+                    <template v-if="item.editSalonSolution === true">
                         <td>
                             <button class="btn btn-success" @@click="UpdateSalonSolution(item)">確定修改</button>
                             <button class="btn btn-warning" @@click="CancelSalonSolution">取消修改</button>
@@ -50,7 +50,7 @@
     </div>
 
     @*<-----------編輯美容項目頁面-------------->*@
-    <div class="form-group" v-else="CurrentPage == 'Salon'">
+    <div class="form-group" v-else-if="CurrentPage === 'Salon'">
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -68,14 +68,13 @@
                             <button class="btn btn-warning" @@click="Cancelsalon">取消修改</button>
                             <input type="file" @@change="Onfile" accept="image/*" />
                         </td>
-                        <td><input v-model="item.salonCatagoryName" /></td>
+                        <td>{{item.salonCatagoryName}}</td>
                         <td><input v-model="item.salonName" /></td>
                         <td><img style="width:200px;height:200px" :src="imageUrl" /></td>
                     </template>
                     <template v-else>
                         <td>
                             <button class="btn btn-primary" @@click="Editsalon(item.salonId)">編輯</button>
-                            <button class="btn btn-danger" @@click="Deletesalon(item.salonId)">刪除</button>
                         </td>
                         <td>{{item.salonCatagoryName}}</td>
                         <td>{{item.salonName}}</td>
@@ -88,50 +87,69 @@
         </table>
     </div>
 
-    @*<----------------互動視窗----------------->*@
-
-
     @*<----------------新增美容服務項目----------------->*@
-    <div class="form-group">
-        <div class="modal fade" id="addSalon" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalTitleId">新增美容項目</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">美容服務</label>
-                            <select class="form-control mr-1">
-                                <option value="0" disabled selected>--請選擇--</option>
-                                <option v-for="item in SalonDTO" :key="item.salonSolutionId">{{ item.salonSolutionName }}</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">寵物種類</label>
-                            <select class="form-control mr-1">
-                                <option value="0" disabled selected>--請選擇--</option>
-                                <option v-for="item in SalonDTO" :key="item.salonCatagoryId">{{ item.salonCatagoryName }}</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">美容項目</label>
-                            <input class="form-control" v-model="salonName" />
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">圖片</label>
-                            <input class="form-control" v-model="salonImagePath" />
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                        <button type="button" class="btn btn-primary" @@click="InsertSalon">新增</button>
-                    </div>
-                </div>
+    <div class="form-group" v-else-if="CurrentPage == 'CteateSalon'">
+        <table class="table table-striped table-hover">
+
+            <div class="form-group">
+                <label class="form-label">美容服務</label>
+                <select class="form-control mr-1">
+                    <option value="0" disabled selected>--請選擇--</option>
+                    <option v-for="item in CteateSalonDTO" :key="item.salonSolutionId">{{ item.salonSolutionName }}</option>
+                </select>
             </div>
-        </div>
+            <div class="form-group">
+                <label class="form-label">寵物種類</label>
+                <select class="form-control mr-1">
+                    <option value="0" disabled selected>--請選擇--</option>
+                    <option v-for="item in CteateSalonDTO" :key="item.salonCatagoryId">{{ item.salonCatagoryName }}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">已有的服務項目</label>
+                <input type="radio" name="SalonType" />
+                <label class="form-label">增加新服務項目</label>
+                <input type="radio" name="SalonType" />
+                <button></button>
+            </div>
+
+
+            <thead>
+                <tr>
+                    <th>編輯</th>
+                    <th>寵物種類</th>
+                    <th>美容項目</th>
+                    <th>美容圖片</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in CteateSalonDTO">
+                    <template v-if="item.editSalon == true">
+                        <td>
+                            <button class="btn btn-success" @@click="UpdateCurrentsalon(item)">確定修改</button>
+                            <button class="btn btn-warning" @@click="CancelCurrentsalon">取消修改</button>
+                            <input type="file" @@change="Onfile" accept="image/*" />
+                        </td>
+                        <td>{{item.salonCatagoryName}}</td>
+                        <td><input v-model="item.salonName" /></td>
+                        <td><img style="width:200px;height:200px" :src="imageUrl" /></td>
+                    </template>
+                    <template v-else>
+                        <td>
+                            <button class="btn btn-primary" @@click="EditCurrentsalon(item.salonId)">編輯</button>
+                            <button class="btn btn-danger" @@click="DeleteCurrentsalon(item.salonId)">刪除</button>
+                        </td>
+                        <td>{{item.salonCatagoryName}}</td>
+                        <td>{{item.salonName}}</td>
+                        <td>
+                            <img style="width:200px;height:200px" :src="GetImageUrl(item.salonImagePath)" />
+                        </td>
+                    </template>
+                </tr>
+            </tbody>
+        </table>
     </div>
+
 </div>
 
 
@@ -146,29 +164,24 @@
             data: {
                 SalonSolutionDTO: [],
                 SalonDTO: [],
+                CteateSalonDTO: [],
                 CurrentPage:"",
-                ButtonPage:"",
+
                 SalonSolutionIdOld:"",
                 SalonSolutionNameOld: "",
                 SalonSolutionDiscriptionOld: "",
                 SalonSolutionPriceOld: "",
-
                 SalonSolutionSalonId:"",
                 SalonSolutionName:"",
                 SalonSolutionDiscription:"",
                 SalonSolutionPrice:"",
 
                 SalonId:"",
-                SalonCatagoryName:"",
                 SalonName:"",
                 SalonImagePath:"",
-
                 SalonIdOld:"",
-                SalonCatagoryNameOld:"",
                 SalonNameOld:"",
                 SalonImagePathOld:"",
-
-
                 salonName:"",
                 salonImagePath:null,
 
@@ -181,27 +194,32 @@
                 _this.SalonSolutionPage();
             },
             methods: {
+                //<--------------頁面顯示----------------------->
                 FilterSalonSolutionDTO: function () {
                     let _this = this;
                     axios.get(`/api/PetSalon/GetSalonSolution`).then(response => _this.SalonSolutionDTO = response.data)
                 },
                 SalonSolutionPage: function () {
                     let _this = this;
-                    _this.ButtonPage = 'SalonButton';
                     _this.CurrentPage = 'SalonSolution';
                     _this.FilterSalonSolutionDTO();
                 },
                 SalonPage:function(){
-                    let _this = this;
-                    _this.ButtonPage = 'SalonSolutionButton';
+                    let _this = this;    
                     _this.CurrentPage = 'Salon';
                     axios.get(`/api/PetSalon/GetSalon`).then(response => _this.SalonDTO = response.data)
                 },
+                CteateSalonPage:function(){
+                    let _this = this;
+                    _this.CurrentPage = 'CteateSalon';
+                    axios.get(`/api/PetSalon/GetAddSalon`).then(response => _this.CteateSalonDTO = response.data);
 
+                },
+
+                //<--------------美容服務CRUD功能----------------------->
                 EditSalonSolution: function (SalonSolutionId) {
                     let _this = this;
                     var SalonSolutionList = [];
-                    var reslt
                     for (var i = 0; i < _this.SalonSolutionDTO.length; i++) {
                         var item = _this.SalonSolutionDTO[i];
                         if (SalonSolutionId == item.salonSolutionId) {
@@ -227,7 +245,9 @@
                         alert(response.data);
                         _this.CancelSalonSolution();
                         _this.SalonSolutionPage();
-                    });
+                    }).catch(error => {
+                        console.log(error);
+                    });                    
                 },
                 CancelSalonSolution: function () {
                     let _this = this;
@@ -236,16 +256,17 @@
                         var item = _this.SalonSolutionDTO[i];
                         if (item.editSalonSolution == true) {
                             item.editSalonSolution = false;
-                            _this.SalonSolutionIdOld = item.salonSolutionName;
-                            _this.SalonSolutionNameOld = item.salonSolutionName;
-                            _this.SalonSolutionDiscriptionOld = item.salonSolutionDiscription;
-                            _this.SalonSolutionPriceOld = item.salonSolutionPrice;
+                            item.salonSolutionName = _this.SalonSolutionIdOld;
+                            item.salonSolutionName = _this.SalonSolutionNameOld;
+                            item.salonSolutionDiscription = _this.SalonSolutionDiscriptionOld;
+                            item.salonSolutionPrice = _this.SalonSolutionPriceOld;
                         }
                         SalonSolutionList.push(item);
                     }
                     _this.SalonSolutionDTO = SalonSolutionList;
                 },
 
+                //<--------------美容項目CRUD功能----------------------->
                 Editsalon: function (SalonId) {
                     let _this = this;
                     var SalonList = [];
@@ -253,10 +274,9 @@
                         var item = _this.SalonDTO[i];
                         if (SalonId == item.salonId) {
                             item.editSalon = true;
-                            _this.SalonId = item.salonId;
-                            _this.SalonCatagoryName = item.salonCatagoryName;
-                            _this.SalonName = item.salonName;
-                            _this.SalonImagePath = item.salonImagePath;
+                            _this.SalonIdOld = item.salonId;
+                            _this.SalonNameOld = item.salonName;
+                            _this.SalonImagePathOld = item.salonImagePath;
                             _this.imageUrl = _this.GetImageUrl(item.salonImagePath);
                         }
                         SalonList.push(item);
@@ -270,11 +290,9 @@
                         var item = _this.SalonDTO[i];
                         if (item.editSalon == true) {
                             item.editSalon = false;
-                            _this.SalonIdOld = item.SalonId
-                            _this.SalonCatagoryNameOld = item.salonCatagoryName;
-                            _this.SalonNameOld = item.salonName;
-                            _this.SalonImagePathOld = item.salonImagePath;
-                            _this.imageUrl = _this.GetImageUrl(item.salonImagePath);
+                            item.salonId = _this.SalonIdOld;
+                            item.salonName = _this.SalonNameOld;
+                            item.salonImagePath = _this.SalonImagePathOld;
                         }
                         SalonList.push(item);
                     }
@@ -297,20 +315,39 @@
                 },
                 Updatesalon: function (item) {
                     let _this = this;
-                    var data = new FormData();
-                    data.append("SalonImagePath", _this.selectedFile);
-                    axios.post(`/api/PetSalon/UploadImage/${item.salonId}`, data)
+                    if (!_this.selectedFile)
+                    {
+                        var request = {
+                            SalonId: item.salonId,
+                            SalonName: item.salonName,
+                        };
+                        axios.put(`/api/PetSalon/UploadSalontext/${item.salonId}`, request)
                         .then(response => {
                             alert(response.data);
                             _this.SalonPage();
-                        });
+                        })
+                    }
+                    else
+                    {
+                        var data = new FormData();
+                        data.append("SalonImagePath", _this.selectedFile);
+                        data.append("SalonId", item.salonId);
+                        data.append("SalonName", item.salonName);
+                        axios.put(`/api/PetSalon/UploadImage/${item.salonId}`, data)
+                            .then(response => {
+                                alert(response.data);
+                                _this.SalonPage();
+                            }).catch(error => {
+                                console.log(error);
+                            });
+                    }
                 },
                 GetImageUrl: function (salonId) {
                     return `data:image/jpg;base64,${salonId}`;
                 },
 
                 CteateSalon: function () {
-                    axios.post(`/api/PetSalon/GetAddSalon`).then(response => _this.SalonDTO = response.data);
+                    axios.get(`/api/PetSalon/GetAddSalon`).then(response => _this.NewSalonType = response.data);
                     $("#addSalon").modal('show');
                 },
                 InsertSalon: function () {

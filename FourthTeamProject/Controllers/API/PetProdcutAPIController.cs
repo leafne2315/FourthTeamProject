@@ -36,6 +36,38 @@ namespace FourthTeamProject.Controllers.API
             return Ok(result);
         }
 
+        [HttpPost]
+        public IActionResult GetMember([FromBody] GetMember request)
+        {
+            var member = _db.Member.FirstOrDefault(x => x.MemberEmail == request.MemberEmail);
+            if (member != null)
+            {
+                var result = new MemberViewModel
+                {
+                    MemberId = member.MemberId,
+                    MemberName = member.MemberName,
+                    MemberPhone = member.MemberPhone,
+                    MemberEmail = request.MemberEmail,
+                    MemberAddress = member.MemberAddress,
+                    MemberPoint = member.MemberPoint
+                };
+                return Ok(result);
+            }
+            return NoContent();
+        }
+
+
+        [HttpPost]
+        public IActionResult CreatOrder([FromBody] ProductOrder request)
+        {
+
+            var order = _db.ProductOrder.Add(request);
+
+            _db.SaveChanges();
+
+            return Ok(request.OrderId);
+
+        }
 
 
 
@@ -46,6 +78,5 @@ namespace FourthTeamProject.Controllers.API
 
 
 
-
-	}
+    }
 }

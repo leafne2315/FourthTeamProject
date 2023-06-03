@@ -1,6 +1,5 @@
-﻿
-@{
-    
+﻿@{
+
 }
 
 
@@ -8,13 +7,12 @@
 
 }
 
-<div>@ViewBag.Email</div>
 
 <header class="bg-dark text-white py-4">
     <h1 class="text-center">訂單詳情</h1>
 </header>
 
-<div class="container mt-4">
+<div id="app" class="container mt-4">
     <div class="row">
         <div class="col-md-8">
             <table class="table">
@@ -28,37 +26,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr v-for="cartItem in shoppingCart">
                         <td>
-                            <a data-toggle="modal" data-target="#removeModal" data-whatever="" href="#">
+                            <a data-toggle="modal" data-target="#removeModal" data-whatever="" @@click="removeCart(cartItem,i)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
                                     <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
                                 </svg>
                         </td>
                         <td>
-                            <img src="https://picsum.photos/120/?random=10" alt="商品1" class="order-item-image">
+                            <img src="https://picsum.photos/120/?random=10" alt="商品" class="order-item-image">
                         </td>
-                        <td><span class="order-item-title">商品1</span></td>
+                        <td><span class="order-item-title">{{cartItem.productName}}</span></td>
                         <td>
-                            <input type="number" class="form-control order-item-quantity" value="1" min="1">
+                            <input type="number" class="form-control order-item-quantity" :value="cartItem.amount" min="1">
                         </td>
-                        <td class="order-item-price">$10.99</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a data-toggle="modal" data-target="#removeModal" data-whatever="" href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
-                                </svg>
-                        </td>
-                        <td>
-                            <img src="https://picsum.photos/120/?random=10" alt="商品2" class="order-item-image">
-                        </td>
-                        <td><span class="order-item-title">商品2</span></td>
-                        <td>
-                            <input type="number" class="form-control order-item-quantity" value="1" min="1">
-                        </td>
-                        <td class="order-item-price">$19.99</td>
+                        <td class="order-item-price">{{subTotal(cartItem)}}</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -71,7 +53,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>總共 n 件商品</td>
+                        <td>{{listConut}}<span>件商品</span></td>
                         <td class="order-total">總價：$30.98</td>
                     </tr>
                 </tbody>
@@ -81,21 +63,20 @@
                 <h4>收件人資料</h4>
                 <div class="form-group">
                     <label for="name">姓名：</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+                    <input type="text" class="form-control" id="name" name="name" v-model="memberInfo.memberName" required>
                 </div>
 
                 <div class="form-group">
                     <label for="address">地址：</label>
-                    <input type="text" class="form-control" id="address" name="address" required>
+                    <input type="text" class="form-control" id="address" name="address" v-model="memberInfo.memberAddress" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="phone">電話：</label>
-                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                    <label for="phone">連絡電話：</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" v-model="memberInfo.memberPhone" required>
                 </div>
-
-                <button class="btn btn-primary btn-block">使用已儲存的會員資料</button>
-                <button class="btn btn-primary btn-block">結帳</button>
+                @*href="/Product/OrderDone"*@
+                <a class="btn btn-primary btn-block" @@click="sendOrder()">結帳</a>
             </div>
         </div>
 
@@ -132,7 +113,103 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <script>
+        var email = "@ViewBag.Email"
+        var app = new Vue({
+            el: "#app",
+            data: {
+                shoppingCart: [],
+                memberInfo: [],
+                orderId: null
 
+            },
+            mounted: function () {
+                this.shoppingCart = this.getCart(email) ? this.getCart(email).carts : [];
+                this.getMember();
+            },
+            computed: {
+                //商品數量計算。
+                listConut: function () {
+                    return this.shoppingCart.length;
+                }
+            },
+            methods: {
+                getCart: function (userEmail) {
+                    var cartItems = localStorage.getItem('CartItem');
+                    var obj = JSON.parse(cartItems);
+                    return Array.isArray(obj) ? obj.find(x => x.email === userEmail) : null;
+                    //return obj.find(x => x.email == userEmail);<<原本寫法
+                },
+                setCart: function (userEmail, carts) {
+                    var obj = JSON.parse(localStorage.getItem('CartItem')) || [];
+                    //var obj = JSON.parse(localStorage.getItem('CartItem')); <<原本寫法
+                    var userCart = obj.find(x => x.email == userEmail);
+                    if (userCart) {
+                        obj.forEach(x => {
+                            if (x.email == userEmail) {
+                                x.carts = carts
+                            }
+                        });
+                    }
+                    obj.push({
+                        email: userEmail,
+                        carts: carts
+                    });
+                    localStorage.setItem('CartItem', JSON.stringify(obj));
+                },
+                subTotal: function (item) {
+                    return item.amount * item.unitPrice;
+                },
+                removeCart: function (item) {
+                    let _this = this;
+                    // 從 localStorage 中取得目前的購物車資料
+                    var cartItems = _this.getCart(email);
+                    if (cartItems) {
+                        var ArraysItems = cartItems.carts;
+                        //// 在購物車資料中找到要移除的 CartItem
+                        var indexToRemove = ArraysItems.find(cart => cart.productId === item.productId);
+                        if (indexToRemove) {
+                            // 從購物車資料中移除指定的 CartItem
+                            ArraysItems.splice(indexToRemove, 1);
+                            _this.shoppingCart = ArraysItems;
+                            // 將更新後的購物車資料重新設定到 localStorage 中
+                            _this.setCart(email, ArraysItems);
+                        }
+
+
+                    }
+                },
+                getMember: function () {
+                    let _this = this;
+                    var request = { MemberEmail: email };
+                    console.log(request);
+                    axios.post('/api/PetProdcutAPI/GetMember', request).then(res => _this.memberInfo = res.data);
+                },
+                //送出訂單,清空cartItem。
+                sendOrder: function () {
+                    let _this = this;
+                    var request = {
+                        OrderDate: new Date(),
+                        MemberId: _this.memberInfo.memberId,
+                        InvoiceId: 1,
+                        PayId: 1,
+                        OrderStatus: true,
+                        OrderAddress: _this.memberInfo.memberAddress,
+                        OrderMemberName: _this.memberInfo.memberName,
+                        OrderMemberPhone: _this.memberInfo.memberPhone,
+                        OrderMemberEmail: _this.memberInfo.memberEmail,
+                    };
+                    console.log(request);
+                    axios.post('/api/PetProdcutAPI/CreatOrder', request).then(res => _this.orderId = res.data);
+                    var cartItems = localStorage.getItem('CartItem');
+                    var obj = JSON.parse(cartItems);
+                    console.log(obj[0].carts);
+                    //axios.post('/api/PetProdcutAPI/CreatOrderDetail', request).then(res => _this.orderId = res.data);
+                },
+            }
+        })
+
+    </script>
 
 
 }

@@ -15,13 +15,31 @@
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img class="d-block w-100" src="https://picsum.photos/id/1025/600/200" alt="First slide">
+                <div class="d-flex justify-content-center align-items-center" style="height: 200px;">
+                    <img class="img-fluid" src="~/images/PetsFood1.jpg" alt="First slide">
+                </div>
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>毛孩們的保健</h5>
+                    <p>基本的腸胃保健到骨骼保健，增強毛孩子的抵抗力都在日安商城！</p>
+                </div>
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="https://picsum.photos/id/1026/600/200" alt="Second slide">
+                <div class="d-flex justify-content-center align-items-center" style="height: 200px;">
+                    <img class="img-fluid" src="~/images/PetsFood4.jpg" alt="Second slide">
+                </div>
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>毛孩美味罐罐</h5>
+                    <p>各類寵物美味食品征服毛孩味蕾，讓毛孩從挑食到不挑食！</p>
+                </div>
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="https://picsum.photos/id/1027/600/200" alt="Third slide">
+                <div class="d-flex justify-content-center align-items-center" style="height: 200px;">
+                    <img class="img-fluid" src="~/images/Toy6.jpg" alt="Third slide">
+                </div>
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>毛孩不無聊</h5>
+                    <p>各類新奇玩具，讓毛孩獨樂樂也能與主人眾樂樂！</p>
+                </div>
             </div>
         </div>
     </div>
@@ -77,7 +95,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <a href="Product/Check/" class="btn btn-primary btn-block">結帳去</a>
+                            <a href="/Product/Check" class="btn btn-primary btn-block">結帳去</a>
                         </div>
                     </div>
                 </div>
@@ -154,7 +172,7 @@
                 </template>
             </ul>
         </div>
-       
+
     </div>
     <!-- Pages	 -->
     <nav aria-label="Page navigation example">
@@ -235,6 +253,7 @@
                     axios.post('api/PetProdcutAPI/GetProduct').then(response => {
                         let _this = this; //指的是Vue本身。
                         _this.ProductList = response.data;
+                        _this.selectedProductList = _this.ProductList
                         console.log(_this.ProductList);
                     });
                 },
@@ -251,7 +270,6 @@
                 filter: function () {
                     //KeyWordSearch
                     let _this = this;
-                    _this.GetProduct();
                     if (_this.word == '') {
                         _this.selectedProductList = _this.ProductList;
                     }

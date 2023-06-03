@@ -192,7 +192,8 @@
 						</li><!--//nav-item-->
 						<li class="nav-item">
 							<!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-							<a class="nav-link" asp-area="Admin" asp-controller="Employees" asp-action="Ordermanagement">
+						<li class="submenu-item">
+							<a asp-controller="Employees" asp-action="Productmanagement" class="submenu-link">訂單管理
 								<span class="nav-icon">
 									<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-card-list" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 										<path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
@@ -202,7 +203,7 @@
 										<circle cx="3.5" cy="10.5" r=".5" />
 									</svg>
 								</span>
-								<span class="nav-link-text">訂單管理</span>
+						
 							</a><!--//nav-link-->
 						</li><!--//nav-item-->
 						<li class="nav-item has-submenu">
@@ -223,12 +224,13 @@
 								</span><!--//submenu-arrow-->
 							</a><!--//nav-link-->
 							<div id="submenu-1" class="collapse submenu submenu-1" data-bs-parent="#menu-accordion">
-								<ul class="submenu-list list-unstyled">
+								<ul  class="submenu-list list-unstyled">
 									<li class="submenu-item"><a asp-controller="Home" asp-action="index" class="submenu-link" >回到首頁</a></li>
-									<li class="submenu-item"><a  asp-area="Admin" asp-controller="Employees" asp-action="Productmanagement" class="submenu-link" >商品管理</a></li>
+									<li class="submenu-item"><a asp-controller="Employees" asp-action="Productmanagement" class="submenu-link" >商品管理</a></li>
 									<li class="submenu-item"><a asp-controller="PetHotel" asp-action="index" class="submenu-link" >旅館管理</a></li>
 									<li class="submenu-item"><a asp-controller="Product" asp-action="index" class="submenu-link">寵物商城</a></li>
 									<li class="submenu-item"><a asp-controller="PetSalon" asp-action="index" class="submenu-link">寵物美容</a></li>
+
 								</ul>
 							</div>
 						</li><!--//nav-item-->

@@ -25,7 +25,7 @@ namespace FourthTeamProject.PetHeavenModels
 
         public virtual Invoice Invoice { get; set; }
         public virtual Member Member { get; set; }
-        public virtual Payment Pay { get; set; }
+        public virtual Payment Payment { get; set; }
         public virtual ICollection<ProductOrderDetail> ProductOrderDetail { get; set; }
     }
 }

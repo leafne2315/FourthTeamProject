@@ -67,6 +67,13 @@
                 }
             }
         }
+
+        .notice {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
         ::placeholder {
             color: #8eb6c6;
         }
@@ -110,6 +117,21 @@
             <hr class="solid">
             <div style="height:50px"></div>
             <form class="card-form" v-on:submit.prevent="createOrder">
+
+                <div class="mb-3">
+                    <p>選擇寵物類型</p>
+                    <select name="" id="" class="form-control custom-select" v-model="selectedPetTypeId" required>
+                        <option :value="1">狗</option>
+                        <option :value="2">貓</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <p>選擇房型</p>
+                    <select name="" id="" class="form-control custom-select" v-model="orderDetailData.HotelId" required>
+                        <option v-for="data in selectedPetHotels" :value="data.id">{{data.hotelName}}</option>
+                    </select>
+                </div>
+                @*
                 <div class="mb-3">
                     <p>選擇房型</p>
                     <select name="" id="" class="form-control custom-select" v-model="orderDetailData.HotelId" required>
@@ -121,6 +143,7 @@
                         </optgroup>
                     </select>
                 </div>
+                *@
                 <div class="">
                     <div class="row">
                         <div class="col col-md-6 mb-3">
@@ -130,6 +153,7 @@
                         <div class="col col-md-6 mb-3">
                             <p>離宿日期</p>
                             <input type="date" v-model="orderDetailData.CheckOutTime" class="form-control custom-select" required>
+                            <p class="notice" v-if="showNotice">{{ noticeText }}</p>
                         </div>
                     </div> 
                 </div> 
@@ -182,21 +206,37 @@
                 HotelName:null,
                 HotelCatagoryName:null,
             },
+            selectedPetTypeId:1,
+            selectedPetHotels:null,
 
+            //資料分類
             petHotelForDog:[],
             petHotelForCat:[],
             petHotelDatas:[],
-        },
-        mounted: function () {
 
-            this.getHotelDatas();
+            //時段確認
+            showNotice: false,
+            noticeText: '',
+        },
+        mounted: async function () {
+
+            await this.getHotelDatas();
+            this.InitialForm();
+        },
+        
+        watch:{
+            selectedPetTypeId: function (newVal, oldVal){
+                console.log("new:",newVal);
+                this.changeSelectedCategory(newVal);
+                this.setChangedHoteltype();
+            },
         },
         methods: {
 
-            getHotelDatas:function(){
+            getHotelDatas: async function () {
 
                 let self = this;
-                var test = axios.get('/api/PetHotelAPI').then(response => {
+                var test = await axios.get('/api/PetHotelAPI').then(response => {
                     this.petHotelDatas = response.data; // Store the fetched data in the component's data property
 
                     console.log(this.petHotelDatas);
@@ -210,6 +250,10 @@
             createOrder:function(){
 
                     this.formSubmit();
+                    if (this.showNotice) {
+                        console.log('中斷建立訂單');
+                        return;
+                    }
 
                     console.log('create Order');
 
@@ -238,6 +282,8 @@
 
             formSubmit: function () {
 
+                this.checkCheckOutTimeValid();
+
                 var hotelChosen = this.getHotelByID(this.orderDetailData.HotelId);
 
                 console.log('chosenHotel:', hotelChosen);
@@ -259,10 +305,47 @@
                 this.orderDetailData.HotelName = hotelData.hotelName;
                 this.orderDetailData.HotelCatagoryName = hotelData.hotelTypeName;
             },
-            //getUrlParameter(name) {
-            //    const urlParams = new URLSearchParams(window.location.search);
-            //    return urlParams.get(name);
-            //},
+            
+            changeSelectedCategory:function(categoryID){
+                switch(categoryID)
+                {
+                    case 1:
+                        this.selectedPetHotels = this.petHotelForDog;
+                        break;
+                    case 2:
+                        this.selectedPetHotels = this.petHotelForCat;
+                        break;
+                    default:
+                        console.log('Invalid CategoryID has been found!!')
+                        break;
+                }
+            },
+
+            setChangedHoteltype:function(){
+                this.orderDetailData.HotelId = this.selectedPetHotels[0].id;
+            },
+
+            InitialForm:function(){
+                this.selectedPetHotels = this.petHotelForDog;
+                console.log('set selectedPetHotels:', this.petHotelForDog);
+                this.setChangedHoteltype();
+            },
+
+            checkCheckOutTimeValid: function()
+            {
+                var isInvalid = (this.orderDetailData.CheckOutTime <= this.orderDetailData.CheckIntime);
+                this.showNotice = isInvalid;
+
+                if (isInvalid)
+                {
+                    console.log("checkOut Time is invalid");
+                    this.noticeText = '時間不正確,請確認是否有誤';
+                    
+                    this.orderDetailData.CheckOutTime = null;
+                }
+               
+            },
+
         },
 
     })

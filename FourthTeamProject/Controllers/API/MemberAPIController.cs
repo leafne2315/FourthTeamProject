@@ -25,7 +25,7 @@ namespace FourthTeamProject.Controllers.API
                 // 根據會員識別資訊檢索會員資訊
                 var memberId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
 				
-				var member = _db.Member.Where(m => m.MemberName == memberId).Select(m => new MemberViewModel
+				var member = _db.Member.Where(m => m.MemberName == memberId).Select(m => new MemberCentreViewModel
 				{
 					Id = m.MemberId,
 					Account = m.MemberAccount,

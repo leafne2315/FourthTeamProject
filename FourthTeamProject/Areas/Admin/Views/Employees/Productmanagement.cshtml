@@ -1,5 +1,12 @@
 ﻿@model IEnumerable<FourthTeamProject.PetHeavenModels.Product>
 
+@*@{
+    ViewData["Title"] = "Admin/Productmanagement";
+}*@
+
+@*@{
+    ViewBag.Error = "找不到圖片";
+}*@
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +20,7 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
-   @* <link href="~/css/ProductStyle/css/bksystem.css" rel="stylesheet" type="text/css" />*@
+    <link href="~/css/ProductStyle/css/bksystem.css" rel="stylesheet" type="text/css" />
     <link href="~/css/ProductStyle/font/iconfont.css" rel="stylesheet" type="text/css" />
     <link href="~/css/ProductStyle/css/module.css" rel="stylesheet" type="text/css" />
     <link href="~/css/ProductStyle/css/pages.css" rel="stylesheet" type="text/css" />
@@ -37,10 +44,11 @@
         </div>
     
         <div class="bk-con-message message-section" id="iframe_box">
+          
             <div class="operation  mb15">
-              
-                <a asp-controller="Home" asp-action="Index" class="btn button_btn btn-success">回到首頁</a>
-                <a asp-area="Admin" asp-controller="Employees" asp-action="Create" class="btn button_btn btn-success">新增商品</a>
+                <button  class="btn button_btn btn-success" type="button"><a  asp-controller="Home" asp-action="Index">回到首頁</a></button>
+                <a asp-area="Admin" asp-controller="Employees" action="Create" class="btn btn-success">新增商品</a>
+
             </div>
 
            
@@ -95,9 +103,10 @@
                                     <partial name="_ShowPhotoPartial" model="@item" />
                                 </td>
                                 <td>
-                                    <a asp-area="Admin" asp-controller="Employees" asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-primary">編輯</a>
-                                    <a asp-area="Admin" asp-controller="Employees" asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-info">明細</a>
-                                    <a asp-area="Admin" asp-controller="Employees" asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-danger">刪除</a>
+
+                                    <a asp-area="Admin" href="@Url.Action("Edit", new { id = item.ProductId })" class="btn btn-primary">編輯</a>
+                                    <a asp-area="Admin" href="@Url.Action("Details", new { id = item.ProductId })" class="btn btn-info">明細</a>
+                                    <a asp-area="Admin" href="@Url.Action("Delete", new { id = item.ProductId })" class="btn btn-danger">刪除</a>
                                 </td>
                             </tr>
                         }

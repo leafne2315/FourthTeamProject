@@ -8,6 +8,7 @@ namespace FourthTeamProject.Controllers
 	{
         private readonly PetHeavenDbContext _db;
 
+	
 		public IActionResult Index()
 		{
 			var email = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
@@ -15,6 +16,11 @@ namespace FourthTeamProject.Controllers
 			{
 				ViewBag.Email = email;
 			}
+			return View();
+		}
+
+		public IActionResult Order() 
+		{ 
 			return View();
 		}
 

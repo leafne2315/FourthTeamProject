@@ -358,7 +358,7 @@ namespace FourthTeamProject.PetHeavenModels
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProductOrder_Member");
 
-                entity.HasOne(d => d.Pay)
+                entity.HasOne(d => d.Payment)
                     .WithMany(p => p.ProductOrder)
                     .HasForeignKey(d => d.PayId)
                     .OnDelete(DeleteBehavior.ClientSetNull)

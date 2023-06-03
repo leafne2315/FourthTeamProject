@@ -25,13 +25,12 @@
     <link rel="stylesheet" href="~/css/style.css">
 
     <style>
-        #top{
-            
+        #top {
             margin-top: 81px;
         }
 
         #header .site-nav {
-            min-height:81px
+            min-height: 81px
         }
     </style>
     <title>Pets Heaven</title>
@@ -89,10 +88,8 @@
                         @{
                             if (User.Identity.IsAuthenticated)
                             {
-                                
-                                <li>
-                                    <a asp-controller="Member" asp-action="Logout">會員登出</a>
-                                </li>
+
+
                             }
                             else
                             {
@@ -111,14 +108,13 @@
                                     <span class="nav-link text-capitalize">使用者:@User.Claims.FirstOrDefault(x=> x.Type == ClaimTypes.Name).Value</span>
                                 </li>
                                 <li class="has-children">
-                                    <a asp-controller="Employees" asp-action="EmployeeLogout">企業登出</a>
-
+                                    <a asp-area="Admin" asp-controller="Employees" asp-action="EmployeeSystem">員工系統</a>
                                     <ul class="dropdown">
-                                        <li><a asp-controller="Employees" asp-action="EmployeeSystem">員工系統</a></li>
-                                        <li><a asp-controller="Employees" asp-action="Productmanagement">商品管理系統</a></li>
-                                
+                                        <li><a asp-area="Admin" asp-controller="Employees" asp-action="Productmanagement">商品管理系統</a></li>
                                     </ul>
                                 </li>
+                                <li class=""></li>
+                                <a asp-controller="Employees" asp-action="EmployeeLogout">登出</a>
                                 }
                                 else
                                 {
@@ -128,11 +124,6 @@
 
                                 }
                             }
-                        </li>
-
-
-
-
 
                     </ul>
 
@@ -148,7 +139,7 @@
         <div id="top">
             @RenderBody()
         </div>
-        
+
     </main>
 
     <button id="goToTop">Top</button>

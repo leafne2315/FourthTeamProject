@@ -95,7 +95,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <a href="Product/Check/" class="btn btn-primary btn-block">結帳去</a>
+                            <a href="/Product/Check" class="btn btn-primary btn-block">結帳去</a>
                         </div>
                     </div>
                 </div>
@@ -172,7 +172,7 @@
                 </template>
             </ul>
         </div>
-       
+
     </div>
     <!-- Pages	 -->
     <nav aria-label="Page navigation example">
@@ -253,6 +253,7 @@
                     axios.post('api/PetProdcutAPI/GetProduct').then(response => {
                         let _this = this; //指的是Vue本身。
                         _this.ProductList = response.data;
+                        _this.selectedProductList = _this.ProductList
                         console.log(_this.ProductList);
                     });
                 },
@@ -269,7 +270,6 @@
                 filter: function () {
                     //KeyWordSearch
                     let _this = this;
-                    _this.GetProduct();
                     if (_this.word == '') {
                         _this.selectedProductList = _this.ProductList;
                     }

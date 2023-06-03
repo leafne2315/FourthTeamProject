@@ -1,4 +1,20 @@
-﻿<main>
+﻿<style>
+    .Discription {
+        width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+    }
+
+    .DiscriptionImage{
+        width:100px;
+        height:180px;
+    }
+</style>
+
+<div id="app">
     <!-- banner -->
     <section class="banner_main">
         <div id="myCarousel" class="carousel slide banner1" data-ride="carousel">
@@ -8,82 +24,30 @@
                 <li data-target="#myCarousel" data-slide-to="2"></li>
             </ol>
             <div class="carousel-inner">
-                <div class="carousel-item active">
+                <div class="carousel-item" v-for="(salonsrc, salonindex) in imageSalonSolution" :key="salonindex" v-bind:class="{ active: salonindex === 0 }">
                     <div class="container-fluid">
                         <div class="carousel-caption relative">
                             <div class="row d_flex">
                                 <div class="col-md-6">
-                                    <img class="bann_img" src="https://picsum.photos/500/?random=10" alt="#" />
+                                    <img style="width:600px;height:500px" :src="rootPath + salonsrc" alt="#" />
                                 </div>
-                                <div class="col-md-6">
-                                    <span>01/04</span>
-                                    <h1>美容方案1</h1>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo</p>
-                                    <a class="get_btn" href="Javascript:void(0)" role="button">詳細資訊</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="container-fluid">
-                        <div class="carousel-caption relative">
-                            <div class="row d_flex">
-                                <div class="col-md-6">
-                                    <img class="bann_img" src="https://picsum.photos/500/?random=10" alt="#" />
-                                </div>
-                                <div class="col-md-6">
-                                    <span>02/04</span>
-                                    <h1>美容方案2</h1>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo</p>
-                                    <a class="get_btn" href="Javascript:void(0)" role="button">詳細資訊</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="container-fluid">
-                        <div class="carousel-caption relative">
-                            <div class="row d_flex">
-                                <div class="col-md-6">
-                                    <img class="bann_img" src="https://picsum.photos/500/?random=10" alt="#" />
-                                </div>
-                                <div class="col-md-6">
-                                    <span>03/04</span>
-                                    <h1>美容方案3</h1>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo</p>
-                                    <a class="get_btn" href="Javascript:void(0)" role="button">詳細資訊</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="container-fluid">
-                        <div class="carousel-caption relative">
-                            <div class="row d_flex">
-                                <div class="col-md-6">
-                                    <img class="bann_img" src="https://picsum.photos/500/?random=10" alt="#" />
-                                </div>
-                                <div class="col-md-6">
-                                    <span>04/04</span>
-                                    <h1>美容方案4</h1>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo</p>
-                                    <a class="get_btn" href="Javascript:void(0)" role="button">詳細資訊</a>
+                                <div class="col-md-6 ">
+                                    <h1>{{SalonSolutionDTO[salonindex].salonSolutionName}}</h1>
+                                    <p>{{SalonSolutionDTO[salonindex].salonSolutionDiscription}}</p>
+                                    <button type="button" class="btn btn-outline-danger">查看服務項目</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16" aria-hidden="true">
+                    <svg width="20" height="30" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16" aria-hidden="true">
                         <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
                     </svg>
                     <span class="sr-only">Previous</span>
                 </a>
                 <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16" aria-hidden="true">
+                    <svg width="20" height="30" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16" aria-hidden="true">
                         <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
                     </svg>
                     <span class="sr-only">Next</span>
@@ -107,30 +71,30 @@
                     <div class="row">
                         <div class="col-md-3 col-sm-6">
                             <div class="we_box">
-								<i><img src="~/images/pet-taxi.png" /></i>
+                                <i><img src="~/images/pet-taxi.png" /></i>
                                 <h3 class="salontype">溫馨到府接送</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur </p>
+                                <p>Warm pick-up and drop-off</p>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="we_box">
                                 <i><img src="~/images/bathtub.png" alt="#" /></i>
-                                <h3 class="salontype">寶寶呵護洗淨</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur </p>
+                                <h3 class="salontype">寵物呵護洗淨</h3>
+                                <p>Pets are cared for and washed</p>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="we_box">
                                 <i><img src="~/images/beauty-saloon.png" alt="#" /></i>
                                 <h3 class="salontype">精緻造型設計</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur </p>
+                                <p>Exquisite styling design</p>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="we_box">
                                 <i><img src="~/images/pet-care.png" alt="#" /></i>
                                 <h3 class="salontype">其他尊榮服務</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur </p>
+                                <p>Other honorary services</p>
                             </div>
                         </div>
                     </div>
@@ -149,28 +113,59 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-3 col-sm-6">
-                <div class="card">
-                    <div class="pic">
-                        <img src="https://picsum.photos/300/?random=10">
-                    </div>
-                    <div class="card-body">
-                        <div class="pricing_box_ti">
-                            <h3> <span>$</span>20<strong>/one Day</strong></h3>
+            <div class="row">
+                <div class="col-md-3 col-sm-6" v-for="(src, index) in imageDiscription" :key="index">
+                    <div class="card">
+                        <div class="pic">
+                            <img class="DiscriptionImage" :src="rootPath + src">
                         </div>
-                        <div class="our_pricing">
-                            <span>Regular</span>
-                            <p>Lorem ipsum dolor sit amet, iscing elit, sed do magna</p>
+                        <div class="card-body">
+                            <div class="pricing_box_ti">
+                                <h3> <span>$</span>{{SalonSolutionDTO[index].salonSolutionPrice}}<strong>/一次</strong></h3>
+                            </div>
+                            <div class="our_pricing">
+                                <h5><span>{{SalonSolutionDTO[index].salonSolutionName}}</span></h5>
+                                <p class="Discription" :title="SalonSolutionDTO[index].salonSolutionDiscription">{{SalonSolutionDTO[index].salonSolutionDiscription}}</p>
+                            </div>
+                            <a href="#" class="btn btn-primary">預約寵物美容</a>
                         </div>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-    </div>
-    </div>
-    </div>
-</main>
+</div>
+
+
+@section Scripts
+    {
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data: {
+                SalonSolutionDTO: [],
+                rootPath: "/Salonimage/",
+                imageDiscription: [
+                    "DOGMaxDiscription.jpg",
+                    "DOGMiniDiscription.jpg",
+                    "CATMaxDiscription.jpg",
+                    "CATMiniDiscription.jpg",      
+                ],
+                imageSalonSolution:[
+                    "DOGmaxSalon.jpg",
+                    "DOGminiSalon.jpg",
+                    "CATmaxSalon.jpg",
+                    "CATminiSalon.jpg",
+                ]
+            },
+            mounted: function () {
+                let _this = this;
+                axios.get(`/api/SalonClient/GetSalonClient`).then(response => _this.SalonSolutionDTO = response.data)
+            },
+            methods: {
+            },
+        })
+    </script>
+}

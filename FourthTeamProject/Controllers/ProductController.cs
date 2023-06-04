@@ -42,10 +42,23 @@ namespace FourthTeamProject.Controllers
             return View();
         }
 
+
+
         public IActionResult ProductDetail()
         {
-            return View();
+            var email = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+            if (Request.Query.TryGetValue("Id", out var productId))
+            {
+				ViewBag.Email = email;
+                ViewBag.productId = productId;
+                return View();
+            }
+            return RedirectToAction("Index");
         }
+
+        
+
+
 
 
 

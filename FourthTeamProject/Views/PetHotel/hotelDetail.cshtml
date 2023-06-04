@@ -6,6 +6,30 @@
     var hotelId = Model;
 }
 
+<head>
+    <style>
+        #DetailPage {
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        @@ media (min-width: 1128px) #DetailPage {
+            padding-left: 150px;
+            padding-right: 150px;
+        }
+        @@ media (min-width: 744px) #DetailPage{
+            padding-left: 80px;
+            padding-right: 80px;
+        }
+
+        .title{
+            font-weight: bold;
+        }
+
+    </style>
+</head>
 <div id="app">
     <p>Hotel ID: @hotelId</p>
     <h1>PetHotelDetailData </h1>
@@ -34,6 +58,48 @@
             </tr>
         </tbody>
     </table>
+    <div id="DetailPage">
+        <div class="px-4 px-lg-5 mt-3">
+
+            <h3 class="title">{{HotelData.hotelName}}-{{HotelData.hotelContent}}</h3>
+            <hr class="solid">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                         class="w-100 shadow-1-strong rounded"
+                         alt="Boat on Calm Water" />
+                </div>
+
+                <div class="col-lg-6 row row-cols-2">
+                    <div class="col">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                             class="w-100 shadow-1-strong rounded "
+                             alt="Boat on Calm Water" />
+                    </div>
+                    <div class="col">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                             class="w-100 shadow-1-strong rounded "
+                             alt="Boat on Calm Water" />
+                    </div>
+                    <div class="col">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                             class="w-100 shadow-1-strong rounded "
+                             alt="Boat on Calm Water" />
+                    </div>
+                    <div class="col">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                             class="w-100 shadow-1-strong rounded"
+                             alt="Boat on Calm Water" />
+                    </div>
+                    
+                </div>
+                
+
+                
+            </div>
+        </div>
+    </div>
+    
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
@@ -56,6 +122,7 @@
             getData: function () {
                 let self = this;
                 var test = axios.get(`/api/PetHotelAPI/HotelDetail/${this.currenthotelId}`).then(response => {
+                    console.log('HotelData:', response.data);
                     self.HotelData = response.data; 
                 })
                 console.log('getData');

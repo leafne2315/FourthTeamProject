@@ -10,6 +10,52 @@
 @section Styles
     {
     <link href="~/css/style.css" rel="stylesheet" />
+    <style>
+        /* 改變頁碼的文字顏色 */
+        .pagination .page-link {
+            color: #1A374D;
+        }
+
+        /* 改變當前頁碼的背景顏色 */
+        .pagination .page-item.active .page-link {
+            background-color: #1A374D;
+        }
+
+        /* 改變上一頁和下一頁符號的顏色 */
+        .pagination .page-link span {
+            color: #1A374D;
+        }
+
+        .card-body {
+            text-align: center;
+            padding-bottom: 0;
+        }
+
+        .card-footer {
+            text-align: center;
+            padding-top: 0;
+        }
+
+        h4 {
+            margin-bottom: 0;
+        }
+
+        .rounded{
+            bottom: 10px;
+            right: 10px;
+            width: 25px;
+            height: 25px;
+            background-color: #1A374D;
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+        }
+
+        .carousel-caption{
+            z-index:0;
+        }
+
+    </style>
 }
 <div class="header">
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
@@ -100,9 +146,11 @@
                     </div>
                 </div>
             </div>
+        </div>
     </nav>
     <!-- fiiter -->
     <div class="containershop">
+        <div class="row">
         <div class="left">
             <div class="col-xl-3 col-lg-4 col-md-7">
                 <div class="sidebar-box-style2">
@@ -111,8 +159,8 @@
                         <div class="title">
                             <h4>寵物類型</h4>
                         </div>
-                        <ul class="filter-checkbox">
-                            <li v-for="(TypeId, index) in ProductTypeId" :key="TypeId.id">
+                            <ul class="filter-checkbox list-group list-group-flush">
+                                <li class="list-group-item list-group-item-action" v-for="(TypeId, index) in ProductTypeId" :key="TypeId.id">
                                 <div class="single-checkbox">
                                     <label>
                                         <input type="radio" v-model="Type_of_Pet[0]" :value="TypeId.id" @@change="TypeSearch()">
@@ -124,8 +172,8 @@
                         <div class="title">
                             <h4>商品類型</h4>
                         </div>
-                        <ul class="filter-checkbox">
-                            <li v-for="(option, index) in ProductCatagoryId" :key="option.id">
+                            <ul class="filter-checkbox list-group list-group-flush">
+                                <li class="list-group-item list-group-item-action" v-for="(option, index) in ProductCatagoryId" :key="option.id">
                                 <div class="single-checkbox">
                                     <label>
                                         <input type="radio" v-model="Catagory_of_Product[0]" :value="option.id" @@change="CatagorySearch()">
@@ -155,16 +203,20 @@
                                 <h3 class="title">
                                     {{item.productName}}
                                 </h3>
+                                <p class="text">
+                                    <h4>
+                                            {{item.unitPrice}}
+                                    </h4>                         
+                                </p>
                             </div>
                             <div class="card-footer">
-                                <p class="text">
-                                    {{item.unitPrice}}
-                                </p>
+                                <p>我是商品描述</p>
                                 <div>
-                                    <button class="round" @@click="minusOne(item)">-</button>
-                                    <span>{{ item.amount }}</span>
-                                    <button class="round" @@click="addOne(item)">+</button>
+                                        <button class="rounded" @@click="minusOne(item)">-</button>
+                                        <span>&nbsp; {{ item.amount }} &nbsp;</span>
+                                    <button class="rounded" @@click="addOne(item)">+</button>
                                 </div>
+                                <br />
                                 <button class="btn btn-primary" @@click="AddCart(item)">AddCart</button>
                             </div>
                         </div>
@@ -172,8 +224,9 @@
                 </template>
             </ul>
         </div>
-
     </div>
+    </div>
+
     <!-- Pages	 -->
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">

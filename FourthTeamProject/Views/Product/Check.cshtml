@@ -32,6 +32,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
                                     <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
                                 </svg>
+                            </a>
                         </td>
                         <td>
                             <img src="https://picsum.photos/120/?random=10" alt="商品" class="order-item-image">
@@ -58,26 +59,26 @@
                     </tr>
                 </tbody>
             </table>
+                    <div class="mt-4">
+                        <h4>收件人資料</h4>
+                        <div class="form-group">
+                            <label for="name">姓名：</label>
+                            <input type="text" class="form-control" id="name" name="name" v-model="memberInfo.memberName" required>
+                        </div>
 
-            <div class="mt-4">
-                <h4>收件人資料</h4>
-                <div class="form-group">
-                    <label for="name">姓名：</label>
-                    <input type="text" class="form-control" id="name" name="name" v-model="memberInfo.memberName" required>
-                </div>
+                        <div class="form-group">
+                            <label for="address">地址：</label>
+                            <input type="text" class="form-control" id="address" name="address" v-model="memberInfo.memberAddress" required>
+                        </div>
 
-                <div class="form-group">
-                    <label for="address">地址：</label>
-                    <input type="text" class="form-control" id="address" name="address" v-model="memberInfo.memberAddress" required>
-                </div>
+                        <div class="form-group">
+                            <label for="phone">連絡電話：</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" v-model="memberInfo.memberPhone" required>
+                        </div>
+                        <button  class="btn btn-primary btn-block" @@click="sendOrder()">結帳</button>
+                    </div>
 
-                <div class="form-group">
-                    <label for="phone">連絡電話：</label>
-                    <input type="tel" class="form-control" id="phone" name="phone" v-model="memberInfo.memberPhone" required>
-                </div>
-                @**@
-                <a class="btn btn-primary btn-block" @@click="sendOrder()">結帳(href="/Product/OrderDone")</a>
-            </div>
+
         </div>
 
         <div class="col-md-4 mt-4 mt-md-0">
@@ -120,8 +121,8 @@
             data: {
                 shoppingCart: [],
                 memberInfo: [],
-                orderId: null
-
+                orderId: null,
+                recipient :[]
             },
             mounted: function () {
                 this.shoppingCart = this.getCart(email) ? this.getCart(email).carts : [];
@@ -134,6 +135,16 @@
                 }
             },
             methods: {
+                memberEmpty: function () {
+                    let _this = this;
+                    if (_this.memberInfo.memberName == '' || _this.memberInfo.memberAddress == '' || _this.memberInfo.memberPhone == '') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: '收件人資料不可為空',
+                        })
+                    }
+                },
                 getCart: function (userEmail) {
                     var cartItems = localStorage.getItem('CartItem');
                     var obj = JSON.parse(cartItems);
@@ -188,27 +199,49 @@
                 //送出訂單,清空cartItem。
                 sendOrder: function () {
                     let _this = this;
-                    var request = {
-                        OrderDate: new Date(),
-                        MemberId: _this.memberInfo.memberId,
-                        InvoiceId: 1,
-                        PayId: 1,
-                        OrderStatus: true,
-                        OrderAddress: _this.memberInfo.memberAddress,
-                        OrderMemberName: _this.memberInfo.memberName,
-                        OrderMemberPhone: _this.memberInfo.memberPhone,
-                        OrderMemberEmail: _this.memberInfo.memberEmail,
-                    };
-                    console.log(request);
-                    axios.post('/api/PetProdcutAPI/CreatOrder', request).then(res => {
-                        _this.orderId = res.data;
-                        var cartItems = localStorage.getItem('CartItem');
-                        var productDetail = JSON.parse(cartItems);
-                        console.log(productDetail[0].carts);
-                        //console.log(_this.orderId);
-                        axios.post('/api/PetProdcutAPI/CreatOrderDetail', productDetail[0].carts, { params: { orderId: this.orderId } }).then(res => console.log('OK'));
-                        
-                    });                 
+                    //判斷使用者購物車是否為空
+                    if (_this.shoppingCart.length != 0) {
+                        if (_this.memberInfo.memberAddress != '' && _this.memberInfo.memberName != '' && _this.memberInfo.memberPhone!='')
+                        {
+                            var request = {
+                                OrderDate: new Date(),
+                                MemberId: _this.memberInfo.memberId,
+                                InvoiceId: 1,
+                                PayId: 1,
+                                OrderStatus: true,
+                                OrderAddress: _this.memberInfo.memberAddress,
+                                OrderMemberName: _this.memberInfo.memberName,
+                                OrderMemberPhone: _this.memberInfo.memberPhone,
+                                OrderMemberEmail: _this.memberInfo.memberEmail,
+                            };
+                            console.log(request)
+                            axios.post('/api/PetProdcutAPI/CreatOrder', request).then(res => {
+                                _this.orderId = res.data;
+                                var cartItems = localStorage.getItem('CartItem');
+                                var productDetail = JSON.parse(cartItems);
+                                console.log(productDetail[0].carts);
+                                axios.post('/api/PetProdcutAPI/CreatOrderDetail', productDetail[0].carts, { params: { orderId: this.orderId } }).then(res => {
+                                    console.log('OK')
+                                    window.location.href = "/Product/OrderDone";
+                                    localStorage.clear();
+                                });
+                            });
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: '收件人資料不可為空',
+                            })
+                        }
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: '購物車為空無法送出訂單',
+                        })
+                    }
                 },
             }
         })

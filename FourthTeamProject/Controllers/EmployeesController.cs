@@ -40,16 +40,33 @@ namespace FourthTeamProject.Controllers
 			return View(await petHeavenDbContext.ToListAsync());
 		}
 
+        //[HttpGet("/Admin/Employees/Product/OrderDetail/{id}")]
+        //public async Task<IActionResult> OrderDetail(int id)
+        //{
+        //	var productOrderDetail = await _db.ProductOrderDetail.FindAsync(id);
+        //	if (productOrderDetail == null)
+        //	{
+        //		return NotFound();
+        //	}
 
-   //     public async Task<IActionResult> OrderDetail()
-   //     {
-   //         var petHeavenDbContext=_db.ProductOrderDetail
-   //             .Include(p=>p.)
+        //	return View("~/Areas/Admin/Views/Employees/Product/OrderDetail.cshtml", productOrderDetail);
+        //}
 
-			//return View();
-   //     }
+        public async Task<IActionResult> OrderDetail(int id)
+        {
+            var productOrderDetails = await _db.ProductOrderDetail.Where(detail => detail.OrderId == id).ToListAsync();
 
-		[Authorize(Roles = "admin")]
+            if (productOrderDetails == null || productOrderDetails.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return View("~/Areas/Admin/Views/Employees/Product/OrderDetail.cshtml", productOrderDetails);
+        }
+
+
+
+        [Authorize(Roles = "admin")]
         public IActionResult EmployeeSystem()
         {
 

@@ -3,71 +3,76 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "編輯";
 }
 
-<h1>Edit</h1>
-
-<h4>Product</h4>
+<h3 style="text-align: center;">編輯</h3>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6 offset-md-3">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ProductId" />
-            <div class="form-group">
-                <label asp-for="ProductTypeId" class="control-label"></label>
-                <select asp-for="ProductTypeId" class="form-control" asp-items="ViewBag.ProductTypeId"></select>
-                <span asp-validation-for="ProductTypeId" class="text-danger"></span>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ProductTypeId" class="control-label">商品類別</label>
+                        <select asp-for="ProductTypeId" class="form-control" asp-items="ViewBag.ProductTypeId"></select>
+                        <span asp-validation-for="ProductTypeId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ProductName" class="control-label">商品名稱</label>
+                        <input asp-for="ProductName" class="form-control" />
+                        <span asp-validation-for="ProductName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ProductCatagoryId" class="control-label">商品分類</label>
+                        <select asp-for="ProductCatagoryId" class="form-control" asp-items="ViewBag.ProductCatagoryId"></select>
+                        <span asp-validation-for="ProductCatagoryId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="UnitPrice" class="control-label">單價</label>
+                        <input asp-for="UnitPrice" class="form-control" />
+                        <span asp-validation-for="UnitPrice" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Stock" class="control-label">庫存</label>
+                        <input asp-for="Stock" class="form-control" />
+                        <span asp-validation-for="Stock" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ProductStatus" class="control-label">商品狀態</label>
+                        <select asp-for="ProductStatus" class="form-control">
+                            <option value="true">上架</option>
+                            <option value="false">下架</option>
+                        </select>
+                    </div>
+                </div>
             </div>
+
             <div class="form-group">
-                <label asp-for="ProductName" class="control-label"></label>
-                <input asp-for="ProductName" class="form-control" />
-                <span asp-validation-for="ProductName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductSpecification" class="control-label"></label>
-                <input asp-for="ProductSpecification" class="form-control" />
-                <span asp-validation-for="ProductSpecification" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductContent" class="control-label"></label>
-                <input asp-for="ProductContent" class="form-control" />
+                <label asp-for="ProductContent" class="control-label">商品內容</label>
+                <textarea asp-for="ProductContent" class="form-control" rows="2"></textarea>
                 <span asp-validation-for="ProductContent" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="UnitPrice" class="control-label"></label>
-                <input asp-for="UnitPrice" class="form-control" />
-                <span asp-validation-for="UnitPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Stock" class="control-label"></label>
-                <input asp-for="Stock" class="form-control" />
-                <span asp-validation-for="Stock" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductStatus" class="control-label"></label>
-                <select asp-for="ProductStatus" class="form-control">
-                    <option value="true">上架</option>
-                    <option value="false">下架</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductCatagoryId" class="control-label"></label>
-                <select asp-for="ProductCatagoryId" class="form-control" asp-items="ViewBag.ProductCatagoryId"></select>
-                <span asp-validation-for="ProductCatagoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="保存" class="btn btn-primary" />
+                <a class="btn btn-primary" asp-area="Admin" asp-controller="Employees" asp-action="Productmanagement">返回列表</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

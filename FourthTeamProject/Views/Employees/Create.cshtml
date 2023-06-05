@@ -6,106 +6,88 @@
     ViewData["Title"] = "Create";
 }
 
-<style>
-    .form-column {
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .form-column .form-group {
-        flex-basis: 50%;
-    }
-</style>
-
 <h1>Create</h1>
-
 <h4>Product</h4>
 <hr />
 
-<div class="form-column" style="margin-bottom">
-    <div class="form-group">
+<div class="row">
+    <div class="col-md-6 offset-md-3">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-            <div class="form-group">
-                <label asp-for="ProductTypeId" class="control-label"></label>
-                <select asp-for="ProductTypeId" class="form-control" asp-items="ViewBag.ProductTypeId"></select>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ProductTypeId" class="control-label">商品類別</label>
+                        <select asp-for="ProductTypeId" class="form-control" asp-items="ViewBag.ProductTypeId"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ProductName" class="control-label">商品名稱</label>
+                        <input asp-for="ProductName" class="form-control" />
+                        <span asp-validation-for="ProductName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ProductCatagoryId" class="control-label">商品分類</label>
+                        <select asp-for="ProductCatagoryId" class="form-control" asp-items="ViewBag.ProductCatagoryId"></select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="UnitPrice" class="control-label">單價</label>
+                        <input asp-for="UnitPrice" class="form-control" />
+                        <span asp-validation-for="UnitPrice" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Stock" class="control-label">庫存</label>
+                        <input asp-for="Stock" class="form-control" />
+                        <span asp-validation-for="Stock" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ProductStatus" class="control-label">商品狀態</label>
+                        <select asp-for="ProductStatus" class="form-control">
+                            <option value="true">上架</option>
+                            <option value="false">下架</option>
+                        </select>
+                    </div>
+
+
+                </div>
             </div>
-            
+
             <div class="form-group">
-                <label asp-for="ProductCatagoryId" class="control-label"></label>
-                <select asp-for="ProductCatagoryId" class="form-control" asp-items="ViewBag.ProductCatagoryId"></select>
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="ProductName" class="control-label"></label>
-                <input asp-for="ProductName" class="form-control" />
-                <span asp-validation-for="ProductName" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="ProductSpecification" class="control-label"></label>
+                <label asp-for="ProductSpecification" class="control-label">商品規格</label>
                 <input asp-for="ProductSpecification" class="form-control" />
                 <span asp-validation-for="ProductSpecification" class="text-danger"></span>
             </div>
-            
             <div class="form-group">
-                <label asp-for="ProductContent" class="control-label"></label>
+                <label asp-for="ProductContent" class="control-label">商品內容</label>
                 <input asp-for="ProductContent" class="form-control" />
                 <span asp-validation-for="ProductContent" class="text-danger"></span>
             </div>
-            
             <div class="form-group">
-                <label asp-for="UnitPrice" class="control-label"></label>
-                <input asp-for="UnitPrice" class="form-control" />
-                <span asp-validation-for="UnitPrice" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="Stock" class="control-label"></label>
-                <input asp-for="Stock" class="form-control" />
-                <span asp-validation-for="Stock" class="text-danger"></span>
-            </div>
-
-            <div class="form-group form-check">
-                <div class="form-group">
-                    <label asp-for="ProductStatus" class="control-label"></label>
-                    <select asp-for="ProductStatus" class="form-control">
-                        <option value="true">上架</option>
-                        <option value="false">下架</option>
-                    </select>
-                </div>     
-            </div>
-
-            <div class="form-group">
+                <label>上傳圖片</label>
                 <input type="file" name="mypic" />
             </div>
-              
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
+                <a class="btn btn-primary" asp-area="Admin" asp-controller="Employees" asp-action="Productmanagement">返回列表</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-
-    <script>
-        $(document).ready(function () {
-            $('#File1').change(function () {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#imgPreview').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(this.files[0]);
-            });
+<script>
+    $(document).ready(function () {
+        $('#File1').change(function () {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imgPreview').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
         });
-    </script>
-}
+    });
+</script>

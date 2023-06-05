@@ -8,6 +8,7 @@
 @section Styles
     {
     <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/youmaybelike.css" rel="stylesheet" />
 }
 
 
@@ -63,28 +64,24 @@
             <div class="row row-30">
                 <div class="col-lg-6">
                     <div>
-                        <img src="https://picsum.photos/500/?random=10" alt="">
+                        <img src="https://picsum.photos/400/?random=10" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="single-product">
                         <h3 class="text-transform-none font-weight-medium">{{productDetail.productName}}</h3>
-                        <div class="group-md group-middle">
-                            <div class="single-product-price">{{productDetail.unitPrice}}</div>
-                        </div>
-                        <p>{{productDetail.productContent}}</p>
                         <hr class="hr-gray-100">
-                        <ul class="list list-description">
+                        <ul class="list list-description description">
+                            <div class="single-product-price">{{productDetail.unitPrice}}</div>
                             <li><span>產品敘述</span><span>{{productDetail.productContent}}</span></li>
                             <li><span>重量:</span><span>{{productDetail.productSpecification}}</span></li>
-                        </ul>
-                        <div class="group-xs group-middle">
-                            <div class="product-stepper">
-                                <input class="form-input" type="number" data-zeros="true" value="1" min="1" max="1000">
-                                <button class="btn btn-primary" @@click="AddCart(productDetail)">加入購物車</button>
-                            </div>
-
+                        </ul>     
+                        <div>
+                            <button class="round" @@click="minusOne(productDetail)">-</button>
+                            <span>{{ productDetail.amount }}</span>
+                            <button class="round" @@click="addOne(productDetail)">+</button>
                         </div>
+                        <button class="btn btn-primary" @@click="AddCart(productDetail)">AddCart</button>
                     </div>
                 </div>
             </div>
@@ -92,36 +89,31 @@
     <br>
     <hr>
     <br>
+       
     <!-- Related Products-->
     <section class="section section-sm section-last bg-gray-1">
         <div class="container">
             <h4 class="font-weight-sbold">你可能會喜歡的商品</h4>
-            <div class="row row-lg row-30 row-lg-50 justify-content-center">
+            <div class="row row-lg row-30 row-lg-50">
                 <div class="col-sm-6 col-md-5 col-lg-3">
                     <!-- Product-->
-                    <article class="product" v-for="(item,i) in maybeLik">
-                        <div class="product-body">
-                            <div class="product-figure">
-                                <img src="https://picsum.photos/200/?random=10" alt="">
-                            </div>
-                            <h5 class="product-title"><a href="#">{{item.productName}}</a></h5>
-                            <div class="product-price-wrap">
-                                <div class="product-price">{{item.unitPrice}}</div>
-                                <!-- <div class="product-price product-price-old">$30.00</div>
-                                <div class="product-price">$23.00</div> -->
-                            </div>
-                        </div>
-                        <!-- <span class="product-badge product-badge-sale">Sale</span> -->
-                        <div class="product-button-wrap">
-                            <div class="product-button"><a class="button button-secondary button-zakaria fl-bigmug-line-search74" href="single-product.html"></a></div>
-                            <div class="product-button"><a class="button button-secondary button-zakaria fl-bigmug-line-shopping202" href="cart-page.html"></a></div>
-                        </div>
-                    </article>
+                    <div class="product like">
+                        <article v-for="(item,i) in maybeLik">
+                            <div class="card">
+                                <div class="content">
+                                    <img src="https://picsum.photos/200/?random=10" alt="">
+                                    <h2 class="title">{{item.productName}}</h2>
+                                    <button class="btn addcart" @@click="redirectToDetail(item)">Go!!</button>
+                                </div>
+                            </div>                                                        
+                        </article>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 </div>
+
 
 
 
@@ -151,7 +143,11 @@
                     return this.shoppingCart.length;
                 },                
             },
-            methods: {
+            methods: {                
+                redirectToDetail(item) {                    
+                    window.location.href = `/Product/ProductDetail?id=${item.productId}`;
+                    event.stopPropagation();
+                },
                 getProduct: function () {
                     let _this = this; // 指的是Vue本身。
                     const id = productId;
@@ -208,6 +204,7 @@
                 //加入購物車
                 AddCart: function (item) {
                     if (email!=''){
+                        let _this=this;
                         const Toast = Swal.mixin({
                             toast: true,
                             position: 'top-end',

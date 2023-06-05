@@ -7,7 +7,7 @@ namespace FourthTeamProject.Models.ViewModel
     {
         public int? SalonCatagoryId { get; set; }
         public string? SalonCatagoryName { get; set; }
-        public int SalonSolutionSalonId { get; set; }
+
         public int SalonSolutionId { get; set; }
         public string? SalonSolutionName { get; set; }
         public string? SalonSolutionDiscription { get; set; }

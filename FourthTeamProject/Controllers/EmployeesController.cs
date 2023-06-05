@@ -247,7 +247,8 @@ namespace FourthTeamProject.Controllers
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
             await HttpContext.SignInAsync(claimsPrincipal);  //夾帶一個cookie出去
-            return RedirectToAction("EmployeeSystem", "Employees");
+            return RedirectToAction("Productmanagement", "Employees", new { area = "Admin", controller = "Employees" });
+
         }
         public async Task<IActionResult> EmployeeLogout()
         {

@@ -2,7 +2,10 @@
 .leftModule.bk-con-menu .breadcrumb{margin: 0;}
 .leftModule .menu-section .column-name{width: 100%; height: initial; float: none; }
 .leftModule .menu-section .column-name.open{border-bottom: 1px solid #dddddd;}
-.leftModule .menu-section .column-name a{border-right: 0; border-bottom: 1px solid #DDDDDD;padding:0px 15px;position: relative; height: 45px;}
+.leftModule .menu-section .column-name a{border-
+                                             
+                                             
+                                             : 0; border-bottom: 1px solid #DDDDDD;padding:0px 15px;position: relative; height: 45px;}
 .leftModule .menu-section .column-name a:before{border-right: 0;}
 .leftModule .menu-section .column-name a:after{
 	content: '';

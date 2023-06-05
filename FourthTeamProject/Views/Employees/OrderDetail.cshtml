@@ -1,0 +1,41 @@
+﻿@model FourthTeamProject.PetHeavenModels.ProductOrderDetail
+@{
+    Layout = null;
+}
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h1>Order Detail</h1>
+
+<table class="table">
+    <tr>
+        <th>Order Detail ID</th>
+        <th>Order ID</th>
+        <th>Product ID</th>
+        <th>Unit Price</th>
+        <th>Quantity</th>
+        <th>Detail Status</th>
+        <th>Product Name</th>
+        <th>Product Content</th>
+        <th>Product Category Name</th>
+    </tr>
+    <tr>
+        <td>@Html.DisplayFor(model => model.OrderDetailId)</td>
+        <td>@Html.DisplayFor(model => model.OrderId)</td>
+        <td>@Html.DisplayFor(model => model.ProductId)</td>
+        <td>@Html.DisplayFor(model => model.UnitPrice)</td>
+        <td>@Html.DisplayFor(model => model.Quantity)</td>
+        <td>@Html.DisplayFor(model => model.DetailStatus)</td>
+        <td>@Html.DisplayFor(model => model.ProductName)</td>
+        <td>@Html.DisplayFor(model => model.ProductContent)</td>
+        <td>@Html.DisplayFor(model => model.ProductCatagoryName)</td>
+    </tr>
+</table>
+<tr>
+    <th class="cell">訂單編號</th>
+    <th class="cell">訂單日期</th>
+    <th class="cell">客戶名稱</th>
+    <th class="cell">訂單狀態</th>
+    <th class="cell">總計</th>
+
+</tr>

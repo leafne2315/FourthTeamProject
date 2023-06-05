@@ -7,17 +7,23 @@
 }
 
 <head>
+    <script src="https://kit.fontawesome.com/929fe9c685.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
         #DetailPage {
             padding-left: 40px;
             padding-right: 40px;
             padding-top: 50px;
             padding-bottom: 50px;
+            max-width:1400px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         @@ media (min-width: 1128px) #DetailPage {
             padding-left: 150px;
             padding-right: 150px;
+
         }
         @@ media (min-width: 744px) #DetailPage{
             padding-left: 80px;
@@ -28,36 +34,14 @@
             font-weight: bold;
         }
 
+        .card-body{
+            padding:0px;
+        }
     </style>
 </head>
 <div id="app">
     <p>Hotel ID: @hotelId</p>
-    <h1>PetHotelDetailData </h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>PetHotelId</th>
-                <th>HotelCatagoryId</th>
-                <th>HotelName</th>
-                <th>UnitPrice</th>
-                <th>HotelContent</th>
-                <th>HotelContentDetail</th>
-                <th>HotelImageString</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{HotelData.id}}</td>
-                <td>{{HotelData.catagoryID}}</td>
-                <td>{{HotelData.hotelName}}</td>
-                <td>{{HotelData.unitPrice}}</td>
-                <td>{{HotelData.hotelContent}}</td>
-                <td>{{HotelData.hotelContentDetail}}</td>
-                <td>{{HotelData.hotelImage}}</td>
-
-            </tr>
-        </tbody>
-    </table>
+    
     <div id="DetailPage">
         <div class="px-4 px-lg-5 mt-3">
 
@@ -71,22 +55,22 @@
                 </div>
 
                 <div class="col-lg-6 row row-cols-2">
-                    <div class="col">
+                    <div class="col p-1">
                         <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
                              class="w-100 shadow-1-strong rounded "
                              alt="Boat on Calm Water" />
                     </div>
-                    <div class="col">
+                    <div class="col p-1">
                         <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
                              class="w-100 shadow-1-strong rounded "
                              alt="Boat on Calm Water" />
                     </div>
-                    <div class="col">
+                    <div class="col p-1">
                         <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
                              class="w-100 shadow-1-strong rounded "
                              alt="Boat on Calm Water" />
                     </div>
-                    <div class="col">
+                    <div class="col p-1">
                         <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
                              class="w-100 shadow-1-strong rounded"
                              alt="Boat on Calm Water" />
@@ -97,6 +81,51 @@
 
                 
             </div>
+            <div style="height:30px"></div>
+
+            <div class="row">
+                <div class="col-lg-7">
+                    <h4 class="mb-2">{{HotelData.hotelName}}</h4>
+                    <hr class="solid" style="font-weight: bold;">
+                    <i class="fa-light fa-paw"></i>
+                    <div class="d-flex">
+                        <i class="fa-light fa-paw">paw</i>
+                        <div>
+                            <p>舒適的環境</p>
+                            <p>乾淨的飲食</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-5" style="padding-right:40px">
+                    <div class="card shadow" style="width: 25rem; border:none;border-radius:20px; margin-left:auto">
+                        <form>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <h3 class="card-title" style="font-weight: bold;">$1500TWD</h3>
+                                    <h6 class="card-title text-muted ml-1" style="text-align:center">每晚</h6>
+                                </div>
+                            
+                            
+                                <div class="row">
+                                    <div class="col col-md-6">
+                                        <div class="mb-1">入住日期</div>
+                                        <input type="date" class="form-control custom-select" style="font-size:15px" required>
+                                    </div>
+                                    <div class="col col-md-6">
+                                        <div class="mb-1">離宿日期</div>
+                                        <input type="date" class="form-control custom-select" required>
+                                        <p class="notice" >ajshajshjas</p>
+                                    </div>
+                                </div>
+                                <div class="action mt-5" style="display: flex; justify-content: center; align-items: center;">
+                                    <button type="submit" class="btn btn-primary">提交訂單</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -104,6 +133,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://kit.fontawesome.com/929fe9c685.js" crossorigin="anonymous"></script>
+
 <script>
     let app = new Vue({
         el: '#app',

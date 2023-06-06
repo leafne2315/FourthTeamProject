@@ -156,18 +156,17 @@
         </div>
     </nav>
     <!-- fiiter -->
-    <div class="containershop">
-        <div class="row">
-        <div class="left">
-            <div class="col-xl-3 col-lg-4 col-md-7">
+    <div class="containershop row">
+        <div class="left  col-xl-3 col-lg-3 col-md-3">
+            <div class="col-xl-3 col-lg-4 col-md-6">
                 <div class="sidebar-box-style2">
                     <!--Start Single Sidebar style2-->
                     <div class="single-sidebar-style2">
                         <div class="title">
                             <h4>寵物類型</h4>
                         </div>
-                            <ul class="filter-checkbox list-group list-group-flush">
-                                <li class="list-group-item list-group-item-action" v-for="(TypeId, index) in ProductTypeId" :key="TypeId.id">
+                        <ul class="filter-checkbox list-group list-group-flush">
+                            <li class="list-group-item list-group-item-action" v-for="(TypeId, index) in ProductTypeId" :key="TypeId.id">
                                 <div class="single-checkbox">
                                     <label>
                                         <input type="radio" v-model="Type_of_Pet[0]" :value="TypeId.id" @@change="TypeSearch()">
@@ -179,8 +178,8 @@
                         <div class="title">
                             <h4>商品類型</h4>
                         </div>
-                            <ul class="filter-checkbox list-group list-group-flush">
-                                <li class="list-group-item list-group-item-action" v-for="(option, index) in ProductCatagoryId" :key="option.id">
+                        <ul class="filter-checkbox list-group list-group-flush">
+                            <li class="list-group-item list-group-item-action" v-for="(option, index) in ProductCatagoryId" :key="option.id">
                                 <div class="single-checkbox">
                                     <label>
                                         <input type="radio" v-model="Catagory_of_Product[0]" :value="option.id" @@change="CatagorySearch()">
@@ -198,10 +197,10 @@
         <!-- product cards -->
 
 
-        <div class="right">
-            <ul class="card-group row px-4 pt-4">
+        <div class="right col-xl-9 col-lg-9 col-md-9">
+            <ul class="card-group px-md-2 py-md-2">
                 <template v-for="item in selectedProductList.slice(pageStart, pageEnd)">
-                    <li class="col-lg-4 col-sm-6 d-flex align-items-stretch" v-if="item.productStatus">
+                    <li class="col-xl-4 col-lg-4 col-md-6 d-flex align-items-stretch" v-if="item.productStatus">
                         <div class="card">
                             <div class="pic">
                                 <img src="https://picsum.photos/300/?random=10">
@@ -212,15 +211,15 @@
                                 </h3>
                                 <p class="text">
                                     <h4>
-                                            {{item.unitPrice}}
-                                    </h4>                         
+                                        {{item.unitPrice}}
+                                    </h4>
                                 </p>
                             </div>
                             <div class="card-footer">
                                 <p>我是商品描述</p>
                                 <div>
-                                        <button class="rounded" @@click="minusOne(item)">-</button>
-                                        <span>&nbsp; {{ item.amount }} &nbsp;</span>
+                                    <button class="rounded" @@click="minusOne(item)">-</button>
+                                    <span>&nbsp; {{ item.amount }} &nbsp;</span>
                                     <button class="rounded" @@click="addOne(item)">+</button>
                                 </div>
                                 <br />
@@ -232,7 +231,7 @@
             </ul>
         </div>
     </div>
-    </div>
+
 
     <!-- Pages	 -->
     <nav aria-label="Page navigation example">

@@ -37,7 +37,60 @@
         .card-body{
             padding:0px;
         }
+
+        i{
+           font-size: 1.8em;
+           padding-right:10px;
+           padding:15px;
+        }
+
+        #subTotal p{
+            font-size: 15px;
+            margin-bottom:8px;
+            padding-left:10px;
+            padding-right:10px;
+        }
+
+        #TotalPrice p {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .service-content{
+            color:dimgray;
+        }
+
+        #DetailPage h4{
+            font-weight: bold;
+        }
+        .notice{
+            color:darkred;
+        }
+
+        
+
+        .fixed {
+            position: fixed;
+            top:120px;
+            
+            left: 77%; /* Adjust the left position as needed */
+            transform: translateX(-50%);
+            z-index:1;
+            /*
+            
+            
+            top: 50px;
+            transform: translateX(-50%);
+            */
+        }
+        
+
+        
+
     </style>
+    <script src="https://kit.fontawesome.com/929fe9c685.js" crossorigin="anonymous"></script>
 </head>
 <div id="app">
     <p>Hotel ID: @hotelId</p>
@@ -84,45 +137,99 @@
             <div style="height:30px"></div>
 
             <div class="row">
-                <div class="col-lg-7">
+                <div class="col-lg-7 col-md-5 col-12">
                     <h4 class="mb-2">{{HotelData.hotelName}}</h4>
                     <hr class="solid" style="font-weight: bold;">
-                    <i class="fa-light fa-paw"></i>
                     <div class="d-flex">
-                        <i class="fa-light fa-paw">paw</i>
+                        <i class="fa-solid fa-paw" ></i>
                         <div>
-                            <p>舒適的環境</p>
-                            <p>乾淨的飲食</p>
+                            <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">舒適的環境</p>
+                            <p class="mb-3 service-content">給毛孩乾淨舒適的空間</p>
                         </div>
                     </div>
-
+                    <div class="d-flex">
+                        <i class="fa-solid fa-paw"></i>
+                        <div>
+                            <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">乾淨的飲食</p>
+                            <p class="mb-2 service-content">提供健康且對身體無負擔的食物</p>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <i class="fa-solid fa-paw"></i>
+                        <div>
+                            <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">寵物按摩服務</p>
+                            <p class="mb-2 service-content">給毛孩乾淨舒適的空間</p>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <i class="fa-solid fa-paw"></i>
+                        <div>
+                            <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">寵物按摩服務</p>
+                            <p class="mb-2 service-content">給毛孩乾淨舒適的空間</p>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <i class="fa-solid fa-paw"></i>
+                        <div>
+                            <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">寵物按摩服務</p>
+                            <p class="mb-2">給毛孩乾淨舒適的空間</p>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <i class="fa-solid fa-paw"></i>
+                        <div>
+                            <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">寵物按摩服務</p>
+                            <p class="mb-2">給毛孩乾淨舒適的空間</p>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <i class="fa-solid fa-paw"></i>
+                        <div>
+                            <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">寵物按摩服務</p>
+                            <p class="mb-2">給毛孩乾淨舒適的空間</p>
+                        </div>
+                    </div>
+                    <hr class="solid" style="font-weight: bold;">
+                    <div>{{HotelData.hotelContentDetail}}</div>
+                    <hr class="solid" style="font-weight: bold;">
+                    <h4 class="mb-2" style="font-weight:bold;">有提供的設備</h4>
                 </div>
-                <div class="col-lg-5" style="padding-right:40px">
-                    <div class="card shadow" style="width: 25rem; border:none;border-radius:20px; margin-left:auto">
-                        <form>
+                <div class="col-lg-5 col-md-7 col-12" id="PriceCard" >
+                    <div class="card shadow ml-md-auto ml-0" style="width: 25rem; border:none;border-radius:20px;" :class=" { 'fixed' : this.isCardFixed }">
+                        <form v-on:submit.prevent="formSubmit">
                             <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <h3 class="card-title" style="font-weight: bold;">$1500TWD</h3>
+                                <div class="d-flex align-items-center mb-1">
+                                    <h3 class="card-title" style="font-weight: bold;">${{HotelData.unitPrice}}TWD</h3>
                                     <h6 class="card-title text-muted ml-1" style="text-align:center">每晚</h6>
                                 </div>
-                            
-                            
                                 <div class="row">
-                                    <div class="col col-md-6">
+                                    <div class="col col-md-6 pr-0">
                                         <div class="mb-1">入住日期</div>
-                                        <input type="date" class="form-control custom-select" style="font-size:15px" required>
+                                        <input type="date" v-model="orderDetailData.CheckIntime" class="form-control custom-select" style="font-size:15px;" required>
                                     </div>
-                                    <div class="col col-md-6">
+                                    <div class="col col-md-6 pl-0">
                                         <div class="mb-1">離宿日期</div>
-                                        <input type="date" class="form-control custom-select" required>
-                                        <p class="notice" >ajshajshjas</p>
+                                        <input type="date" v-model="orderDetailData.CheckOutTime" class="form-control custom-select" required>
+                                        <p class="notice" v-if="showNotice" style="margin-bottom:10px">{{noticeText}}</p>
                                     </div>
                                 </div>
-                                <div class="action mt-5" style="display: flex; justify-content: center; align-items: center;">
-                                    <button type="submit" class="btn btn-primary">提交訂單</button>
+                                <div class="action mt-3" style="display: flex; justify-content: center; align-items: center;">
+                                    <button type="submit" class="btn btn-primary" style="min-width:250px; border-radius:8px; ">預定</button>
                                 </div>
                             </div>
                         </form>
+                        <div v-if="showTotal">
+                            <div id="subTotal" class="d-flex justify-content-between pt-4">
+                                <p style="text-decoration: underline;">${{HotelData.unitPrice}} TWD x{{DayAmount}} 晚</p>
+                                <p>${{HotelData.unitPrice*DayAmount}} TWD</p>
+                            </div>
+                            <hr style="margin:8px">
+                            <div id="TotalPrice" class="d-flex justify-content-between pt-3">
+                                <p>總價</p>
+                                <p>${{HotelData.unitPrice*DayAmount}} TWD</p>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -133,7 +240,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://kit.fontawesome.com/929fe9c685.js" crossorigin="anonymous"></script>
+
 
 <script>
     let app = new Vue({
@@ -141,13 +248,49 @@
         data: {
             HotelData:{},
             currenthotelId: @hotelId,
+            
+            showNotice: false,
+            noticeText: '',
+            orderDetailData: {
+
+                HotelOrderId: null,
+                HotelId: null,
+                CheckIntime: null,
+                CheckOutTime: null,
+                OrderAmount: null,
+                UnitPrice: null,
+                DetailStatus: null,
+                HotelName: null,
+                HotelCatagoryName: null,
+            },
+            DayAmount:null,
+            showTotal:false,
+
+            //fix pos
+            isCardFixed: false,
+            scrollPosition: 300
         },
         mounted: function () {
             //this.currenthotelId = this.getUrlParameter('hotelId');
             //this.currenthotelId = JSON.parse(document.getElementById('app').dataset.hotelId);
+            window.addEventListener('scroll', this.handleScroll);
+
             this.getData();
             console.log('mounted');
             
+        },
+        destroyed() {
+            window.removeEventListener('scroll', this.handleScroll);
+        },
+        watch: {
+            'orderDetailData.CheckOutTime': function(newVal, oldVal) {
+                this.checkCheckOutTimeValid();
+
+                if (this.orderDetailData.CheckIntime ==null) return;
+                if (this.showNotice) return;
+                this.showTotal = true;
+                this.countDayAmount();
+            }
         },
         methods: {
             getData: function () {
@@ -159,10 +302,39 @@
                 console.log('getData');
             },
 
-            //getUrlParameter(name) {
-            //    const urlParams = new URLSearchParams(window.location.search);
-            //    return urlParams.get(name);
-            //},
+            checkCheckOutTimeValid: function () {
+                var isInvalid = (this.orderDetailData.CheckOutTime <= this.orderDetailData.CheckIntime);
+                this.showNotice = isInvalid;
+
+                if (isInvalid) {
+                    this.showTotal = false;
+                    console.log("checkOut Time is invalid");
+                    this.noticeText = '時間不正確,請確認是否有誤';
+
+                    //this.orderDetailData.CheckOutTime = null;
+                }
+
+            },
+
+            formSubmit:function(){
+
+                this.checkCheckOutTimeValid()
+                if (this.showNotice) return;
+                console.log('checkInOutClear!');
+            },
+
+            countDayAmount:function(){
+
+                const millisecondsPerDay = 24 * 60 * 60 * 1000;
+                const timeDifference =new Date( this.orderDetailData.CheckOutTime).getTime() - new Date(this.orderDetailData.CheckIntime).getTime();
+                const daysDifference = Math.floor(timeDifference / millisecondsPerDay);
+                this.DayAmount = daysDifference;
+                console.log('天數', this.DayAmount);
+            },
+            handleScroll() {
+                this.isCardFixed = window.pageYOffset >= 600 
+                console.log('scoll');
+            }
         }
 
     })

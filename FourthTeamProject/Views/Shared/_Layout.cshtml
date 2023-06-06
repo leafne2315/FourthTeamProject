@@ -58,7 +58,7 @@
 
                     <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
                         <li class="active"><a asp-controller="Home" asp-action="Index">首頁</a></li>
-                        <a asp-controller="Product" asp-action="Index" style="color: #ffffffB3">寵物商城</a>
+                        <li><a asp-controller="Product" asp-action="Index">寵物商城</a></li>
                         <li class="has-children">
                             <a asp-controller="PetHotel" asp-action="Index">寵物旅館</a>
                             <ul class="dropdown">
@@ -82,22 +82,25 @@
 
                             </ul>
                         </li>
-                        <li class="has-children">
-                            <a asp-controller="Member" asp-action="Index">會員中心</a>
-                            <ul class="dropdown">
-                                <li><a asp-controller="" asp-action="">會員資料</a></li>
-                                <li><a asp-controller="" asp-action="">安全中心</a></li>
-                                <li><a asp-controller="" asp-action="">寵物資料</a></li>
-                                <li><a asp-controller="" asp-action="">會員福利</a></li>
-                                <li><a asp-controller="" asp-action="">訂單管理</a></li>
-                            </ul>
-                        </li>
+                        
 
                         @{
+                            
                             if (User.Identity.IsAuthenticated)
                             {
-
-
+                                <li class="has-children">
+                                    <a asp-controller="Member" asp-action="Index">會員中心</a>
+                                    <ul class="dropdown">
+                                        <li><a asp-controller="" asp-action="">會員資料</a></li>
+                                        <li><a asp-controller="" asp-action="">安全中心</a></li>
+                                        <li><a asp-controller="" asp-action="">寵物資料</a></li>
+                                        <li><a asp-controller="" asp-action="">會員福利</a></li>
+                                        <li><a asp-controller="" asp-action="">訂單管理</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a asp-controller="Member" asp-action="Logout">會員登出</a>
+                                </li>
                             }
                             else
                             {
@@ -112,23 +115,23 @@
                             @{
                                 if (User.Identity.IsAuthenticated)
                                 {
-                                <li>
-                                    <span class="nav-link text-capitalize">使用者:@User.Claims.FirstOrDefault(x=> x.Type == ClaimTypes.Name).Value</span>
-                                </li>
-                                <li class="has-children">
-                                    <a asp-area="Admin" asp-controller="Employees" asp-action="EmployeeSystem">員工系統</a>
-                                    <ul class="dropdown">
-                                        <li><a asp-area="Admin" asp-controller="Employees" asp-action="Productmanagement">商品管理系統</a></li>
-                                    </ul>
-                                </li>
-                                <li class=""></li>
-                                <a asp-controller="Employees" asp-action="EmployeeLogout">登出</a>
+                                    <li>
+                                        <span class="nav-link text-capitalize">使用者:@User.Claims.FirstOrDefault(x=> x.Type == ClaimTypes.Name).Value</span>
+                                    </li>
+                                    <li class="has-children">
+                                        <a asp-area="Admin" asp-controller="Employees" asp-action="EmployeeSystem">員工系統</a>
+                                        <ul class="dropdown">
+                                            <li><a asp-area="Admin" asp-controller="Employees" asp-action="Productmanagement">商品管理系統</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class=""></li>
+                                    <a asp-controller="Employees" asp-action="EmployeeLogout">登出</a>
                                 }
                                 else
                                 {
-                                <li>
-                                    <a asp-controller="Employees" asp-action="EmployeeLogin">企業登入</a>
-                                </li>
+                                    <li>
+                                        <a asp-controller="Employees" asp-action="EmployeeLogin">企業登入</a>
+                                    </li>
 
                                 }
                             }

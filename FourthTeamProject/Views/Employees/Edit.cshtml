@@ -56,7 +56,11 @@
                     </div>
                 </div>
             </div>
-
+            <div class="form-group">
+                <label asp-for="ProductSpecification" class="control-label">商品規格</label>
+                <input asp-for="ProductSpecification" class="form-control" />
+                <span asp-validation-for="ProductSpecification" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="ProductContent" class="control-label">商品內容</label>
                 <textarea asp-for="ProductContent" class="form-control" rows="2"></textarea>

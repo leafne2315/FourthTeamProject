@@ -9,6 +9,9 @@
     {
     <link href="~/css/style.css" rel="stylesheet" />
     <link href="~/css/youmaybelike.css" rel="stylesheet" />
+   
+
+
 }
 
 
@@ -17,7 +20,7 @@
     <!-- shoppingcart -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="col-md-12">
-            <div class="row">           
+            <div class="row float-right">
                 <div class="dropdown ml-auto float-right">
                     <button class="btn btn-cart" data-toggle="dropdown">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
@@ -25,7 +28,6 @@
                         </svg>
                         <span class="badge badge-pill badge-danger">{{listConut}}</span>
                     </button>
-
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuReference" style="min-width:400px;">
                         <div class="px-4 py-3">
                             <table class="table">
@@ -61,52 +63,70 @@
     <br>
     <section class="section section-sm section-first bg-default">
         <div class="container">
-            <div class="row row-30">
-                <div class="col-lg-6">
-                    <div>
-                        <img src="https://picsum.photos/400/?random=10" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="single-product">
-                        <h3 class="text-transform-none font-weight-medium">{{productDetail.productName}}</h3>
-                        <hr class="hr-gray-100">
-                        <ul class="list list-description description">
-                            <div class="single-product-price">{{productDetail.unitPrice}}</div>
-                            <li><span>產品敘述</span><span>{{productDetail.productContent}}</span></li>
-                            <li><span>重量:</span><span>{{productDetail.productSpecification}}</span></li>
-                        </ul>     
-                        <div>
-                            <button class="round" @@click="minusOne(productDetail)">-</button>
-                            <span>{{ productDetail.amount }}</span>
-                            <button class="round" @@click="addOne(productDetail)">+</button>
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active item" data-bs-interval="5000">
+                                <img src="https://picsum.photos/300/?random=10" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item item">
+                                <img src="https://picsum.photos/300/?random=10" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item item">
+                                <img src="https://picsum.photos/300/?random=10" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item item">
+                                <img src="https://picsum.photos/300/?random=10" class="d-block w-100" alt="...">
+                            </div>
                         </div>
-                        <button class="btn btn-primary" @@click="AddCart(productDetail)">AddCart</button>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
-                </div>
-            </div>
+                    <div class="clearfix">
+                        <div id="thumbcarousel" class="carousel slide" data-interval="false">
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <div data-target="#carousel" data-slide-to="0" class="thumb"><img src="https://picsum.photos/300/?random=10"></div>
+                                    <div data-target="#carousel" data-slide-to="1" class="thumb"><img src="https://picsum.photos/300/?random=10"></div>
+                                    <div data-target="#carousel" data-slide-to="2" class="thumb"><img src="https://picsum.photos/300/?random=10"></div>
+                                    <div data-target="#carousel" data-slide-to="3" class="thumb"><img src="https://picsum.photos/300/?random=10"></div>
+                                </div><!-- /item -->
+                            </div> <!-- /thumbcarousel -->
+                        </div><!-- /clearfix -->
+                    </div> <!-- /col-sm-6 -->
+                </div> <!-- /row -->
+                <div class="col-sm-6 detail-description">
+                    <h2>{{productDetail.productName}}</h2>
+                    <h3>{{productDetail.productSpecification}}</h3>
+                    <p>{{productDetail.productContent}}</p>
+                    <p>{{productDetail.unitPrice}}</p>
+                </div> <!-- /col-sm-6 -->
+            </div> <!-- /container -->
     </section>
-    <br>
-    <hr>
-    <br>
-       
     <!-- Related Products-->
-    <section class="section section-sm section-last bg-gray-1">
-        <div class="container">
-            <h4 class="font-weight-sbold">你可能會喜歡的商品</h4>
-            <div class="row row-lg row-30 row-lg-50">
-                <div class="col-sm-6 col-md-5 col-lg-3">
-                    <!-- Product-->
-                    <div class="product like">
-                        <article v-for="(item,i) in maybeLik">
+    <br>
+    <br>
+    <section class="section section-sm section-last bg-gray-1">        
+        <div class="container">            
+            <div class="row align-items-center">
+                <div class="col">
+                    <div class="like">
+                        <div v-for="(item,i) in maybeLik">
                             <div class="card">
                                 <div class="content">
                                     <img src="https://picsum.photos/200/?random=10" alt="">
                                     <h2 class="title">{{item.productName}}</h2>
                                     <button class="btn addcart" @@click="redirectToDetail(item)">Go!!</button>
                                 </div>
-                            </div>                                                        
-                        </article>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -120,6 +140,7 @@
 
 @section Scripts
     {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

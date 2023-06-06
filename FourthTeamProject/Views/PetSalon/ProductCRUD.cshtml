@@ -1,5 +1,10 @@
 ﻿<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link href="~/css/saloncss/style.css" rel="stylesheet" />
+<style>
+    .red-text {
+        color: red
+    }
+</style>
 
 
 <div id="app" class="container">
@@ -27,6 +32,7 @@
                     <th>商品內容</th>
                     <th style="width:10%">價格</th>
                     <th style="width:10%">庫存</th>
+                    <th style="width:10%">商品狀態</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,11 +49,14 @@
                         <td><input type="text" v-model="item.productContent" /></td>
                         <td><input type="number" v-model="item.unitPrice" /></td>
                         <td><input type="number" v-model="item.stock" /></td>
+                        <td :class="{'red-text': !item.productStatus }">{{GetProductStatus(item.productStatus)}}</td>
                     </template>
                     <template v-else>
                         <td>
                             <button class="btn btn-primary" @@click="Edit(item.productID)">編輯</button>
                             <button class="btn btn-primary" @@click="Delete(item.productID)">刪除</button>
+                            <button class="btn btn-primary" v-if="item.productStatus==true" @@click="Discontinued(item.productID)">停售</button>
+                            <button class="btn btn-primary" v-else @@click="Shelves(item.productID)">上架</button>
                         </td>
                         <td>{{item.productCatagoryName}}</td>
                         <td>{{item.productTypeName}}</td>
@@ -56,6 +65,7 @@
                         <td>{{item.productContent}}</td>
                         <td>{{item.unitPrice}}</td>
                         <td>{{item.stock}}</td>
+                        <td :class="{'red-text': !item.productStatus }">{{GetProductStatus(item.productStatus)}}</td>
                     </template>
                 </tr>
             </tbody>
@@ -75,13 +85,13 @@
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">寵物種類</label>
                             <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" v-model="productCatagoryName">
-                                <option v-for="item in ProductDTO" :key="item.productCatagoryId">{{ item.productCatagoryName }}</option>
+                                <option v-for="item in ProductCatagoryPageDTO" :key="item.productCatagoryId">{{ item.productCatagoryName }}</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">商品項目</label>
                             <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" v-model="productTypeName">
-                                <option v-for="item in ProductDTO" :key="item.productTypeId">{{ item.productTypeName }}</option>
+                                <option v-for="item in ProductTypePageDTO" :key="item.productTypeId">{{ item.productTypeName }}</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -114,6 +124,33 @@
         </div>
     </div>
 
+
+    @*<----------------新增商品項目----------------->*@
+    <div class="modal fade" id="InsertProductTypePage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">新增商品項目</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">商品項目</label>
+                            <input type="text" class="form-control" id="recipient-name" v-model="productTypeName">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" @@click="InsertProductType">新增</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 </div>
 
 
@@ -129,7 +166,8 @@
             el: "#app",
             data: {
                 ProductDTO: [],
-                ProductPageDTO:[],
+                ProductCatagoryPageDTO: [],
+                ProductTypePageDTO: [],
                 productCatagoryName: "",
                 productTypeName: "",
                 productName: "",
@@ -152,6 +190,9 @@
                     let _this = this;
                     axios.get(`/api/ProductEnterprise/GetProduct`).then(response => _this.ProductDTO = response.data)
                 },
+                GetProductStatus: function (Status) {
+                    return Status ? "販售中" : "已停售";
+                },
                 Edit: function (ProductID) {
                     let _this = this;
                     var ProductList = [];
@@ -169,11 +210,21 @@
                     }
                     _this.ProductDTO = ProductList;
                 },
-                Delete: function (ProductID) {
+                Discontinued: function (ProductID) {
                     let _this = this;
-                    var ret = confirm("確定刪除嗎??");
+                    var ret = confirm("確定停售商品嗎??");
                     if (ret == true) {
-                        axios.delete(`/api/ProductEnterprise/DeleteProduct/${ProductID}`).then(response => {
+                        axios.put(`/api/ProductEnterprise/DiscontinuedProduct/${ProductID}`).then(response => {
+                            alert(response.data);
+                            _this.FilterProductDTO();
+                        });
+                    }
+                },
+                Shelves: function (ProductID) {
+                    let _this = this;
+                    var ret = confirm("確定上架商品嗎??");
+                    if (ret == true) {
+                        axios.put(`/api/ProductEnterprise/ShelvesProduct/${ProductID}`).then(response => {
                             alert(response.data);
                             _this.FilterProductDTO();
                         });
@@ -214,19 +265,48 @@
                     }
                     _this.ProductDTO = ProductList;
                 },
+                Delete: function (ProductID) {
+                    let _this = this;
+                    var ret = confirm("確定要刪除商品嗎??");
+                    if (ret == true) {
+                        axios.delete(`/api/ProductEnterprise/DeleteProduct/${ProductID}`).then(response => {
+                            alert(response.data);
+                            _this.FilterProductDTO();
+                        });
+                    }
+
+                },
                 CreateProduct: function () {
                     let _this = this;
-                        _this.productCatagoryName = "",
+                    _this.productCatagoryName = "",
                         _this.productTypeName = "",
                         _this.productName = "",
                         _this.productSpecification = "",
                         _this.productContent = "",
                         _this.unitPrice = "",
                         _this.stock = "",
-                        axios.get(`/api/ProductEnterprise/GetProductPage`).then(response => _this.ProductPageDTO = response.data)
-                        $("#InsertProductPage").modal('show');
+                        axios.get(`/api/ProductEnterprise/GetProductCatagoryPage`).then(response => _this.ProductCatagoryPageDTO = response.data);
+                    axios.get(`/api/ProductEnterprise/GetProductTypePage`).then(response => _this.ProductTypePageDTO = response.data)
+                    $("#InsertProductPage").modal('show');
                 },
-                InsertProduct: function () { },
+                InsertProduct: function () {
+                    let _this = this;
+                    var ProductDTO = {
+                        ProductID: 0,
+                        ProductCatagoryName: _this.productCatagoryName,
+                        ProductTypeName: _this.productTypeName,
+                        ProductName: _this.productName,
+                        ProductSpecification: _this.productSpecification,
+                        ProductContent: _this.productContent,
+                        UnitPrice: _this.unitPrice,
+                        Stock: _this.stock,
+                    };
+                    axios.post(`/api/ProductEnterprise/CreateProduct`, ProductDTO).then(response => {
+                        alert(response.data);
+                        $("#InsertProductPage").modal("hide");
+                        _this.FilterProductDTO();
+                    });
+                },
                 CreateType: function () { },
                 CreateStock: function () { },
             }

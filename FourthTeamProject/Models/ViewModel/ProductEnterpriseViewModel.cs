@@ -12,6 +12,8 @@ namespace FourthTeamProject.Models.ViewModel
         public string? ProductContent { get; set; }
         public int UnitPrice { get; set; }
         public int Stock { get; set; }
+
+        public bool ProductStatus { get; set; }
         public ProductCatagory? ProductCatagory { get; set; }
         public ProductType? ProductType { get; set; }
 

@@ -18,30 +18,30 @@ namespace FourthTeamProject.Controllers.API
 
         public IEnumerable<ProductEnterpriseViewModel> GetProduct()
         {
-            var temp = _context.Product.Include(x=>x.ProductCatagory)
+            var temp = _context.Product.OrderByDescending(x =>x.ProductStatus)
                 .Select(option => new ProductEnterpriseViewModel
-            {
+                {
                     ProductCatagoryName = option.ProductCatagory.ProductCatagoryName,
-                    ProductTypeName=option.ProductType.ProductTypeName,
+                    ProductTypeName = option.ProductType.ProductTypeName,
                     ProductID = option.ProductId,
                     ProductName = option.ProductName,
                     ProductSpecification = option.ProductSpecification,
                     ProductContent = option.ProductContent,
                     UnitPrice = option.UnitPrice,
-                    Stock=option.Stock,
+                    Stock = option.Stock,
+                    ProductStatus= option.ProductStatus,
                 });
             return temp;
         }
 
-        [HttpDelete("{PoductID}")]
+        [HttpDelete("{ProductID}")]
         public async Task<string> DeleteProduct(int ProductID)
         {
             var Product = await _context.Product.FindAsync(ProductID);
             if (Product == null)
             {
-                return "無此商品，不可刪除，請洽談工程師處理!!";
+                return "商品錯誤，請洽談工程師處理!!";
             }
-
             _context.Product.Remove(Product);
             try
             {
@@ -49,10 +49,42 @@ namespace FourthTeamProject.Controllers.API
             }
             catch (DbUpdateException ex)
             {
-                return "此筆商品已存有其他資訊，不可刪除!!";
+                return "此筆商品有其他項目資料，不可刪除!!";
             }
 
             return "商品刪除成功!!";
+        }
+
+
+
+        [HttpPut("{ProductID}")]
+        public async Task<string> DiscontinuedProduct(int ProductID)
+        {
+            var Product = await _context.Product.FindAsync(ProductID);
+            if (Product == null)
+            {
+                return "無此商品，請洽談工程師處理!!";
+            }
+            Product.ProductStatus = false;
+            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+           
+            return "商品已停售!!";
+        }
+
+        [HttpPut("{ProductID}")]
+        public async Task<string> ShelvesProduct(int ProductID)
+        {
+            var Product = await _context.Product.FindAsync(ProductID);
+            if (Product == null)
+            {
+                return "無此商品，請洽談工程師處理!!";
+            }
+            Product.ProductStatus = true;
+            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+
+            return "商品已重新上架!!";
         }
 
         [HttpPut("{ProductID}")]
@@ -95,18 +127,80 @@ namespace FourthTeamProject.Controllers.API
             return (_context.Product?.Any(e => e.ProductId == ProductID)).GetValueOrDefault();
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetProductPage()
-        //{
-        //    var Temp = await _context.ProductCatagory
-        //        .Select(option => new ProductEnterpriseViewModel
-        //        {
-        //            ProductCatagoryName = option.ProductCatagoryName,
-        //            TypeName = _context.ProductType.FirstOrDefault(t => t.ProductTypeId == option.ProductCatagoryId)?.TypeName
-        //        })
-        //        .ToListAsync();
+        [HttpGet]
+        public IEnumerable<ProductEnterpriseViewModel> GetProductCatagoryPage()
+        {
 
-        //    return Ok(Temp);
-        //}
+
+            var temp = _context.ProductCatagory
+            .Select(option => new ProductEnterpriseViewModel
+            {
+                ProductCatagoryName = option.ProductCatagoryName,
+            });
+            return temp;
+        }
+        [HttpGet]
+        public IEnumerable<ProductEnterpriseViewModel> GetProductTypePage()
+        {
+
+
+            var temp = _context.ProductType
+            .Select(option => new ProductEnterpriseViewModel
+            {
+                ProductTypeName = option.ProductTypeName,
+            });
+            return temp;
+        }
+
+        [HttpPost]
+        public async Task<String> CreateProduct([FromBody] ProductEnterpriseViewModel ProductData)
+        {
+
+            try
+            {
+
+                int ProductCatagoryId = GetProductCatagoryId(ProductData.ProductCatagoryName);
+                int ProductTypeId = GetProductTypeId(ProductData.ProductTypeName);
+
+                Product data = new Product
+                {
+                    ProductCatagoryId = ProductCatagoryId,
+                    ProductTypeId = ProductTypeId,
+                    ProductName = ProductData.ProductName,
+                    ProductSpecification = ProductData.ProductSpecification,
+                    ProductContent = ProductData.ProductContent,
+                    UnitPrice = ProductData.UnitPrice,
+                    Stock = ProductData.Stock,
+                    ProductStatus=true,
+                };
+
+                _context.Update(data);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ProductExists(ProductData.ProductID))
+                {
+                    return "商品新增失敗!!";
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return "商品新增完成!!";
+        }
+
+        private int GetProductTypeId(string? productTypeName)
+        {
+            var ProductType = _context.ProductType.FirstOrDefault(s => s.ProductTypeName == productTypeName);
+            return ProductType.ProductTypeId;
+        }
+
+        private int GetProductCatagoryId(string? productCatagoryName)
+        {
+            var ProductCatagory = _context.ProductCatagory.FirstOrDefault(s => s.ProductCatagoryName == productCatagoryName);
+            return ProductCatagory.ProductCatagoryId;
+        }
     }
 }

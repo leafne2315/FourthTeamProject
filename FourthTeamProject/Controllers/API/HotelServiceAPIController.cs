@@ -88,18 +88,13 @@ namespace FourthTeamProject.Controllers.API
         }
 
         [HttpPost]
-        public async Task<string> CreateHotelService( HotelServiceEnterpriseViewModel HotelServiceDTO)
+        public async Task<string> CreateHotelService( [FromBody]HotelServiceEnterpriseViewModel HotelServiceDTO)
         {
-            bool HotelServiceNameExists = _context.HotelService.Any(sc => sc.HotelServiceName == HotelServiceDTO.HotelServiceName);
 
-            if (HotelServiceNameExists)
-            {
-                return "此房型服務項目已經存在，不可新增相同項目!!";
-            }
 
             HotelService DTO = new HotelService
             {
-                HotelServiceID=HotelServiceDTO.HotelServiceID,
+                //HotelServiceID = HotelServiceDTO.HotelServiceID,
                 HotelServiceName = HotelServiceDTO.HotelServiceName,
             };
             _context.HotelService.Add(DTO);

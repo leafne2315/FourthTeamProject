@@ -14,7 +14,6 @@
             <div class="navbar-nav py-0">
                 <a class="nav-item nav-link" @@click="CreateProduct">新增寵物商品</a>
                 <a class="nav-item nav-link" @@click="CreateType">新增商品項目</a>
-                <a class="nav-item nav-link" @@click="CreateStock">商品庫存調整</a>
             </div>
         </div>
     </nav>
@@ -149,8 +148,6 @@
         </div>
     </div>
 
-
-
 </div>
 
 
@@ -274,7 +271,6 @@
                             _this.FilterProductDTO();
                         });
                     }
-
                 },
                 CreateProduct: function () {
                     let _this = this;
@@ -307,8 +303,23 @@
                         _this.FilterProductDTO();
                     });
                 },
-                CreateType: function () { },
-                CreateStock: function () { },
+                CreateType: function () {
+                    let _this = this;
+                    _this.productTypeName = "",
+                    $("#InsertProductTypePage").modal('show');
+                },
+                InsertProductType:function(){
+                    let _this = this;
+                    var ProductDTO = {
+                        ProductTypeName: _this.productTypeName,
+                    };
+                    axios.post(`/api/ProductEnterprise/CreateProductType`, ProductDTO).then(response => {
+                        alert(response.data);
+                        $("#InsertProductTypePage").modal("hide");
+                        _this.FilterProductDTO();
+                    });
+
+                },
             }
         })
     </script>

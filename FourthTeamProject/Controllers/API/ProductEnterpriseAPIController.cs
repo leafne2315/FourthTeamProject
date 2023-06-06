@@ -3,6 +3,7 @@ using FourthTeamProject.PetHeavenModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
 
 namespace FourthTeamProject.Controllers.API
 {
@@ -18,7 +19,7 @@ namespace FourthTeamProject.Controllers.API
 
         public IEnumerable<ProductEnterpriseViewModel> GetProduct()
         {
-            var temp = _context.Product.OrderByDescending(x =>x.ProductStatus)
+            var temp = _context.Product.OrderByDescending(x => x.ProductStatus)
                 .Select(option => new ProductEnterpriseViewModel
                 {
                     ProductCatagoryName = option.ProductCatagory.ProductCatagoryName,
@@ -29,7 +30,7 @@ namespace FourthTeamProject.Controllers.API
                     ProductContent = option.ProductContent,
                     UnitPrice = option.UnitPrice,
                     Stock = option.Stock,
-                    ProductStatus= option.ProductStatus,
+                    ProductStatus = option.ProductStatus,
                 });
             return temp;
         }
@@ -55,8 +56,6 @@ namespace FourthTeamProject.Controllers.API
             return "商品刪除成功!!";
         }
 
-
-
         [HttpPut("{ProductID}")]
         public async Task<string> DiscontinuedProduct(int ProductID)
         {
@@ -68,7 +67,7 @@ namespace FourthTeamProject.Controllers.API
             Product.ProductStatus = false;
             _context.SaveChanges();
             await _context.SaveChangesAsync();
-           
+
             return "商品已停售!!";
         }
 
@@ -171,7 +170,7 @@ namespace FourthTeamProject.Controllers.API
                     ProductContent = ProductData.ProductContent,
                     UnitPrice = ProductData.UnitPrice,
                     Stock = ProductData.Stock,
-                    ProductStatus=true,
+                    ProductStatus = true,
                 };
 
                 _context.Update(data);
@@ -189,6 +188,20 @@ namespace FourthTeamProject.Controllers.API
                 }
             }
             return "商品新增完成!!";
+        }
+
+        [HttpPost]
+        public async Task<String> CreateProductType([FromBody] ProductEnterpriseViewModel ProductTypeData)
+        {
+
+
+            ProductType data = new ProductType
+            {
+                ProductTypeName = ProductTypeData.ProductTypeName,
+            };
+            _context.Update(data);
+            await _context.SaveChangesAsync();
+            return $"商品{data.ProductTypeName}項目新增完成!!";
         }
 
         private int GetProductTypeId(string? productTypeName)

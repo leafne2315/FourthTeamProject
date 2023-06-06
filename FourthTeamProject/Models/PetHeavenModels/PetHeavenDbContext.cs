@@ -181,7 +181,7 @@ namespace FourthTeamProject.PetHeavenModels
 
             modelBuilder.Entity<HotelService>(entity =>
             {
-                entity.Property(e => e.HotelServiceId)
+                entity.Property(e => e.HotelServiceID)
                     .ValueGeneratedNever()
                     .HasColumnName("HotelServiceID");
             });

@@ -1,0 +1,197 @@
+﻿<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/css/saloncss/style.css" rel="stylesheet" />
+
+
+<div id="app" class="container">
+    @*<-----------選項-------------->*@
+    <nav class="navbar navbar-expand bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0 ">
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav py-0">
+                <a class="nav-item nav-link" @@click="Create">新增美容服務</a>
+            </div>
+        </div>
+    </nav>
+
+    @*<-----------編輯頁面-------------->*@
+    <div class="form-group">
+        <table class="table table-striped table-hover text-center">
+            <thead>
+                <tr>
+                    <th style="width:10%">編輯</th>
+                    <th style ="width:10%">美容服務</th>
+                    <th>美容內容</th>
+                    <th style ="width:10%">價格</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in SalonSolutionDTO">
+                    <template v-if="item.editSalonSolution === true">
+                        <td>
+                            <button class="btn btn-success" @@click="Update(item)">確定修改</button>
+                            <button class="btn btn-warning" @@click="Cancel">取消修改</button>
+                        </td>
+                        <td><input type="text" v-model="item.salonSolutionName" /></td>
+                        <td>
+                            <textarea type="text" style="width:350px; height:100px;" v-model="item.salonSolutionDiscription">{{item.salonSolutionDiscription}}</textarea>
+                        </td>
+                        <td><input type="number" v-model="item.salonSolutionPrice" /></td>
+                    </template>
+                    <template v-else>
+                        <td>
+                            <button class="btn btn-primary" @@click="Edit(item.salonSolutionId)">編輯</button>
+                            <button class="btn btn-primary" @@click="Delete(item.salonSolutionId)">刪除</button>
+                        </td>
+                        <td>{{item.salonSolutionName}}</td>
+                        <td>{{item.salonSolutionDiscription}}</td>
+                        <td>{{item.salonSolutionPrice}}</td>
+                    </template>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    @*<----------------新增頁面----------------->*@
+    <div class="modal fade" id="InsertPage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">新增美容服務</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">美容服務類型</label>
+                            <input type="text" class="form-control" id="recipient-name" v-model="salonSolutionName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">美容服務描述</label>
+                            <textarea class="form-control" id="message-text" v-model="salonSolutionDiscription"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">美容服務價格</label>
+                            <input type="number" class="form-control" id="recipient-name" v-model="salonSolutionPrice">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" @@click="Insert">新增</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts
+    {
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+
+    <script>
+
+        let app = new Vue({
+            el: "#app",
+            data: {
+                SalonSolutionDTO: [],
+                salonSolutionName: "",
+                salonSolutionDiscription: "",
+                salonSolutionPrice: "",
+                SalonSolutionNameOld: "",
+                SalonSolutionDiscriptionOld: "",
+                SalonSolutionPriceOld: "",
+            },
+            mounted: function () {
+                let _this = this;
+                _this.FilterSalonSolutionDTO();
+            },
+            methods: {
+                FilterSalonSolutionDTO: function () {
+                    let _this = this;
+                    axios.get(`/api/SalonSolutionEnterprise/GetSalonSolution`).then(response => _this.SalonSolutionDTO = response.data)
+                },
+                Edit: function (SalonSolutionId) {
+                    let _this = this;
+                    var SalonSolutionList = [];
+                    for (var i = 0; i < _this.SalonSolutionDTO.length; i++) {
+                        var item = _this.SalonSolutionDTO[i];
+                        if (SalonSolutionId == item.salonSolutionId) {
+                            item.editSalonSolution = true;
+                            _this.SalonSolutionNameOld = item.salonSolutionName;
+                            _this.SalonSolutionDiscriptionOld = item.salonSolutionDiscription;
+                            _this.SalonSolutionPriceOld = item.salonSolutionPrice
+                        }
+                        SalonSolutionList.push(item);
+                    }
+                    _this.SalonSolutionDTO = SalonSolutionList;
+                },
+                Update: function (item) {
+                    let _this = this;
+                    var request = {
+                        SalonSolutionId: item.salonSolutionId,
+                        SalonSolutionName: item.salonSolutionName,
+                        SalonSolutionDiscription: item.salonSolutionDiscription,
+                        SalonSolutionPrice: item.salonSolutionPrice
+                    };
+                    axios.put(`/api/SalonSolutionEnterprise/PutSalonSolution/${item.salonSolutionId}`, request).then(response => {
+                        alert(response.data);
+                        _this.Cancel();
+                        _this.FilterSalonSolutionDTO();
+                    }).catch(error => {
+                        console.log(error);
+                    });
+                },
+                Cancel: function () {
+                    let _this = this;
+                    var SalonSolutionList = [];
+                    for (var i = 0; i < _this.SalonSolutionDTO.length; i++) {
+                        var item = _this.SalonSolutionDTO[i];
+                        if (item.editSalonSolution == true) {
+                            item.editSalonSolution = false;
+                            item.salonSolutionName = _this.SalonSolutionIdOld;
+                            item.salonSolutionName = _this.SalonSolutionNameOld;
+                            item.salonSolutionDiscription = _this.SalonSolutionDiscriptionOld;
+                            item.salonSolutionPrice = _this.SalonSolutionPriceOld;
+                        }
+                        SalonSolutionList.push(item);
+                    }
+                    _this.SalonSolutionDTO = SalonSolutionList;
+                },
+                Create: function () {
+                    let _this = this;
+                    _this.salonSolutionName = "",
+                    _this.salonSolutionDiscription = "",
+                    _this.salonSolutionPrice = "",
+                    $("#InsertPage").modal('show');
+                },
+                Insert: function () {
+                    let _this = this;
+                    var SalonSolutionDTO = {
+                        SalonSolutionId: 0,
+                        SalonSolutionName: _this.salonSolutionName,
+                        SalonSolutionDiscription: _this.salonSolutionDiscription,
+                        SalonSolutionPrice: _this.salonSolutionPrice
+                    };
+                    axios.post(`/api/SalonSolutionEnterprise/CreateSalonSolution`, SalonSolutionDTO).then(response => {
+                        alert(response.data);
+                        $("#InsertPage").modal("hide");
+                        _this.FilterSalonSolutionDTO();
+                    });
+                },
+                Delete: function (salonSolutionId) {
+                    let _this = this;
+                    var ret = confirm("確定刪除嗎??");
+                    if (ret == true) {
+                        axios.delete(`/api/SalonSolutionEnterprise/DeleteSalonSolution/${salonSolutionId}`).then(response => {
+                            alert(response.data);
+                            _this.FilterSalonSolutionDTO();
+                        });
+                    }
+                },
+            }
+        })
+    </script>
+    }

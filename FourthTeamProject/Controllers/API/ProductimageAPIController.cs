@@ -115,7 +115,7 @@ namespace FourthTeamProject.Controllers.API
                     IFormFile file = Request.Form.Files["ProductImagePath"];
                     if (file.Length > 0)
                     {
-                        string uploadsFolder = Path.Combine(_environment.WebRootPath, "ProductImagePath");
+                        string uploadsFolder = Path.Combine(_environment.WebRootPath, "Productimage");
                         string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                         string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
@@ -131,7 +131,7 @@ namespace FourthTeamProject.Controllers.API
                 {
                     return "圖片不存在，請確認圖片!!";
                 }
-                _context.Update(data);
+                _context.ProductImage.Add(data);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -148,63 +148,17 @@ namespace FourthTeamProject.Controllers.API
             return "商品圖示新增完成!!";
         }
 
-        public IEnumerable<CreateProductimage> GetSalonByCatagory()
+
+        public IEnumerable<ProductimageViewModel> CreateProductName()
         {
-            var temp = _context.ProductCatagory
-            .Select(option => new CreateProductimage
-            {
-                ProductCatagoryId=option.ProductCatagoryId,
-                ProductCatagoryName = option.ProductCatagoryName,
-            });
 
-            return temp;
-        }
-
-        public IEnumerable<CreateProductimage> GetSalonByProductType()
-        {
-            var temp = _context.ProductType
-            .Select(option => new CreateProductimage
-            {
-                ProductTypeId=option.ProductTypeId,
-                ProductTypeName = option.ProductTypeName,
-            });
-
-            return temp;
-        }
-
-        public IEnumerable<CreateProductimage> GetSalonByProduct()
-        {
             var temp = _context.Product
-            .Select(option => new CreateProductimage
-            {
-                ProductCatagoryId=option.ProductCatagoryId,
-                ProductTypeId=option.ProductTypeId,
-                ProductName = option.ProductName,
-            });
-
+                .Select(option => new ProductimageViewModel
+                {
+                    ProductName = option.ProductName,
+                });
             return temp;
         }
 
-        public IEnumerable<CreateProductimage> FilterProducts([FromBody]CreateProductimage Product)
-        {
-            //int ProductTypeId = GetProductTypeId(Product.ProductTypeName);
-            //int ProductCatagoryId = GetProductCatagoryId(Product.ProductCatagoryName);
-            var selectProducts = _context.Product
-                .Where(p => p.ProductTypeId == Product.ProductTypeId && p.ProductCatagoryId == Product.ProductCatagoryId)
-                .Select(p => new CreateProductimage { ProductName=p.ProductName });
-            return selectProducts;
-        }
-
-        private int GetProductCatagoryId(string? productCatagoryName)
-        {
-            var ProductCatagoryName = _context.ProductCatagory.FirstOrDefault(s => s.ProductCatagoryName == productCatagoryName);
-            return ProductCatagoryName.ProductCatagoryId;
-        }
-
-        private int GetProductTypeId(string? productTypeName)
-        {
-            var ProductTypeName = _context.ProductType.FirstOrDefault(s => s.ProductTypeName == productTypeName);
-            return ProductTypeName.ProductTypeId;
-        }
     }
 }

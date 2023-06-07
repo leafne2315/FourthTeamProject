@@ -59,9 +59,9 @@
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">商品名稱</label>
+                            <label for="message-text" class="col-form-label">商品名稱</label>
                             <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" v-model="productName">
-                                <option v-for="Name in filteredProducts" :key="Name">{{ Name}}</option>
+                                <option v-for="name in ProductNameDTO" :key="name.productId">{{ name.productName }}</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -94,9 +94,7 @@
             el: "#app",
             data: {
                 ProductDTO: [],
-                ProductCatagoryDTO: [],
-                ProductTypeDTO: [],
-                ProductNameDTO: [],
+                ProductNameDTO:[],
                 productName: "",
                 ProductNameOld: "",
                 productCatagoryName: "",
@@ -165,25 +163,19 @@
                 },
                 Create: function () {
                     let _this = this;
-                    _this.productCatagoryName = "",
-                        _this.productTypeName = "",
                         _this.productName = "",
                         _this.imageUrl = "",
-                        axios.get(`/api/ProductimageEnterprise/GetSalonByCatagory`).then(response => _this.ProductCatagoryDTO = response.data)
-                    axios.get(`/api/ProductimageEnterprise/GetSalonByProductType`).then(response => _this.ProductTypeDTO = response.data);
-                    axios.get(`/api/ProductimageEnterprise/GetSalonByProduct`).then(response => _this.ProductNameDTO = response.data);
-
+                        axios.get(`/api/ProductimageEnterprise/CreateProductName`).then(response => _this.ProductNameDTO = response.data)
                     $("#InsertPage").modal('show');
                 },
                 Insert: function () {
                     let _this = this;
-                    var ProductDTO = {
-                        ProductImageID: 0,
-                        ProductName: _this.productName,
-                    };
-                    axios.post(`/api/ProductEnterprise/CreateProduct`, ProductDTO).then(response => {
+                    var data = new FormData();
+                    data.append("ProductImagePath", _this.selectedFile);
+                    data.append("ProductName", _this.productName);
+                    axios.post(`/api/ProductimageEnterprise/CreateProduct`, data).then(response => {
                         alert(response.data);
-                        $("#InsertProductPage").modal("hide");
+                        $("#InsertPage").modal("hide");
                         _this.FilterProductDTO();
                     });
                 },
@@ -200,14 +192,6 @@
                     } else {
                         newFile = null;
                     }
-                },
-                filterProducts: function () {
-                    let _this = this;
-                    var DTO = {
-                        ProductCatagoryId: _this.productCatagoryId,
-                        productTypeId: _this.productTypeId,
-                    }
-                    axios.get('/api/ProductEnterprise/FilterProducts', DTO).then(response => { _this.filteredProducts = response.data; })
                 },
             }
         })

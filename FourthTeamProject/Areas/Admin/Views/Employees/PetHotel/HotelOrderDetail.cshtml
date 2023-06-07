@@ -1,7 +1,7 @@
-﻿@model IEnumerable<FourthTeamProject.PetHeavenModels.ProductOrderDetail>
+﻿@model IEnumerable<FourthTeamProject.PetHeavenModels.HotelOrderDetail>
 
 @{
-	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 <h1>Order Detail</h1>
 
@@ -14,12 +14,13 @@
                         <tr>
                             <th class="cell">訂單編號</th>
                             <th class="cell">訂單明細編號</th>
-                            <th class="cell">商品編號</th>
+                            <th class="cell">旅館編號</th>
                             <th class="cell">單價</th>
-                            <th class="cell">數量</th>
-                            <th class="cell">商品名稱</th>
-                            <th class="cell">商品內容</th>
-                            <th class="cell">商品種類</th>
+                            <th class="cell">旅館種類</th>
+                            <th class="cell">旅館名稱</th>
+                            <th class="cell">入住時間</th>
+                            <th class="cell">退房時間</th>
+                            <th class="cell">天數</th>
 
 
                         </tr>
@@ -29,14 +30,17 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@Html.DisplayFor(modelItem => item.OrderId)</td>
-                                <td>@Html.DisplayFor(modelItem => item.OrderDetailId)</td>
-                                <td>@Html.DisplayFor(modelItem => item.ProductId)</td>
+                                <td>@Html.DisplayFor(modelItem => item.HotelOrderId)</td>
+                                <td>@Html.DisplayFor(modelItem => item.HotelOrderDetailId)</td>
+                                <td>@Html.DisplayFor(modelItem => item.HotelId)</td>
                                 <td>@Html.DisplayFor(modelItem => item.UnitPrice)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
-                                <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
-                                <td>@Html.DisplayFor(modelItem => item.ProductContent)</td>
-                                <td>@Html.DisplayFor(modelItem => item.ProductCatagoryName)</td>
+
+                                <td>@Html.DisplayFor(modelItem => item.HotelCatagoryName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.HotelName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.CheckIntime)</td>
+                                <td>@Html.DisplayFor(modelItem => item.CheckOutTime)</td>
+                                <td>@Html.DisplayFor(modelItem => item.OrderAmount)天</td>
+
 
                             </tr>
                         }
@@ -55,6 +59,7 @@
                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
             </li>
             <li class="page-item active"><a class="page-link" href="#">1</a></li>
+           
             <li class="page-item">
                 <a class="page-link" href="#">Next</a>
             </li>

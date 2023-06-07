@@ -1,4 +1,4 @@
-﻿@model  FourthTeamProject.Models.ViewModel.ProductOrderViewModel
+﻿@model FourthTeamProject.Models.ViewModel.HotelOrderPageViewModel
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
@@ -27,7 +27,7 @@
                         <div class="page-utilities">
                             <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
                                 <div class="col-auto">
-                                    <form class="app-search-form" asp-area="Admin" asp-controller="Employees" asp-action="Ordermanagement" method="get">
+                                    <form class="app-search-form" asp-area="Admin" asp-controller="Employees" asp-action="HotelOrdermanagement" method="get">
                                         <input type="text" placeholder="Search..." name="search" class="form-control search-input">
                                         <button type="submit" class="btn search-btn btn-primary"><i class="fas fa-search"></i></button>
                                     </form>
@@ -56,22 +56,21 @@
                                                 <th class="cell">訂單編號</th>
                                                 <th class="cell">會員編號</th>
                                                 <th class="cell">客戶名稱</th>
-                                                <th class="cell">客戶生日</th>
                                                 <th class="cell">訂單日期</th>
                                                 <th class="cell">訂單狀態</th>
                                                 <th class="cell">總計</th>
-                                                <th class="cell">檢視明細</th>
+                                                <th></th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach (var item in Model.Orders)
                                             {
                                                 <tr>
-                                                    <td class="cell">@Html.DisplayFor(modelItem=>item.OrderId)</td>
+                                                    <td class="cell">@Html.DisplayFor(modelItem=>item.HoyelOrderId)</td>
                                                     <td class="cell">@Html.DisplayFor(modelItem=>item.MemberId)</td>
-                                                    <td class="cell">@Html.DisplayFor(modelItem=>item.OrderMemberName)</td>
-                                                    <td class="cell">@Html.DisplayFor(modelItem=>item.Member.MemberBirthday)</td>
-                                                    <td class="cell">@Html.DisplayFor(modelItem=>item.OrderDate)<span class="truncate"></span></td>
+                                                    <td class="cell">@Html.DisplayFor(modelItem=>item.Member.MemberName)</td>
+                                                    <td class="cell">@Html.DisplayFor(modelItem=>item.HotelOrderDate)<span class="truncate"></span></td>
                                                     <td class="cell">
                                                         @if (item.OrderStatus)
                                                         {
@@ -82,8 +81,7 @@
                                                             <span class="badge bg-danger">@Html.DisplayFor(modelItem=>item.OrderStatus)未付款</span>
                                                         }
                                                     </td>
-                                                    <td></td>
-                                                    <td class="cell" style="list-style-type:arabic-indic"><a asp-area="Admin" asp-controller="Employees" asp-route-id="@item.OrderId" asp-action="OrderDetail">View</a></td>
+                                                    <td class="cell" style="list-style-type:arabic-indic"><a asp-area="Admin" asp-controller="Employees" asp-route-id="@item.HoyelOrderId" asp-action="SalonOrderDetail">View</a></td>
                                                 </tr>
                                             }
                                         </tbody>
@@ -94,20 +92,19 @@
                         <nav class="app-pagination">
                             <ul class="pagination justify-content-center">
                                 <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
-                                    <a class="page-link" asp-controller="Employees" asp-action="Ordermanagement" asp-route-page="@(Model.CurrentPage - 1)">Previous</a>
+                                    <a class="page-link" asp-controller="Employees" asp-action="HotelOrdermanagement" asp-route-page="@(Model.CurrentPage - 1)">Previous</a>
                                 </li>
                                 @for (int i = 1; i <= Model.TotalPages; i++)
                                 {
                                     <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                                        <a class="page-link" asp-controller="Employees" asp-action="Ordermanagement" asp-route-page="@i">@i</a>
+                                        <a class="page-link" asp-controller="Employees" asp-action="HotelOrdermanagement" asp-route-page="@i">@i</a>
                                     </li>
                                 }
                                 <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
-                                    <a class="page-link" asp-controller="Employees" asp-action="Ordermanagement" asp-route-page="@(Model.CurrentPage + 1)">Next</a>
+                                    <a class="page-link" asp-controller="Employees" asp-action="HotelOrdermanagement" asp-route-page="@(Model.CurrentPage + 1)">Next</a>
                                 </li>
                             </ul>
                         </nav>
-
 
                     </div>
                 </div>

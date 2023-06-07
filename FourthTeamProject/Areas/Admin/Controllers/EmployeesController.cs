@@ -45,22 +45,32 @@ namespace FourthTeamProject.Areas.Admin.Controllers
             return View();
         }
 
-		//[HttpGet("/Admin/Employees/Product/OrderDetail/{id}")]
-		//public async Task<IActionResult> OrderDetail(int id)
-		//{
-		//	var productOrderDetail = await _db.ProductOrderDetail.FindAsync(id);
-		//	if (productOrderDetail == null)
-		//	{
-		//		return NotFound();
-		//	}
+        //[HttpGet("/Admin/Employees/Product/OrderDetail/{id}")]
+        //public async Task<IActionResult> OrderDetail(int id)
+        //{
+        //    var productOrderDetail = await _db.ProductOrderDetail.FindAsync(id);
+        //    if (productOrderDetail == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-		//	return View("~/Areas/Admin/Views/Employees/Product/OrderDetail.cshtml", productOrderDetail);
-		//}
+        //    return View("~/Areas/Admin/Views/Employees/Product/OrderDetail.cshtml", productOrderDetail);
+        //}
+        public async Task<IActionResult> OrderDetail(int id)
+        {
+            var productOrderDetail = await _db.ProductOrderDetail.FindAsync(id);
+            if (productOrderDetail == null)
+            {
+                return NotFound();
+            }
+
+            return View(productOrderDetail);
+        }
 
 
 
-		//[Authorize(Roles = "admin")]
-		public async Task<IActionResult> Productmanagement()
+        //[Authorize(Roles = "admin")]
+        public async Task<IActionResult> Productmanagement()
         {
             var petHeavenDbContext = _db.Product.Include(p => p.ProductCatagory).Include(p => p.ProductType);
             return View(await petHeavenDbContext.ToListAsync());

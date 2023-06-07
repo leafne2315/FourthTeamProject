@@ -2,8 +2,11 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @model int
+@using System.Security.Claims;
+
 @{
     var hotelId = Model;
+    var isUserExist = User.Identity.IsAuthenticated;
 }
 
 <head>
@@ -89,12 +92,13 @@
         .RoomNotice{
             font-size:16px;
         }
+
         
 
     </style>
     <script src="https://kit.fontawesome.com/929fe9c685.js" crossorigin="anonymous"></script>
 </head>
-<div id="app">
+<div id="app" data-user-exist='@isUserExist'>
     @*
     <p>Hotel ID: @hotelId</p>
     *@
@@ -248,6 +252,8 @@
             HotelServices:[],
             HotelImages:[],
             currenthotelId: @hotelId,
+            UserExist: null,
+            
             
             showNotice: false,
             noticeText: '',
@@ -276,6 +282,9 @@
             CatDevice: ['貓跳台', '貓抓板','清淨除溼機','淨水器','舒適吊床','磨牙玩具(退房可帶走)'],
             DogDevice: ['大坪數公共活動空間','無障礙球池','清淨除溼機','淨水器','舒適寵物床','磨牙玩具(退房可帶走)']
         },
+        created:function(){
+            
+        },
         mounted: async function () {
             //this.currenthotelId = this.getUrlParameter('hotelId');
             //this.currenthotelId = JSON.parse(document.getElementById('app').dataset.hotelId);
@@ -286,6 +295,7 @@
             console.log('catagoryID:', this.HotelData.catagoryID)
 
             this.isForDog = (this.HotelData.catagoryID == 1);
+            this.UserExist = JSON.parse(this.$el.getAttribute('data-user-exist').toLowerCase());
         },
         destroyed() {
             window.removeEventListener('scroll', this.handleScroll);
@@ -348,6 +358,12 @@
                 this.checkCheckOutTimeValid()
                 if (this.showNotice) return;
                 console.log('checkInOutClear!');
+
+                this.setOrderDetailData();
+                var sendData = axios.post(`/PetHotel/SendDataToOrder`,this.orderDetailData).then(response=>{
+                    console.log('Send',response);
+                })
+                
             },
 
             countDayAmount:function(){
@@ -378,7 +394,18 @@
                     this.isCardFixed = false; 
                     this.isCardScrollOver = false;
                 }
+            },
+
+            setOrderDetailData:function(){
+                this.orderDetailData.HotelId = this.currenthotelId;
+                this.orderDetailData.OrderAmount = this.DayAmount;
+                this.orderDetailData.UnitPrice = this.HotelData.unitPrice;
+                this.orderDetailData.DetailStatus = true;
+                this.orderDetailData.HotelName = this.HotelData.hotelName;
+                this.orderDetailData.HotelCatagoryName = this.HotelData.hotelTypeName;
             }
+
+
         }
 
     })

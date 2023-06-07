@@ -1,7 +1,9 @@
 ﻿using FourthTeamProject.PetHeavenModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Specialized;
 using System.Security.Claims;
 using System.Text;
+using System.Web;
 using static FourthTeamProject.Models.ViewModel.CheckPageViewModel;
 
 namespace FourthTeamProject.Controllers
@@ -34,7 +36,7 @@ namespace FourthTeamProject.Controllers
             ViewData["MerchantID"] = Config.GetSection("MerchantID").Value;//商店代號
             ViewData["MerchantOrderNo"] = DateTime.Now.ToString("yyyyMMddHHmmss");  //訂單編號
             ViewData["ExpireDate"] = DateTime.Now.AddDays(3).ToString("yyyyMMdd"); //繳費有效期限
-            ViewData["ReturnURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}Product/OrderDone"; //支付完成返回商店網址
+            ViewData["ReturnURL"] = $"{Request.Scheme}://{Request.Host}/Product/OrderDone"; //支付完成返回商店網址
             //ViewData["CustomerURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}Home/CallbackCustomer"; //商店取號網址
             //ViewData["NotifyURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}Home/CallbackNotify"; //支付通知網址
             //ViewData["ClientBackURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}"; //返回商店網址
@@ -49,8 +51,34 @@ namespace FourthTeamProject.Controllers
 
 		}
 
+        /// <summary>
+        /// 支付完成返回網址
+        /// </summary>
+        /// <returns></returns>
         public IActionResult OrderDone()
         {
+            // 接收參數
+            StringBuilder receive = new StringBuilder();
+            foreach (var item in Request.Form)
+            {
+                receive.AppendLine(item.Key + "=" + item.Value + "<br>");
+            }
+            ViewData["ReceiveObj"] = receive.ToString();
+
+            // 解密訊息
+            IConfiguration Config = new ConfigurationBuilder().AddJsonFile("appSettings.json").Build();
+            string HashKey = Config.GetSection("HashKey").Value;//API 串接金鑰
+            string HashIV = Config.GetSection("HashIV").Value;//API 串接密碼
+
+            string TradeInfoDecrypt = DecryptAESHex(Request.Form["TradeInfo"], HashKey, HashIV);
+            NameValueCollection decryptTradeCollection = HttpUtility.ParseQueryString(TradeInfoDecrypt);
+            receive.Length = 0;
+            foreach (String key in decryptTradeCollection.AllKeys)
+            {
+                receive.AppendLine(key + "=" + decryptTradeCollection[key] + "<br>");
+            }
+            ViewData["TradeInfo"] = receive.ToString();
+
             return View();
         }
 
@@ -113,16 +141,10 @@ namespace FourthTeamProject.Controllers
             // 付款人電子信箱 是否開放修改(1=可修改 0=不可修改)
             TradeInfo.Add(new KeyValuePair<string, string>("EmailModify", "0"));
 
-            //信用卡 付款
-            if (inModel.ChannelID == "CREDIT")
-            {
-                TradeInfo.Add(new KeyValuePair<string, string>("CREDIT", "1"));
-            }
-            //ATM 付款
-            if (inModel.ChannelID == "VACC")
-            {
-                TradeInfo.Add(new KeyValuePair<string, string>("VACC", "1"));
-            }
+            TradeInfo.Add(new KeyValuePair<string, string>("CREDIT", "1"));
+
+            TradeInfo.Add(new KeyValuePair<string, string>("VACC", "1"));
+
             string TradeInfoParam = string.Join("&", TradeInfo.Select(x => $"{x.Key}={x.Value}"));
 
             // API 傳送欄位
@@ -214,7 +236,87 @@ namespace FourthTeamProject.Controllers
             return result;
         }
 
+        /// <summary>
+        /// 16 進制字串解密
+        /// </summary>
+        /// <param name="source">加密前字串</param>
+        /// <param name="cryptoKey">加密金鑰</param>
+        /// <param name="cryptoIV">cryptoIV</param>
+        /// <returns>解密後的字串</returns>
+        public string DecryptAESHex(string source, string cryptoKey, string cryptoIV)
+        {
+            string result = string.Empty;
 
+            if (!string.IsNullOrEmpty(source))
+            {
+                // 將 16 進制字串 轉為 byte[] 後
+                byte[] sourceBytes = ToByteArray(source);
+
+                if (sourceBytes != null)
+                {
+                    // 使用金鑰解密後，轉回 加密前 value
+                    result = Encoding.UTF8.GetString(DecryptAES(sourceBytes, cryptoKey, cryptoIV)).Trim();
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 將16進位字串轉換為byteArray
+        /// </summary>
+        /// <param name="source">欲轉換之字串</param>
+        /// <returns></returns>
+        public byte[] ToByteArray(string source)
+        {
+            byte[] result = null;
+
+            if (!string.IsNullOrWhiteSpace(source))
+            {
+                var outputLength = source.Length / 2;
+                var output = new byte[outputLength];
+
+                for (var i = 0; i < outputLength; i++)
+                {
+                    output[i] = Convert.ToByte(source.Substring(i * 2, 2), 16);
+                }
+                result = output;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 字串解密AES
+        /// </summary>
+        /// <param name="source">解密前字串</param>
+        /// <param name="cryptoKey">解密金鑰</param>
+        /// <param name="cryptoIV">cryptoIV</param>
+        /// <returns>解密後字串</returns>
+        public static byte[] DecryptAES(byte[] source, string cryptoKey, string cryptoIV)
+        {
+            byte[] dataKey = Encoding.UTF8.GetBytes(cryptoKey);
+            byte[] dataIV = Encoding.UTF8.GetBytes(cryptoIV);
+
+            using (var aes = System.Security.Cryptography.Aes.Create())
+            {
+                aes.Mode = System.Security.Cryptography.CipherMode.CBC;
+                // 智付通無法直接用PaddingMode.PKCS7，會跳"填補無效，而且無法移除。"
+                // 所以改為PaddingMode.None並搭配RemovePKCS7Padding
+                aes.Padding = System.Security.Cryptography.PaddingMode.None;
+                aes.Key = dataKey;
+                aes.IV = dataIV;
+
+                using (var decryptor = aes.CreateDecryptor())
+                {
+                    byte[] data = decryptor.TransformFinalBlock(source, 0, source.Length);
+                    int iLength = data[data.Length - 1];
+                    var output = new byte[data.Length - iLength];
+                    Buffer.BlockCopy(data, 0, output, 0, output.Length);
+                    return output;
+                }
+            }
+        }
 
 
 

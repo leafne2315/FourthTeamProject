@@ -5,6 +5,11 @@
 
 @section  Styles{
 
+    <style>
+        .td-Width{
+            width: 150px;
+        }
+    </style>
 }
 
 
@@ -26,7 +31,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="cartItem in shoppingCart">
+                    <tr v-for="cartItem in shoppingCart" :key="cartItem.productId">
                         <td>
                             <a data-toggle="modal" data-target="#removeModal" data-whatever="" @@click="removeCart(cartItem,i)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
@@ -35,32 +40,27 @@
                             </a>
                         </td>
                         <td>
-                            <img src="https://picsum.photos/120/?random=10" alt="商品" class="order-item-image">
+                            <img src="https://picsum.photos/120/?random=10" alt="商品" class="order-item-image" >
                         </td>
                         <td><span class="order-item-title">{{cartItem.productName}}</span></td>
-                        <td>
-                            <input type="number" class="form-control order-item-quantity" :value="cartItem.amount" min="1">
+                        <td class="td-Width">
+                            <input type="number" class="form-control order-item-quantity" v-model="cartItem.amount" min="1" @@input="checkQuantity(cartItem)">
                         </td>
-                        <td class="order-item-price">{{subTotal(cartItem)}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Discount</td>
-                    </tr>
+                        <td class="order-item-price td-Width">{{subTotal(cartItem)}}</td>
+                    </tr>                  
+                </tbody>
+                <tfoot>
                     <tr>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td>{{listConut}}<span>件商品</span></td>
-                        <td class="order-total">總價：$30.98</td>
+                        <td>總價：{{getTotal()}}</td>
                     </tr>
-                </tbody>
+                </tfoot>
             </table>
                     <div class="mt-4">
-                        <h4>收件人資料</h4>
+                        <h4>訂購人資料</h4>
                         <div class="form-group">
                             <label for="name">姓名：</label>
                             <input type="text" class="form-control" id="name" name="name" v-model="memberInfo.memberName" required>
@@ -75,7 +75,7 @@
                             <input type="tel" class="form-control" id="phone" name="phone" v-model="memberInfo.memberPhone" required>
                         </div>
                         <button  class="btn btn-primary btn-block" @@click="sendOrder()">結帳</button>
-                <button type="button" class="btn btn-primary" v-on:click="SendToNewebPay('CREDIT')">ATM 付款</button>
+                        <button type="button" class="btn btn-primary" v-on:click="SendToNewebPay('CREDIT')">ATM 付款</button>
                     </div>
 
 
@@ -127,15 +127,12 @@
                 addForm: {
                     MerchantID: '@ViewData["MerchantID"]' //商品代號
                     , MerchantOrderNo: '@ViewData["MerchantOrderNo"]'
-                    , ItemDesc: '測試商品'
-                    , Amt: '100'
                     , ExpireDate: '@ViewData["ExpireDate"]'
                     , ReturnURL: '@ViewData["ReturnURL"]'
                     , CustomerURL: '@ViewData["CustomerURL"]'
-                    , NotifyURL: '@ViewData["NotifyURL"]'
+                    , NotifyURL: '@ViewData["NotifyURL"]'//需要nrogk
                     , ClientBackURL: '@ViewData["ClientBackURL"]'
-                    , Email: 'xxxx@gmail.com'
-                }
+                },
             },
             mounted: function () {
                 this.shoppingCart = this.getCart(email) ? this.getCart(email).carts : [];
@@ -148,6 +145,17 @@
                 }
             },
             methods: {
+                checkQuantity: function (cartItem) {
+                    if (cartItem.amount < 1) {
+                        cartItem.amount = 1;
+                    } 
+                },
+                getTotal: function () {
+                    var result = this.shoppingCart.reduce(function (total, item) {
+                        return total + item.unitPrice * item.amount;
+                    }, 0);
+                    return result;
+                },
                 memberEmpty: function () {
                     let _this = this;
                     if (_this.memberInfo.memberName == '' || _this.memberInfo.memberAddress == '' || _this.memberInfo.memberPhone == '') {
@@ -216,6 +224,7 @@
                     if (_this.shoppingCart.length != 0) {
                         if (_this.memberInfo.memberAddress != '' && _this.memberInfo.memberName != '' && _this.memberInfo.memberPhone!='')
                         {
+
                             var request = {
                                 OrderDate: new Date(),
                                 MemberId: _this.memberInfo.memberId,
@@ -235,7 +244,8 @@
                                 console.log(productDetail[0].carts);
                                 axios.post('/api/PetProdcutAPI/CreatOrderDetail', productDetail[0].carts, { params: { orderId: this.orderId } }).then(res => {
                                     console.log('OK')
-                                    window.location.href = "/Product/OrderDone";
+                                    this.SendToNewebPay();
+                                    //window.location.href = "/Product/OrderDone";
                                     localStorage.clear();
                                 });
                             });
@@ -243,32 +253,32 @@
                         else {
                             Swal.fire({
                                 icon: 'error',
-                                text: '收件人資料不可為空',
+                                text: '收件人資料不可為空',                               
                             })
                         }
                     }
                     else {
                         Swal.fire({
-                            icon: 'error',
-                            text: '購物車為空無法送出訂單',
+                            icon: 'warning',
+                            title: '購物車為空無法結帳',
+                            footer: '<a href="/Product" style="color:blue">回商城選購</a>'
                         })
                     }
                 },
-                SendToNewebPay: function (ChannelID) {
+                SendToNewebPay: function () {
                     var self = this;
                     // 組合表單資料
                     var postData = {};
-                    postData['ChannelID'] = ChannelID;
                     postData['MerchantID'] = self.addForm.MerchantID;
                     postData['MerchantOrderNo'] = self.addForm.MerchantOrderNo;
-                    postData['ItemDesc'] = self.addForm.ItemDesc;
-                    postData['Amt'] = self.addForm.Amt;
+                    postData['ItemDesc'] = self.memberInfo.memberName//付款人資訊。
+                    postData['Amt'] = self.getTotal();//結帳金額
                     postData['ExpireDate'] = self.addForm.ExpireDate;
                     postData['ReturnURL'] = self.addForm.ReturnURL;
                     postData['CustomerURL'] = self.addForm.CustomerURL;
                     postData['NotifyURL'] = self.addForm.NotifyURL;
                     postData['ClientBackURL'] = self.addForm.ClientBackURL;
-                    postData['Email'] = self.addForm.Email;
+                    postData['Email'] = email;
                     // 使用 jQuery Ajax 傳送至後端
                     $.ajax({
                         url: '@Url.Content("~/Product/SendToNewebPay")',
@@ -283,6 +293,7 @@
 
                             for (const key in returnObj) {
                                 if (returnObj.hasOwnProperty(key)) {
+                                    //將回傳的Json物件開頭轉為大寫
                                     const fixedKey = key.charAt(0).toUpperCase() + key.slice(1);
                                     const hiddenField = document.createElement('input');
                                     hiddenField.type = 'hidden';

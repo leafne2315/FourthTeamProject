@@ -64,6 +64,7 @@ namespace FourthTeamProject.Controllers
                 receive.AppendLine(item.Key + "=" + item.Value + "<br>");
             }
             ViewData["ReceiveObj"] = receive.ToString();
+            ViewBag.ReceiveObj = receive.ToString();
 
             // 解密訊息
             IConfiguration Config = new ConfigurationBuilder().AddJsonFile("appSettings.json").Build();
@@ -78,7 +79,7 @@ namespace FourthTeamProject.Controllers
                 receive.AppendLine(key + "=" + decryptTradeCollection[key] + "<br>");
             }
             ViewData["TradeInfo"] = receive.ToString();
-
+            ViewBag.TradeInfo= receive.ToString();
             return View();
         }
 

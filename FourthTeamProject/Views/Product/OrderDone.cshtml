@@ -3,3 +3,20 @@
 @Html.Raw(ViewData["ReceiveObj"])
 
 @Html.Raw(ViewData["TradeInfo"])
+
+
+
+
+@section Scripts{
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        var receiveObj1 = '@ViewData["ReceiveObj"]';
+        var receiveObj2 = '@ViewData["TradeInfo"]';
+        var obj = '@ViewBag.TradeInfo'
+
+
+    </script>
+}

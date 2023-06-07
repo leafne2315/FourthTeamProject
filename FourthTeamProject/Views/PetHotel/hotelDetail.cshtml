@@ -360,7 +360,8 @@
                 console.log('checkInOutClear!');
 
                 this.setOrderDetailData();
-                var sendData = axios.post(`/PetHotel/SendDataToOrder`,this.orderDetailData).then(response=>{
+
+                var sendData = axios.post(`/api/PetHotelAPI/SendDetailData`, this.orderDetailData).then(response => {
                     console.log('Send',response);
                 })
                 
@@ -403,9 +404,14 @@
                 this.orderDetailData.DetailStatus = true;
                 this.orderDetailData.HotelName = this.HotelData.hotelName;
                 this.orderDetailData.HotelCatagoryName = this.HotelData.hotelTypeName;
-            }
+                //this.orderDetailData.HotelOrderId = 100;
+            },
 
-
+            getOrderDetailFromSession:function(){
+                axios.get(`/api/PetHotelAPI/GetDetailData`).then(response => {
+                    console.log('Session:',response);
+                });
+            },
         }
 
     })

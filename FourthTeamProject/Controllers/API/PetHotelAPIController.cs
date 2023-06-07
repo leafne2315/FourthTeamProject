@@ -4,6 +4,7 @@ using FourthTeamProject.PetHeavenModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace FourthTeamProject.Controllers.API
 {
@@ -12,6 +13,7 @@ namespace FourthTeamProject.Controllers.API
     public class PetHotelAPIController : ControllerBase
     {
         private readonly PetHeavenDbContext petHeavenDb;
+
 
         public PetHotelAPIController(PetHeavenDbContext petHeavenDb)
         {
@@ -123,6 +125,27 @@ namespace FourthTeamProject.Controllers.API
             return Ok(hotelOrderDetail);
         }
 
+        [HttpPost("SendDetailData")]
+        public IActionResult SendDataToOrder([FromBody] HotelOrderDetailViewModel orderDetailData)
+        {
+            
+            string serializedData = JsonConvert.SerializeObject(orderDetailData);
+            HttpContext.Session.SetString("OrderData", serializedData);
+            //Console.WriteLine(HttpContext.Session.Keys);
+            
+           
+            return Ok(serializedData);
+        }
 
+        [HttpGet("GetDetailData")]
+
+        public IActionResult GetOrderFromDetail() 
+        {
+            string serializedData = HttpContext.Session.GetString("OrderData");
+
+            var orderDetailData = JsonConvert.DeserializeObject<HotelOrderDetailViewModel>(serializedData);
+
+            return Ok(orderDetailData);
+        }
     }
 }

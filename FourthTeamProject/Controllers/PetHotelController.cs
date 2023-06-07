@@ -23,12 +23,6 @@ namespace FourthTeamProject.Controllers
             return View(); 
         }
 
-        public IActionResult SendDataToOrder(HotelOrderDetailViewModel orderDetailData)
-        {
-            string serializedData = JsonConvert.SerializeObject(orderDetailData);
-            HttpContext.Session.SetString("OrderData", serializedData);
-
-            return Ok(serializedData);
-        }
+        
     }
 }

@@ -10,10 +10,20 @@
     <link href="~/css/style.css" rel="stylesheet" />
     <link href="~/css/youmaybelike.css" rel="stylesheet" />
     
-
+    <style>
+        .rounded {
+            bottom: 10px;
+            right: 10px;
+            width: 25px;
+            height: 25px;
+            background-color: #1A374D;
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+        }
+    </style>
 
 }
-
 
 
 <div id="app">
@@ -104,13 +114,16 @@
                     <p>{{productDetail.productContent}}</p>
                     <p>{{productDetail.unitPrice}}</p>
                     <i class="fa-duotone fa-tag"></i>
+                    <p class="text-danger">記得要加數量跟加到購物車按鈕</p>
                 </div> <!-- /col-sm-6 -->
                 @*MaybeLike*@
-                <div>你可能喜歡的商品</div>                
+                                
             </div> <!-- /container -->
+        </div>
     </section>
     <!-- Related Products-->
     <br>
+    <div class="row align-items-center"><h3>你可能喜歡的商品</h3></div>
     <br>
     <section class="section section-sm section-last bg-gray-1">
         <div class="container">
@@ -131,6 +144,7 @@
             </div>
         </div>
     </section>
+    <br />
     
 </div>
 

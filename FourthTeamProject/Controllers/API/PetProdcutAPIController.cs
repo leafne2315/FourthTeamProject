@@ -3,6 +3,10 @@ using FourthTeamProject.Models.ViewModel;
 using FourthTeamProject.PetHeavenModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
+using NuGet.Protocol;
+using System;
+using System.Security.Cryptography;
 
 namespace FourthTeamProject.Controllers.API
 {
@@ -70,8 +74,70 @@ namespace FourthTeamProject.Controllers.API
         }
 
 
+       
+        [HttpPost]
+        public IActionResult CreatOrderDetail([FromBody] List<ProductViewModel> request,int orderId)
+        {
 
+            foreach (var item in request)
+            {
+                var CatagoryName = _db.ProductCatagory.Where(x => x.ProductCatagoryId == item.ProductCatagoryId).Select(x => x.ProductCatagoryName).SingleOrDefault();
+                var result = new ProductOrderDetail()
+                {
+                    Quantity = item.Amount,
+                    ProductName = item.ProductName,
+                    ProductContent = item.ProductContent,
+                    UnitPrice = item.UnitPrice,
+                    ProductId = item.ProductId,
+                    DetailStatus = true,
+                    ProductCatagoryName = CatagoryName,
+                    OrderId= orderId,
+                };
+                _db.ProductOrderDetail.Add(result);
+                _db.SaveChanges();
+            }
+            return Ok();
+        }
 
+        public IActionResult ProductDetail([FromQuery] int id)
+        {
+            var detail = _db.Product.FirstOrDefault(x => x.ProductId == id);
+            if (detail != null)
+            {
+                var result = new ProductDetailViewModel
+                {
+                    ProductId= id,
+                    ProductName= detail.ProductName,
+                    ProductContent= detail.ProductContent,
+                    ProductSpecification= detail.ProductSpecification,
+                    UnitPrice= detail.UnitPrice,
+                    Stock= detail.Stock,
+                    ProductTypeId = detail.ProductTypeId,
+                    Amount=1
+                };
+                return Ok(result);
+            }
+            return NoContent();
+
+        }
+        public IActionResult MaybeLikProoduct([FromQuery] int id)
+        {
+            //隨機五筆
+            var count = 4;
+            var randomProducts = _db.Product.Where(p => p.ProductTypeId == id)
+            .OrderBy(x => Guid.NewGuid()).Take(count).Select(x=> new ProductDetailViewModel
+            {
+                ProductId= x.ProductId,
+                ProductName= x.ProductName,
+                ProductContent= x.ProductContent,
+                ProductSpecification= x.ProductSpecification,
+                UnitPrice= x.UnitPrice,
+                ProductTypeId= x.ProductTypeId
+            });
+
+            return Ok(randomProducts);
+
+        }
 
 
 

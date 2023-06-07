@@ -9,7 +9,7 @@
     {
     <link href="~/css/style.css" rel="stylesheet" />
     <link href="~/css/youmaybelike.css" rel="stylesheet" />
-   
+    
 
 
 }
@@ -75,10 +75,7 @@
                             </div>
                             <div class="carousel-item item">
                                 <img src="https://picsum.photos/300/?random=10" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item item">
-                                <img src="https://picsum.photos/300/?random=10" class="d-block w-100" alt="...">
-                            </div>
+                            </div>                            
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -96,7 +93,6 @@
                                     <div data-target="#carousel" data-slide-to="0" class="thumb"><img src="https://picsum.photos/300/?random=10"></div>
                                     <div data-target="#carousel" data-slide-to="1" class="thumb"><img src="https://picsum.photos/300/?random=10"></div>
                                     <div data-target="#carousel" data-slide-to="2" class="thumb"><img src="https://picsum.photos/300/?random=10"></div>
-                                    <div data-target="#carousel" data-slide-to="3" class="thumb"><img src="https://picsum.photos/300/?random=10"></div>
                                 </div><!-- /item -->
                             </div> <!-- /thumbcarousel -->
                         </div><!-- /clearfix -->
@@ -107,6 +103,7 @@
                     <h3>{{productDetail.productSpecification}}</h3>
                     <p>{{productDetail.productContent}}</p>
                     <p>{{productDetail.unitPrice}}</p>
+                    <i class="fa-duotone fa-tag"></i>
                 </div> <!-- /col-sm-6 -->
             </div> <!-- /container -->
     </section>
@@ -144,6 +141,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
     <script>
         var email = "@ViewBag.Email"
         var productId = "@ViewBag.productId";
@@ -164,7 +162,7 @@
                     return this.shoppingCart.length;
                 },                
             },
-            methods: {                
+            methods: {
                 redirectToDetail(item) {                    
                     window.location.href = `/Product/ProductDetail?id=${item.productId}`;
                     event.stopPropagation();

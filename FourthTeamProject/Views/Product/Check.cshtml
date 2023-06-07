@@ -70,12 +70,12 @@
                             <label for="address">地址：</label>
                             <input type="text" class="form-control" id="address" name="address" v-model="memberInfo.memberAddress" required>
                         </div>
-
                         <div class="form-group">
                             <label for="phone">連絡電話：</label>
                             <input type="tel" class="form-control" id="phone" name="phone" v-model="memberInfo.memberPhone" required>
                         </div>
                         <button  class="btn btn-primary btn-block" @@click="sendOrder()">結帳</button>
+                <button type="button" class="btn btn-primary" v-on:click="SendToNewebPay('CREDIT')">ATM 付款</button>
                     </div>
 
 
@@ -122,7 +122,20 @@
                 shoppingCart: [],
                 memberInfo: [],
                 orderId: null,
-                recipient :[]
+                recipient :[],
+                //測試用表單
+                addForm: {
+                    MerchantID: '@ViewData["MerchantID"]' //商品代號
+                    , MerchantOrderNo: '@ViewData["MerchantOrderNo"]'
+                    , ItemDesc: '測試商品'
+                    , Amt: '100'
+                    , ExpireDate: '@ViewData["ExpireDate"]'
+                    , ReturnURL: '@ViewData["ReturnURL"]'
+                    , CustomerURL: '@ViewData["CustomerURL"]'
+                    , NotifyURL: '@ViewData["NotifyURL"]'
+                    , ClientBackURL: '@ViewData["ClientBackURL"]'
+                    , Email: 'xxxx@gmail.com'
+                }
             },
             mounted: function () {
                 this.shoppingCart = this.getCart(email) ? this.getCart(email).carts : [];
@@ -241,6 +254,52 @@
                         })
                     }
                 },
+                SendToNewebPay: function (ChannelID) {
+                    var self = this;
+                    // 組合表單資料
+                    var postData = {};
+                    postData['ChannelID'] = ChannelID;
+                    postData['MerchantID'] = self.addForm.MerchantID;
+                    postData['MerchantOrderNo'] = self.addForm.MerchantOrderNo;
+                    postData['ItemDesc'] = self.addForm.ItemDesc;
+                    postData['Amt'] = self.addForm.Amt;
+                    postData['ExpireDate'] = self.addForm.ExpireDate;
+                    postData['ReturnURL'] = self.addForm.ReturnURL;
+                    postData['CustomerURL'] = self.addForm.CustomerURL;
+                    postData['NotifyURL'] = self.addForm.NotifyURL;
+                    postData['ClientBackURL'] = self.addForm.ClientBackURL;
+                    postData['Email'] = self.addForm.Email;
+                    // 使用 jQuery Ajax 傳送至後端
+                    $.ajax({
+                        url: '@Url.Content("~/Product/SendToNewebPay")',
+                        method: 'POST',
+                        dataType: 'json',
+                        data: { inModel: postData, __RequestVerificationToken: $('@Html.AntiForgeryToken()').val() },
+                        success: function (returnObj) {
+                            // 呼叫藍新金流 API
+                            const form = document.createElement('form');
+                            form.method = 'post';
+                            form.action = 'https://ccore.newebpay.com/MPG/mpg_gateway';//藍新金流驗證網址(測試環境)
+
+                            for (const key in returnObj) {
+                                if (returnObj.hasOwnProperty(key)) {
+                                    const fixedKey = key.charAt(0).toUpperCase() + key.slice(1);
+                                    const hiddenField = document.createElement('input');
+                                    hiddenField.type = 'hidden';
+                                    hiddenField.name = fixedKey;
+                                    hiddenField.value = returnObj[key];
+                                    form.appendChild(hiddenField);
+                                }
+                            }
+                            document.body.appendChild(form);
+                            form.submit();
+                        },
+                        error: function (err) {
+                            alert(err.status + " " + err.statusText + '\n' + err.responseText);
+                        }
+                    });
+                    
+                }
             }
         })
 

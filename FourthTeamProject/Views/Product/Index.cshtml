@@ -130,6 +130,7 @@
                                         <th scope="col"></th>
                                         <th scope="col">商品名稱</th>
                                         <th scope="col">數量</th>
+                                        <th scope="col">單價</th>
                                         <th scope="col">小計</th>
                                     </tr>
                                 </thead>
@@ -144,7 +145,8 @@
                                         </th>
                                         <td>{{cartItem.productName}}</td>
                                         <td>{{cartItem.amount}}</td>
-                                        <td class="text-right">{{cartItem.unitPrice}}</td>
+                                        <td>{{cartItem.unitPrice}}</td>
+                                        <td>{{subTotal(cartItem)}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -219,8 +221,8 @@
                             <div class="card-footer">
                                 <p>我是商品描述</p>
                                 <div>
-                                        <button class="rounded" @@click="minusOne(item)">-</button>
-                                        <span>&nbsp; {{ item.amount }} &nbsp;</span>
+                                    <button class="rounded" @@click="minusOne(item)">-</button>
+                                    <span>&nbsp; {{ item.amount }} &nbsp;</span>
                                     <button class="rounded" @@click="addOne(item)">+</button>
                                 </div>
                                 <br />
@@ -276,7 +278,7 @@
                 ProductCatagoryId: [
                     { id: 0, name: 'All', checked: true },
                     { id: 1, name: 'Items', checked: false },
-                    { id: 2, name: 'HealthCare', checked: false },
+                    { id: 2, name: 'Health', checked: false },
                     { id: 3, name: 'Food', checked: false }
                 ],
                 Catagory_of_Product: [0],
@@ -309,6 +311,9 @@
                 },
             },
             methods: {
+                subTotal: function (item) {
+                    return item.amount * item.unitPrice;
+                },
                 // 将页面重定向到商品详细页面，并传递商品ID或其他必要的参数
                 redirectToDetail(item) {                    
                     window.location.href = `/Product/ProductDetail?id=${item.productId}`;
@@ -380,11 +385,13 @@
                 minusOne: function (item) {
                     item.amount--;
                     item.amount = (item.amount < 1) ? 1 : item.amount;
+                    event.stopPropagation();
                 },
                 //加商品數量
                 addOne: function (item) {
                     item.amount++;
                     item.amount = (item.amount > 9) ? 9 : item.amount;
+                    event.stopPropagation();
                 },
                 //加入購物車
                 AddCart: function (item) {

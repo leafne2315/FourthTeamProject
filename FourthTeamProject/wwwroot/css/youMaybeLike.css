@@ -193,7 +193,7 @@ html, body {
 }
 
 .item .thumb {
-    width: 25%;
+    width: 33.333%;
     cursor: pointer;
     float: left;
 }

@@ -163,7 +163,7 @@
     </nav>
     <!-- fiiter -->
     <div class="containershop row">
-        <div class="left  col-xl-3 col-lg-3 col-md-3">
+        <div class="left col-xl-3 col-lg-3 col-md-3">
             <div class="col-xl-3 col-lg-4 col-md-6">
                 <div class="sidebar-box-style2">
                     <!--Start Single Sidebar style2-->
@@ -206,7 +206,7 @@
         <div class="right col-xl-9 col-lg-9 col-md-9">
             <ul class="card-group px-md-2 py-md-2">
                 <template v-for="item in selectedProductList.slice(pageStart, pageEnd)">
-                    <li class="col-lg-4 col-sm-6 d-flex align-items-stretch buy-cursor" v-if="item.productStatus" >
+                    <li class="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-flex align-items-stretch buy-cursor" v-if="item.productStatus" >
                         <div class="card" @@click="redirectToDetail(item)">
                             <div class="pic">
                                 <img src="https://picsum.photos/300/?random=10">

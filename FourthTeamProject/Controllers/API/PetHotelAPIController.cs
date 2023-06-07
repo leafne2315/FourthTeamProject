@@ -59,6 +59,31 @@ namespace FourthTeamProject.Controllers.API
             return Ok(HotelSelected);
         }
 
+        [HttpGet("HotelDetail/GetService/{hotelId}")]
+        public IActionResult HotelService(int hotelId)
+        {
+            var services = petHeavenDb.HotelToService.Include(s => s.HotelService).ToList();
+            var serviceOfHotel = services.Where(h => h.HotelId == hotelId).Select(data => new PetHotelServiceViewModel()
+            {
+                HotelId=data.HotelId,
+                HotelServiceId=data.HotelServiceId,
+                HotelService = data.HotelService,
+            });
+
+            return Ok(serviceOfHotel);
+        }
+
+        [HttpGet("HotelDetail/GetImages/{hotelId}")]
+        public IActionResult HotelImagesGet(int hotelId)
+        {
+            var images = petHeavenDb.HotelImage.Where(h=>h.HotelId==hotelId).Select(data=>new PetHotelImageViewModel() 
+            {
+                HotelImageId=data.HotelImageId,
+                HotelImagePath=data.HotelImagePath,
+            });
+            return Ok(images);
+        }
+
         [HttpPost("HotelOrderCreate")]
         public IActionResult CreateHotelOrder([FromBody]HotelOrderViewModel orderData)
         {
@@ -97,6 +122,7 @@ namespace FourthTeamProject.Controllers.API
             petHeavenDb.SaveChanges();
             return Ok(hotelOrderDetail);
         }
+
 
     }
 }

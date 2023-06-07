@@ -161,9 +161,9 @@
 
     <div id="hotelShow">
         <div class="row">
-            <div v-for="roomData in tempDogHotelData" class="room col-12 col-sm-6 col-lg-4 px-0" 
-                :style="{ 'background-image': `url(${roomData.hotelImage})` }"
-                 v-on:click="showHotelDetail(roomData.hotelID)">
+            <div v-for="roomData in petHotelForDog" class="room col-12 col-sm-6 col-lg-4 px-0"
+                 :style="{ 'background-image': `url(${roomData.hotelImage})` }"
+                 v-on:click="showHotelDetail(roomData.id)">
                 <div style="height:400px ;">
                     @*
                     v-on:click="showHotelDetail(${roomData.hotelID})"
@@ -175,7 +175,7 @@
                     *@
                 </div>
                 <div class="roomTitle">
-                    {{roomData.roomName}}
+                    {{roomData.hotelName}}
                     <hr style="border:1px solid white;margin: 0; width:250%">
                 </div>
                 <div class="overlay"></div>
@@ -193,7 +193,9 @@
 
     <div id="hotelShow">
         <div class="row">
-            <div v-for="roomData in tempDogHotelData" class="room col-12 col-sm-6 col-lg-4 px-0" :style="{ 'background-image': `url(${roomData.hotelImage})` }">
+            <div v-for="roomData in petHotelForCat" class="room col-12 col-sm-6 col-lg-4 px-0" 
+                :style="{ 'background-image': `url(${roomData.hotelImage})` }"
+                 v-on:click="showHotelDetail(roomData.id)">
                 <div style="height:400px ;">
                     @*
                     <div style="height:300px"></div>
@@ -207,7 +209,7 @@
                     
                 </div>
                 <div class="roomTitle">
-                    {{roomData.roomName}}
+                    {{roomData.hotelName}}
                     <hr style="border:1px solid white;margin: 0; width:250%">
                 </div>
                 <div class="overlay"></div>
@@ -278,24 +280,26 @@
     let app = new Vue({
         el: '#app',
         data: {
+            petHotelForDog: [],
+            petHotelForCat: [],
             petHotelDatas: [],
-            tempDogHotelData: [
-                {
-                    hotelImage: 'https://img.freepik.com/free-photo/close-up-beautiful-dachshund-eating_23-2149202513.jpg',
-                    roomName: '標準房',
-                    hotelID: 1,
-                },
-                {
-                    hotelImage: 'https://img.freepik.com/free-photo/closeup-shot-adorable-small-golden-retriever-pup-lying-purple-carpet-with-blue-toy_181624-32890.jpg',
-                    roomName: 'Vip房',
-                    hotelID: 2,
-                },
-                {
-                    hotelImage: 'https://img.freepik.com/free-photo/beagle-dog-living-room-waiting-his-owner_640221-454.jpg',
-                    roomName: '尊貴房',
-                    hotelID: 3,
-                }
-            ]
+            //tempDogHotelData: [
+            //    {
+            //        hotelImage: 'https:img.freepik.com/free-photo/close-up-beautiful-dachshund-eating_23-2149202513.jpg',
+            //        roomName: '標準房',
+            //        hotelID: 1,
+            //    },
+            //    {
+            //        hotelImage: 'https:img.freepik.com/free-photo/closeup-shot-adorable-small-golden-retriever-pup-lying-purple-carpet-with-blue-toy_181624-32890.jpg',
+            //        roomName: 'Vip房',
+            //        hotelID: 2,
+            //    },
+            //    {
+            //        hotelImage: 'https:img.freepik.com/free-photo/beagle-dog-living-room-waiting-his-owner_640221-454.jpg',
+            //        roomName: '尊貴房',
+            //        hotelID: 3,
+            //    }
+            //]
         },
         mounted: function () {
             this.getData();
@@ -305,9 +309,13 @@
             getData: function () {
                 let self = this;
                 var test = axios.get('/api/PetHotelAPI').then(response => {
-                    self.petHotelDatas = response.data; // Store the fetched data in the component's data property
+                    self.petHotelDatas = response.data;
+                    this.petHotelForDog = this.petHotelDatas.filter(data => data.catagoryID == 1);
+                    this.petHotelForCat = this.petHotelDatas.filter(data => data.catagoryID == 2);
+                    // Store the fetched data in the component's data property
                 })
                 console.log('getData');
+                
             },
             showHotelDetail:function(hotelId){
 

@@ -75,7 +75,7 @@
             position: fixed;
             top:120px;
             
-            left: 77%; /* Adjust the left position as needed */
+            left: 77.4%; /* Adjust the left position as needed */
             transform: translateX(-50%);
             z-index:1;
             /*
@@ -86,14 +86,18 @@
             */
         }
         
-
+        .RoomNotice{
+            font-size:16px;
+        }
         
 
     </style>
     <script src="https://kit.fontawesome.com/929fe9c685.js" crossorigin="anonymous"></script>
 </head>
 <div id="app">
+    @*
     <p>Hotel ID: @hotelId</p>
+    *@
     
     <div id="DetailPage">
         <div class="px-4 px-lg-5 mt-3">
@@ -138,64 +142,40 @@
 
             <div class="row">
                 <div class="col-lg-7 col-md-5 col-12">
-                    <h4 class="mb-2">{{HotelData.hotelName}}</h4>
+                    <h4 ref="mySubTitle" class="mb-2">{{HotelData.hotelName}}</h4>
                     <hr class="solid" style="font-weight: bold;">
-                    <div class="d-flex">
+
+                    <div class="d-flex" v-for="service in HotelServices" >
                         <i class="fa-solid fa-paw" ></i>
                         <div>
-                            <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">舒適的環境</p>
-                            <p class="mb-3 service-content">給毛孩乾淨舒適的空間</p>
+                            <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">
+                                {{service.hotelService.hotelServiceName}}
+                            </p>
+                            <p class="mb-3 service-content">{{service.hotelService.hotelServiceName}}</p>
                         </div>
                     </div>
-                    <div class="d-flex">
-                        <i class="fa-solid fa-paw"></i>
-                        <div>
-                            <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">乾淨的飲食</p>
-                            <p class="mb-2 service-content">提供健康且對身體無負擔的食物</p>
-                        </div>
-                    </div>
-                    <div class="d-flex">
-                        <i class="fa-solid fa-paw"></i>
-                        <div>
-                            <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">寵物按摩服務</p>
-                            <p class="mb-2 service-content">給毛孩乾淨舒適的空間</p>
-                        </div>
-                    </div>
-                    <div class="d-flex">
-                        <i class="fa-solid fa-paw"></i>
-                        <div>
-                            <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">寵物按摩服務</p>
-                            <p class="mb-2 service-content">給毛孩乾淨舒適的空間</p>
-                        </div>
-                    </div>
-                    <div class="d-flex">
-                        <i class="fa-solid fa-paw"></i>
-                        <div>
-                            <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">寵物按摩服務</p>
-                            <p class="mb-2">給毛孩乾淨舒適的空間</p>
-                        </div>
-                    </div>
-                    <div class="d-flex">
-                        <i class="fa-solid fa-paw"></i>
-                        <div>
-                            <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">寵物按摩服務</p>
-                            <p class="mb-2">給毛孩乾淨舒適的空間</p>
-                        </div>
-                    </div>
-                    <div class="d-flex">
-                        <i class="fa-solid fa-paw"></i>
-                        <div>
-                            <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">寵物按摩服務</p>
-                            <p class="mb-2">給毛孩乾淨舒適的空間</p>
-                        </div>
-                    </div>
+                    
                     <hr class="solid" style="font-weight: bold;">
                     <div>{{HotelData.hotelContentDetail}}</div>
                     <hr class="solid" style="font-weight: bold;">
                     <h4 class="mb-2" style="font-weight:bold;">有提供的設備</h4>
+                    <div class="row">
+                        <div v-if="isForDog" v-for="device in DogDevice" class="col-6" :key="device">
+                            <div class="d-flex">
+                                <i class="fa-solid fa-dog"></i>
+                                <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">{{device}}</p>
+                            </div>
+                        </div>
+                        <div v-if="!isForDog" v-for="device in CatDevice" class="col-6" :key="device">
+                            <div class="d-flex">
+                                <i class="fa-solid fa-cat"></i>
+                                <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">{{device}}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-5 col-md-7 col-12" id="PriceCard" >
-                    <div class="card shadow ml-md-auto ml-0" style="width: 25rem; border:none;border-radius:20px;" :class=" { 'fixed' : this.isCardFixed }">
+                <div class="col-lg-5 col-md-7 col-12" id="PriceCard" :class="{'mt-auto': this.isCardScrollOver}">
+                    <div class="card shadow ml-md-auto ml-0 " style="width: 25rem; border:none;border-radius:20px;" :class=" { 'fixed' : this.isCardFixed }">
                         <form v-on:submit.prevent="formSubmit">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-1">
@@ -233,6 +213,24 @@
                     </div>
                 </div>
             </div>
+            <hr class="solid" style="font-weight: bold;" ref="myDiv">
+            <h4 class="mb-4 mt-4" style="font-weight:bold;">注意事項</h4>
+            <ol class="RoomNotice">
+                <li>入住時間：每日 15:00 – 20:30 ｜ 退房時間：每日14:00前 (提早入住或延後退房將按照時數收取超時費)。</li>
+                <li>照護專員在場照護區間：11:45 – 21:20 (如有異動將提前徵詢飼主同意)。</li>
+                <li>6 個月齡以下幼貓幼犬入住須出示預防針接種滿 7 天證明以確保有足夠免疫力。</li>
+                <li>需要持續專業醫療的毛小孩貴賓 (包含針筒注射、擠尿等) 不接受入住。</li>
+                <li>
+                    為了維護旅館環境整潔安全，請於入住前三日幫您的毛孩點妥體外寄生蟲藥 (如寵愛滴劑)。
+                    入住期間如發現貓狗身上有跳蚤，旅館將拍照通知，並於退房時收取每晚 700 元的環境除蟲費用。
+                </li>
+                <li>
+                    辦理入住時，請務必「預留 20 分鐘時間」讓我們與您進行寵物照護資料確認，也期望您能額外花幾分鐘親自
+                    與毛孩說說話再離開以減少毛孩緊張感。
+                </li>
+                <li>入住時須預先結清住宿費用並簽署「寄宿同意書」。</li>
+                <li>建議攜帶一件主人的衣物物放置房內，家人的氣味可以增加毛小孩的安全感。</li>
+            </ol>
         </div>
     </div>
     
@@ -247,6 +245,8 @@
         el: '#app',
         data: {
             HotelData:{},
+            HotelServices:[],
+            HotelImages:[],
             currenthotelId: @hotelId,
             
             showNotice: false,
@@ -268,16 +268,24 @@
 
             //fix pos
             isCardFixed: false,
-            scrollPosition: 300
+            scrollPosition: 300,
+            isCardScrollOver:false,
+
+            //Devices
+            isForDog: true,
+            CatDevice: ['貓跳台', '貓抓板','清淨除溼機','淨水器','舒適吊床','磨牙玩具(退房可帶走)'],
+            DogDevice: ['大坪數公共活動空間','無障礙球池','清淨除溼機','淨水器','舒適寵物床','磨牙玩具(退房可帶走)']
         },
-        mounted: function () {
+        mounted: async function () {
             //this.currenthotelId = this.getUrlParameter('hotelId');
             //this.currenthotelId = JSON.parse(document.getElementById('app').dataset.hotelId);
             window.addEventListener('scroll', this.handleScroll);
 
-            this.getData();
+            await this.getData();
             console.log('mounted');
-            
+            console.log('catagoryID:', this.HotelData.catagoryID)
+
+            this.isForDog = (this.HotelData.catagoryID == 1);
         },
         destroyed() {
             window.removeEventListener('scroll', this.handleScroll);
@@ -293,12 +301,31 @@
             }
         },
         methods: {
-            getData: function () {
+
+            getData: async function() {
                 let self = this;
-                var test = axios.get(`/api/PetHotelAPI/HotelDetail/${this.currenthotelId}`).then(response => {
-                    console.log('HotelData:', response.data);
-                    self.HotelData = response.data; 
-                })
+                //var getHotel = await axios.get(`/api/PetHotelAPI/HotelDetail/${this.currenthotelId}`).then(response => {
+                //    console.log('HotelData:', response.data);
+                //    self.HotelData = response.data; 
+                //})
+                
+
+                const getHotelData = axios.get(`/api/PetHotelAPI/HotelDetail/${this.currenthotelId}`);
+                const getServices = axios.get(`/api/PetHotelAPI/HotelDetail/GetService/${this.currenthotelId}`);
+                const getImages = axios.get(`/api/PetHotelAPI/HotelDetail/GetImages/${this.currenthotelId}`);
+
+                await Promise.all([getHotelData, getServices, getImages]).then(([response1,response2,response3]) => {
+
+                    console.log('HotelData:', response1.data);
+                    self.HotelData = response1.data;
+
+                    console.log('serviceDatas:', response2.data);
+                    self.HotelServices = response2.data;
+
+                    console.log('imageDatas:', response3.data);
+                    self.HotelImages = response3.data;
+                });
+
                 console.log('getData');
             },
 
@@ -332,8 +359,25 @@
                 console.log('天數', this.DayAmount);
             },
             handleScroll() {
-                this.isCardFixed = window.pageYOffset >= 600 
-                console.log('scoll');
+                //console.log('scoll');
+
+                const divElement = this.$refs.myDiv;
+                const rect = divElement.getBoundingClientRect();
+                const deadBotton = rect.top + window.pageYOffset;
+                //console.log('deadBotton:', deadBotton);
+
+                const subTitleElement = this.$refs.mySubTitle;
+                const rectOfsubT = subTitleElement.getBoundingClientRect();
+                const deadTop = rectOfsubT.top + window.pageYOffset;
+                //console.log('deadTop:', deadTop);
+
+                this.isCardFixed = (window.pageYOffset >= (deadTop-150)) && (window.pageYOffset < (deadBotton - 350));
+                this.isCardScrollOver = window.pageYOffset >= (deadBotton - 350);
+
+                if (window.innerWidth < 992) {
+                    this.isCardFixed = false; 
+                    this.isCardScrollOver = false;
+                }
             }
         }
 

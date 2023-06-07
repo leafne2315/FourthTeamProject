@@ -34,15 +34,15 @@ namespace FourthTeamProject.Controllers.API
             {
                 return "美容服務編號錯誤";
             }
-            SalonSolution DTO = await _context.SalonSolution.FindAsync(id);
-            DTO.SalonSolutionId = SalonSolution.SalonSolutionId;
-            DTO.SalonSolutionName = SalonSolution.SalonSolutionName;
-            DTO.SalonSolutionDiscription = SalonSolution.SalonSolutionDiscription;
-            DTO.SalonSolutionPrice = SalonSolution.SalonSolutionPrice;
-            _context.Entry(DTO).State = EntityState.Modified;
 
             try
             {
+                SalonSolution DTO = await _context.SalonSolution.FindAsync(id);
+                DTO.SalonSolutionId = SalonSolution.SalonSolutionId;
+                DTO.SalonSolutionName = SalonSolution.SalonSolutionName;
+                DTO.SalonSolutionDiscription = SalonSolution.SalonSolutionDiscription;
+                DTO.SalonSolutionPrice = SalonSolution.SalonSolutionPrice;
+                _context.Update(DTO);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -84,15 +84,14 @@ namespace FourthTeamProject.Controllers.API
         [HttpDelete("{salonSolutionId}")]
         public async Task<string> DeleteSalonSolution(int salonSolutionId)
         {
-            var salonSolution = await _context.SalonSolution.FindAsync(salonSolutionId);
-            if (salonSolution == null)
-            {
-                return "無此美容服務，不可刪除，請洽談工程師處理!!";
-            }
-
-            _context.SalonSolution.Remove(salonSolution);
             try
             {
+                var salonSolution = await _context.SalonSolution.FindAsync(salonSolutionId);
+                if (salonSolution == null)
+                {
+                    return "無此美容服務，不可刪除，請洽談工程師處理!!";
+                }
+                _context.SalonSolution.Remove(salonSolution);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException ex)

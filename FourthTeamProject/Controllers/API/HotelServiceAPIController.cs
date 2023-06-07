@@ -31,17 +31,16 @@ namespace FourthTeamProject.Controllers.API
         [HttpPut("{id}")]
         public async Task<string> PutHotelService(int id, [FromBody] HotelServiceEnterpriseViewModel hotelService)
         {
-            if (id != hotelService.HotelServiceID)
-            {
-                return "房型服務編號錯誤";
-            }
-            HotelService DTO = await _context.HotelService.FindAsync(id);
-            DTO.HotelServiceID = hotelService.HotelServiceID;
-            DTO.HotelServiceName = hotelService.HotelServiceName;
-            _context.Entry(DTO).State = EntityState.Modified;
-
             try
             {
+                if (id != hotelService.HotelServiceID)
+                {
+                    return "房型服務編號錯誤";
+                }
+                HotelService DTO = await _context.HotelService.FindAsync(id);
+                DTO.HotelServiceID = hotelService.HotelServiceID;
+                DTO.HotelServiceName = hotelService.HotelServiceName;
+                _context.Update(DTO);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -68,15 +67,14 @@ namespace FourthTeamProject.Controllers.API
         [HttpDelete("{HotelServiceId}")]
         public async Task<string> DeleteHotelService(int HotelServiceId)
         {
-            var HotelService = await _context.HotelService.FindAsync(HotelServiceId);
-            if (HotelService == null)
-            {
-                return "無此房型服務，不可刪除，請洽談工程師處理!!";
-            }
-
-            _context.HotelService.Remove(HotelService);
             try
             {
+                var HotelService = await _context.HotelService.FindAsync(HotelServiceId);
+                if (HotelService == null)
+                {
+                    return "無此房型服務，不可刪除，請洽談工程師處理!!";
+                }
+                _context.HotelService.Remove(HotelService);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException ex)
@@ -88,13 +86,13 @@ namespace FourthTeamProject.Controllers.API
         }
 
         [HttpPost]
-        public async Task<string> CreateHotelService( [FromBody]HotelServiceEnterpriseViewModel HotelServiceDTO)
+        public async Task<string> CreateHotelService([FromBody] HotelServiceEnterpriseViewModel HotelServiceDTO)
         {
-
-
+            int MaxID = _context.HotelService.Max(record => record.HotelServiceID);
+            int NewId = MaxID + 1;
             HotelService DTO = new HotelService
             {
-                //HotelServiceID = HotelServiceDTO.HotelServiceID,
+                HotelServiceID = NewId,
                 HotelServiceName = HotelServiceDTO.HotelServiceName,
             };
             _context.HotelService.Add(DTO);

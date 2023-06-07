@@ -1,0 +1,215 @@
+﻿<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/css/saloncss/style.css" rel="stylesheet" />
+
+
+<div id="app" class="container">
+    @*<-----------選項-------------->*@
+    <nav class="navbar navbar-expand bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0 ">
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav py-0">
+                <a class="nav-item nav-link" @@click="Create">新增商品圖片</a>
+            </div>
+        </div>
+    </nav>
+
+    @*<-----------編輯頁面-------------->*@
+    <div class="form-group">
+        <table class="table table-striped table-hover text-center">
+            <thead>
+                <tr>
+                    <th style="width:10%">編輯</th>
+                    <th style="width:10%">商品名稱</th>
+                    <th style="width:10%">商品圖片</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in ProductDTO">
+                    <template v-if="item.editProduct === true">
+                        <td>
+                            <button class="btn btn-success" @@click="Update(item)">確定修改</button>
+                            <button class="btn btn-warning" @@click="Cancel">取消修改</button>
+                            <input class="form-control" type="file" accept="image/*" @@change="Onfile" />
+                        </td>
+                        <td>{{item.productName}}</td>
+                        <img style="width:200px;height:200px" class="rounded mx-auto d-block" :src="imageUrl" />
+                    </template>
+                    <template v-else>
+                        <td>
+                            <button class="btn btn-primary" @@click="Edit(item.productImageID)">編輯</button>
+                            <button class="btn btn-primary" @@click="Delete(item.productImageID)">刪除</button>
+                        </td>
+                        <td>{{item.productName}}</td>
+                        <td>
+                            <img style="width:200px;height:200px" :src="item.productImagePath" />
+                        </td>
+                    </template>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    @*<----------------新增寵物商品----------------->*@
+    <div class="modal fade" id="InsertPage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">新增商品圖片</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">商品名稱</label>
+                            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" v-model="productName">
+                                <option v-for="Name in filteredProducts" :key="Name">{{ Name}}</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFileDisabled" class="form-label">商品圖示</label>
+                            <input class="form-control" type="file" accept="image/*" @@change="Onfile" />
+                            <img style="width:200px;height:200px" class="rounded mx-auto d-block" :src="imageUrl" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" @@click="Insert">新增</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts
+    {
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+
+    <script>
+
+        let app = new Vue({
+            el: "#app",
+            data: {
+                ProductDTO: [],
+                ProductCatagoryDTO: [],
+                ProductTypeDTO: [],
+                ProductNameDTO: [],
+                productName: "",
+                ProductNameOld: "",
+                productCatagoryName: "",
+                productTypeName: "",
+                selectedFile: "",
+                imageUrl: "",
+                productImagePathOld: "",
+
+            },
+            mounted: function () {
+                let _this = this;
+                _this.FilterProductDTO();
+            },
+            methods: {
+                FilterProductDTO: function () {
+                    let _this = this;
+                    axios.get(`/api/ProductimageEnterprise/GetProductimage`).then(response => _this.ProductDTO = response.data)
+                },
+                Edit: function (ProductImageID) {
+                    let _this = this;
+                    var ProductList = [];
+                    for (var i = 0; i < _this.ProductDTO.length; i++) {
+                        var item = _this.ProductDTO[i];
+                        if (ProductImageID == item.productImageID) {
+                            item.editProduct = true;
+                            _this.productImagePathOld = item.productImagePath;
+                            _this.imageUrl = item.productImagePath;
+                        }
+                        ProductList.push(item);
+                    }
+                    _this.ProductDTO = ProductList;
+                },
+                Update: function (item) {
+                    let _this = this;
+                    var data = new FormData();
+                    data.append("ProductImagePath", _this.selectedFile);
+                    data.append("ProductImageID", item.productImageID);
+                    axios.put(`/api/ProductimageEnterprise/UploadImage/${item.productImageID}`, data)
+                        .then(response => {
+                            alert(response.data);
+                            _this.FilterProductDTO();
+                        });
+                },
+                Cancel: function () {
+                    let _this = this;
+                    var ProductList = [];
+                    for (var i = 0; i < _this.ProductDTO.length; i++) {
+                        var item = _this.ProductDTO[i];
+                        if (item.editProduct == true) {
+                            item.editProduct = false;
+                            item.productImagePath = _this.productImagePathOld;
+                        }
+                        ProductList.push(item);
+                    }
+                    _this.ProductDTO = ProductList;
+                },
+                Delete: function (ProductImageID) {
+                    let _this = this;
+                    var ret = confirm("確定要刪除商品嗎??");
+                    if (ret == true) {
+                        axios.delete(`/api/ProductimageEnterprise/DeleteProductimage/${ProductImageID}`).then(response => {
+                            alert(response.data);
+                            _this.FilterProductDTO();
+                        });
+                    }
+                },
+                Create: function () {
+                    let _this = this;
+                    _this.productCatagoryName = "",
+                        _this.productTypeName = "",
+                        _this.productName = "",
+                        _this.imageUrl = "",
+                        axios.get(`/api/ProductimageEnterprise/GetSalonByCatagory`).then(response => _this.ProductCatagoryDTO = response.data)
+                    axios.get(`/api/ProductimageEnterprise/GetSalonByProductType`).then(response => _this.ProductTypeDTO = response.data);
+                    axios.get(`/api/ProductimageEnterprise/GetSalonByProduct`).then(response => _this.ProductNameDTO = response.data);
+
+                    $("#InsertPage").modal('show');
+                },
+                Insert: function () {
+                    let _this = this;
+                    var ProductDTO = {
+                        ProductImageID: 0,
+                        ProductName: _this.productName,
+                    };
+                    axios.post(`/api/ProductEnterprise/CreateProduct`, ProductDTO).then(response => {
+                        alert(response.data);
+                        $("#InsertProductPage").modal("hide");
+                        _this.FilterProductDTO();
+                    });
+                },
+                Onfile: function (e) {
+                    let _this = this;
+                    const newFile = e.target.files[0];
+                    if (newFile) {
+                        _this.selectedFile = newFile;
+                        const reader = new FileReader();
+                        reader.onload = (event) => {
+                            _this.imageUrl = event.target.result;
+                        };
+                        reader.readAsDataURL(newFile);
+                    } else {
+                        newFile = null;
+                    }
+                },
+                filterProducts: function () {
+                    let _this = this;
+                    var DTO = {
+                        ProductCatagoryId: _this.productCatagoryId,
+                        productTypeId: _this.productTypeId,
+                    }
+                    axios.get('/api/ProductEnterprise/FilterProducts', DTO).then(response => { _this.filteredProducts = response.data; })
+                },
+            }
+        })
+    </script>
+    }

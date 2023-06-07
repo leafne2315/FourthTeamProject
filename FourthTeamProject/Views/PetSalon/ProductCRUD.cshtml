@@ -41,8 +41,16 @@
                             <button class="btn btn-success" @@click="Update(item)">確定修改</button>
                             <button class="btn btn-warning" @@click="Cancel">取消修改</button>
                         </td>
-                        <td>{{item.productCatagoryName}}</td>
-                        <td>{{item.productTypeName}}</td>
+                        <td>
+                            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" v-model="productCatagoryName">
+                                <option v-for="item in ProductCatagoryPageDTO" :key="item.productCatagoryId">{{ item.productCatagoryName }}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" v-model="productTypeName">
+                                <option v-for="item in ProductTypePageDTO" :key="item.productTypeId">{{ item.productTypeName }}</option>
+                            </select>
+                        </td>
                         <td><input type="text" v-model="item.productName" /></td>
                         <td><input type="text" v-model="item.productSpecification" /></td>
                         <td><input type="text" v-model="item.productContent" /></td>
@@ -176,6 +184,8 @@
                 ProductSpecificationOld: "",
                 ProductContentOld: "",
                 UnitPriceOld: "",
+                ProductCatagoryNameOld:"",
+                ProductTypeNameOld:"",
                 StockOld: "",
             },
             mounted: function () {
@@ -202,9 +212,19 @@
                             _this.ProductContentOld = item.productContent;
                             _this.UnitPriceOld = item.unitPrice;
                             _this.StockOld = item.stock;
+                            _this.ProductCatagoryNameOld = item.productCatagoryName;
+                            _this.ProductTypeNameOld = item.productTypeName;
                         }
                         ProductList.push(item);
                     }
+                    axios.get(`/api/ProductEnterprise/GetProductCatagoryPage`).then(response =>
+                        {_this.ProductCatagoryPageDTO = response.data;
+                        _this.productCatagoryName = _this.ProductCatagoryNameOld;
+                    });
+                    axios.get(`/api/ProductEnterprise/GetProductTypePage`).then(response =>
+                        {_this.ProductTypePageDTO = response.data;
+                        _this.productTypeName = _this.ProductTypeNameOld;
+                    })
                     _this.ProductDTO = ProductList;
                 },
                 Discontinued: function (ProductID) {
@@ -236,6 +256,8 @@
                         ProductContent: item.productContent,
                         UnitPrice: item.unitPrice,
                         Stock: item.stock,
+                        ProductCatagoryName: _this.productCatagoryName,
+                        ProductTypeName: _this.productTypeName,
                     };
                     axios.put(`/api/ProductEnterprise/PutProduct/${item.productID}`, request).then(response => {
                         alert(response.data);

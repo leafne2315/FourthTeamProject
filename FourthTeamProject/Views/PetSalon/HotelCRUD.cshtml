@@ -34,7 +34,11 @@
                             <button class="btn btn-warning" @@click="Cancel">取消修改</button>
                             <input class="form-control" type="file" accept="image/*" @@change="Onfile" />
                         </td>
-                        <td>{{item.hotelCatagoryName}}</td>
+                        <td>
+                            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" v-model="hotelCatagoryName">
+                                <option v-for="item in HotelCatagoryDTO" :key="item.hotelCatagoryId">{{ item.hotelCatagoryName }}</option>
+                            </select>
+                        </td>
                         <td><input type="text" v-model="item.hotelName" /></td>
                         <td><input type="text" v-model="item.hotelContent" /></td>
                         <td>
@@ -124,23 +128,24 @@
         let app = new Vue({
             el: "#app",
             data: {
-                HotelDTO:[],
-                HotelCatagoryDTO:[],
-                hotelName:"",
-                hotelContent:"",
-                hotelContentDetail:"",
-                unitPrice:"",
-                hotelImage:"",
-                hotelId:"",
-                HotelIdOld:"",
-                hotelCatagoryName:"",
-                HotelCatagoryNameOld:"",
-                HotelNameOld:"",
-                UnitPriceOld:"",
-                HotelContentOld:"",
-                HotelContentDetailOld:"",
-                HotelImageOld:"",
-                imageUrl:"",
+                HotelDTO: [],
+                HotelCatagoryDTO: [],
+                hotelName: "",
+                hotelContent: "",
+                hotelContentDetail: "",
+                unitPrice: "",
+                hotelImage: "",
+                hotelId: "",
+                HotelIdOld: "",
+                hotelCatagoryName: "",
+                HotelCatagoryNameOld: "",
+                HotelNameOld: "",
+                UnitPriceOld: "",
+                HotelContentOld: "",
+                HotelContentDetailOld: "",
+                HotelImageOld: "",
+                imageUrl: "",
+                selectedFile:null,
             },
             mounted: function () {
                 let _this = this;
@@ -169,34 +174,58 @@
                         }
                         HotelList.push(item);
                     }
+                    axios.get(`/api/HotelEnterprise/InsertHotel`).then(response => {
+                        _this.HotelCatagoryDTO = response.data;
+                        _this.hotelCatagoryName = _this.HotelCatagoryNameOld;
+                    });
+
                     _this.HotelDTO = HotelList;
                 },
                 Create: function () {
                     let _this = this;
-                        _this.hotelCatagoryName = "",
+                    _this.hotelCatagoryName = "",
                         _this.hotelName = "",
                         _this.unitPrice = "",
                         _this.hotelContent = "",
                         _this.hotelContentDetail = "",
-                        _this.imageUrl="",
+                        _this.imageUrl = "",
                         axios.get(`/api/HotelEnterprise/InsertHotel`).then(response => _this.HotelCatagoryDTO = response.data);
                     $("#InsertPage").modal('show');
                 },
                 Update: function (item) {
-                    let _this = this;
-                    var data = new FormData();
-                    data.append("HotelImage", _this.selectedFile);
-                    data.append("HotelId", item.hotelId);
-                    data.append("HotelCatagoryName", item.hotelCatagoryName);
-                    data.append("HotelName", item.hotelName);
-                    data.append("UnitPrice", item.unitPrice);
-                    data.append("HotelContent", item.hotelContent);
-                    data.append("HotelContentDetail", item.hotelContentDetail);
-                    axios.put(`/api/HotelEnterprise/UploadImage/${item.hotelId}`, data)
-                        .then(response => {
-                            alert(response.data);
-                            _this.FilterHotelDTO();
-                        });
+                    let _this=this;
+                    if (!_this.selectedFile) {
+                        var request = {
+                            HotelId: item.hotelId,
+                            HotelCatagoryName: _this.hotelCatagoryName,
+                            HotelName: item.hotelName,
+                            UnitPrice: item.unitPrice,
+                            HotelContent: item.hotelContent,
+                            HotelContentDetail: item.hotelContentDetail,
+                        };
+                        axios.put(`/api/HotelEnterprise/Uploadtext/${item.hotelId}`, request)
+                            .then(response => {
+                                alert(response.data);
+                                _this.FilterHotelDTO();
+                            })
+                    }
+                    else {
+                        var data = new FormData();
+                        data.append("HotelImage", _this.selectedFile);
+                        data.append("HotelId", item.hotelId);
+                        data.append("HotelCatagoryName", _this.hotelCatagoryName);
+                        data.append("HotelName", item.hotelName);
+                        data.append("UnitPrice", item.unitPrice);
+                        data.append("HotelContent", item.hotelContent);
+                        data.append("HotelContentDetail", item.hotelContentDetail);
+                        axios.post(`/api/HotelEnterprise/UploadImage/${item.hotelId}`, data)
+                            .then(response => {
+                                alert(response.data);
+                                _this.FilterHotelDTO();
+                            }).catch(error => {
+                                console.log(error);
+                            });
+                    }
                 },
                 Cancel: function () {
                     let _this = this;
@@ -205,13 +234,13 @@
                         var item = _this.HotelDTO[i];
                         if (item.editHotel == true) {
                             item.editHotel = false;
-                            item.hotelId=_this.HotelIdOld;
-                            item.hotelCatagoryName=_this.HotelCatagoryNameOld;
-                            item.hotelName=_this.HotelNameOld;
-                            item.unitPrice=_this.UnitPriceOld;
-                            item.hotelContent=_this.HotelContentOld;
-                            item.hotelContentDetail=_this.HotelContentDetailOld;
-                            item.hotelImage=_this.HotelImageOld;
+                            item.hotelId = _this.HotelIdOld;
+                            item.hotelCatagoryName = _this.HotelCatagoryNameOld;
+                            item.hotelName = _this.HotelNameOld;
+                            item.unitPrice = _this.UnitPriceOld;
+                            item.hotelContent = _this.HotelContentOld;
+                            item.hotelContentDetail = _this.HotelContentDetailOld;
+                            item.hotelImage = _this.HotelImageOld;
                         }
                         HotelList.push(item);
                     }
@@ -238,7 +267,7 @@
                         };
                         reader.readAsDataURL(newFile);
                     } else {
-                        newFile = null;
+                        _this.selectedFile = null;
                     }
                 },
                 Insert: function () {

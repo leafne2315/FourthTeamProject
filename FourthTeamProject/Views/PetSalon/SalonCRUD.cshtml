@@ -31,7 +31,11 @@
                             <button class="btn btn-warning" @@click="Cancel">取消修改</button>
                             <input class="form-control" type="file" accept="image/*" @@change="Onfile" />
                         </td>
-                        <td>{{item.salonCatagoryName}}</td>
+                        <td>
+                            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" v-model="salonCatagoryName">
+                                <option v-for="item in SalonCatagoryDTO" :key="item.salonCatagoryId">{{ item.salonCatagoryName }}</option>
+                            </select>
+                        </td>
                         <td><input v-model="item.salonName" /></td>
                         <img style="width:200px;height:200px" class="rounded mx-auto d-block" :src="imageUrl" />
                     </template>
@@ -106,6 +110,7 @@
                 salonCatagoryName: "",
                 SalonIdOld: "",
                 SalonNameOld: "",
+                SalonCatagoryNameOld:"",
                 SalonImagePathOld: null,
                 imageUrl: null,
                 selectedFile: null,
@@ -128,15 +133,33 @@
                             item.editSalon = true;
                             _this.SalonIdOld = item.salonId;
                             _this.SalonNameOld = item.salonName;
+                            _this.SalonCatagoryNameOld = item.salonCatagoryName;
                             _this.SalonImagePathOld = item.salonImagePath;
                             _this.imageUrl = _this.GetImageUrl(item.salonImagePath);
                         }
                         SalonList.push(item);
                     }
+                    axios.get(`/api/SalonEnterprise/InsertPageSalon`).then(response => 
+                        {_this.SalonCatagoryDTO = response.data;
+                        _this.salonCatagoryName = _this.SalonCatagoryNameOld;
+                    });
                     _this.SalonDTO = SalonList;
                 },
                 Update: function (item) {
                     let _this = this;
+                    if (!_this.selectedFile) {
+                        var request = {
+                            SalonId: item.salonId,
+                            SalonName: item.salonName,
+                            SalonCatagoryName: _this.salonCatagoryName,
+                        };
+                        axios.put(`/api/SalonEnterprise/UploadSalontext/${item.salonId}`, request)
+                            .then(response => {
+                                alert(response.data);
+                                _this.FilterSalonDTO();
+                            })
+                    }
+                    else {
                         var data = new FormData();
                         data.append("SalonImagePath", _this.selectedFile);
                         data.append("SalonId", item.salonId);
@@ -146,7 +169,10 @@
                             .then(response => {
                                 alert(response.data);
                                 _this.FilterSalonDTO();
+                            }).catch(error => {
+                                console.log(error);
                             });
+                    }
                 },
                 Cancel: function () {
                     let _this = this;
@@ -211,7 +237,7 @@
                         };
                         reader.readAsDataURL(newFile);  
                     } else {
-                        newFile = null;
+                        _this.selectedFile = null;
                     }
                 },
                 GetImageUrl: function (salonId) {

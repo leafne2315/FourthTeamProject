@@ -48,6 +48,10 @@ namespace FourthTeamProject.Controllers
         {
             return View();
         }
+        public IActionResult ProductimageCRUD()
+        {
+            return View();
+        }
     }
 
 

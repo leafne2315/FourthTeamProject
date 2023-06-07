@@ -38,14 +38,14 @@ namespace FourthTeamProject.Controllers.API
         [HttpDelete("{ProductID}")]
         public async Task<string> DeleteProduct(int ProductID)
         {
-            var Product = await _context.Product.FindAsync(ProductID);
-            if (Product == null)
-            {
-                return "商品錯誤，請洽談工程師處理!!";
-            }
-            _context.Product.Remove(Product);
             try
             {
+                var Product = await _context.Product.FindAsync(ProductID);
+                if (Product == null)
+                {
+                    return "商品錯誤，請洽談工程師處理!!";
+                }
+                _context.Product.Remove(Product);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException ex)
@@ -65,7 +65,7 @@ namespace FourthTeamProject.Controllers.API
                 return "無此商品，請洽談工程師處理!!";
             }
             Product.ProductStatus = false;
-            _context.SaveChanges();
+            _context.Update(Product);
             await _context.SaveChangesAsync();
 
             return "商品已停售!!";
@@ -80,7 +80,7 @@ namespace FourthTeamProject.Controllers.API
                 return "無此商品，請洽談工程師處理!!";
             }
             Product.ProductStatus = true;
-            _context.SaveChanges();
+            _context.Update(Product);
             await _context.SaveChangesAsync();
 
             return "商品已重新上架!!";
@@ -89,21 +89,25 @@ namespace FourthTeamProject.Controllers.API
         [HttpPut("{ProductID}")]
         public async Task<string> PutProduct(int ProductID, [FromBody] ProductEnterpriseViewModel Product)
         {
-            if (ProductID != Product.ProductID)
-            {
-                return "商品編號錯誤";
-            }
-            Product DTO = await _context.Product.FindAsync(ProductID);
-            DTO.ProductId = Product.ProductID;
-            DTO.ProductName = Product.ProductName;
-            DTO.ProductSpecification = Product.ProductSpecification;
-            DTO.ProductContent = Product.ProductContent;
-            DTO.UnitPrice = Product.UnitPrice;
-            DTO.Stock = Product.Stock;
-            _context.Entry(DTO).State = EntityState.Modified;
-
             try
             {
+
+                if (ProductID != Product.ProductID)
+                {
+                    return "商品編號錯誤";
+                }
+                int ProductCatagoryId = GetProductCatagoryId(Product.ProductCatagoryName);
+                int ProductTypeId = GetProductTypeId(Product.ProductTypeName);
+                Product DTO = await _context.Product.FindAsync(ProductID);
+                DTO.ProductId = Product.ProductID;
+                DTO.ProductName = Product.ProductName;
+                DTO.ProductSpecification = Product.ProductSpecification;
+                DTO.ProductContent = Product.ProductContent;
+                DTO.UnitPrice = Product.UnitPrice;
+                DTO.Stock = Product.Stock;
+                DTO.ProductCatagoryId= ProductCatagoryId;
+                DTO.ProductTypeId = ProductTypeId;
+                _context.Update(DTO);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -173,7 +177,7 @@ namespace FourthTeamProject.Controllers.API
                     ProductStatus = true,
                 };
 
-                _context.Update(data);
+                _context.Product.Add(data);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -199,7 +203,7 @@ namespace FourthTeamProject.Controllers.API
             {
                 ProductTypeName = ProductTypeData.ProductTypeName,
             };
-            _context.Update(data);
+            _context.ProductType.Add(data);
             await _context.SaveChangesAsync();
             return $"商品{data.ProductTypeName}項目新增完成!!";
         }

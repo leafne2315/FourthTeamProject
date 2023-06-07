@@ -37,73 +37,89 @@ namespace FourthTeamProject.Controllers.API
         }
 
         [HttpPut("{hotelId}")]
-        public async Task<String> UploadImage(int hotelId, [FromForm] HotelEnterpriseViewModel HotelData)
+
+        //<-----------------------圖片更新----------------------------->
+        [HttpPost("{hotelId}")]
+        public async Task<string> UploadImage(int hotelId,[FromForm] HotelEnterpriseViewModel HotelData)
         {
-            if (hotelId != HotelData.HotelId)
+            try
             {
-                return "房型編號錯誤";
-            }
+                int HotelCatagoryId = GetHotelCatagoryId(HotelData.HotelCatagoryName);
+                Hotel DTO = await _context.Hotel.FindAsync(hotelId);
+                DTO.HotelCatagoryId = HotelCatagoryId;
+                DTO.HotelName = HotelData.HotelName;
+                DTO.UnitPrice = HotelData.UnitPrice;
+                DTO.HotelContent = HotelData.HotelContent;
+                DTO.HotelContentDetail = HotelData.HotelContentDetail;
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (Request.Form.Files["HotelImage"] != null)
                 {
-                    Hotel data = new Hotel
+                    IFormFile file = Request.Form.Files["HotelImage"];
+                    if (file.Length > 0)
                     {
-                        HotelName= HotelData.HotelName,
-                        UnitPrice= HotelData.UnitPrice,
-                        HotelContent = HotelData.HotelContent,
-                        HotelContentDetail = HotelData.HotelContentDetail,
-                    };
-
-                    var existingSalon = await _context.Hotel.FindAsync(hotelId);
-                    if (existingSalon == null)
-                    {
-                        return "房型編號不存在";
-                    }
-                    existingSalon.HotelName = data.HotelName;
-                    existingSalon.UnitPrice = data.UnitPrice;
-                    existingSalon.HotelContent = data.HotelContent;
-                    existingSalon.HotelContent = data.HotelContent;
-                    existingSalon.HotelContentDetail = data.HotelContentDetail;
-                    if (Request.Form.Files["HotelImage"] != null)
-                    {
-                        IFormFile file = Request.Form.Files["HotelImage"];
-                        if (file.Length > 0)
+                        string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "HotelImage");
+                        string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
                         {
-                            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "HotelImage");
-                            string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                            using (var fileStream = new FileStream(filePath, FileMode.Create))
-                            {
-                                await file.CopyToAsync(fileStream);
-                            }
-
-                            existingSalon.HotelImage = "/HotelImage/" + uniqueFileName;
+                            await file.CopyToAsync(fileStream);
                         }
-                    }
 
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SalonExists(HotelData.HotelId))
-                    {
-                        return "房型編號不存在!!";
-                    }
-                    else
-                    {
-                        throw;
+                        DTO.HotelImage = "/HotelImage/" + uniqueFileName;
                     }
                 }
-                return "房型資訊更改存檔完成!!";
+                _context.Update(DTO);
+                await _context.SaveChangesAsync();
             }
-            return "圖片不正確!!";
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!HotelExists(hotelId))
+                {
+                    return "房型編號不存在!!";
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return "房型資訊更改存檔完成!!";
         }
-        private bool SalonExists(int id)
+
+        //<-----------------------非圖片更新----------------------------->
+        [HttpPut("{hotelId}")]
+        public async Task<string> Uploadtext(int hotelId, [FromBody] HotelEnterpriseViewModel Hoteltext)
         {
-            return (_context.Salon?.Any(e => e.SalonId == id)).GetValueOrDefault();
+            try
+            {
+                int HotelCatagoryId = GetHotelCatagoryId(Hoteltext.HotelCatagoryName);
+                Hotel DTO = await _context.Hotel.FindAsync(hotelId);
+                DTO.HotelId = Hoteltext.HotelId;
+                DTO.HotelName = Hoteltext.HotelName;
+                DTO.UnitPrice = Hoteltext.UnitPrice;
+                DTO.HotelContent = Hoteltext.HotelContent;
+                DTO.HotelContentDetail = Hoteltext.HotelContentDetail;
+                DTO.HotelCatagoryId=HotelCatagoryId;
+                _context.Update(DTO);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!HotelExists(hotelId))
+                {
+                    return "房型編號不存在";
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return "修改成功";
+        }
+
+        private bool HotelExists(int id)
+        {
+            return (_context.Hotel?.Any(e => e.HotelId == id)).GetValueOrDefault();
         }
 
         [HttpGet]
@@ -124,7 +140,6 @@ namespace FourthTeamProject.Controllers.API
 
             try
             {
-
                 int HotelCatagoryId = GetHotelCatagoryId(HotelData.HotelCatagoryName);
                 Hotel data = new Hotel
                 {
@@ -161,7 +176,7 @@ namespace FourthTeamProject.Controllers.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SalonExists(HotelData.HotelId))
+                if (!HotelExists(HotelData.HotelId))
                 {
                     return "房型新增失敗!!";
                 }

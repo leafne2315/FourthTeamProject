@@ -9,41 +9,41 @@
 	<div class="app-card app-card-orders-table shadow-sm mb-5">
 		<div class="app-card-body">
 			<div class="table-responsive">
-				<table class="table app-table-hover mb-0 text-left"style="width:100%;border:solid 3px;border-radius:50%">
+				<table class="table app-table-hover mb-0 text-left" style="width:100%;border:solid 3px;border-radius:50%">
 					<thead>
 						<tr>
 							<th class="cell">訂單明細編號</th>
-					
 							<th class="cell">商品編號</th>
 							<th class="cell">單價</th>
 							<th class="cell">數量</th>
 							<th class="cell">商品名稱</th>
 							<th class="cell">商品內容</th>
 							<th class="cell">商品種類</th>
-						
+
 
 						</tr>
 					</thead>
 					<tbody>
-				
-			@*			@foreach (var item in Model)
+
+						@*			@foreach (var item in Model)
 						{
-							<tr>
-								<td>@Html.DisplayFor(model => model.OrderDetailId)</td>
+						<tr>
+						<td>@Html.DisplayFor(model => model.OrderDetailId)</td>
 
-								<td>@Html.DisplayFor(model => model.ProductId)</td>
-								<td>@Html.DisplayFor(model => model.UnitPrice)</td>
-								<td>@Html.DisplayFor(model => model.Quantity)</td>
+						<td>@Html.DisplayFor(model => model.ProductId)</td>
+						<td>@Html.DisplayFor(model => model.UnitPrice)</td>
+						<td>@Html.DisplayFor(model => model.Quantity)</td>
 
-								<td>@Html.DisplayFor(model => model.ProductName)</td>
-								<td>@Html.DisplayFor(model => model.ProductContent)</td>
-								<td>@Html.DisplayFor(model => model.ProductCatagoryName)</td>
+						<td>@Html.DisplayFor(model => model.ProductName)</td>
+						<td>@Html.DisplayFor(model => model.ProductContent)</td>
+						<td>@Html.DisplayFor(model => model.ProductCatagoryName)</td>
 
-							</tr>
+						</tr>
 						}*@
 						@foreach (var item in Model)
 						{
 							<tr>
+
 								<td>@Html.DisplayFor(modelItem => item.OrderDetailId)</td>
 								<td>@Html.DisplayFor(modelItem => item.ProductId)</td>
 								<td>@Html.DisplayFor(modelItem => item.UnitPrice)</td>
@@ -53,7 +53,7 @@
 								<td>@Html.DisplayFor(modelItem => item.ProductCatagoryName)</td>
 							</tr>
 						}
-						
+
 
 
 					</tbody>
@@ -68,8 +68,6 @@
 				<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
 			</li>
 			<li class="page-item active"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
 			<li class="page-item">
 				<a class="page-link" href="#">Next</a>
 			</li>

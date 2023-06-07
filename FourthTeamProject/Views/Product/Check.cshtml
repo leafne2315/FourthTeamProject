@@ -1,10 +1,11 @@
-﻿@{
-
-}
-
-
+﻿
 @section  Styles{
 
+    <style>
+        .td-Width{
+            width: 150px;
+        }
+    </style>
 }
 
 
@@ -26,58 +27,54 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="cartItem in shoppingCart">
+                    <tr v-for="cartItem in shoppingCart" :key="cartItem.productId">
                         <td>
                             <a data-toggle="modal" data-target="#removeModal" data-whatever="" @@click="removeCart(cartItem,i)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
                                     <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
                                 </svg>
+                            </a>
                         </td>
                         <td>
-                            <img src="https://picsum.photos/120/?random=10" alt="商品" class="order-item-image">
+                            <img src="https://picsum.photos/120/?random=10" alt="商品" class="order-item-image" >
                         </td>
                         <td><span class="order-item-title">{{cartItem.productName}}</span></td>
-                        <td>
-                            <input type="number" class="form-control order-item-quantity" :value="cartItem.amount" min="1">
+                        <td class="td-Width">
+                            <input type="number" class="form-control order-item-quantity" v-model="cartItem.amount" min="1" @@input="checkQuantity(cartItem)">
                         </td>
-                        <td class="order-item-price">{{subTotal(cartItem)}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Discount</td>
-                    </tr>
+                        <td class="order-item-price td-Width">{{subTotal(cartItem)}}</td>
+                    </tr>                  
+                </tbody>
+                <tfoot>
                     <tr>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td>{{listConut}}<span>件商品</span></td>
-                        <td class="order-total">總價：$30.98</td>
+                        <td>總價：{{getTotal()}}</td>
                     </tr>
-                </tbody>
+                </tfoot>
             </table>
+                    <div class="mt-4">
+                        <h4>訂購人資料</h4>
+                        <div class="form-group">
+                            <label for="name">姓名：</label>
+                            <input type="text" class="form-control" id="name" name="name" v-model="memberInfo.memberName" required>
+                        </div>
 
-            <div class="mt-4">
-                <h4>收件人資料</h4>
-                <div class="form-group">
-                    <label for="name">姓名：</label>
-                    <input type="text" class="form-control" id="name" name="name" v-model="memberInfo.memberName" required>
-                </div>
+                        <div class="form-group">
+                            <label for="address">地址：</label>
+                            <input type="text" class="form-control" id="address" name="address" v-model="memberInfo.memberAddress" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">連絡電話：</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" v-model="memberInfo.memberPhone" required>
+                        </div>
+                        <button  class="btn btn-primary btn-block" @@click="sendOrder()">結帳</button>
+                        <button type="button" class="btn btn-primary" v-on:click="SendToNewebPay('CREDIT')">ATM 付款</button>
+                    </div>
 
-                <div class="form-group">
-                    <label for="address">地址：</label>
-                    <input type="text" class="form-control" id="address" name="address" v-model="memberInfo.memberAddress" required>
-                </div>
 
-                <div class="form-group">
-                    <label for="phone">連絡電話：</label>
-                    <input type="tel" class="form-control" id="phone" name="phone" v-model="memberInfo.memberPhone" required>
-                </div>
-                @*href="/Product/OrderDone"*@
-                <a class="btn btn-primary btn-block" @@click="sendOrder()">結帳</a>
-            </div>
         </div>
 
         <div class="col-md-4 mt-4 mt-md-0">
@@ -120,8 +117,18 @@
             data: {
                 shoppingCart: [],
                 memberInfo: [],
-                orderId: null
-
+                orderId: null,
+                recipient :[],
+                //測試用表單
+                addForm: {
+                    MerchantID: '@ViewData["MerchantID"]' //商品代號
+                    , MerchantOrderNo: '@ViewData["MerchantOrderNo"]'
+                    , ExpireDate: '@ViewData["ExpireDate"]'
+                    , ReturnURL: '@ViewData["ReturnURL"]'
+                    , CustomerURL: '@ViewData["CustomerURL"]'
+                    , NotifyURL: '@ViewData["NotifyURL"]'//需要nrogk
+                    , ClientBackURL: '@ViewData["ClientBackURL"]'
+                },
             },
             mounted: function () {
                 this.shoppingCart = this.getCart(email) ? this.getCart(email).carts : [];
@@ -134,6 +141,27 @@
                 }
             },
             methods: {
+                checkQuantity: function (cartItem) {
+                    if (cartItem.amount < 1) {
+                        cartItem.amount = 1;
+                    } 
+                },
+                getTotal: function () {
+                    var result = this.shoppingCart.reduce(function (total, item) {
+                        return total + item.unitPrice * item.amount;
+                    }, 0);
+                    return result;
+                },
+                memberEmpty: function () {
+                    let _this = this;
+                    if (_this.memberInfo.memberName == '' || _this.memberInfo.memberAddress == '' || _this.memberInfo.memberPhone == '') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: '收件人資料不可為空',
+                        })
+                    }
+                },
                 getCart: function (userEmail) {
                     var cartItems = localStorage.getItem('CartItem');
                     var obj = JSON.parse(cartItems);
@@ -188,24 +216,97 @@
                 //送出訂單,清空cartItem。
                 sendOrder: function () {
                     let _this = this;
-                    var request = {
-                        OrderDate: new Date(),
-                        MemberId: _this.memberInfo.memberId,
-                        InvoiceId: 1,
-                        PayId: 1,
-                        OrderStatus: true,
-                        OrderAddress: _this.memberInfo.memberAddress,
-                        OrderMemberName: _this.memberInfo.memberName,
-                        OrderMemberPhone: _this.memberInfo.memberPhone,
-                        OrderMemberEmail: _this.memberInfo.memberEmail,
-                    };
-                    console.log(request);
-                    axios.post('/api/PetProdcutAPI/CreatOrder', request).then(res => _this.orderId = res.data);
-                    var cartItems = localStorage.getItem('CartItem');
-                    var obj = JSON.parse(cartItems);
-                    console.log(obj[0].carts);
-                    //axios.post('/api/PetProdcutAPI/CreatOrderDetail', request).then(res => _this.orderId = res.data);
+                    //判斷使用者購物車是否為空
+                    if (_this.shoppingCart.length != 0) {
+                        if (_this.memberInfo.memberAddress != '' && _this.memberInfo.memberName != '' && _this.memberInfo.memberPhone!='')
+                        {
+
+                            var request = {
+                                OrderDate: new Date(),
+                                MemberId: _this.memberInfo.memberId,
+                                InvoiceId: 1,
+                                PayId: 1,
+                                OrderStatus: true,
+                                OrderAddress: _this.memberInfo.memberAddress,
+                                OrderMemberName: _this.memberInfo.memberName,
+                                OrderMemberPhone: _this.memberInfo.memberPhone,
+                                OrderMemberEmail: _this.memberInfo.memberEmail,
+                            };
+                            console.log(request)
+                            axios.post('/api/PetProdcutAPI/CreatOrder', request).then(res => {
+                                _this.orderId = res.data;
+                                var cartItems = localStorage.getItem('CartItem');
+                                var productDetail = JSON.parse(cartItems);
+                                console.log(productDetail[0].carts);
+                                axios.post('/api/PetProdcutAPI/CreatOrderDetail', productDetail[0].carts, { params: { orderId: this.orderId } }).then(res => {
+                                    console.log('OK')
+                                    this.SendToNewebPay();
+                                    //window.location.href = "/Product/OrderDone";
+                                    localStorage.clear();
+                                });
+                            });
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'error',
+                                text: '收件人資料不可為空',                               
+                            })
+                        }
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '購物車為空無法結帳',
+                            footer: '<a href="/Product" style="color:blue">回商城選購</a>'
+                        })
+                    }
                 },
+                SendToNewebPay: function () {
+                    var self = this;
+                    // 組合表單資料
+                    var postData = {};
+                    postData['MerchantID'] = self.addForm.MerchantID;
+                    postData['MerchantOrderNo'] = self.addForm.MerchantOrderNo;
+                    postData['ItemDesc'] = self.memberInfo.memberName//付款人資訊。
+                    postData['Amt'] = self.getTotal();//結帳金額
+                    postData['ExpireDate'] = self.addForm.ExpireDate;
+                    postData['ReturnURL'] = self.addForm.ReturnURL;
+                    postData['CustomerURL'] = self.addForm.CustomerURL;
+                    postData['NotifyURL'] = self.addForm.NotifyURL;
+                    postData['ClientBackURL'] = self.addForm.ClientBackURL;
+                    postData['Email'] = email;
+                    // 使用 jQuery Ajax 傳送至後端
+                    $.ajax({
+                        url: '@Url.Content("~/Product/SendToNewebPay")',
+                        method: 'POST',
+                        dataType: 'json',
+                        data: { inModel: postData, __RequestVerificationToken: $('@Html.AntiForgeryToken()').val() },
+                        success: function (returnObj) {
+                            // 呼叫藍新金流 API
+                            const form = document.createElement('form');
+                            form.method = 'post';
+                            form.action = 'https://ccore.newebpay.com/MPG/mpg_gateway';//藍新金流驗證網址(測試環境)
+
+                            for (const key in returnObj) {
+                                if (returnObj.hasOwnProperty(key)) {
+                                    //將回傳的Json物件開頭轉為大寫
+                                    const fixedKey = key.charAt(0).toUpperCase() + key.slice(1);
+                                    const hiddenField = document.createElement('input');
+                                    hiddenField.type = 'hidden';
+                                    hiddenField.name = fixedKey;
+                                    hiddenField.value = returnObj[key];
+                                    form.appendChild(hiddenField);
+                                }
+                            }
+                            document.body.appendChild(form);
+                            form.submit();
+                        },
+                        error: function (err) {
+                            alert(err.status + " " + err.statusText + '\n' + err.responseText);
+                        }
+                    });
+                    
+                }
             }
         })
 

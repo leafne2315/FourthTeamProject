@@ -1511,7 +1511,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     }
 
 
-    .filter-checkbox input[type="checkbox"] {
+    .filter-checkbox input[type="radio"] {
         position: absolute;
         display: block;
         top: 7px;
@@ -1525,17 +1525,17 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
         transition: all 300ms ease;
     }
 
-        .filter-checkbox input[type="checkbox"]:checked + label:before {
+        /*.filter-checkbox input[type="checkbox"]:checked + label:before {
             opacity: 1;
-        }
+        }*/
 
 .containershop {
     display: flex;
 }
 
-.right {
+/*.right {
     flex: 1;
-}
+}*/
 
 /* Salon */
 .banner_main::before {

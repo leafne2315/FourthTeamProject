@@ -112,11 +112,8 @@
                                     <li>
                                         <span class="nav-link text-capitalize">使用者:@User.Claims.FirstOrDefault(x=> x.Type == ClaimTypes.Name).Value</span>
                                     </li>
-                                    <li class="has-children">
-                                    <a asp-area="Admin" asp-controller="Employees" asp-action="Productmanagement">員工系統</a>
-                                        <ul class="dropdown">
-                                            <li><a asp-area="Admin" asp-controller="Employees" asp-action="Productmanagement">商品管理系統</a></li>
-                                        </ul>
+                                    <li>
+                                    <a asp-area="Admin" asp-controller="ProductManage" asp-action="ProductCRUD">員工系統</a>
                                     </li>
                                     <li class=""></li>
                                     <a asp-controller="Employees" asp-action="EmployeeLogout">登出</a>

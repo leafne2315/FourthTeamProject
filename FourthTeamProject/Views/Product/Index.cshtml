@@ -10,6 +10,63 @@
 @section Styles
     {
     <link href="~/css/style.css" rel="stylesheet" />
+    <style>
+        /* 改變頁碼的文字顏色 */
+        .pagination .page-link {
+            color: #1A374D;
+        }
+
+        /* 改變當前頁碼的背景顏色 */
+        .pagination .page-item.active .page-link {
+            background-color: #1A374D;
+        }
+
+        /* 改變上一頁和下一頁符號的顏色 */
+        .pagination .page-link span {
+            color: #1A374D;
+        }
+
+        .card {
+            margin-bottom:10px;
+			cursor: url('images/寵物商城pics/paw.png'), auto;
+        }
+     
+
+        .card-body {
+            text-align: center;
+            padding-bottom: 0;
+        }
+
+        .card-footer {
+            text-align: center;
+            padding-top: 0;
+        }
+
+        h4 {
+            margin-bottom: 0;
+        }
+
+        .rounded{
+            bottom: 10px;
+            right: 10px;
+            width: 25px;
+            height: 25px;
+            background-color: #1A374D;
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            
+        }
+
+        .carousel-caption{
+            z-index:0;
+        }
+        /*.left{
+            margin-left:10px;
+        }*/
+          
+
+    </style>
 }
 <div class="header">
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
@@ -77,6 +134,7 @@
                                         <th scope="col"></th>
                                         <th scope="col">商品名稱</th>
                                         <th scope="col">數量</th>
+                                        <th scope="col">單價</th>
                                         <th scope="col">小計</th>
                                     </tr>
                                 </thead>
@@ -91,7 +149,8 @@
                                         </th>
                                         <td>{{cartItem.productName}}</td>
                                         <td>{{cartItem.amount}}</td>
-                                        <td class="text-right">{{cartItem.unitPrice}}</td>
+                                        <td>{{cartItem.unitPrice}}</td>
+                                        <td>{{subTotal(cartItem)}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -100,19 +159,20 @@
                     </div>
                 </div>
             </div>
+        </div>
     </nav>
     <!-- fiiter -->
-    <div class="containershop">
-        <div class="left">
-            <div class="col-xl-3 col-lg-4 col-md-7">
+    <div class="containershop row">
+        <div class="left col-xl-3 col-lg-3 col-md-3">
+            <div class="col-xl-3 col-lg-4 col-md-6">
                 <div class="sidebar-box-style2">
                     <!--Start Single Sidebar style2-->
                     <div class="single-sidebar-style2">
                         <div class="title">
                             <h4>寵物類型</h4>
                         </div>
-                        <ul class="filter-checkbox">
-                            <li v-for="(TypeId, index) in ProductTypeId" :key="TypeId.id">
+                        <ul class="filter-checkbox list-group list-group-flush">
+                            <li class="list-group-item list-group-item-action" v-for="(TypeId, index) in ProductTypeId" :key="TypeId.id">
                                 <div class="single-checkbox">
                                     <label>
                                         <input type="radio" v-model="Type_of_Pet[0]" :value="TypeId.id" @@change="TypeSearch()">
@@ -124,8 +184,8 @@
                         <div class="title">
                             <h4>商品類型</h4>
                         </div>
-                        <ul class="filter-checkbox">
-                            <li v-for="(option, index) in ProductCatagoryId" :key="option.id">
+                        <ul class="filter-checkbox list-group list-group-flush">
+                            <li class="list-group-item list-group-item-action" v-for="(option, index) in ProductCatagoryId" :key="option.id">
                                 <div class="single-checkbox">
                                     <label>
                                         <input type="radio" v-model="Catagory_of_Product[0]" :value="option.id" @@change="CatagorySearch()">
@@ -143,11 +203,11 @@
         <!-- product cards -->
 
 
-        <div class="right">
-            <ul class="card-group row px-4 pt-4">
+        <div class="right col-xl-9 col-lg-9 col-md-9">
+            <ul class="card-group px-md-2 py-md-2">
                 <template v-for="item in selectedProductList.slice(pageStart, pageEnd)">
-                    <li class="col-lg-4 col-sm-6 d-flex align-items-stretch" v-if="item.productStatus">
-                        <div class="card">
+                    <li class="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-flex align-items-stretch buy-cursor" v-if="item.productStatus" >
+                        <div class="card" @@click="redirectToDetail(item)">
                             <div class="pic">
                                 <img src="https://picsum.photos/300/?random=10">
                             </div>
@@ -155,16 +215,20 @@
                                 <h3 class="title">
                                     {{item.productName}}
                                 </h3>
+                                <p class="text">
+                                    <h4>
+                                        {{item.unitPrice}}
+                                    </h4>
+                                </p>
                             </div>
                             <div class="card-footer">
-                                <p class="text">
-                                    {{item.unitPrice}}
-                                </p>
+                                <p>我是商品描述</p>
                                 <div>
-                                    <button class="round" @@click="minusOne(item)">-</button>
-                                    <span>{{ item.amount }}</span>
-                                    <button class="round" @@click="addOne(item)">+</button>
+                                    <button class="rounded" @@click="minusOne(item)">-</button>
+                                    <span>&nbsp; {{ item.amount }} &nbsp;</span>
+                                    <button class="rounded" @@click="addOne(item)">+</button>
                                 </div>
+                                <br />
                                 <button class="btn btn-primary" @@click="AddCart(item)">AddCart</button>
                             </div>
                         </div>
@@ -172,8 +236,9 @@
                 </template>
             </ul>
         </div>
-
     </div>
+
+
     <!-- Pages	 -->
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
@@ -216,7 +281,7 @@
                 ProductCatagoryId: [
                     { id: 0, name: 'All', checked: true },
                     { id: 1, name: 'Items', checked: false },
-                    { id: 2, name: 'HealthCare', checked: false },
+                    { id: 2, name: 'Health', checked: false },
                     { id: 3, name: 'Food', checked: false }
                 ],
                 Catagory_of_Product: [0],
@@ -249,6 +314,14 @@
                 },
             },
             methods: {
+                subTotal: function (item) {
+                    return item.amount * item.unitPrice;
+                },
+                // 将页面重定向到商品详细页面，并传递商品ID或其他必要的参数
+                redirectToDetail(item) {                    
+                    window.location.href = `/Product/ProductDetail?id=${item.productId}`;
+                    event.stopPropagation();
+                },
                 GetProduct: function () {
                     axios.post('api/PetProdcutAPI/GetProduct').then(response => {
                         let _this = this; //指的是Vue本身。
@@ -315,30 +388,43 @@
                 minusOne: function (item) {
                     item.amount--;
                     item.amount = (item.amount < 1) ? 1 : item.amount;
+                    event.stopPropagation();
                 },
                 //加商品數量
                 addOne: function (item) {
                     item.amount++;
                     item.amount = (item.amount > 9) ? 9 : item.amount;
+                    event.stopPropagation();
                 },
                 //加入購物車
                 AddCart: function (item) {
-                    let _this = this;
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: '成功加入購物車',
-                        showConfirmButton: false,
-                        timer: 1000
-                    })
-                    var existingItem = _this.shoppingCart.find(cartItem => cartItem.productId == item.productId);
-                    if (existingItem) {
-                        existingItem.amount += item.amount; // 商品已存在，更新數量
-                    } else {
-                        // 商品不存在，新增項目 //解構。
-                        _this.shoppingCart.push({ ...item, amount: item.amount });
+                    if(email!=""){
+                        let _this = this;
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: '成功加入購物車',
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
+                        var existingItem = _this.shoppingCart.find(cartItem => cartItem.productId == item.productId);
+                        if (existingItem) {
+                            existingItem.amount += item.amount; // 商品已存在，更新數量
+                        } else {
+                            // 商品不存在，新增項目 //解構。
+                            _this.shoppingCart.push({ ...item, amount: item.amount });
+                        }
+                        _this.setCart(email, _this.shoppingCart);
                     }
-                    _this.setCart(email, _this.shoppingCart);
+                    else{
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '請先登入會員',
+                            footer: '<a href="/Member/Login" style="color:blue">會員登入</a>'
+                        })
+                    }
+                    //阻止冒泡。
+                    event.stopPropagation();
                 },
                 //移除購物車商品
                 RemoveCart: function (item) {
@@ -369,5 +455,8 @@
             },
 
         })
+
+
+
     </script>
     }

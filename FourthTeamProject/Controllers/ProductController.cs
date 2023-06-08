@@ -42,11 +42,11 @@ namespace FourthTeamProject.Controllers
             //ViewData["CustomerURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}Home/CallbackCustomer"; //商店取號網址
             //ViewData["NotifyURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}Home/CallbackNotify"; //支付通知網址
             //ViewData["ClientBackURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}"; //返回商店網址
-             
+            
             var email = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
 			if (email != null)
 			{
-				ViewBag.Email = email;
+                ViewBag.Email = email;
 				return View();
 			}
 			return Redirect("/Member/Login");

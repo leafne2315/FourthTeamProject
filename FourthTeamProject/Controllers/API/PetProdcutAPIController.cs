@@ -4,6 +4,7 @@ using FourthTeamProject.PetHeavenModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol;
 using System;
 using System.Security.Cryptography;
@@ -62,14 +63,26 @@ namespace FourthTeamProject.Controllers.API
 
 
         [HttpPost]
-        public IActionResult CreatOrder([FromBody] ProductOrder request)
+        public IActionResult CreatOrder([FromBody] CreateOrderViewModel request)
         {
 
-            var order = _db.ProductOrder.Add(request);
-
+            var order = new ProductOrder
+            {
+                MemberId = request.MemberId,
+                InvoiceId = request.InvoiceId,
+                PayId = request.PayId,
+                OrderStatus = request.OrderStatus,
+                OrderAddress = request.OrderAddress,
+                OrderMemberName= request.OrderMemberName,
+                OrderMemberPhone= request.OrderMemberPhone,
+                OrderMemberEmail= request.OrderMemberEmail,
+                OrderNo= request.OrderNo,
+                OrderDate= DateTime.Now,
+            };
+            _db.ProductOrder.Add(order);
             _db.SaveChanges();
 
-            return Ok(request.OrderId);
+            return Ok(order.OrderId);
 
         }
 
@@ -144,13 +157,31 @@ namespace FourthTeamProject.Controllers.API
             var invoice = _db.Invoice;
             return Ok(invoice);
         }
-
-        
+       
         public IActionResult getPayment()
         {
             var payment = _db.Payment;
             return Ok(payment);
         }
+
+        [HttpPut("/api/PetProductAPI/UpdateOrderPaymentStatus/{orderNo}")]
+        public IActionResult UpdateOrderPaymentStatus(string orderNo, [FromBody] OrderPaymentStatusModel paymentStatus)
+        {
+                // 根据订单ID查询数据库，获取要更新的订单
+                var existingOrder = _db.ProductOrder.FirstOrDefault(o => o.OrderNo == paymentStatus.OrderNo);
+
+                if (existingOrder == null)
+                {
+                    return NotFound("訂單不存在");
+                }
+                existingOrder.OrderStatus = paymentStatus.PaymentStatus;
+                _db.ProductOrder.Update(existingOrder);
+                _db.SaveChanges();
+                return Ok("付款成功");
+            
+        }
+
+        
 
     }
 }

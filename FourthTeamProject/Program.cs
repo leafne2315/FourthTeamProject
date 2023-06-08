@@ -26,6 +26,15 @@ namespace FourthTeamProject
                 opt.UseSqlServer(builder.Configuration.GetConnectionString("PetHeavenConnection"));
             });
 
+            builder.Services.AddDistributedMemoryCache();
+
+            builder.Services.AddSession(options =>
+            {
+                //options.IdleTimeout = TimeSpan.FromSeconds(10);
+                //options.Cookie.HttpOnly = true;
+                //options.Cookie.IsEssential = true;
+            });
+
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(opt =>
              {
@@ -54,6 +63,7 @@ namespace FourthTeamProject
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();

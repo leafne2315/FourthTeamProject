@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FourthTeamProject.Models.ViewModel;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json;
 
 namespace FourthTeamProject.Controllers
 {
@@ -12,7 +15,6 @@ namespace FourthTeamProject.Controllers
         }
         public IActionResult HotelDetail(int hotelId)
         {
-
             return View(hotelId);
         }
         
@@ -20,5 +22,7 @@ namespace FourthTeamProject.Controllers
         { 
             return View(); 
         }
+
+        
     }
 }

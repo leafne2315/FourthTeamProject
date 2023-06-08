@@ -22,6 +22,7 @@ namespace FourthTeamProject.PetHeavenModels
         public string OrderMemberName { get; set; }
         public string OrderMemberPhone { get; set; }
         public string OrderMemberEmail { get; set; }
+        public string OrderNo { get; set; }
 
         public virtual Invoice Invoice { get; set; }
         public virtual Member Member { get; set; }

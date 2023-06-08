@@ -139,10 +139,18 @@ namespace FourthTeamProject.Controllers.API
 
         }
 
+        public IActionResult getInvoice()
+        {
+            var invoice = _db.Invoice;
+            return Ok(invoice);
+        }
 
-
-
-
+        
+        public IActionResult getPayment()
+        {
+            var payment = _db.Payment;
+            return Ok(payment);
+        }
 
     }
 }

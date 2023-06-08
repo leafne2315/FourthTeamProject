@@ -2,21 +2,67 @@
 
 @Html.Raw(ViewData["ReceiveObj"])
 
-@Html.Raw(ViewData["TradeInfo"])
+<hr>
+<div id="app">
+    <template>
 
-
-
+    </template>
+</div>
 
 @section Scripts{
 
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        var receiveObj1 = '@ViewData["ReceiveObj"]';
-        var receiveObj2 = '@ViewData["TradeInfo"]';
-        var obj = '@ViewBag.TradeInfo'
 
+        var result = '@ViewBag.TradeInfo';
+        var app = new Vue({
+            el: '#app',
+            data: {
+                result: result,
+                objData: []
+            },
+            mounted: function () {
+                this.decodeObjectValues(result);
+            },
+            computed: {
+
+            },
+            methods: {
+                decodeObjectValues: function (result) {
+                    var returnObj = result.replace(/&quot;/g, '"');
+                    var final = JSON.parse(returnObj);
+                    for (let key in final) {
+                        if (typeof final[key] === 'string') {
+                            const encodedString = final[key];
+                            const parser = new DOMParser();
+                            const dom = parser.parseFromString(`<dummy>${encodedString}</dummy>`, "text/html");
+                            const decodedString = dom.documentElement.textContent;
+                            final[key] = decodedString;
+                        } else if (typeof final[key] === 'object') {
+                            decodeObjectValues(final[key]); // 遞迴處理物件內的物件
+                        }
+                    }
+                    this.objData = final; 
+                },
+                upDatePayStatus:function(){
+                    // 設定要更新的訂單 ID 和付款狀態
+                    const orderId = 'your_order_id'; // 替換為實際的訂單 ID
+                    const newPaymentStatus = true; // 替換為要設定的新付款狀態
+                    // 發送更新訂單的付款狀態的請求
+                    axios.patch(`/api/orders/${orderId}`, { paymentStatus: newPaymentStatus })
+                        .then(response => {
+                            console.log('訂單付款狀態已成功更新');
+                            // 在這裡處理成功更新的回應
+                        })
+                        .catch(error => {
+                            console.error('更新訂單付款狀態時發生錯誤:', error);
+                            // 在這裡處理錯誤
+                        });
+                },
+            }
+        })
 
     </script>
 }

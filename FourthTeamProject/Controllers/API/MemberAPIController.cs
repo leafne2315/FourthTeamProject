@@ -36,7 +36,7 @@ namespace FourthTeamProject.Controllers.API
 					Name = m.MemberName,
 					Email = m.MemberEmail,
 					Address = m.MemberAddress,
-					Password = m.MemberPassword,
+					
 					Birthday = m.MemberBirthday,
 					Phone=m.MemberPhone
 				}).FirstOrDefault();

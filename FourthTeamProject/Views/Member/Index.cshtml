@@ -6,15 +6,7 @@
 					<li class="nav-item" role="presentation">
 						<a class="nav-link" id="tab-material" data-toggle="pill" href="#pills-material" role="tab"
 						   aria-controls="pills-material" aria-selected="true">個人資料</a>
-					</li>
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" id="tab-security" data-toggle="pill" href="#pills-security" role="tab"
-						   aria-controls="pills-security" aria-selected="false">安全中心</a>
-					</li>
-					@*<li class="nav-item" role="presentation">
-						<a class="nav-link" id="tab-Welfare" data-toggle="pill" href="#pills-Welfare" role="tab"
-						   aria-controls="pills-Welfare" aria-selected="false">會員福利</a>
-					</li>*@
+					</li>					
 					<li class="nav-item" role="presentation">
 						<a class="nav-link" id="tab-login" data-toggle="pill" href="#pills-order" role="tab"
 						   aria-controls="pills-login" aria-selected="false">訂單管理</a>
@@ -55,25 +47,8 @@
 						<input type="datetime" id="address" class="form-control" v-model="member.birthday" readonly />
 					</div>
 					<button class="btn btn-primary" data-toggle="modal" data-target="#revisememberModal">修改資料</button>
-				</div>
-				<div class="tab-pane fade col stacked-sm " id="pills-security" role="tabpanel" aria-labelledby="tab-security">
-					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-						<h1 class="h2">安全中心</h1>
-					</div>
-					<div class="form-group">
-						<label for="password">當前密碼：</label>
-						<input type="password" id="account" class="form-control" v-model="member.password" readonly />
-					</div>
-
 					<button class="btn btn-primary" data-toggle="modal" data-target="#passwordModal">修改密碼</button>
-					
-					
-				</div>
-				@*<div class="tab-pane fade col stacked-sm" id="pills-Welfare" role="tabpanel" aria-labelledby="tab-Welfare">
-					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-						<h1 class="h2">福利</h1>
-					</div>
-				</div>*@
+				</div>				
 				<div class="tab-pane fade col stacked-sm" id="pills-order" role="tabpanel" aria-labelledby="tab-order">
 					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 						<h1 class="h2">訂單管理</h1>
@@ -274,48 +249,7 @@
 					</div>
 				</div>
 
-				<!-- revisememberModal -->
-				<div class="modal fade" id="revisememberModal" tabindex="-1" role="dialog" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="revisememberModal">修改會員資料</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								<form>
-									<div class="form-row">
-										<div class="form-group col-md-12">
-											<label for="inputEmail4">手機號碼</label>
-											<input type="email" class="form-control" id="inputEmail4" v-model="member.phone">
-										</div>
-										<div class="form-group col-md-12">
-											<label for="inputEmail4">電子郵箱</label>
-											<input type="email" class="form-control" id="inputEmail4" v-model="member.email">
-										</div>
-										<div class="form-group col-md-12">
-											<label for="inputEmail4">地址</label>
-											<input type="email" class="form-control" id="inputEmail4" v-model="member.address">
-										</div>
-										
-									</div>
-									<div class="form-group">
-										<label for="inputAddress">生日</label>
-										<input type="date" class="form-control" id="inputAddress" @*v-model="member.birthday"*@>
-									</div>
-									
-
-								</form>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-								<button type="button" class="btn btn-primary">確認修改</button>
-							</div>
-						</div>
-					</div>
-				</div>
+				
 
 				<!-- passwordModal -->
 				<div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -374,12 +308,12 @@
 										</tr>
 									</thead>
 									<tbody>
-											<tr v-for="item in detail">
-												<td>{{item.detail.detailname}}</td>
-												<td>{{item.detail.detailcontent}}</td>
-												<td>{{item.detail.detailcatagoryname}}</td>
-												<td>{{item.detail.detailunitprice}}</td>
-												<td>{{item.detail.detailquantity}}</td>
+											<tr v-for="item in order">
+												<td>{{item.orderDetail.detailname}}</td>
+												<td>{{item.orderDetail.detailcontent}}</td>
+												<td>{{item.orderDetail.detailcatagoryname}}</td>
+												<td>{{item.orderDetail.detailunitprice}}</td>
+												<td>{{item.orderDetail.detailquantity}}</td>
 										</tr>
 									</tbody>
 									</table>
@@ -392,7 +326,48 @@
 					</div>
 				</div>
 			</div>
-			
+			<!-- revisememberModal -->
+			<div class="modal fade" id="revisememberModal" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="revisememberModal">修改會員資料</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form>
+								<div class="form-row">
+									<div class="form-group col-md-12">
+										<label for="MemberPhone">手機號碼</label>
+										<input type="text" class="form-control" name="MemberPhone" id="MemberPhone" v-model="member.phone">
+									</div>
+									<div class="form-group col-md-12">
+										<label for="MemberEmail">電子郵箱</label>
+										<input type="email" class="form-control" name="MemberEmail" id="MemberEmail" v-model="member.email">
+									</div>
+									<div class="form-group col-md-12">
+										<label for="MemberAddress">地址</label>
+										<input type="text" class="form-control" name="MemberAddress" id="MemberAddress" v-model="member.address">
+									</div>
+
+								</div>
+								<div class="form-group">
+									<label for="MemberBirthday">生日</label>
+									<input type="text" class="form-control" name="MemberBirthday" id="MemberBirthday" v-model="member.birthday">
+								</div>
+
+
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary" @@click="fetchupdataMember">確認修改</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</main>
 	</div>
 </div>
@@ -411,7 +386,7 @@
 		data: {
 			member: [],
 			order: [],
-			detail:[],
+			//detail:[],
 			pet: [],
 			delInfo: {
 				title: "",
@@ -419,13 +394,14 @@
 					pet: "",
 					price: ""
 				}
-			}
+			},	
+			updatamember:[]
 		},
 		mounted: function () {
 			let self = this;
 			self.fetchMember();
 			self.fetchOrder();
-			self.fetchDetail();
+			//self.fetchDetail();
 			self.fetchPet();
 			
 		},
@@ -439,6 +415,14 @@
 						self.member = membercentre.data;
 					})
 			},
+			fetchupdataMember: function () {
+				let self = this;
+				axios.put('/api/member/updataMember', self.member)
+					.then(response => {
+						console.log('會員資訊已更新');
+					})
+			},
+
 			fetchOrder: function () {
 				let self = this;
 				axios.get('/api/member/GetMemberOrder')
@@ -447,10 +431,10 @@
 						self.order = order.data;
 					})				
 			},
-			fetchDetail: function () {
-				let self = this;
-				axios.get('/api/member/GetMemberOrderDetail').then(res => self.detail = res.data)
-			},
+			//fetchDetail: function () {
+			//	let self = this;
+			//	axios.get('/api/member/GetMemberOrderDetail').then(res => self.detail = res.data)
+			//},
 			fetchPet: function () {
 				let self = this;
 				axios.get('/api/member/GetMemberPet').then(res => self.pet = res.data)

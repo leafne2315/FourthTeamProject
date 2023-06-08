@@ -6,15 +6,7 @@
 					<li class="nav-item" role="presentation">
 						<a class="nav-link" id="tab-material" data-toggle="pill" href="#pills-material" role="tab"
 						   aria-controls="pills-material" aria-selected="true">個人資料</a>
-					</li>
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" id="tab-security" data-toggle="pill" href="#pills-security" role="tab"
-						   aria-controls="pills-security" aria-selected="false">安全中心</a>
-					</li>
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" id="tab-Welfare" data-toggle="pill" href="#pills-Welfare" role="tab"
-						   aria-controls="pills-Welfare" aria-selected="false">會員福利</a>
-					</li>
+					</li>					
 					<li class="nav-item" role="presentation">
 						<a class="nav-link" id="tab-login" data-toggle="pill" href="#pills-order" role="tab"
 						   aria-controls="pills-login" aria-selected="false">訂單管理</a>
@@ -50,60 +42,332 @@
 						<label for="address">地址：</label>
 						<input type="text" id="address" class="form-control" v-model="member.address" readonly />
 					</div>
-				</div>
-				<div class="tab-pane fade col stacked-sm " id="pills-security" role="tabpanel" aria-labelledby="tab-security">
-					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-						<h1 class="h2">安全中心</h1>
-					</div>
 					<div class="form-group">
-						<label for="password">當前密碼：</label>
-						<input type="password" id="account" class="form-control" readonly />
+						<label for="address">生日：</label>
+						<input type="datetime" id="address" class="form-control" v-model="member.birthday" readonly />
 					</div>
-
-					<div class="form-group">
-						<label for="password">修改密碼：</label>
-						<input type="password" id="password" class="form-control" />
-					</div>
-					<div class="form-group">
-						<label for="address">修改地址：</label>
-						<input type="text" id="address" class="form-control" />
-					</div>
-					<button class="btn btn-primary" onclick="saveSecuritySettings()">儲存</button>
-				</div>
-				<div class="tab-pane fade col stacked-sm" id="pills-Welfare" role="tabpanel" aria-labelledby="tab-Welfare">
-					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-						<h1 class="h2">福利</h1>
-					</div>
-				</div>
+					<button class="btn btn-primary" data-toggle="modal" data-target="#revisememberModal">修改資料</button>
+					<button class="btn btn-primary" data-toggle="modal" data-target="#passwordModal">修改密碼</button>
+				</div>				
 				<div class="tab-pane fade col stacked-sm" id="pills-order" role="tabpanel" aria-labelledby="tab-order">
 					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 						<h1 class="h2">訂單管理</h1>
 					</div>
+
+					<table class="table app-table-hover mb-0 text-left">
+
+						<thead>
+							<tr>								
+								<th>日期</th>
+								<th>是否已付款</th>
+								<th>收貨地址</th>
+								<th>查看明細<th>								
+								<th>總金額</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="item in order">								
+								<td>{{ item.order.orderdate }}</td>
+								<td>{{ item.order.orderstatus }}</td>
+								<td>{{ item.order.orderaddress }}</td>
+								<td><button class="btn btn-primary" data-toggle="modal" data-target="#detailModal">查看</button></td>
+								<td></td>							
+							</tr>
+						</tbody>
+					</table>
 				</div>
 				<div class="tab-pane fade col stacked-sm" id="pills-pet" role="tabpanel" aria-labelledby="tab-pet">
 					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 						<h1 class="h2">寵物資料</h1>
 					</div>
-					<div class="form-group">
-						<label for="name">寵物名子：</label>
-						<input type="text" id="account" class="form-control"  readonly />
+					<div>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">新增</button>
+						
 					</div>
-					<div class="form-group">
-						<label for="name">寵物性別：</label>
-						<input type="text" id="account" class="form-control"  readonly />
+					<div>
+					<table class="table app-table-hover mb-0 text-left">
+
+						<thead>
+							<tr>
+								<th>寵物名子</th>
+								<th>寵物性別</th>
+								<th>寵物生日</th>
+								<th>寵物品種</th>
+								<th>寵物種類</th>
+								<th>操作</th>
+
+							</tr>
+						</thead>
+						<tbody>
+								<tr v-for="item in pet">
+									<td>{{item.pet.petName}}</td>
+									<td>{{item.pet.petGender}}</td>
+									<td>{{item.pet.petBirthday}}</td>
+									<td>{{item.pet.petVariety}}</td>
+									<td>{{item.pettype.petTypeName}}</td>
+									<td>
+										<button type="button" class="btn btn-success" data-toggle="modal" data-target="#reviseModal">修改</button>
+										<button type="button" class="btn btn-danger" @@click="deleteConfirm(item)" data-toggle="modal" data-target="#deleteModal">刪除</button>
+									</td>
+
+						<!-- 其他訂單相關的列項 -->
+								</tr>
+						</tbody>
+					</table>
 					</div>
-					<div class="form-group">
-						<label for="name">寵物生日：</label>
-						<input type="text" id="account" class="form-control"  readonly />
+
+					<!-- CreateModal -->
+					<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="createModal">新增寵物資料</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<form>
+										<div class="form-row">
+											<div class="form-group col-md-6">
+												<label for="inputEmail4">寵物名子</label>
+												<input type="email" class="form-control" id="inputEmail4" placeholder="名子">
+											</div>
+											<div class="form-group col-md-6">
+												<label for="inputPassword4">寵物性別</label>
+												<select id="inputState" class="form-control">
+													<option selected>請選擇</option>
+													<option>公</option>
+													<option>母</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="inputAddress">生日</label>
+											<input type="date" class="form-control" id="inputAddress" placeholder="生日">
+										</div>
+										<div class="form-group">
+											<label for="inputAddress2">品種</label>
+											<input type="text" class="form-control" id="inputAddress2" placeholder="品種">
+										</div>
+										<div class="form-row">											
+											<div class="form-group col-md-4">
+												<label for="inputState">寵物種類</label>
+												<select id="inputState" class="form-control">
+													<option selected>請選擇</option>
+													<option>貓</option>
+													<option>犬</option>
+												</select>
+											</div>											
+										</div>
+										
+									</form>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+									<button type="button" class="btn btn-primary">新增</button>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="form-group">
-						<label for="name">寵物品種：</label>
-						<input type="text" id="account" class="form-control"  readonly />
+
+					<!-- ReviseModal -->
+					<div class="modal fade" id="reviseModal" tabindex="-1" role="dialog" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="reviseModal">修改寵物資料</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<form>
+										<div class="form-row">
+											<div class="form-group col-md-6">
+												<label for="inputEmail4">寵物名子</label>
+												<input type="email" class="form-control" id="inputEmail4" placeholder="名子">
+											</div>
+											<div class="form-group col-md-6">
+												<label for="inputPassword4">寵物性別</label>
+												<select id="inputState" class="form-control">
+													<option selected>請選擇</option>
+													<option>公</option>
+													<option>母</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="inputAddress">生日</label>
+											<input type="date" class="form-control" id="inputAddress" placeholder="生日">
+										</div>
+										<div class="form-group">
+											<label for="inputAddress2">品種</label>
+											<input type="text" class="form-control" id="inputAddress2" placeholder="品種">
+										</div>
+										<div class="form-row">
+											<div class="form-group col-md-4">
+												<label for="inputState">寵物種類</label>
+												<select id="inputState" class="form-control">
+													<option selected>請選擇</option>
+													<option>貓</option>
+													<option>犬</option>
+												</select>
+											</div>
+										</div>
+
+									</form>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+									<button type="button" class="btn btn-primary">確認修改</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- deleteModal -->
+					<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">刪除寵物:{{delInfo.title}}</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									你確定要刪除寵物:{{delInfo.msg.pet}}，品種:{{delInfo.msg.price}}
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									<button type="button" class="btn btn-primary" @@click="deletePet(delInfo.title)">確定</button>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 
-			</div>
+				
 
+				<!-- passwordModal -->
+				<div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="passwordModal">修改會員資料</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form>
+									<div class="form-row">
+										<div class="form-group col-md-12">
+											<label for="inputpassworl4">新密碼</label>
+											<input type="password" class="form-control" id="inputEmail4" >
+										</div>
+										<div class="form-group col-md-12">
+											<label for="inputpassworl4">確認密碼</label>
+											<input type="password" class="form-control" id="inputEmail4" >
+										</div>
+										
+
+
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+								<button type="button" class="btn btn-primary">確認修改</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- detailModal -->
+				<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="detailModal">訂單明細</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form>
+									<table class="table app-table-hover mb-0 text-left">
+									<thead>
+										<tr>
+											
+											<th>商品名稱</th>
+											<th>商品內容</th>
+											<th>商品類型</th>
+											<th>單價</th>
+											<th>數量</th>
+										</tr>
+									</thead>
+									<tbody>
+											<tr v-for="item in order">
+												<td>{{item.orderDetail.detailname}}</td>
+												<td>{{item.orderDetail.detailcontent}}</td>
+												<td>{{item.orderDetail.detailcatagoryname}}</td>
+												<td>{{item.orderDetail.detailunitprice}}</td>
+												<td>{{item.orderDetail.detailquantity}}</td>
+										</tr>
+									</tbody>
+									</table>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- revisememberModal -->
+			<div class="modal fade" id="revisememberModal" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="revisememberModal">修改會員資料</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form>
+								<div class="form-row">
+									<div class="form-group col-md-12">
+										<label for="MemberPhone">手機號碼</label>
+										<input type="text" class="form-control" name="MemberPhone" id="MemberPhone" v-model="member.phone">
+									</div>
+									<div class="form-group col-md-12">
+										<label for="MemberEmail">電子郵箱</label>
+										<input type="email" class="form-control" name="MemberEmail" id="MemberEmail" v-model="member.email">
+									</div>
+									<div class="form-group col-md-12">
+										<label for="MemberAddress">地址</label>
+										<input type="text" class="form-control" name="MemberAddress" id="MemberAddress" v-model="member.address">
+									</div>
+
+								</div>
+								<div class="form-group">
+									<label for="MemberBirthday">生日</label>
+									<input type="text" class="form-control" name="MemberBirthday" id="MemberBirthday" v-model="member.birthday">
+								</div>
+
+
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary" @@click="fetchupdataMember">確認修改</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</main>
 	</div>
 </div>
@@ -113,24 +377,85 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
+	var email = "@ViewBag.Email"
+
+	
+
 	let app = new Vue({
 		el: '#app',
 		data: {
-			member: []
+			member: [],
+			order: [],
+			//detail:[],
+			pet: [],
+			delInfo: {
+				title: "",
+				msg: {
+					pet: "",
+					price: ""
+				}
+			},	
+			updatamember:[]
 		},
-		mounted() {
-			this.fetchMember();
+		mounted: function () {
+			let self = this;
+			self.fetchMember();
+			self.fetchOrder();
+			//self.fetchDetail();
+			self.fetchPet();
+			
 		},
 		methods: {
+
 			fetchMember: function () {
 				let self = this;
 				var testmember = axios.get('/api/member/GetCurrentMember')
-					.then(response => {
+					.then(membercentre => {
 						// 獲取會員資訊並將其賦值給組件的 data 屬性
-						self.member = response.data;
+						self.member = membercentre.data;
 					})
-				console.log(testmember);
+			},
+			fetchupdataMember: function () {
+				let self = this;
+				axios.put('/api/member/updataMember', self.member)
+					.then(response => {
+						console.log('會員資訊已更新');
+					})
+			},
+
+			fetchOrder: function () {
+				let self = this;
+				axios.get('/api/member/GetMemberOrder')
+					.then(order => {
+						// 獲取會員資訊並將其賦值給組件的 data 屬性
+						self.order = order.data;
+					})				
+			},
+			//fetchDetail: function () {
+			//	let self = this;
+			//	axios.get('/api/member/GetMemberOrderDetail').then(res => self.detail = res.data)
+			//},
+			fetchPet: function () {
+				let self = this;
+				axios.get('/api/member/GetMemberPet').then(res => self.pet = res.data)
+			},
+			
+			deletePet:function(id){
+				axios.post('/api/member/deletePet', { Id: id }).then(res => {
+					if (res.data) {
+						var idx = this.pet.findIndex(x => x.pet.petName == id)
+						this.pet.splice(idx, 1)
+						$("#deleteModal").modal("hide");
+					}
+				});
+			},
+			deleteConfirm:function(item){
+				this.delInfo.title = item.pet.petName;
+				this.delInfo.msg.pet = item.pet.petName;
+				this.delInfo.msg.price = item.pettype.petTypeName;
 			}
+
+			
 		}
 	});
 </script>

@@ -5,17 +5,22 @@
         .td-Width{
             width: 150px;
         }
+        .card{
+            margin-bottom:10px;
+        }
+
     </style>
+    
 }
 
 
-<header class="bg-dark text-white py-4">
-    <h1 class="text-center">訂單詳情</h1>
+<header class="bg-dark text-white py-3">
+    <h2 class="text-center font-weight-bold">訂單確認</h2>
 </header>
 
 <div id="app" class="container mt-4">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <table class="table">
                 <thead>
                     <tr>
@@ -70,36 +75,49 @@
                             <label for="phone">連絡電話：</label>
                             <input type="tel" class="form-control" id="phone" name="phone" v-model="memberInfo.memberPhone" required>
                         </div>
-                        <button  class="btn btn-primary btn-block" @@click="sendOrder()">結帳</button>
+                        <label for="phone">發票類型：</label>
+                        <div class="form-group" v-for="item in invoiceType">
+                            <span></span>{{item.invoiceName}}
+                            <input type="radio" name="invoice" v-model="invoice" :value="item.invoiceId" required>
+                        </div>
+                        <label for="phone">付款方式：</label>
+                        <div class="form-group" v-for="item in paymentType">
+                            <span></span>{{item.payName}}
+                            <input type="radio" name="payment" v-model="payment" :value="item.payId" required>
+                        </div>
+                        <button class="btn btn-primary btn-block" @@click="sendOrder()">下單</button>
                         <button type="button" class="btn btn-primary" v-on:click="SendToNewebPay('CREDIT')">ATM 付款</button>
                     </div>
 
 
         </div>
 
-        <div class="col-md-4 mt-4 mt-md-0">
-            <h4>推薦商品</h4>
-            <div class="row">
+        <div class="col-md-3 mt-4 mt-md-0">
+            <h4 class="text-center font-weight-bold">推薦商品</h4>
+            <div class="row align-items-center">
                 <div class="col-sm-6 col-md-12">
-                    <div class="recommended-item">
-                        <img src="https://picsum.photos/120/?random=10" alt="推薦商品1"><br>
-                        <button class="btn btn-primary">加到購物車</button>
+                    <div class="card recommended-item">
+                        <img src="https://picsum.photos/120/?random=10" alt="推薦商品1" class="card-img-top">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <h5 class="card-title">商品名稱</h5>
+                            <button class="btn btn-primary">加到購物車</button>
+                        </div>
                     </div>
                 </div>
+
                 <div class="col-sm-6 col-md-12">
-                    <div class="recommended-item">
-                        <img src="https://picsum.photos/120/?random=10" alt="推薦商品2"><br>
-                        <button class="btn btn-primary">加到購物車</button>
+                    <div class="card recommended-item">
+                        <img src="https://picsum.photos/120/?random=10" alt="推薦商品1" class="card-img-top">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <h5 class="card-title">商品名稱</h5>
+                            <button class="btn btn-primary">加到購物車</button>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-12">
-                    <div class="recommended-item">
-                        <img src="https://picsum.photos/120/?random=10" alt="推薦商品3"><br>
-                        <button class="btn btn-primary">加到購物車</button>
-                    </div>
-                </div>
+
             </div>
         </div>
+
     </div>
 </div>
 
@@ -119,7 +137,6 @@
                 memberInfo: [],
                 orderId: null,
                 recipient :[],
-                //測試用表單
                 addForm: {
                     MerchantID: '@ViewData["MerchantID"]' //商品代號
                     , MerchantOrderNo: '@ViewData["MerchantOrderNo"]'
@@ -129,10 +146,17 @@
                     , NotifyURL: '@ViewData["NotifyURL"]'//需要nrogk
                     , ClientBackURL: '@ViewData["ClientBackURL"]'
                 },
+                invoiceType:[],
+                invoice:null,
+                paymentType:[],
+                payment:null
+
             },
             mounted: function () {
                 this.shoppingCart = this.getCart(email) ? this.getCart(email).carts : [];
                 this.getMember();
+                this.getInvoice();
+                this.getPayment();
             },
             computed: {
                 //商品數量計算。
@@ -141,6 +165,13 @@
                 }
             },
             methods: {
+                //取得發票種類
+                getInvoice:function(){
+                    axios.post('/api/PetProdcutAPI/getInvoice').then(response => this.invoiceType = response.data);
+                },
+                getPayment:function(){
+                    axios.post('/api/PetProdcutAPI/getPayment').then(response => this.paymentType = response.data);
+                },
                 checkQuantity: function (cartItem) {
                     if (cartItem.amount < 1) {
                         cartItem.amount = 1;
@@ -220,17 +251,17 @@
                     if (_this.shoppingCart.length != 0) {
                         if (_this.memberInfo.memberAddress != '' && _this.memberInfo.memberName != '' && _this.memberInfo.memberPhone!='')
                         {
-
                             var request = {
                                 OrderDate: new Date(),
                                 MemberId: _this.memberInfo.memberId,
-                                InvoiceId: 1,
-                                PayId: 1,
-                                OrderStatus: true,
+                                InvoiceId: this.invoice,
+                                PayId: this.payment,
+                                OrderStatus: false,
                                 OrderAddress: _this.memberInfo.memberAddress,
                                 OrderMemberName: _this.memberInfo.memberName,
                                 OrderMemberPhone: _this.memberInfo.memberPhone,
                                 OrderMemberEmail: _this.memberInfo.memberEmail,
+                                //OrderNo:_this.addForm.MerchantOrderNo
                             };
                             console.log(request)
                             axios.post('/api/PetProdcutAPI/CreatOrder', request).then(res => {
@@ -240,11 +271,31 @@
                                 console.log(productDetail[0].carts);
                                 axios.post('/api/PetProdcutAPI/CreatOrderDetail', productDetail[0].carts, { params: { orderId: this.orderId } }).then(res => {
                                     console.log('OK')
-                                    this.SendToNewebPay();
                                     //window.location.href = "/Product/OrderDone";
                                     localStorage.clear();
                                 });
                             });
+                            if(request.PayId==2){
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: '訂單已建立',
+                                    footer: '<a href="/Member" class="btn btn-primary">前往會員中心</button>'
+                                })                                
+                            }else{
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: '訂單已建立',
+                                    footer: `<button class="btn btn-primary"  id="payButton">立即付款</button>`,
+                                    didOpen: () => {
+                                        const payButton = Swal.getPopup().querySelector('#payButton');
+                                        payButton.addEventListener('click', this.SendToNewebPay);
+                                    },
+                                    willClose: () => {
+                                        const payButton = Swal.getPopup().querySelector('#payButton');
+                                        payButton.removeEventListener('click', this.SendToNewebPay);
+                                    }
+                                });
+                            }
                         }
                         else {
                             Swal.fire({
@@ -256,7 +307,7 @@
                     else {
                         Swal.fire({
                             icon: 'warning',
-                            title: '購物車為空無法結帳',
+                            title: '購物車為空無法下單',
                             footer: '<a href="/Product" style="color:blue">回商城選購</a>'
                         })
                     }

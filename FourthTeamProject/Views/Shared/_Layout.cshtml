@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Untree.co">
-    <link rel="shortcut icon" href="favicon.png">
-
+    <link rel="shortcut icon" href="~/images/petsdaily.ico">
+	
     <meta name="description" content="" />
     <meta name="keywords" content="" />
 
@@ -28,11 +28,33 @@
             margin-top: 81px;
         }
 
+        #goToTop:hover {
+            background-color: white;
+            color: #1A374D;
+            cursor: url('images/寵物商城pics/paw.png'), auto;
+        }
+
+        #goToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #1A374D;
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+
         #header .site-nav {
             min-height: 81px
         }
     </style>
-    <title>Pets Daily</title>
+    <title>寵物 · 日安｜Pets Daily</title>
 
     @await RenderSectionAsync("Styles", required: false)
 </head>
@@ -58,45 +80,17 @@
                     <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
                         <li class="active"><a asp-controller="Home" asp-action="Index">首頁</a></li>
                         <li><a asp-controller="Product" asp-action="Index">寵物商城</a></li>
-                        <li class="has-children">
-                            <a asp-controller="PetHotel" asp-action="Index">寵物旅館</a>
-                            <ul class="dropdown">
-                                <li><a asp-controller="" asp-action="">旅館房型</a></li>
-                                <li><a asp-controller="" asp-action="">入住時間</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-children">
-                            <a asp-controller="PetSalon" asp-action="SalonIndex">寵物美容</a>
-                            <ul class="dropdown">
-                                
-                                <li><a asp-controller="PetSalon" asp-action="Index">調整寵物美容後端</a></li>
-                                <li><a asp-controller="PetSalon" asp-action="SalonSolutionCRUD">美容服務CURD</a></li>
-                                <li><a asp-controller="PetSalon" asp-action="SalonCRUD">美容項目CURD</a></li>
-                                <li><a asp-controller="PetSalon" asp-action="SalonSolutionSalonCRUD">美容服務項目CURD(未完工-需研究開發)</a></li>
-                                <li><a asp-controller="PetSalon" asp-action="HotelCRUD">房型CURD</a></li>
-                                <li><a asp-controller="PetSalon" asp-action="HotelServiceCRUD">房型服務CURD(未完工-無主鍵)</a></li>
-                                <li><a asp-controller="PetSalon" asp-action="HotelServiceHotelCRUD">房型與房型服務CURD(未完工-無主鍵)</a></li>
-                                <li><a asp-controller="PetSalon" asp-action="HotelimageCRUD">房型圖片CURD(未完工-無主鍵)</a></li>
-                                <li><a asp-controller="PetSalon" asp-action="ProductCRUD">商品CURD</a></li>
-                                
-
-                            </ul>
-                        </li>
+                        <li><a asp-controller="PetHotel" asp-action="Index">寵物旅館</a></li>   
+                        <li><a asp-controller="PetSalon" asp-action="SalonIndex">寵物美容</a></li>
                         
 
                         @{
                             
                             if (User.Identity.IsAuthenticated)
                             {
-                                <li class="has-children">
+                                <li >
                                     <a asp-controller="Member" asp-action="Index">會員中心</a>
-                                    <ul class="dropdown">
-                                        <li><a asp-controller="" asp-action="">會員資料</a></li>
-                                        <li><a asp-controller="" asp-action="">安全中心</a></li>
-                                        <li><a asp-controller="" asp-action="">寵物資料</a></li>
-                                        <li><a asp-controller="" asp-action="">會員福利</a></li>
-                                        <li><a asp-controller="" asp-action="">訂單管理</a></li>
-                                    </ul>
+                                    
                                 </li>
                                 <li>
                                     <a asp-controller="Member" asp-action="Logout">會員登出</a>
@@ -226,6 +220,7 @@
     <script src="~/js/moment.min.js"></script>
     <script src="~/js/daterangepicker.js"></script>
 
+    <script src="~/js/custom.js"></script>
     <script src="~/js/typed.js"></script>
     <script>
         $(function () {
@@ -263,19 +258,8 @@
     </script>
 
 
-    <script src="~/js/jquery-3.4.1.min.js"></script>
-    <script src="~/js/popper.min.js"></script>
-    <script src="~/js/bootstrap.min.js"></script>
-    <script src="~/js/owl.carousel.min.js"></script>
-    <script src="~/js/jquery.animateNumber.min.js"></script>
-    <script src="~/js/jquery.waypoints.min.js"></script>
-    <script src="~/js/jquery.fancybox.min.js"></script>
-    <script src="~/js/aos.js"></script>
-    <script src="~/js/moment.min.js"></script>
-    <script src="~/js/daterangepicker.js"></script>
-
-    <script src="~/js/typed.js"></script>
-    <script src="~/js/custom.js"></script>
+    
+    
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

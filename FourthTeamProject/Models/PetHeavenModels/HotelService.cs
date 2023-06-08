@@ -7,7 +7,8 @@ namespace FourthTeamProject.PetHeavenModels
 {
     public partial class HotelService
     {
-        public int HotelServiceID { get; set; }
+        public int HotelServiceId { get; set; }
         public string HotelServiceName { get; set; }
+        public string HotelServiceContent { get; set; }
     }
 }

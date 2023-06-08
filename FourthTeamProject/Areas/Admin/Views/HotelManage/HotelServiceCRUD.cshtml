@@ -1,0 +1,165 @@
+﻿<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/css/saloncss/style.css" rel="stylesheet" />
+
+
+<div id="app" class="container">
+    @*<-----------選項-------------->*@
+    <nav class="navbar navbar-expand bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0 ">
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav py-0">
+                <a class="nav-item nav-link" @@click="Create">新增房型服務</a>
+            </div>
+        </div>
+    </nav>
+
+    @*<-----------編輯頁面-------------->*@
+    <div class="form-group">
+        <table class="table table-striped table-hover text-center">
+            <thead>
+                <tr>
+                    <th style="width:10%">編輯</th>
+                    <th style="width:10%">房型服務</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in HotelServiceNameDTO">
+                    <template v-if="item.editHotelService === true">
+                        <td>
+                            <button class="btn btn-success" @@click="Update(item)">確定修改</button>
+                            <button class="btn btn-warning" @@click="Cancel">取消修改</button>
+                        </td>
+                        <td><input type="text" v-model="item.hotelServiceName" /></td>
+                    </template>
+                    <template v-else>
+                        <td>
+                            <button class="btn btn-primary" @@click="Edit(item.hotelServiceId)">編輯</button>
+                            <button class="btn btn-primary" @@click="Delete(item.hotelServiceId)">刪除</button>
+                        </td>
+                        <td>{{item.hotelServiceName}}</td>
+                    </template>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    @*<----------------新增頁面----------------->*@
+    <div class="modal fade" id="InsertPage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">新增房型服務</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">房型服務</label>
+                            <input type="text" class="form-control" id="recipient-name" v-model="hotelServiceName">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" @@click="Insert">新增</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts
+    {
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data: {
+                HotelServiceNameDTO: [],
+                hotelServiceName: "",
+                HotelServiceNameOld: "",
+            },
+            mounted: function () {
+                let _this = this;
+                _this.FilterHotelServiceDTO();
+            },
+            methods: {
+                FilterHotelServiceDTO: function () {
+                    let _this = this;
+                    axios.get(`/api/HotelServiceEnterprise/GetHotelService`).then(response => _this.HotelServiceNameDTO = response.data)
+                },
+                Edit: function (HotelServiceId) {
+                    let _this = this;
+                    var HotelServiceList = [];
+                    for (var i = 0; i < _this.HotelServiceNameDTO.length; i++) {
+                        var item = _this.HotelServiceNameDTO[i];
+                        if (HotelServiceId == item.hotelServiceId) {
+                            item.editHotelService = true;
+                            _this.HotelServiceNameOld = item.hotelServiceName;
+                        }
+                        HotelServiceList.push(item);
+                    }
+                    _this.HotelServiceNameDTO = HotelServiceList;
+                },
+                Create: function () {
+                    let _this = this;
+                    _this.hotelServiceName = "",
+                        $("#InsertPage").modal('show');
+                },
+                Update: function (item) {
+                    let _this = this;
+                    var request = {
+                        HotelServiceNameId: item.hotelServiceNameId,
+                        HotelServiceName: item.hotelServiceName,
+                    };
+                    axios.put(`/api/HotelServiceEnterprise/PutHotelService/${item.hotelServiceId}`, request).then(response => {
+                        alert(response.data);
+                        _this.Cancel();
+                        _this.FilterHotelServiceDTO();
+                    }).catch(error => {
+                        console.log(error);
+                    });
+                },
+                Cancel: function () {
+                    let _this = this;
+                    var HotelServiceList = [];
+                    for (var i = 0; i < _this.HotelServiceNameDTO.length; i++) {
+                        var item = _this.HotelServiceNameDTO[i];
+                        if (item.editHotelService == true) {
+                            item.editHotelService = false;
+                            item.hotelServiceName = _this.HotelServiceNameOld;
+                        }
+                        HotelServiceList.push(item);
+                    }
+                    _this.HotelServiceNameDTO = HotelServiceList;
+                },
+                Delete: function (hotelServiceId) {
+                    let _this = this;
+                    var ret = confirm("確定刪除嗎??");
+                    if (ret == true) {
+                        axios.delete(`/api/HotelEnterprise/DeleteHotelService/${hotelServiceId}`).then(response => {
+                            alert(response.data);
+                            _this.FilterHotelServiceDTO();
+                        });
+                    }
+                },
+                Insert: function () {
+                    let _this = this;
+                    var HotelServiceDTO = {
+                        HotelServiceID: 0,
+                        HotelServiceName: _this.hotelServiceName,
+                    };
+                    axios.post(`/api/HotelServiceEnterprise/CreateHotelService`, HotelServiceDTO).then(response => {
+                        alert(response.data);
+                        $("#InsertPage").modal("hide");
+                        _this.FilterHotelServiceDTO();
+                    });
+                },
+            }
+        })
+    </script>
+    }

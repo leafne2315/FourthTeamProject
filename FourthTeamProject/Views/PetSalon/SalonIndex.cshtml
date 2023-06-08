@@ -8,14 +8,43 @@
         -webkit-line-clamp: 3;
     }
 
-    .DiscriptionImage{
-        width:100px;
-        height:180px;
+    .DiscriptionImage {
+        width: 100px;
+        height: 180px;
     }
 </style>
 
 <div id="app">
     <!-- banner -->
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="..." class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>{{}}</h5>
+                            <p>Some representative placeholder content for the first slide.</p>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
         <div id="myCarousel" class="carousel slide banner1" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -33,7 +62,7 @@
                                 <div class="col-md-6 ">
                                     <h1>{{SalonSolutionDTO[salonindex].salonSolutionName}}</h1>
                                     <p>{{SalonSolutionDTO[salonindex].salonSolutionDiscription}}</p>
-                                    <button type="button" class="btn btn-primary">查看服務項目</button>
+                                    <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" type="button" class="btn btn-primary">查看服務項目</button>
                                 </div>
                             </div>
                         </div>
@@ -53,79 +82,81 @@
                 </a>
             </div>
         </div>
-    <!-- end banner -->
-    <!-- what we do  -->
-    <div class="we_do slin" style="padding:50px">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="titlepage">
-                        <h2 style="text-align: center; padding-bottom: 20px;">服務項目</h2>
+
+        <!-- end banner -->
+        <!-- what we do  -->
+        <div class="we_do slin" style="padding:50px">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="titlepage">
+                            <h2 style="text-align: center; padding-bottom: 20px;">服務項目</h2>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-10 offset-lg-1 col-md-12">
-                    <div class="row">
-                        <div class="col-md-3 col-sm-6">
-                            <div class="we_box">
-                                <i><img src="~/images/pet-taxi.png" /></i>
-                                <h3 class="salontype">溫馨到府接送</h3>
-                                <p>擔心做好美美的造型，回家路上又狼狽嗎？日安有到府接送服務，讓您的寶貝美美的回家！</p>
+                <div class="row">
+                    <div class="col-lg-10 offset-lg-1 col-md-12">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-6">
+                                <div class="we_box">
+                                    <i><img src="~/images/pet-taxi.png" /></i>
+                                    <h3 class="salontype">溫馨到府接送</h3>
+                                    <p>擔心做好美美的造型，回家路上又狼狽嗎？日安有到府接送服務，讓您的寶貝美美的回家！</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="we_box">
-                                <i><img src="~/images/bathtub.png" alt="#" /></i>
-                                <h3 class="salontype">寵物呵護洗淨</h3>
-                                <p>除了一般的洗澡服務外，在日安您還可以選擇養身藥草浴或是寵物用溫和精油美容浴！</p>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="we_box">
+                                    <i><img src="~/images/bathtub.png" alt="#" /></i>
+                                    <h3 class="salontype">寵物呵護洗淨</h3>
+                                    <p>除了一般的洗澡服務外，在日安您還可以選擇養身藥草浴或是寵物用溫和精油美容浴！</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="we_box">
-                                <i><img src="~/images/beauty-saloon.png" alt="#" /></i>
-                                <h3 class="salontype">精緻造型設計</h3>
-                                <p>洗完澡後來個Fashion的造型吧！從基礎的毛髮護理到特殊造型，盡在日安！</p>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="we_box">
+                                    <i><img src="~/images/beauty-saloon.png" alt="#" /></i>
+                                    <h3 class="salontype">精緻造型設計</h3>
+                                    <p>洗完澡後來個Fashion的造型吧！從基礎的毛髮護理到特殊造型，盡在日安！</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="we_box">
-                                <i><img src="~/images/pet-care.png" alt="#" /></i>
-                                <h3 class="salontype">其他尊榮服務</h3>
-                                <p>另外日安還提供專業寵物運動按摩與寵物心靈諮商，還有更多尊榮服務等您來發掘！</p>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="we_box">
+                                    <i><img src="~/images/pet-care.png" alt="#" /></i>
+                                    <h3 class="salontype">其他尊榮服務</h3>
+                                    <p>另外日安還提供專業寵物運動按摩與寵物心靈諮商，還有更多尊榮服務等您來發掘！</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- our pricing -->
-    <div class="we_do slin">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="titlepage">
-                        <h2 style="text-align: center; padding-bottom: 20px;">美容價目表</h2>
+        <!-- our pricing -->
+        <div class="we_do slin">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="titlepage">
+                            <h2 style="text-align: center; padding-bottom: 20px;">美容價目表</h2>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3 col-sm-6" v-for="(src, index) in imageDiscription" :key="index">
-                    <div class="card">
-                        <div class="pic">
-                            <img class="DiscriptionImage" :src="rootPath + src">
-                        </div>
-                        <div class="card-body">
-                            <div class="pricing_box_ti">
-                                <h3> <span>$</span>{{SalonSolutionDTO[index].salonSolutionPrice}}<strong>/一次</strong></h3>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6" v-for="(src, index) in imageDiscription" :key="index">
+                        <div class="card">
+                            <div class="pic">
+                                <img class="DiscriptionImage" :src="rootPath + src">
                             </div>
-                            <div class="our_pricing">
-                                <h5><span>{{SalonSolutionDTO[index].salonSolutionName}}</span></h5>
-                                <p class="Discription" :title="SalonSolutionDTO[index].salonSolutionDiscription">{{SalonSolutionDTO[index].salonSolutionDiscription}}</p>
+                            <div class="card-body">
+                                <div class="pricing_box_ti">
+                                    <h3> <span>$</span>{{SalonSolutionDTO[index].salonSolutionPrice}}<strong>/一次</strong></h3>
+                                </div>
+                                <div class="our_pricing">
+                                    <h5><span>{{SalonSolutionDTO[index].salonSolutionName}}</span></h5>
+                                    <p class="Discription" :title="SalonSolutionDTO[index].salonSolutionDiscription">{{SalonSolutionDTO[index].salonSolutionDiscription}}</p>
+                                </div>
+                                <a href="#" class="btn btn-primary">預約寵物美容</a>
                             </div>
-                            <a href="#" class="btn btn-primary">預約寵物美容</a>
                         </div>
                     </div>
                 </div>
@@ -133,29 +164,29 @@
         </div>
     </div>
 </div>
-
-
 @section Scripts
     {
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+
     <script>
         let app = new Vue({
             el: "#app",
             data: {
                 SalonSolutionDTO: [],
                 rootPath: "/Salonimage/",
+                imageSalonSolution: [
+                    "DogGroomingL.jpg",
+                    "DogGroomingS.jpg",
+                    "CatGroomingL.jpg",
+                    "CatGroomingS.jpg",
+                ],
                 imageDiscription: [
                     "DOGMaxDiscription.jpg",
                     "DOGMiniDiscription.jpg",
                     "CATMaxDiscription.jpg",
-                    "CATMiniDiscription.jpg",      
-                ],
-                imageSalonSolution:[
-                    "DOGmaxSalon.jpg",
-                    "DOGminiSalon.jpg",
-                    "CATmaxSalon.jpg",
-                    "CATminiSalon.jpg",
+                    "CATMiniDiscription.jpg",
                 ]
             },
             mounted: function () {
@@ -166,4 +197,4 @@
             },
         })
     </script>
-}
+    }

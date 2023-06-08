@@ -13,7 +13,10 @@
 			header: '.header-section', //框架顶部
 			footer: '.footer-section',//框架底部
 			content: '.content-section',//框架内容区
-			message: '#iframe_box',//设置窗体显示位置
+			message: '#
+			
+			
+			',//设置窗体显示位置
 			menuModule: "#bk-con-menu", //菜单模块
 			menu: '.menu-section',//菜单栏
 			bkposition: '', //菜单栏显示位置 （top,left）

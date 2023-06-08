@@ -155,7 +155,7 @@ namespace FourthTeamProject.PetHeavenModels
                     .HasForeignKey(d => d.MemberId)
                     .HasConstraintName("FK_HotelOrder_Member");
 
-                entity.HasOne(d => d.Pay)
+                entity.HasOne(d => d.Payment)
                     .WithMany(p => p.HotelOrder)
                     .HasForeignKey(d => d.PayId)
                     .HasConstraintName("FK_HotelOrder_Payment");
@@ -181,7 +181,7 @@ namespace FourthTeamProject.PetHeavenModels
 
             modelBuilder.Entity<HotelService>(entity =>
             {
-                entity.Property(e => e.HotelServiceId)
+                entity.Property(e => e.HotelServiceID)
                     .ValueGeneratedNever()
                     .HasColumnName("HotelServiceID");
             });
@@ -466,7 +466,7 @@ namespace FourthTeamProject.PetHeavenModels
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SalonOrder_Member");
 
-                entity.HasOne(d => d.Pay)
+                entity.HasOne(d => d.Payment)
                     .WithMany(p => p.SalonOrder)
                     .HasForeignKey(d => d.PayId)
                     .OnDelete(DeleteBehavior.ClientSetNull)

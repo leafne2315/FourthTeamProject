@@ -1,0 +1,69 @@
+﻿@model IEnumerable<FourthTeamProject.PetHeavenModels.HotelOrderDetail>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h1>Order Detail</h1>
+
+<div style="margin-left:250px;" class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+    <div class="app-card app-card-orders-table shadow-sm mb-5">
+        <div class="app-card-body">
+            <div class="table-responsive">
+                <table class="table app-table-hover mb-0 text-left" style="width:100%;border:solid 3px;border-radius:50%">
+                    <thead>
+                        <tr>
+                            <th class="cell">訂單編號</th>
+                            <th class="cell">訂單明細編號</th>
+                            <th class="cell">旅館編號</th>
+                            <th class="cell">單價</th>
+                            <th class="cell">旅館種類</th>
+                            <th class="cell">旅館名稱</th>
+                            <th class="cell">入住時間</th>
+                            <th class="cell">退房時間</th>
+                            <th class="cell">天數</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.HotelOrderId)</td>
+                                <td>@Html.DisplayFor(modelItem => item.HotelOrderDetailId)</td>
+                                <td>@Html.DisplayFor(modelItem => item.HotelId)</td>
+                                <td>@Html.DisplayFor(modelItem => item.UnitPrice)</td>
+
+                                <td>@Html.DisplayFor(modelItem => item.HotelCatagoryName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.HotelName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.CheckIntime)</td>
+                                <td>@Html.DisplayFor(modelItem => item.CheckOutTime)</td>
+                                <td>@Html.DisplayFor(modelItem => item.OrderAmount)天</td>
+
+
+                            </tr>
+                        }
+
+
+
+                    </tbody>
+                </table>
+            </div><!--//table-responsive-->
+
+        </div><!--//app-card-body-->
+    </div><!--//app-card-->
+    <nav class="app-pagination">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+           
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav><!--//app-pagination-->
+
+</div><!--//tab-pane-->

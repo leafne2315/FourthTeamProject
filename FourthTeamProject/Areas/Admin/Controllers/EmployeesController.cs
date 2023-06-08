@@ -45,9 +45,30 @@ namespace FourthTeamProject.Areas.Admin.Controllers
             return View();
         }
 
+        //[HttpGet("/Admin/Employees/Product/OrderDetail/{id}")]
+        //public async Task<IActionResult> OrderDetail(int id)
+        //{
+        //    var productOrderDetail = await _db.ProductOrderDetail.FindAsync(id);
+        //    if (productOrderDetail == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View("~/Areas/Admin/Views/Employees/Product/OrderDetail.cshtml", productOrderDetail);
+        //}
+        public async Task<IActionResult> OrderDetail(int id)
+        {
+            var productOrderDetail = await _db.ProductOrderDetail.FindAsync(id);
+            if (productOrderDetail == null)
+            {
+                return NotFound();
+            }
+
+            return View(productOrderDetail);
+        }
 
 
-  
+
         //[Authorize(Roles = "admin")]
         public async Task<IActionResult> Productmanagement()
         {

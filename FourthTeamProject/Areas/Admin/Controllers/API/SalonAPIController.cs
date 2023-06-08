@@ -81,7 +81,7 @@ namespace FourthTeamProject.Areas.Admin.Controllers.API
                 DTO.SalonId = Salontext.SalonId;
                 DTO.SalonName = Salontext.SalonName;
                 DTO.SalonCatagoryId = SalonCatagoryId;
-                _context.Update(DTO);
+                _context.Salon.Update(DTO);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)

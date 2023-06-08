@@ -253,6 +253,7 @@
                                 OrderMemberName: _this.memberInfo.memberName,
                                 OrderMemberPhone: _this.memberInfo.memberPhone,
                                 OrderMemberEmail: _this.memberInfo.memberEmail,
+                                //OrderNo:_this.addForm.MerchantOrderNo
                             };
                             console.log(request)
                             axios.post('/api/PetProdcutAPI/CreatOrder', request).then(res => {

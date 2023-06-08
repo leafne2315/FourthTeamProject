@@ -5,17 +5,22 @@
         .td-Width{
             width: 150px;
         }
+        .card{
+            margin-bottom:10px;
+        }
+
     </style>
+    
 }
 
 
-<header class="bg-dark text-white py-4">
-    <h1 class="text-center">訂單詳情</h1>
+<header class="bg-dark text-white py-3">
+    <h2 class="text-center font-weight-bold">訂單確認</h2>
 </header>
 
 <div id="app" class="container mt-4">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <table class="table">
                 <thead>
                     <tr>
@@ -87,29 +92,32 @@
 
         </div>
 
-        <div class="col-md-4 mt-4 mt-md-0">
-            <h4>推薦商品</h4>
-            <div class="row">
+        <div class="col-md-3 mt-4 mt-md-0">
+            <h4 class="text-center font-weight-bold">推薦商品</h4>
+            <div class="row align-items-center">
                 <div class="col-sm-6 col-md-12">
-                    <div class="recommended-item">
-                        <img src="https://picsum.photos/120/?random=10" alt="推薦商品1"><br>
-                        <button class="btn btn-primary">加到購物車</button>
+                    <div class="card recommended-item">
+                        <img src="https://picsum.photos/120/?random=10" alt="推薦商品1" class="card-img-top">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <h5 class="card-title">商品名稱</h5>
+                            <button class="btn btn-primary">加到購物車</button>
+                        </div>
                     </div>
                 </div>
+
                 <div class="col-sm-6 col-md-12">
-                    <div class="recommended-item">
-                        <img src="https://picsum.photos/120/?random=10" alt="推薦商品2"><br>
-                        <button class="btn btn-primary">加到購物車</button>
+                    <div class="card recommended-item">
+                        <img src="https://picsum.photos/120/?random=10" alt="推薦商品1" class="card-img-top">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <h5 class="card-title">商品名稱</h5>
+                            <button class="btn btn-primary">加到購物車</button>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-12">
-                    <div class="recommended-item">
-                        <img src="https://picsum.photos/120/?random=10" alt="推薦商品3"><br>
-                        <button class="btn btn-primary">加到購物車</button>
-                    </div>
-                </div>
+
             </div>
         </div>
+
     </div>
 </div>
 

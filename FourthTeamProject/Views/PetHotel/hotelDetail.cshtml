@@ -237,7 +237,26 @@
             </ol>
         </div>
     </div>
-    
+    <div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-auto">
+                        <h3>請先登入才能使用後續操作喔</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">前往登入</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
@@ -271,6 +290,7 @@
             },
             DayAmount:null,
             showTotal:false,
+            showModal:false,
 
             //fix pos
             isCardFixed: false,
@@ -353,7 +373,7 @@
 
             },
 
-            formSubmit:function(){
+            formSubmit: async function(){ 
 
                 this.checkCheckOutTimeValid()
                 if (this.showNotice) return;
@@ -361,9 +381,21 @@
 
                 this.setOrderDetailData();
 
-                var sendData = axios.post(`/api/PetHotelAPI/SendDetailData`, this.orderDetailData).then(response => {
+
+                if (!this.UserExist)
+                {
+                    //this.OpenModal();
+                    this.goLoginPage();
+                    return;
+                }
+
+                var sendData = await axios.post(`/api/PetHotelAPI/SendDetailData`, this.orderDetailData).then(response => {
                     console.log('Send',response);
+
                 })
+
+                alert('sendData Done');
+                this.goOrderPage();
                 
             },
 
@@ -407,11 +439,27 @@
                 //this.orderDetailData.HotelOrderId = 100;
             },
 
-            getOrderDetailFromSession:function(){
-                axios.get(`/api/PetHotelAPI/GetDetailData`).then(response => {
-                    console.log('Session:',response);
-                });
+            goOrderPage:function(){
+
+                const url = `/PetHotel/HotelOrder`;
+
+                // Navigate to the detail page using window.location.href
+                window.location.href = url;
             },
+
+            goLoginPage:function(){
+                const url = `/Member/Login`;
+                window.location.href = url;
+            },
+
+            OpenModal: function(){
+                this.showModal = true;
+                $('#exampleModal').modal('show');
+            },
+            closeModal() {
+                this.showModal = false;
+                $('#exampleModal').modal('hide');
+            }
         }
 
     })

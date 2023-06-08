@@ -8,9 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\Data\**" />
+    <Compile Remove="Areas\Admin\Models\**" />
     <Compile Remove="Controllers\NewFolder\**" />
+    <Content Remove="Areas\Admin\Data\**" />
+    <Content Remove="Areas\Admin\Models\**" />
     <Content Remove="Controllers\NewFolder\**" />
+    <EmbeddedResource Remove="Areas\Admin\Data\**" />
+    <EmbeddedResource Remove="Areas\Admin\Models\**" />
     <EmbeddedResource Remove="Controllers\NewFolder\**" />
+    <None Remove="Areas\Admin\Data\**" />
+    <None Remove="Areas\Admin\Models\**" />
     <None Remove="Controllers\NewFolder\**" />
   </ItemGroup>
 
@@ -2238,11 +2246,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\API\" />
-    <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\ViewModels\" />
-    <Folder Include="wwwroot\Hotelimage\" />
+    <Folder Include="wwwroot\HotelImage\" />
     <Folder Include="wwwroot\Productimage\" />
   </ItemGroup>
 

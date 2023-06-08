@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace FourthTeamProject.Controllers.API
+namespace FourthTeamProject.Areas.Admin.Controllers.API
 {
     [Route("/api/SalonSolutionEnterprise/[action]")]
     [ApiController]

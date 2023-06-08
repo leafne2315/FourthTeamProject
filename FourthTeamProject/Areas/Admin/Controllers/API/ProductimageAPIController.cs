@@ -1,11 +1,11 @@
-﻿using FourthTeamProject.Models.ViewModel;
+﻿using FourthTeamProject.Areas.Admin.ViewModels;
 using FourthTeamProject.PetHeavenModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
-namespace FourthTeamProject.Controllers.API
+namespace FourthTeamProject.Areas.Admin.Controllers.API
 {
     [Route("api/ProductimageEnterprise/[action]")]
     [ApiController]
@@ -34,7 +34,7 @@ namespace FourthTeamProject.Controllers.API
         }
 
         [HttpPut("{productImageID}")]
-        public async Task<String> UploadImage(int productImageID, [FromForm] ProductimageViewModel ProductImageData)
+        public async Task<string> UploadImage(int productImageID, [FromForm] ProductimageViewModel ProductImageData)
         {
             try
             {
@@ -99,7 +99,7 @@ namespace FourthTeamProject.Controllers.API
         }
 
         [HttpPost]
-        public async Task<String> CreateProduct([FromForm] ProductimageViewModel ProductImageData)
+        public async Task<string> CreateProduct([FromForm] ProductimageViewModel ProductImageData)
         {
 
             try

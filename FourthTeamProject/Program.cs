@@ -58,15 +58,16 @@ namespace FourthTeamProject
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.MapControllerRoute(
+              name: "areas",
+              pattern: "{area:exists}/{controller=Employees}/{action=Index}/{id?}"
+            );
+
             app.UseEndpoints(endpoints =>
             {
                 app.MapControllerRoute(
                  name: "default",
                  pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapControllerRoute(
-                  name: "areas",
-                  pattern: "{area:exists}/{controller=Employees}/{action=Index}/{id?}"
-                );
             });
 
             //app.MapRazorPages();

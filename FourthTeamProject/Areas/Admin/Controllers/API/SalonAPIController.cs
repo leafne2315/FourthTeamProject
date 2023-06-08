@@ -1,11 +1,12 @@
-﻿using FourthTeamProject.Models.ViewModel;
+﻿using FourthTeamProject.Areas.Admin.ViewModels;
+using FourthTeamProject.Models.ViewModel;
 using FourthTeamProject.PetHeavenModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace FourthTeamProject.Controllers.API
+namespace FourthTeamProject.Areas.Admin.Controllers.API
 {
     [Route("api/SalonEnterprise/[action]")]
     [ApiController]
@@ -34,7 +35,7 @@ namespace FourthTeamProject.Controllers.API
 
         //<-----------------------美容項目圖片更新----------------------------->
         [HttpPut("{id}")]
-        public async Task<String> UploadImage(int id, [FromForm] SalonImageViewModel SalonImageData)
+        public async Task<string> UploadImage(int id, [FromForm] SalonImageViewModel SalonImageData)
         {
             try
             {
@@ -116,7 +117,7 @@ namespace FourthTeamProject.Controllers.API
         }
 
         [HttpPost]
-        public async Task<String> CreateSalon([FromForm] SalonImageViewModel SalonData)
+        public async Task<string> CreateSalon([FromForm] SalonImageViewModel SalonData)
         {
 
             try

@@ -1,10 +1,10 @@
-﻿using FourthTeamProject.Models.ViewModel;
+﻿using FourthTeamProject.Areas.Admin.ViewModels;
 using FourthTeamProject.PetHeavenModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace FourthTeamProject.Controllers.API
+namespace FourthTeamProject.Areas.Admin.Controllers.API
 {
     [Route("api/HotelServiceEnterprise/[action]")]
     [ApiController]

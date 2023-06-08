@@ -1,10 +1,10 @@
-﻿using FourthTeamProject.Models.ViewModel;
+﻿using FourthTeamProject.Areas.Admin.ViewModels;
 using FourthTeamProject.PetHeavenModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace FourthTeamProject.Controllers.API
+namespace FourthTeamProject.Areas.Admin.Controllers.API
 {
     [Route("api/HotelEnterprise/[action]")]
     [ApiController]
@@ -29,8 +29,8 @@ namespace FourthTeamProject.Controllers.API
                     HotelName = option.HotelName,
                     UnitPrice = option.UnitPrice,
                     HotelContent = option.HotelContent,
-                    HotelImage=option.HotelImage,
-                    HotelContentDetail=option.HotelContentDetail,
+                    HotelImage = option.HotelImage,
+                    HotelContentDetail = option.HotelContentDetail,
 
                 });
             return temp;
@@ -40,7 +40,7 @@ namespace FourthTeamProject.Controllers.API
 
         //<-----------------------圖片更新----------------------------->
         [HttpPost("{hotelId}")]
-        public async Task<string> UploadImage(int hotelId,[FromForm] HotelEnterpriseViewModel HotelData)
+        public async Task<string> UploadImage(int hotelId, [FromForm] HotelEnterpriseViewModel HotelData)
         {
             try
             {
@@ -98,7 +98,7 @@ namespace FourthTeamProject.Controllers.API
                 DTO.UnitPrice = Hoteltext.UnitPrice;
                 DTO.HotelContent = Hoteltext.HotelContent;
                 DTO.HotelContentDetail = Hoteltext.HotelContentDetail;
-                DTO.HotelCatagoryId=HotelCatagoryId;
+                DTO.HotelCatagoryId = HotelCatagoryId;
                 _context.Update(DTO);
                 await _context.SaveChangesAsync();
             }
@@ -135,7 +135,7 @@ namespace FourthTeamProject.Controllers.API
         }
 
         [HttpPost]
-        public async Task<String> CreateHotel([FromForm] HotelEnterpriseViewModel HotelData)
+        public async Task<string> CreateHotel([FromForm] HotelEnterpriseViewModel HotelData)
         {
 
             try

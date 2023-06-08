@@ -1,11 +1,11 @@
-﻿using FourthTeamProject.Models.ViewModel;
+﻿using FourthTeamProject.Areas.Admin.ViewModels;
 using FourthTeamProject.PetHeavenModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol;
 
-namespace FourthTeamProject.Controllers.API
+namespace FourthTeamProject.Areas.Admin.Controllers.API
 {
     [Route("/api/ProductEnterprise/[action]")]
     [ApiController]
@@ -105,7 +105,7 @@ namespace FourthTeamProject.Controllers.API
                 DTO.ProductContent = Product.ProductContent;
                 DTO.UnitPrice = Product.UnitPrice;
                 DTO.Stock = Product.Stock;
-                DTO.ProductCatagoryId= ProductCatagoryId;
+                DTO.ProductCatagoryId = ProductCatagoryId;
                 DTO.ProductTypeId = ProductTypeId;
                 _context.Update(DTO);
                 await _context.SaveChangesAsync();
@@ -156,7 +156,7 @@ namespace FourthTeamProject.Controllers.API
         }
 
         [HttpPost]
-        public async Task<String> CreateProduct([FromBody] ProductEnterpriseViewModel ProductData)
+        public async Task<string> CreateProduct([FromBody] ProductEnterpriseViewModel ProductData)
         {
 
             try
@@ -195,7 +195,7 @@ namespace FourthTeamProject.Controllers.API
         }
 
         [HttpPost]
-        public async Task<String> CreateProductType([FromBody] ProductEnterpriseViewModel ProductTypeData)
+        public async Task<string> CreateProductType([FromBody] ProductEnterpriseViewModel ProductTypeData)
         {
 
 

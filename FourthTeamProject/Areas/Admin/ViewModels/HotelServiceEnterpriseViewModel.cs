@@ -1,4 +1,4 @@
-﻿namespace FourthTeamProject.Models.ViewModel
+﻿namespace FourthTeamProject.Areas.Admin.ViewModels
 {
     public class HotelServiceEnterpriseViewModel
     {

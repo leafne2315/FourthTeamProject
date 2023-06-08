@@ -1,6 +1,6 @@
 ﻿using FourthTeamProject.PetHeavenModels;
 
-namespace FourthTeamProject.Models.ViewModel
+namespace FourthTeamProject.Areas.Admin.ViewModels
 {
     public class ProductimageViewModel
     {

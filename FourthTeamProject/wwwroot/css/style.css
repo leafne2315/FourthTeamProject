@@ -589,18 +589,22 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     -webkit-box-shadow: 0 25px 50px -10px rgba(26, 55, 77, 0.4);
     box-shadow: 0 25px 50px -10px rgba(26, 55, 77, 0.4);
     height: 608px;
+    width:400px;
     margin-bottom: -200px; }
     @media (max-width: 991.98px) {
       .hero .slides {
         left: 0; } }
-    .hero .slides img {
-      position: absolute;
-      border-radius: 200px;
-      opacity: 0;
-      -webkit-transition: 4s opacity ease;
-      -o-transition: 4s opacity ease;
-      transition: 4s opacity ease;
-      background: #ffffff; }
+.hero .slides img {
+    height: 608px;
+    width: 400px;
+    position: absolute;
+    border-radius: 200px;
+    opacity: 0;
+    -webkit-transition: 4s opacity ease;
+    -o-transition: 4s opacity ease;
+    transition: 4s opacity ease;
+    background: #ffffff;
+}
       .hero .slides img.active {
         opacity: 1;
         z-index: 1; }
@@ -1715,18 +1719,5 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     margin-bottom: 30px;
 }
 
-/* Go to Top */
 
-#goToTop {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background-color: #000;
-    color: #fff;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 50px;
-    cursor: pointer;
-}
+

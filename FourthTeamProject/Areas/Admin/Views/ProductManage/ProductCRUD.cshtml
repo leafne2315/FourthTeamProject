@@ -7,156 +7,188 @@
 </style>
 
 
-<div id="app" class="container">
-    @*<-----------選項-------------->*@
-    <nav class="navbar navbar-expand bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0 ">
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav py-0">
-                <a class="nav-item nav-link" @@click="CreateProduct">新增寵物商品</a>
-                <a class="nav-item nav-link" @@click="CreateType">新增商品項目</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portal - Bootstrap 5 Admin Dashboard Template For Developers">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link id="theme-style" rel="stylesheet" href="~/css/System/css/portal.css">
+</head>
+<body class="app">
+    <div id="app" class="app-wrapper">
+        <div class="app-content pt-3 p-md-3 p-lg-4">
+            <div class="container-xl">
+                <div class="tab-content" id="orders-table-tab-content">
+                    <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+                        <div class="app-card app-card-orders-table shadow-sm mb-5">
+                            <div class="app-card-body">
+                                <div class="table-responsive">
+                                    <nav class="navbar navbar-expand bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0 ">
+                                        <div class="collapse navbar-collapse" id="navbarCollapse">
+                                            <div class="navbar-nav py-0">
+                                                <a class="nav-item nav-link" @@click="CreateProduct">新增寵物商品</a>
+                                                <a class="nav-item nav-link" @@click="CreateType">新增商品項目</a>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <table class="table table-striped table-hover text-center">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:10%">編輯</th>
+                                                <th style="width:10%">寵物種類</th>
+                                                <th style="width:10%">商品項目</th>
+                                                <th style="width:10%">商品名稱</th>
+                                                <th style="width:10%">商品規格</th>
+                                                <th>商品內容</th>
+                                                <th style="width:10%">價格</th>
+                                                <th style="width:10%">庫存</th>
+                                                <th style="width:10%">商品狀態</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="item in ProductDTO">
+                                                <template v-if="item.editProduct === true">
+                                                    <td>
+                                                        <button class="btn btn-success" @@click="Update(item)">確定修改</button>
+                                                        <button class="btn btn-warning" @@click="Cancel">取消修改</button>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" v-model="productCatagoryName">
+                                                            <option v-for="item in ProductCatagoryPageDTO" :key="item.productCatagoryId">{{ item.productCatagoryName }}</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" v-model="productTypeName">
+                                                            <option v-for="item in ProductTypePageDTO" :key="item.productTypeId">{{ item.productTypeName }}</option>
+                                                        </select>
+                                                    </td>
+                                                    <td><input type="text" v-model="item.productName" /></td>
+                                                    <td><input type="text" v-model="item.productSpecification" /></td>
+                                                    <td><input type="text" v-model="item.productContent" /></td>
+                                                    <td><input type="number" v-model="item.unitPrice" /></td>
+                                                    <td><input type="number" v-model="item.stock" /></td>
+                                                    <td :class="{'red-text': !item.productStatus }">{{GetProductStatus(item.productStatus)}}</td>
+                                                </template>
+                                                <template v-else>
+                                                    <td>
+                                                        <button class="btn btn-primary" @@click="Edit(item.productID)">編輯</button>
+                                                        <button class="btn btn-primary" @@click="Delete(item.productID)">刪除</button>
+                                                        <button class="btn btn-primary" v-if="item.productStatus==true" @@click="Discontinued(item.productID)">停售</button>
+                                                        <button class="btn btn-primary" v-else @@click="Shelves(item.productID)">上架</button>
+                                                    </td>
+                                                    <td>{{item.productCatagoryName}}</td>
+                                                    <td>{{item.productTypeName}}</td>
+                                                    <td>{{item.productName}}</td>
+                                                    <td>{{item.productSpecification}}</td>
+                                                    <td>{{item.productContent}}</td>
+                                                    <td>{{item.unitPrice}}</td>
+                                                    <td>{{item.stock}}</td>
+                                                    <td :class="{'red-text': !item.productStatus }">{{GetProductStatus(item.productStatus)}}</td>
+                                                </template>
+                                                <div class="modal fade" id="InsertProductPage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">新增寵物商品</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form>
+                                                                    <div class="mb-3">
+                                                                        <label for="recipient-name" class="col-form-label">寵物種類</label>
+                                                                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" v-model="productCatagoryName">
+                                                                            <option v-for="item in ProductCatagoryPageDTO" :key="item.productCatagoryId">{{ item.productCatagoryName }}</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="recipient-name" class="col-form-label">商品項目</label>
+                                                                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" v-model="productTypeName">
+                                                                            <option v-for="item in ProductTypePageDTO" :key="item.productTypeId">{{ item.productTypeName }}</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="recipient-name" class="col-form-label">商品名稱</label>
+                                                                        <input type="text" class="form-control" id="recipient-name" v-model="productName">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="recipient-name" class="col-form-label">商品規格</label>
+                                                                        <input type="text" class="form-control" id="recipient-name" v-model="productSpecification">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="message-text" class="col-form-label">商品內容</label>
+                                                                        <textarea class="form-control" id="message-text" v-model="productContent"></textarea>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="recipient-name" class="col-form-label">價格</label>
+                                                                        <input type="number" class="form-control" id="recipient-name" v-model="unitPrice">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="recipient-name" class="col-form-label">庫存</label>
+                                                                        <input type="number" class="form-control" id="recipient-name" v-model="stock">
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                                                <button type="button" class="btn btn-primary" @@click="InsertProduct">新增</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                @*<----------------新增商品項目----------------->*@
+                                                <div class="modal fade" id="InsertProductTypePage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">新增商品項目</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form>
+                                                                    <div class="mb-3">
+                                                                        <label for="recipient-name" class="col-form-label">商品項目</label>
+                                                                        <input type="text" class="form-control" id="recipient-name" v-model="productTypeName">
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                                                <button type="button" class="btn btn-primary" @@click="InsertProductType">新增</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </nav>
 
-    @*<-----------編輯頁面-------------->*@
-    <div class="form-group">
-        <table class="table table-striped table-hover text-center">
-            <thead>
-                <tr>
-                    <th style="width:10%">編輯</th>
-                    <th style="width:10%">寵物種類</th>
-                    <th style="width:10%">商品項目</th>
-                    <th style="width:10%">商品名稱</th>
-                    <th style="width:10%">商品規格</th>
-                    <th>商品內容</th>
-                    <th style="width:10%">價格</th>
-                    <th style="width:10%">庫存</th>
-                    <th style="width:10%">商品狀態</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="item in ProductDTO">
-                    <template v-if="item.editProduct === true">
-                        <td>
-                            <button class="btn btn-success" @@click="Update(item)">確定修改</button>
-                            <button class="btn btn-warning" @@click="Cancel">取消修改</button>
-                        </td>
-                        <td>
-                            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" v-model="productCatagoryName">
-                                <option v-for="item in ProductCatagoryPageDTO" :key="item.productCatagoryId">{{ item.productCatagoryName }}</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" v-model="productTypeName">
-                                <option v-for="item in ProductTypePageDTO" :key="item.productTypeId">{{ item.productTypeName }}</option>
-                            </select>
-                        </td>
-                        <td><input type="text" v-model="item.productName" /></td>
-                        <td><input type="text" v-model="item.productSpecification" /></td>
-                        <td><input type="text" v-model="item.productContent" /></td>
-                        <td><input type="number" v-model="item.unitPrice" /></td>
-                        <td><input type="number" v-model="item.stock" /></td>
-                        <td :class="{'red-text': !item.productStatus }">{{GetProductStatus(item.productStatus)}}</td>
-                    </template>
-                    <template v-else>
-                        <td>
-                            <button class="btn btn-primary" @@click="Edit(item.productID)">編輯</button>
-                            <button class="btn btn-primary" @@click="Delete(item.productID)">刪除</button>
-                            <button class="btn btn-primary" v-if="item.productStatus==true" @@click="Discontinued(item.productID)">停售</button>
-                            <button class="btn btn-primary" v-else @@click="Shelves(item.productID)">上架</button>
-                        </td>
-                        <td>{{item.productCatagoryName}}</td>
-                        <td>{{item.productTypeName}}</td>
-                        <td>{{item.productName}}</td>
-                        <td>{{item.productSpecification}}</td>
-                        <td>{{item.productContent}}</td>
-                        <td>{{item.unitPrice}}</td>
-                        <td>{{item.stock}}</td>
-                        <td :class="{'red-text': !item.productStatus }">{{GetProductStatus(item.productStatus)}}</td>
-                    </template>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    @*<----------------新增寵物商品----------------->*@
-    <div class="modal fade" id="InsertProductPage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">新增寵物商品</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">寵物種類</label>
-                            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" v-model="productCatagoryName">
-                                <option v-for="item in ProductCatagoryPageDTO" :key="item.productCatagoryId">{{ item.productCatagoryName }}</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">商品項目</label>
-                            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" v-model="productTypeName">
-                                <option v-for="item in ProductTypePageDTO" :key="item.productTypeId">{{ item.productTypeName }}</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">商品名稱</label>
-                            <input type="text" class="form-control" id="recipient-name" v-model="productName">
-                        </div>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">商品規格</label>
-                            <input type="text" class="form-control" id="recipient-name" v-model="productSpecification">
-                        </div>
-                        <div class="mb-3">
-                            <label for="message-text" class="col-form-label">商品內容</label>
-                            <textarea class="form-control" id="message-text" v-model="productContent"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">價格</label>
-                            <input type="number" class="form-control" id="recipient-name" v-model="unitPrice">
-                        </div>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">庫存</label>
-                            <input type="number" class="form-control" id="recipient-name" v-model="stock">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" @@click="InsertProduct">新增</button>
-                </div>
+        <footer class="app-footer">
+            <div class="container text-center py-3">
             </div>
-        </div>
+        </footer>
+
     </div>
+    <script src="~/css/System/assets/plugins/popper.min.js"></script>
+    <script src="~/css/System/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/css/System/assets/js/app.js"></script>
+    <script defer src="~/css/System/plugins/fontawesome/js/all.min.js"></script>
 
+</body>
+</html>
 
-    @*<----------------新增商品項目----------------->*@
-    <div class="modal fade" id="InsertProductTypePage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">新增商品項目</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">商品項目</label>
-                            <input type="text" class="form-control" id="recipient-name" v-model="productTypeName">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" @@click="InsertProductType">新增</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
 
 
 @section Scripts

@@ -95,7 +95,7 @@ namespace FourthTeamProject.Controllers.API
                 MemberId = orderData.MemberId,
                 PayId = orderData?.PayId,
                 InvoiceId = orderData.InvoiceId, 
-                OrderStatus = true,
+                OrderStatus = false,
             };
 
             petHeavenDb.HotelOrder.Add(hotelOrder);
@@ -143,7 +143,16 @@ namespace FourthTeamProject.Controllers.API
         {
             string serializedData = HttpContext.Session.GetString("OrderData");
 
-            var orderDetailData = JsonConvert.DeserializeObject<HotelOrderDetailViewModel>(serializedData);
+            HotelOrderDetailViewModel orderDetailData = null;
+            try
+            {
+                orderDetailData = JsonConvert.DeserializeObject<HotelOrderDetailViewModel>(serializedData);
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
 
             return Ok(orderDetailData);
         }

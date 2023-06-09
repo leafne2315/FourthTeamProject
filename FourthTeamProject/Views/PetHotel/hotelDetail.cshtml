@@ -155,7 +155,9 @@
                             <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">
                                 {{service.hotelService.hotelServiceName}}
                             </p>
-                            <p class="mb-3 service-content">{{service.hotelService.hotelServiceName}}</p>
+                            <p class="mb-3 service-content">
+                                {{service.hotelService.hotelServiceContent}}
+                            </p>
                         </div>
                     </div>
                     
@@ -394,7 +396,7 @@
 
                 })
 
-                alert('sendData Done');
+                //alert('sendData Done');
                 this.goOrderPage();
                 
             },

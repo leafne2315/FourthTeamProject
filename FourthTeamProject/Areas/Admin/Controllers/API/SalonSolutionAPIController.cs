@@ -66,7 +66,7 @@ namespace FourthTeamProject.Areas.Admin.Controllers.API
         }
 
         [HttpPost]
-        public async Task<string> CreateSalonSolution(SalonViewModel SalonSolutionDTO)
+        public async Task<string> CreateSalonSolution([FromBody]SalonViewModel SalonSolutionDTO)
         {
             SalonSolution DTO = new SalonSolution
             {

@@ -130,7 +130,7 @@ namespace FourthTeamProject.Areas.Admin.Controllers.API
             return (_context.Product?.Any(e => e.ProductId == ProductID)).GetValueOrDefault();
         }
 
-        [HttpGet]
+        
         public IEnumerable<ProductEnterpriseViewModel> GetProductCatagoryPage()
         {
 
@@ -142,7 +142,7 @@ namespace FourthTeamProject.Areas.Admin.Controllers.API
             });
             return temp;
         }
-        [HttpGet]
+        
         public IEnumerable<ProductEnterpriseViewModel> GetProductTypePage()
         {
 
@@ -219,5 +219,7 @@ namespace FourthTeamProject.Areas.Admin.Controllers.API
             var ProductCatagory = _context.ProductCatagory.FirstOrDefault(s => s.ProductCatagoryName == productCatagoryName);
             return ProductCatagory.ProductCatagoryId;
         }
+
+
     }
 }

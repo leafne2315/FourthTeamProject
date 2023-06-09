@@ -23,7 +23,8 @@ namespace FourthTeamProject.Areas.Admin.Controllers.API
                 .Select(option => new HotelServiceEnterpriseViewModel
                 {
                     HotelServiceName = option.HotelServiceName,
-                    //HotelServiceID = option.HotelServiceID,
+                    HotelServiceID = option.HotelServiceId,
+                    HotelServiceContent=option.HotelServiceContent,
                 });
             return temp;
         }
@@ -38,8 +39,9 @@ namespace FourthTeamProject.Areas.Admin.Controllers.API
                     return "房型服務編號錯誤";
                 }
                 HotelService DTO = await _context.HotelService.FindAsync(id);
-                //DTO.HotelServiceID = hotelService.HotelServiceID;
+                DTO.HotelServiceId = hotelService.HotelServiceID;
                 DTO.HotelServiceName = hotelService.HotelServiceName;
+                DTO.HotelServiceContent= hotelService.HotelServiceContent;
                 _context.Update(DTO);
                 await _context.SaveChangesAsync();
             }
@@ -60,9 +62,7 @@ namespace FourthTeamProject.Areas.Admin.Controllers.API
 
         private bool HotelServiceExists(int id)
         {
-            return true;
-            //return (_context.HotelService?.Any(e => e.HotelServiceID == id)).GetValueOrDefault();
-
+            return (_context.HotelService?.Any(e => e.HotelServiceId == id)).GetValueOrDefault();
         }
 
         [HttpDelete("{HotelServiceId}")]
@@ -89,11 +89,10 @@ namespace FourthTeamProject.Areas.Admin.Controllers.API
         [HttpPost]
         public async Task<string> CreateHotelService([FromBody] HotelServiceEnterpriseViewModel HotelServiceDTO)
         {
-            //int MaxID = _context.HotelService.Max(record => record.HotelServiceID);
-            //int NewId = MaxID + 1;
+
             HotelService DTO = new HotelService
             {
-                //HotelServiceID = NewId,
+                HotelServiceContent= HotelServiceDTO.HotelServiceContent,
                 HotelServiceName = HotelServiceDTO.HotelServiceName,
             };
             _context.HotelService.Add(DTO);

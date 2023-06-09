@@ -1,6 +1,4 @@
-﻿@Html.Raw(ViewData["TradeInfo"])
-
-@section Styles{
+﻿@section Styles{
     <style>
 
 
@@ -35,7 +33,8 @@
 }
 
 <body>
-    <div class="container">
+    <br />
+    <div id="app" class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-md-6">
                 <div class="card">
@@ -75,9 +74,9 @@
             },
             mounted: function () {
                 this.decodeObjectValues(result);
+                this.upDatePayStatus();
             },
             computed: {
-
             },
             methods: {
                 decodeObjectValues: function (result) {
@@ -98,11 +97,15 @@
                 },
                 upDatePayStatus: function () {
                     // 設定要更新的訂單 ID 和付款狀態
-                    const orderId = this.objData.MerchantOrderNo; // 替換為實際的訂單流水號。
+                    const orderNo = this.objData.MerchantOrderNo; // 替換為實際的訂單流水號。
                     const newPaymentStatus = true; // 替換為要設定的新付款狀態
+                    const data = {
+                        orderNo: orderNo,
+                        paymentStatus: newPaymentStatus
+                    };
                     // 發送更新訂單的付款狀態的請求
-                    if (this.objData.message == '授權成功') {
-                        axios.patch(`/api/PetProductAPI/${orderId}`, { paymentStatus: newPaymentStatus })
+                    if (this.objData.Status == "SUCCESS") {
+                        axios.put(`/api/PetProductAPI/UpdateOrderPaymentStatus/${orderNo}`, data)
                             .then(response => {
                                 console.log('訂單付款狀態已成功更新');
                                 // 在這裡處理成功更新的回應

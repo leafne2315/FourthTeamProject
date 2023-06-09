@@ -114,7 +114,13 @@
                     <p>{{productDetail.productContent}}</p>
                     <p>{{productDetail.unitPrice}}</p>
                     <i class="fa-duotone fa-tag"></i>
-                    <p class="text-danger">記得要加數量跟加到購物車按鈕</p>
+                    <div>
+                        <button class="rounded" @@click="minusOne(item)">-</button>
+                        <span>&nbsp; {{ productDetail.amount }} &nbsp;</span>
+                        <button class="rounded" @@click="addOne(item)">+</button>
+                    </div>
+                    <br />
+                    <button class="btn btn-primary" @@click="AddCart(productDetail)">AddCart</button>
                 </div> <!-- /col-sm-6 -->
                 @*MaybeLike*@
                                 
@@ -281,8 +287,8 @@
                     if (cartItems) {
                         var ArraysItems = cartItems.carts;
                         //// 在購物車資料中找到要移除的 CartItem
-                        var indexToRemove = ArraysItems.find(cart => cart.productId === item.productId);
-                        if (indexToRemove) {
+                        var indexToRemove = ArraysItems.findIndex(cart => cart.productId === item.productId);
+                        if (indexToRemove !== -1) {
                             // 從購物車資料中移除指定的 CartItem
                             ArraysItems.splice(indexToRemove, 1);
                             _this.shoppingCart = ArraysItems;
@@ -293,6 +299,7 @@
 
                     }
                 },
+
             },
 
         })

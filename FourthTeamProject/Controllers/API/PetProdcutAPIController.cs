@@ -145,7 +145,8 @@ namespace FourthTeamProject.Controllers.API
                 ProductContent= x.ProductContent,
                 ProductSpecification= x.ProductSpecification,
                 UnitPrice= x.UnitPrice,
-                ProductTypeId= x.ProductTypeId
+                ProductTypeId= x.ProductTypeId,
+                Amount=1
             });
 
             return Ok(randomProducts);
@@ -167,7 +168,6 @@ namespace FourthTeamProject.Controllers.API
         [HttpPut("/api/PetProductAPI/UpdateOrderPaymentStatus/{orderNo}")]
         public IActionResult UpdateOrderPaymentStatus(string orderNo, [FromBody] OrderPaymentStatusModel paymentStatus)
         {
-                // 根据订单ID查询数据库，获取要更新的订单
                 var existingOrder = _db.ProductOrder.FirstOrDefault(o => o.OrderNo == paymentStatus.OrderNo);
 
                 if (existingOrder == null)
@@ -181,7 +181,25 @@ namespace FourthTeamProject.Controllers.API
             
         }
 
-        
+        public IActionResult Recommended()
+        {
+            var count = 2;
+            var randomProducts = _db.Product.OrderBy(x => Guid.NewGuid()).Take(count).Select(x => new ProductDetailViewModel
+            {
+                ProductId = x.ProductId,
+                ProductName = x.ProductName,
+                ProductContent = x.ProductContent,
+                ProductSpecification = x.ProductSpecification,
+                UnitPrice = x.UnitPrice,
+                ProductTypeId = x.ProductTypeId,
+                Amount=1
+            });
+
+            return Ok(randomProducts);
+
+        }
+
+
 
     }
 }

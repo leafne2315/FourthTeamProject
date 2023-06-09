@@ -34,7 +34,7 @@
                 <tbody>
                     <tr v-for="cartItem in shoppingCart" :key="cartItem.productId">
                         <td>
-                            <a data-toggle="modal" data-target="#removeModal" data-whatever="" @@click="removeCart(cartItem,i)">
+                            <a data-toggle="modal" data-target="#removeModal" data-whatever="" @@click="removeCart(cartItem)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
                                     <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
                                 </svg>
@@ -75,46 +75,37 @@
                     <label for="phone">連絡電話：</label>
                     <input type="tel" class="form-control" id="phone" name="phone" v-model="memberInfo.memberPhone" required>
                 </div>
-                <label for="phone">發票類型：</label>
-                <div class="form-group" v-for="item in invoiceType">
-                    <span></span>{{item.invoiceName}}
-                    <input type="radio" name="invoice" v-model="invoice" :value="item.invoiceId" required>
-                </div>
-                <label for="phone">付款方式：</label>
-                <div class="form-group" v-for="item in paymentType">
-                    <span></span>{{item.payName}}
-                    <input type="radio" name="payment" v-model="payment" :value="item.payId" required>
+                <div class="row">
+                    <div class="col">                       
+                        <label for="phone">發票類型：</label>
+                        <div class="form-group" v-for="item in invoiceType">                            
+                            <span></span>{{item.invoiceName}}<input type="radio" name="invoice" v-model="invoice" :value="item.invoiceId" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="phone">付款方式：</label>
+                        <div class="form-group" v-for="item in paymentType">                            
+                            <span></span>{{item.payName}}<input type="radio" name="payment" v-model="payment" :value="item.payId" required>
+                        </div>
+                    </div>
                 </div>
                 <button class="btn btn-primary btn-block" @@click="sendOrder()">下單</button>
-
             </div>
-
-
         </div>
-
         <div class="col-md-3 mt-4 mt-md-0">
             <h4 class="text-center font-weight-bold">推薦商品</h4>
             <div class="row align-items-center">
-                <div class="col-sm-6 col-md-12">
+                <div class="col-sm-6 col-md-12" v-for="item in maybeLik">
                     <div class="card recommended-item">
                         <img src="https://picsum.photos/120/?random=10" alt="推薦商品1" class="card-img-top">
                         <div class="card-body d-flex flex-column align-items-center">
-                            <h5 class="card-title">商品名稱</h5>
-                            <button class="btn btn-primary">加到購物車</button>
+                            <h5 class="card-title">{{item.productName}}</h5>
+                            <p class="text">{{item.productContent}}</p>
+                            <p>單價:{{item.unitPrice}}</p>
+                            <button class="btn btn-primary" @@click="AddCart(item)">加到購物車</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-md-12">
-                    <div class="card recommended-item">
-                        <img src="https://picsum.photos/120/?random=10" alt="推薦商品1" class="card-img-top">
-                        <div class="card-body d-flex flex-column align-items-center">
-                            <h5 class="card-title">商品名稱</h5>
-                            <button class="btn btn-primary">加到購物車</button>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
 
@@ -149,7 +140,8 @@
                 invoiceType: [],
                 invoice: null,
                 paymentType: [],
-                payment: null
+                payment: null,
+                maybeLik: []
 
             },
             mounted: function () {
@@ -157,6 +149,7 @@
                 this.getMember();
                 this.getInvoice();
                 this.getPayment();
+                this.favProduct();
             },
             computed: {
                 //商品數量計算。
@@ -165,10 +158,19 @@
                 }
             },
             methods: {
-                //取得發票種類
+                //可能喜歡的商品。
+                favProduct: function () {
+                    let _this = this; // 指的是Vue本身。
+                    axios.get('/api/PetProdcutAPI/Recommended').then(response => {
+                        console.log(response.data);
+                        _this.maybeLik = response.data;
+                    });
+                },
+                //取得發票種類。
                 getInvoice: function () {
                     axios.post('/api/PetProdcutAPI/getInvoice').then(response => this.invoiceType = response.data);
                 },
+                //取得付款種類。
                 getPayment: function () {
                     axios.post('/api/PetProdcutAPI/getPayment').then(response => this.paymentType = response.data);
                 },
@@ -219,6 +221,7 @@
                 subTotal: function (item) {
                     return item.amount * item.unitPrice;
                 },
+                //移除購物車商品(修改版)
                 removeCart: function (item) {
                     let _this = this;
                     // 從 localStorage 中取得目前的購物車資料
@@ -226,8 +229,8 @@
                     if (cartItems) {
                         var ArraysItems = cartItems.carts;
                         //// 在購物車資料中找到要移除的 CartItem
-                        var indexToRemove = ArraysItems.find(cart => cart.productId === item.productId);
-                        if (indexToRemove) {
+                        var indexToRemove = ArraysItems.findIndex(cart => cart.productId === item.productId);
+                        if (indexToRemove !== -1) {
                             // 從購物車資料中移除指定的 CartItem
                             ArraysItems.splice(indexToRemove, 1);
                             _this.shoppingCart = ArraysItems;
@@ -237,6 +240,36 @@
 
 
                     }
+                },
+                //加入購物車
+                AddCart: function (item) {
+                    if (email != "") {
+                        let _this = this;
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: '成功加入購物車',
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
+                        var existingItem = _this.shoppingCart.find(cartItem => cartItem.productId == item.productId);
+                        if (existingItem) {
+                            existingItem.amount += item.amount; // 商品已存在，更新數量
+                        } else {
+                            // 商品不存在，新增項目 //解構。
+                            _this.shoppingCart.push({ ...item, amount: item.amount });
+                        }
+                        _this.setCart(email, _this.shoppingCart);
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '請先登入會員',
+                            footer: '<a href="/Member/Login" style="color:blue">會員登入</a>'
+                        })
+                    }
+                    //阻止冒泡。
+                    event.stopPropagation();
                 },
                 getMember: function () {
                     let _this = this;
@@ -310,6 +343,7 @@
                         })
                     }
                 },
+                //藍新API。
                 SendToNewebPay: function () {
                     var self = this;
                     // 組合表單資料

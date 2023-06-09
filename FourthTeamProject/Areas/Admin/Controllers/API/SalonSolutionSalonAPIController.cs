@@ -1,4 +1,5 @@
-﻿using FourthTeamProject.Models.ViewModel;
+﻿using FourthTeamProject.Areas.Admin.ViewModels;
+using FourthTeamProject.Models.ViewModel;
 using FourthTeamProject.PetHeavenModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,22 +18,24 @@ namespace FourthTeamProject.Areas.Admin.Controllers.API
             _context = context;
         }
 
-        //public IEnumerable<SalonSolutionDataViewModel> GetSalonSolutionSalon()
-        //{
+        public IActionResult GetSalonSolutionSalon()
+        {
 
-        //    var temp = _context.SalonSolution.Include(x => x.SalonSolutionSalon)
-        //        .ThenInclude(x=>x.Salon)
-        //        .ThenInclude(x=>x.SalonCatagory)
-        //        .Select(option => new SalonSolutionDataViewModel
-        //        {
-        //            SalonSolutionName=option.SalonSolutionName,
-        //            Salons = option.SalonSolutionSalon.Select(sss => new SalonDataViewModel
-        //            {
-        //                SalonName = sss.Salon.SalonName,
-        //                SalonCatagoryName = sss.Salon.SalonCatagory.SalonCatagoryName
-        //            }).ToList()
-        //        });
-        //    return temp;
-        //}
+            var salonData = _context.SalonSolutionSalon
+                .GroupBy(ss => ss.SalonSolutionId)
+                .Select(group => new 
+                {
+                    SalonSolutionId = group.Key,
+                    SalonSolutionName = group.FirstOrDefault().SalonSolution.SalonSolutionName,
+                    SalonIds = group.Select(ss => new
+                    {
+                        SalonId = ss.SalonId,
+                        SalonName = ss.Salon.SalonName
+                    })
+                })
+                .ToList();
+
+            return Ok(salonData);
+        }
     }
 }

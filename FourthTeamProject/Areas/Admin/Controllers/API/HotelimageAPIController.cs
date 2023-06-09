@@ -108,7 +108,7 @@ namespace FourthTeamProject.Areas.Admin.Controllers.API
         {
 
             try
-            {
+            {               
                 int HotelId = GetHotelId(HotelImageData.HotelName);
                 HotelImage data = new HotelImage
                 {
@@ -138,6 +138,7 @@ namespace FourthTeamProject.Areas.Admin.Controllers.API
                 }
                 _context.HotelImage.Add(data);
                 await _context.SaveChangesAsync();
+                
             }
             catch (DbUpdateConcurrencyException)
             {

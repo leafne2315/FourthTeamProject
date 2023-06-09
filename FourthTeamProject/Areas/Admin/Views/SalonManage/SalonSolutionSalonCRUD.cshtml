@@ -3,35 +3,43 @@
 
 
 <div id="app" class="container">
-    @*<-----------操作頁面-------------->*@
+
     <div class="form-group">
         <table class="table table-striped table-hover text-center">
             <thead>
                 <tr>
                     <th style="width:10%">編輯</th>
                     <th style="width:10%">美容服務</th>
-                    <th style="width:10%">寵物類型</th>
-                    <th>美容項目</th>
+                    <th style="width:10%">美容項目</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in SalonSolutionSalonDTO">
-                    <template>
+                <tr v-for="item in salonSolutions.salonData" :key="item.SalonSolutionId">
+                    <template v-if="item.editSalon === true">
                         <td>
-                            <button class="btn btn-primary" >編輯</button>
+                            <button class="btn btn-success" @@click="Update(item)">確定修改</button>
+                            <button class="btn btn-warning" @@click="Cancel">取消修改</button>
                         </td>
                         <td>{{item.salonSolutionName}}</td>
-                        <td>{{item.Salons.salonCatagoryName}}</td>
-                        <p>
-                            {{item.Salons.salonName}}
-                        </p>
+                        <td>
+                            <label v-for="salon in item.salons" :key="salon.salonId">
+                                <input type="checkbox" :value="salon.salonId" v-model="selectedSalons"> {{ salon.salonName }}
+                            </label>
+                        </td>
+                    </template>
+                    <template v-else>
+                        <td>
+                            <button class="btn btn-primary" @@click="Edit(item.salonSolutionId)">編輯</button>
+                        </td>
+                        <td>{{item.SalonSolutionName }}</td>
+                        <td>
+                            <span v-for="salon in salonSolutions.SalonIds" :key="salon.SalonId" class="bar">{{ salon.SalonName }}</span>
+                        </td>
                     </template>
                 </tr>
             </tbody>
         </table>
     </div>
-
-
 </div>
 
 
@@ -46,8 +54,8 @@
         let app = new Vue({
             el: "#app",
             data: {
-                SalonSolutionSalonDTO: [],
-
+                salonSolutions: [],
+                selectedSalons: [],
             },
             mounted: function () {
                 let _this = this;
@@ -56,11 +64,41 @@
             methods: {
                 FilterSalonSolutionSalonDTO: function () {
                     let _this = this;
-                    axios.get(`/api/SalonSolutionSalonEnterprise/GetSalonSolutionSalon`).then(response => _this.SalonSolutionSalonDTO = response.data)
+                    axios.get("/api/SalonSolutionSalonEnterprise/GetSalonSolutionSalon")
+                        .then(response => {
+                            _this.salonSolutions = response.data;
+                        })
                 },
-
-
-
+                Edit: function (salonSolutionId) {
+                    let _this=this;
+                    _this.salonSolutions.forEach(item => {
+                        item.editSalon = (item.salonSolutionId === salonSolutionId);
+                        item.selectedSalons = item.salons.map(salon => salon.salonId);
+                    });
+                },
+                Update: function (item) {
+                    let _this=this;
+                    const updatedSalons = item.selectedSalons.map(salonId => {
+                        return {
+                            SalonSolutionId: item.salonSolutionId,
+                            SalonId: salonId,
+                        };
+                    });
+                    axios.post("/api/SalonSolutionSalonEnterprise/UpdateSalons", updatedSalons)
+                        .then(response => {
+                            _this.FilterSalonSolutionSalonDTO();
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+                },
+                Cancel: function () {
+                    let _this=this;
+                    _this.salonSolutions.forEach(item => {
+                        item.editSalon = false;
+                        item.selectedSalons = [];
+                    });
+                },
             }
         })
     </script>

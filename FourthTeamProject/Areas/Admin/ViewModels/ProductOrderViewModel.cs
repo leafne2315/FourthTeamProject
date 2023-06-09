@@ -6,6 +6,7 @@ namespace FourthTeamProject.Areas.Admin.ViewModels
     public class ProductOrderViewModel
     {
         public IEnumerable<ProductOrder> Orders { get; set; }
+        public IEnumerable< Member>Member { get; set; }
         public int CurrentPage { get; set; }
         public int TotalPages { get; set; }
     }

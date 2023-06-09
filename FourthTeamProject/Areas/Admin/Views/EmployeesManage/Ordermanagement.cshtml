@@ -1,4 +1,5 @@
-﻿@model  FourthTeamProject.Models.ViewModel.ProductOrderViewModel
+﻿@model FourthTeamProject.Models.ViewModel.ProductOrderViewModel
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +11,13 @@
     <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
     <link rel="shortcut icon" href="favicon.ico">
     <link id="theme-style" rel="stylesheet" href="~/css/System/css/portal.css">
+    <style>
+        .member-details {
+            cursor: pointer;
+        }
+
+    </style>
+    
 </head>
 <body class="app">
     <div class="app-wrapper">
@@ -55,7 +63,7 @@
                                                 <tr>
                                                     <td class="cell">@Html.DisplayFor(modelItem=>item.OrderId)</td>
                                                     <td class="cell">@Html.DisplayFor(modelItem=>item.MemberId)</td>
-                                                    <td class="cell">@Html.DisplayFor(modelItem=>item.OrderMemberName)</td>
+                                                    <td class="cell member-details" data-member-id="@item.MemberId">@Html.DisplayFor(modelItem => item.OrderMemberName)</td>
                                                     <td class="cell">@Html.DisplayFor(modelItem=>item.Member.MemberBirthday)</td>
                                                     <td class="cell">@Html.DisplayFor(modelItem=>item.OrderDate)<span class="truncate"></span></td>
                                                     <td class="cell">
@@ -92,8 +100,53 @@
                                 </li>
                             </ul>
                         </nav>
-
-
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="memberModalLabel">會員詳細資料</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table app-table-hover mb-0 text-left">
+                            <thead>
+                                <tr>
+                                    <th class="cell">會員編號</th>
+                                    <th class="cell">性別</th>
+                                    <th class="cell">姓名</th>
+                                    <th class="cell">電話</th>
+                                    <th class="cell">電子郵件</th>
+                                    <th class="cell">生日</th>
+                                    <th class="cell">地址</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Orders)
+                                {
+                                    <tr>
+                                        <td class="cell">@Html.DisplayFor(modelItem=>item.Member.MemberId)</td>
+                                        <td class="cell">@Html.DisplayFor(modelItem=>item.Member.MemberGender)</td>
+                                        <td class="cell">@Html.DisplayFor(modelItem=>item.Member.MemberName)</td>
+                                        <td class="cell">@Html.DisplayFor(modelItem=>item.Member.MemberPhone)</td>
+                                        <td class="cell">@Html.DisplayFor(modelItem=>item.Member.MemberEmail)<span class="truncate"></span></td>
+                                        <td class="cell">@Html.DisplayFor(modelItem=>item.Member.MemberBirthday)</td>
+                                        <td class="cell">@Html.DisplayFor(modelItem=>item.Member.MemberAddress)</td>
+                                      
+                                       
+                                    </tr>
+                                }
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
                     </div>
                 </div>
             </div>
@@ -109,7 +162,30 @@
     <script src="~/css/System/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/css/System/assets/js/app.js"></script>
     <script defer src="~/css/System/plugins/fontawesome/js/all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
+    <script>
+        
+            $(document).ready(function () {
+                $('.member-details').click(function () {
+                    var memberId = $(this).data('member-id');
+                    // 在這裡使用 memberId 進行資料查詢，並獲取相應的會員詳細資料
+
+                    // 使用獲取到的會員詳細資料填充模態框內容
+
+                    // 顯示模態框
+                    $('#memberModal').modal('show');
+                });
+
+                // 點擊 "X" 或 "關閉" 按鈕時關閉模態視窗
+                $('.close, .btn-secondary').click(function () {
+                    $('#memberModal').modal('hide');
+                });
+            });
+
+
+    </script>
 </body>
 </html>
 

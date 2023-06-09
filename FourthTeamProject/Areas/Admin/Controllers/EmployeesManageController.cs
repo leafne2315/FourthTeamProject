@@ -62,7 +62,9 @@ namespace FourthTeamProject.Areas.Admin.Controllers
                 TotalPages = totalPages
             };
 
-            return View(viewModel);
+            return View("~/Areas/Admin/Views/EmployeesManage/Ordermanagement.cshtml", viewModel);
+            
+
         }
 
 
@@ -180,6 +182,22 @@ namespace FourthTeamProject.Areas.Admin.Controllers
             return RedirectToAction("Index", "Home", new { area = "" });
         }
 
+        public async Task<IActionResult> MemberDetailsPartial(int memberId)
+        {
+            var member = await _db.Member.FindAsync(memberId);
+
+            if (member == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView("_MemberDetailsPartial", member);
+        }
+
+
+
+
     }
+
 }
 

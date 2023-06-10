@@ -106,7 +106,7 @@
     <div id="DetailPage">
         <div class="px-4 px-lg-5 mt-3">
 
-            <h3 class="title">{{HotelData.hotelName}}-{{HotelData.hotelContent}}</h3>
+            <h3 class="title">{{HotelData.hotelName}}</h3>
             <hr class="solid">
             <div class="row">
                 <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
@@ -146,7 +146,7 @@
 
             <div class="row">
                 <div class="col-lg-7 col-md-5 col-12">
-                    <h4 ref="mySubTitle" class="mb-2">{{HotelData.hotelName}}</h4>
+                    <h4 ref="mySubTitle" class="mb-2">{{HotelData.hotelName}}-{{HotelData.hotelContent}}</h4>
                     <hr class="solid" style="font-weight: bold;">
 
                     <div class="d-flex" v-for="service in HotelServices" >

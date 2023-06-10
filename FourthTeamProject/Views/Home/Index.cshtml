@@ -27,11 +27,7 @@
 								<div class="row mb-2">
 									<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
 										<select name="" id="" class="form-control custom-select">
-											<option value="">狗狗基本高級房</option>
-											<option value="">狗狗進階升級房</option>
-											<option value="">狗狗尊享VIP房</option>
-											<option value="">貓咪登高望遠房</option>
-											<option value="">貓咪更上一層樓房</option>>
+											<option v-for="hotel in petHotelDatas" value="">{{hotel.hotelName}}</option>
 										</select>
 									</div>
 									<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-5">

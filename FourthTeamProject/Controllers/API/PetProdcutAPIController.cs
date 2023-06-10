@@ -117,16 +117,17 @@ namespace FourthTeamProject.Controllers.API
             var detail = _db.Product.FirstOrDefault(x => x.ProductId == id);
             if (detail != null)
             {
-                var result = new ProductDetailViewModel
+                var result = new ProductViewModel
                 {
-                    ProductId= id,
-                    ProductName= detail.ProductName,
-                    ProductContent= detail.ProductContent,
-                    ProductSpecification= detail.ProductSpecification,
-                    UnitPrice= detail.UnitPrice,
-                    Stock= detail.Stock,
+                    ProductId = detail.ProductId,
                     ProductTypeId = detail.ProductTypeId,
-                    Amount=1
+                    ProductStatus = detail.ProductStatus,
+                    ProductName = detail.ProductName,
+                    ProductContent = detail.ProductContent,
+                    ProductCatagoryId = detail.ProductCatagoryId,
+                    UnitPrice = detail.UnitPrice,
+                    ProductImage = detail.ProductImage,
+                    Amount = 1
                 };
                 return Ok(result);
             }
@@ -135,18 +136,20 @@ namespace FourthTeamProject.Controllers.API
         }
         public IActionResult MaybeLikProoduct([FromQuery] int id)
         {
-            //隨機五筆
+            //隨機四筆
             var count = 4;
             var randomProducts = _db.Product.Where(p => p.ProductTypeId == id)
-            .OrderBy(x => Guid.NewGuid()).Take(count).Select(x=> new ProductDetailViewModel
+            .OrderBy(x => Guid.NewGuid()).Take(count).Select(x=> new ProductViewModel
             {
-                ProductId= x.ProductId,
-                ProductName= x.ProductName,
-                ProductContent= x.ProductContent,
-                ProductSpecification= x.ProductSpecification,
-                UnitPrice= x.UnitPrice,
-                ProductTypeId= x.ProductTypeId,
-                Amount=1
+                ProductId = x.ProductId,
+                ProductTypeId = x.ProductTypeId,
+                ProductStatus = x.ProductStatus,
+                ProductName = x.ProductName,
+                ProductContent = x.ProductContent,
+                ProductCatagoryId = x.ProductCatagoryId,
+                UnitPrice = x.UnitPrice,
+                ProductImage = x.ProductImage,
+                Amount = 1
             });
 
             return Ok(randomProducts);
@@ -184,15 +187,17 @@ namespace FourthTeamProject.Controllers.API
         public IActionResult Recommended()
         {
             var count = 2;
-            var randomProducts = _db.Product.OrderBy(x => Guid.NewGuid()).Take(count).Select(x => new ProductDetailViewModel
+            var randomProducts = _db.Product.OrderBy(x => Guid.NewGuid()).Take(count).Select(x => new ProductViewModel
             {
                 ProductId = x.ProductId,
+                ProductTypeId = x.ProductTypeId,
+                ProductStatus = x.ProductStatus,
                 ProductName = x.ProductName,
                 ProductContent = x.ProductContent,
-                ProductSpecification = x.ProductSpecification,
+                ProductCatagoryId = x.ProductCatagoryId,
                 UnitPrice = x.UnitPrice,
-                ProductTypeId = x.ProductTypeId,
-                Amount=1
+                ProductImage = x.ProductImage,
+                Amount = 1                
             });
 
             return Ok(randomProducts);

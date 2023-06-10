@@ -71,7 +71,7 @@
 								<td>{{ item.order.orderdate }}</td>
 								<td>{{ item.order.orderstatus }}</td>
 								<td>{{ item.order.orderaddress }}</td>
-								<td><button class="btn btn-primary" data-toggle="modal" data-target="#detailModal">查看</button></td>
+								<td><button class="btn btn-primary" data-toggle="modal" data-target="#detailModal" @@click="detailConfirm(item)">查看</button></td>
 								<td></td>							
 							</tr>
 						</tbody>
@@ -107,8 +107,8 @@
 									<td>{{item.pet.petVariety}}</td>
 									<td>{{item.pettype.petTypeName}}</td>
 									<td>
-										<button type="button" class="btn btn-success" data-toggle="modal" data-target="#reviseModal">修改</button>
-										<button type="button" class="btn btn-danger" @@click="deleteConfirm(item)" data-toggle="modal" data-target="#deleteModal">刪除</button>
+										<button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModal" @@click="editConfirm(item)">修改</button>
+										<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" @@click="deleteConfirm(item)">刪除</button>
 									</td>
 
 						<!-- 其他訂單相關的列項 -->
@@ -117,7 +117,7 @@
 					</table>
 					</div>
 
-					<!-- CreateModal -->
+					<!-- CreatePetModal -->
 					<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-hidden="true">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
@@ -131,33 +131,31 @@
 									<form>
 										<div class="form-row">
 											<div class="form-group col-md-6">
-												<label for="inputEmail4">寵物名子</label>
-												<input type="email" class="form-control" id="inputEmail4" placeholder="名子">
+												<label for="Name">寵物名子</label>
+												<input type="email" class="form-control" id="Name" v-model="createpetInfo.petName">
 											</div>
 											<div class="form-group col-md-6">
-												<label for="inputPassword4">寵物性別</label>
-												<select id="inputState" class="form-control">
-													<option selected>請選擇</option>
-													<option>公</option>
-													<option>母</option>
+												<label for="type">寵物性別</label>
+												<select id="type" class="form-control" v-model="createpetInfo.petGender">
+													<option value="0">請選擇...</option>
+													<option v-for="item in dronpDownList.petType" :value="item.value">{{item.text}}</option>												
 												</select>
 											</div>
 										</div>
 										<div class="form-group">
-											<label for="inputAddress">生日</label>
-											<input type="date" class="form-control" id="inputAddress" placeholder="生日">
+											<label for="Birthday">生日</label>
+											<input type="date" class="form-control" id="Birthday" v-model="createpetInfo.petBirthday">
 										</div>
 										<div class="form-group">
-											<label for="inputAddress2">品種</label>
-											<input type="text" class="form-control" id="inputAddress2" placeholder="品種">
+											<label for="Variety">品種</label>
+											<input type="text" class="form-control" id="Variety" v-model="createpetInfo.petVariety">
 										</div>
 										<div class="form-row">											
 											<div class="form-group col-md-4">
 												<label for="inputState">寵物種類</label>
-												<select id="inputState" class="form-control">
-													<option selected>請選擇</option>
-													<option>貓</option>
-													<option>犬</option>
+												<select id="inputState" class="form-control" v-model="createpetInfo.petTypeId">
+													<option value="0">請選擇...</option>
+													<option v-for="item in dronpDownList.TypeName" :value="item.value">{{item.text}}</option>
 												</select>
 											</div>											
 										</div>
@@ -166,53 +164,55 @@
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-									<button type="button" class="btn btn-primary">新增</button>
+									<button type="button" class="btn btn-primary" @@click="fetchcreatePet">新增</button>
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<!-- ReviseModal -->
-					<div class="modal fade" id="reviseModal" tabindex="-1" role="dialog" aria-hidden="true">
+					<!-- editModal -->
+					<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-hidden="true">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="reviseModal">修改寵物資料</h5>
+									<h5 class="modal-title" id="editModal">修改寵物資料</h5>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
 								<div class="modal-body">
 									<form>
+
 										<div class="form-row">
 											<div class="form-group col-md-6">
-												<label for="inputEmail4">寵物名子</label>
-												<input type="email" class="form-control" id="inputEmail4" placeholder="名子">
-											</div>
+												<label for="Name">寵物名子</label>
+												<input type="text" class="form-control" id="Name" v-model="editInfo.petName">
+											</div>											
+
 											<div class="form-group col-md-6">
 												<label for="inputPassword4">寵物性別</label>
-												<select id="inputState" class="form-control">
-													<option selected>請選擇</option>
-													<option>公</option>
-													<option>母</option>
+												<select id="inputState" class="form-control" v-model="editInfo.petGender">
+													<option value="0">請選擇...</option>
+													<option v-for="item in dronpDownList.petType" :value="item.value">{{item.text}}</option>
+													
 												</select>
 											</div>
 										</div>
 										<div class="form-group">
-											<label for="inputAddress">生日</label>
-											<input type="date" class="form-control" id="inputAddress" placeholder="生日">
+											<label for="Birthday">生日</label>
+											<input type="date" class="form-control" id="Birthday" v-model="editInfo.petBirthday">
 										</div>
 										<div class="form-group">
-											<label for="inputAddress2">品種</label>
-											<input type="text" class="form-control" id="inputAddress2" placeholder="品種">
+											<label for="Variety">品種</label>
+											<input type="text" class="form-control" id="Variety" v-model="editInfo.petVariety">
 										</div>
 										<div class="form-row">
 											<div class="form-group col-md-4">
 												<label for="inputState">寵物種類</label>
-												<select id="inputState" class="form-control">
-													<option selected>請選擇</option>
-													<option>貓</option>
-													<option>犬</option>
+												<select id="inputState" class="form-control" v-model="editInfo.petTypeId">
+													<option value="0">請選擇...</option>
+													<option v-for="item in dronpDownList.TypeName" :value="item.value">{{item.text}}</option>
+													
 												</select>
 											</div>
 										</div>
@@ -221,7 +221,7 @@
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-									<button type="button" class="btn btn-primary">確認修改</button>
+									<button type="button" class="btn btn-primary" @@click="editpet">確認修改</button>
 								</div>
 							</div>
 						</div>
@@ -248,9 +248,6 @@
 						</div>
 					</div>
 				</div>
-
-				
-
 				<!-- passwordModal -->
 				<div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-hidden="true">
 					<div class="modal-dialog" role="document">
@@ -307,15 +304,15 @@
 											<th>數量</th>
 										</tr>
 									</thead>
-									<tbody>
-											<tr v-for="item in order">
-												<td>{{item.orderDetail.detailname}}</td>
-												<td>{{item.orderDetail.detailcontent}}</td>
-												<td>{{item.orderDetail.detailcatagoryname}}</td>
-												<td>{{item.orderDetail.detailunitprice}}</td>
-												<td>{{item.orderDetail.detailquantity}}</td>
-										</tr>
-									</tbody>
+										<tbody>											
+											<tr v-for="item in detailInfo">
+												<td>{{item.detailname}}</td>
+												<td>{{item.detailcontent}}</td>
+												<td>{{item.detailcatagoryname}}</td>
+												<td>{{item.detailunitprice}}</td>
+												<td>{{item.detailquantity}}</td>
+											</tr>
+										</tbody>
 									</table>
 								</form>
 							</div>
@@ -355,7 +352,7 @@
 								</div>
 								<div class="form-group">
 									<label for="MemberBirthday">生日</label>
-									<input type="text" class="form-control" name="MemberBirthday" id="MemberBirthday" v-model="member.birthday">
+									<input type="date" class="form-control" name="MemberBirthday" id="MemberBirthday" v-model="member.birthday">
 								</div>
 
 
@@ -384,10 +381,29 @@
 	let app = new Vue({
 		el: '#app',
 		data: {
+			createpetInfo:{
+				petName:"",
+				petBirthday:"",
+				petGender:"0",
+				petVariety:"",
+				petTypeId:"0"
+			},
+			dronpDownList:{
+				petType:[],
+				TypeName:[]
+			},
 			member: [],
 			order: [],
-			//detail:[],
+			detailInfo: [],
 			pet: [],
+			editInfo:{
+				id:"",
+				petName:"",
+				petGender:"0",
+				petBirthday:"",
+				petVariety:"",
+				petTypeId:"0",
+			},
 			delInfo: {
 				title: "",
 				msg: {
@@ -402,11 +418,13 @@
 			self.fetchMember();
 			self.fetchOrder();
 			//self.fetchDetail();
-			self.fetchPet();
-			
+			self.fetchPet();			
+			//self.fetchcreatePet();
+			axios.get('/api/member/TypeName').then(res => { self.dronpDownList.TypeName = res.data })
+			axios.get('/api/member/PetTypeEnum').then(res => { self.dronpDownList.petType = res.data })
 		},
 		methods: {
-
+			
 			fetchMember: function () {
 				let self = this;
 				var testmember = axios.get('/api/member/GetCurrentMember')
@@ -439,6 +457,23 @@
 				let self = this;
 				axios.get('/api/member/GetMemberPet').then(res => self.pet = res.data)
 			},
+			fetchcreatePet: function () {
+				let self = this;
+				if (self.createpetInfo.petGender == 0) alert("請選擇性別")
+				if (self.createpetInfo.petTypename == 0) alert("請選擇種類")				
+				axios.post('/api/member/createPet', self.createpetInfo).then(res => {
+					if (res.data.status == true) {
+						self.createpetInfo.petName = ""
+						self.createpetInfo.petBirthday = ""
+						self.createpetInfo.petGender = "0"
+						self.createpetInfo.petVariety = ""
+						self.createpetInfo.petTypename = "0"						
+						self.pet.unshift(res.data.message)
+						alert("新增成功")
+						$("#createModal").modal("hide");
+					}
+				});
+			},			
 			
 			deletePet:function(id){
 				axios.post('/api/member/deletePet', { Id: id }).then(res => {
@@ -449,10 +484,44 @@
 					}
 				});
 			},
+			
+			editpet:function(){
+				var self=this;
+				axios.post('/api/member/edit',self.editInfo).then(res=>{
+					if(res.data.status==true){
+						self.editInfo.petName = ""
+						self.editInfo.petGender = "0"
+						self.editInfo.petBirthday = ""
+						self.editInfo.petVariety = ""
+						self.editInfo.petTypeId = "0"
+						self.pet.unshift(res.data.message)
+						alert("修改成功")
+						$("#editModal").modal("hide");
+					}
+				})
+			},
+			detailConfirm: function (item) {
+				console.log(item)
+				this.detailInfo = item.orderDetail;
+				//this.detailInfo.detailname = item.orderDetail.productName;
+				//this.detailInfo.detailcontent = item.orderDetail.productContent;
+				//this.detailInfo.detailcatagoryname = item.orderDetail.productCatagoryName;
+				//this.detailInfo.detailunitprice = item.orderDetail.unitPrice;
+				//this.detailInfo.detailquantity = item.orderDetail.quantity;
+
+			},
+			editConfirm: function (item) {
+				console.log(item)				
+				this.editInfo.petName = item.pet.petName;
+				this.editInfo.petGender = item.pet.petGender;
+				this.editInfo.petBirthday = item.pet.petBirthday;
+				this.editInfo.petVariety = item.pet.petVariety;
+				this.editInfo.petTypeId = item.pettype.petTypeId;
+			},
 			deleteConfirm:function(item){
 				this.delInfo.title = item.pet.petName;
 				this.delInfo.msg.pet = item.pet.petName;
-				this.delInfo.msg.price = item.pettype.petTypeName;
+				this.delInfo.msg.price = item.pettype.petTypeId;
 			}
 
 			

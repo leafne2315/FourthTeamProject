@@ -70,6 +70,10 @@ namespace FourthTeamProject
 
             app.MapControllerRoute(
               name: "areas",
+              pattern: "{area:exists}/{controller=Member}/{action=Login}/{id?}"
+            );
+            app.MapControllerRoute(
+              name: "areas",
               pattern: "{area:exists}/{controller=Employees}/{action=Index}/{id?}"
             );
 

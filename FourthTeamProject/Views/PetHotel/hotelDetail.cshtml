@@ -110,8 +110,8 @@
             <hr class="solid">
             <div class="row">
                 <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
-                         class="w-100 shadow-1-strong rounded"
+                    <img :src="fullImagePath(HotelData.hotelImage)"
+                         class="w-100 shadow-1-strong rounded" style="height:350px"
                          alt="Boat on Calm Water" />
                 </div>
 
@@ -461,7 +461,12 @@
             closeModal() {
                 this.showModal = false;
                 $('#exampleModal').modal('hide');
-            }
+            },
+
+            fullImagePath: function (url) {
+                const rootPath = '/';
+                return `${rootPath}${url}`;
+            },
         }
 
     })

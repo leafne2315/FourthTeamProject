@@ -1,0 +1,193 @@
+﻿@model FourthTeamProject.Models.ViewModel.ProductOrderViewModel
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portal - Bootstrap 5 Admin Dashboard Template For Developers">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link id="theme-style" rel="stylesheet" href="~/css/System/css/portal.css">
+    <style>
+        .member-details {
+            cursor: pointer;
+        }
+
+    </style>
+    
+</head>
+<body class="app">
+    <div class="app-wrapper">
+        <div class="app-content pt-3 p-md-3 p-lg-4">
+            <div class="container-xl">
+                <div class="row g-3 mb-4 align-items-center justify-content-between">
+                    <div class="col-auto">
+                        <h1 class="app-page-title mb-0">訂單管理系統-商品</h1>
+                    </div>
+                    <div class="col-auto">
+                        <div class="page-utilities">
+                            <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+                                <div class="col-auto">
+                                    <form class="app-search-form" asp-area="Admin" asp-controller="EmployeesManage" asp-action="Ordermanagement" method="get">
+                                        <input type="text" placeholder="Search..." name="search" class="form-control search-input">
+                                        <button type="submit" class="btn search-btn btn-primary"><i class="fas fa-search"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" id="orders-table-tab-content">
+                    <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+                        <div class="app-card app-card-orders-table shadow-sm mb-5">
+                            <div class="app-card-body">
+                                <div class="table-responsive">
+                                    <table class="table app-table-hover mb-0 text-left">
+                                        <thead>
+                                            <tr>
+                                                <th class="cell">訂單編號</th>
+                                                <th class="cell">會員編號</th>
+                                                <th class="cell">客戶名稱</th>
+                                                <th class="cell">客戶生日</th>
+                                                <th class="cell">訂單日期</th>
+                                                <th class="cell">訂單狀態</th>
+                                                <th class="cell">檢視明細</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.Orders)
+                                            {
+                                                <tr>
+                                                    <td class="cell">@Html.DisplayFor(modelItem=>item.OrderId)</td>
+                                                    <td class="cell">@Html.DisplayFor(modelItem=>item.MemberId)</td>
+                                                    <td class="cell member-details" data-member-id="@item.MemberId">@Html.DisplayFor(modelItem => item.OrderMemberName)</td>
+                                                    <td class="cell">@Html.DisplayFor(modelItem=>item.Member.MemberBirthday)</td>
+                                                    <td class="cell">@Html.DisplayFor(modelItem=>item.OrderDate)<span class="truncate"></span></td>
+                                                    <td class="cell">
+                                                        @if (item.OrderStatus)
+                                                        {
+                                                            <span class="badge bg-success">@Html.DisplayFor(modelItem=>item.OrderStatus)已付款</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="badge bg-danger">@Html.DisplayFor(modelItem=>item.OrderStatus)未付款</span>
+                                                        }
+                                                    </td>
+                                                    <td class="cell" style="list-style-type:arabic-indic"><a asp-area="Admin" asp-controller="EmployeesManage" asp-route-id="@item.OrderId" asp-action="OrderDetail">View</a></td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <nav class="app-pagination">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                                    <a class="page-link" asp-controller="EmployeesManage" asp-action="Ordermanagement" asp-route-page="@(Model.CurrentPage - 1)">Previous</a>
+                                </li>
+                                @for (int i = 1; i <= Model.TotalPages; i++)
+                                {
+                                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                        <a class="page-link" asp-controller="EmployeesManage" asp-action="Ordermanagement" asp-route-page="@i">@i</a>
+                                    </li>
+                                }
+                                <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                                    <a class="page-link" asp-controller="EmployeesManage" asp-action="Ordermanagement" asp-route-page="@(Model.CurrentPage + 1)">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="memberModalLabel">會員詳細資料</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table app-table-hover mb-0 text-left">
+                            <thead>
+                                <tr>
+                                    <th class="cell">會員編號</th>
+                                    <th class="cell">性別</th>
+                                    <th class="cell">姓名</th>
+                                    <th class="cell">電話</th>
+                                    <th class="cell">電子郵件</th>
+                                    <th class="cell">生日</th>
+                                    <th class="cell">地址</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Orders)
+                                {
+                                    <tr>
+                                        <td class="cell">@Html.DisplayFor(modelItem=>item.Member.MemberId)</td>
+                                        <td class="cell">@Html.DisplayFor(modelItem=>item.Member.MemberGender)</td>
+                                        <td class="cell">@Html.DisplayFor(modelItem=>item.Member.MemberName)</td>
+                                        <td class="cell">@Html.DisplayFor(modelItem=>item.Member.MemberPhone)</td>
+                                        <td class="cell">@Html.DisplayFor(modelItem=>item.Member.MemberEmail)<span class="truncate"></span></td>
+                                        <td class="cell">@Html.DisplayFor(modelItem=>item.Member.MemberBirthday)</td>
+                                        <td class="cell">@Html.DisplayFor(modelItem=>item.Member.MemberAddress)</td>
+                                      
+                                       
+                                    </tr>
+                                }
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="app-footer">
+            <div class="container text-center py-3">
+            </div>
+        </footer>
+
+    </div>
+    <script src="~/css/System/assets/plugins/popper.min.js"></script>
+    <script src="~/css/System/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/css/System/assets/js/app.js"></script>
+    <script defer src="~/css/System/plugins/fontawesome/js/all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <script>
+        
+            $(document).ready(function () {
+                $('.member-details').click(function () {
+                    var memberId = $(this).data('member-id');
+                    // 在這裡使用 memberId 進行資料查詢，並獲取相應的會員詳細資料
+
+                    // 使用獲取到的會員詳細資料填充模態框內容
+
+                    // 顯示模態框
+                    $('#memberModal').modal('show');
+                });
+
+                // 點擊 "X" 或 "關閉" 按鈕時關閉模態視窗
+                $('.close, .btn-secondary').click(function () {
+                    $('#memberModal').modal('hide');
+                });
+            });
+
+
+    </script>
+</body>
+</html>
+
+
+

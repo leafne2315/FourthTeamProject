@@ -1,6 +1,7 @@
 ﻿﻿@using Microsoft.AspNetCore.Mvc.Rendering
 @using Microsoft.AspNetCore.Mvc.ViewFeatures
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using System.Security.Claims;﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,15 +24,22 @@
 
 </head>
 
-<body class="app">
+<body class="app" >
 
     <header class="app-header fixed-top ">
+        <li>
+            <span style="text-align:right;padding-right:70px;" class="nav-link ">
+                <img src="~/images/EmployeeIcon.png" alt="Icon" width="25px"></img>
+                使用者:@User.Claims.FirstOrDefault(x=> x.Type == ClaimTypes.Name).Value
+                <a style="padding-left:10px" asp-area="Admin" asp-controller="EmployeesManage" asp-action="EmployeeLogout">登出</a>
+            </span>
+        </li>
         <div id="app-sidepanel" class="app-sidepanel ">
             <div id="sidepanel-drop" class="sidepanel-drop"></div>
             <div class="sidepanel-inner d-flex flex-column">
                 <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
                 <div class="app-branding">
-                    <a asp-controller="Home" asp-action="index" class="app-logo"><span class="logo-text">PetHeaven</span></a>
+                    <a class="app-logo"><span class="logo-text">PETS DAILY</span></a>
                 </div>
                 <nav id="app-nav-main" class="app-nav app-nav-main flex-grow-1">
                     <ul class="app-menu list-unstyled accordion" id="menu-accordion">
@@ -123,9 +131,9 @@
                             </a>
                             <div id="submenu-1" class="collapse submenu submenu-1 collapse show" data-bs-parent="#menu-accordion">
                                 <ul class="submenu-list list-unstyled">
-                                    <li class="submenu-item"><a asp-area="Admin" asp-controller="Employees" asp-action="Ordermanagement" class="submenu-link">商品訂單管理</a></li>
-                                    <li class="submenu-item"><a asp-area="Admin" asp-controller="Employees" asp-action="SalonOrdermanagement" class="submenu-link">美容訂單管理</a></li>
-                                    <li class="submenu-item"><a asp-area="Admin" asp-controller="Employees" asp-action="HotelOrdermanagement" class="submenu-link">旅館訂單管理</a></li>
+                                    <li class="submenu-item"><a asp-area="Admin" asp-controller="EmployeesManage" asp-action="Ordermanagement" class="submenu-link">商品訂單管理</a></li>
+                                    <li class="submenu-item"><a asp-area="Admin" asp-controller="EmployeesManage" asp-action="SalonOrdermanagement" class="submenu-link">美容訂單管理</a></li>
+                                    <li class="submenu-item"><a asp-area="Admin" asp-controller="EmployeesManage" asp-action="HotelOrdermanagement" class="submenu-link">旅館訂單管理</a></li>
 
                                 </ul>
                             </div>

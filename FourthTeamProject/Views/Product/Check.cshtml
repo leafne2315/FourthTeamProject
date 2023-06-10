@@ -282,7 +282,7 @@
                     let _this = this;
                     //判斷使用者購物車是否為空
                     if (_this.shoppingCart.length !== 0 && this.getCart() !== null) {
-                        if (_this.memberInfo.memberAddress != '' && _this.memberInfo.memberName != '' && _this.memberInfo.memberPhone != '') {
+                        if (_this.memberInfo.memberAddress != '' && _this.memberInfo.memberName != '' && _this.memberInfo.memberPhone != '' && _this.payment != null && _this.invoice !=null) {
                             var request = {
                                 MemberId: _this.memberInfo.memberId,
                                 InvoiceId: this.invoice,
@@ -326,12 +326,12 @@
                                     }
                                     localStorage.clear();
                                 });
-                            });                            
+                            });                   
                         }
                         else {
                             Swal.fire({
                                 icon: 'error',
-                                text: '收件人資料不可為空',
+                                text: '訂購人或付款方式不可為空',
                             })
                         }
                     }

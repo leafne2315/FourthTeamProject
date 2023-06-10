@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using SalonViewModel = FourthTeamProject.Models.ViewModel.SalonViewModel;
 
 namespace FourthTeamProject.Controllers.API
 {
@@ -59,7 +60,7 @@ namespace FourthTeamProject.Controllers.API
                     Birthday = m.MemberBirthday,
                     Phone = m.MemberPhone
                 }).FirstOrDefault();
-                    return Ok(member);       
+                return Ok(member);
             }
             else
             {
@@ -69,15 +70,62 @@ namespace FourthTeamProject.Controllers.API
         [HttpGet("{salonSolutionId}")]
         public IEnumerable<SalonViewModel> GetSalonSolutionOrder(int salonSolutionId)
         {
-            var temp = _context.SalonSolution.Where(s=>s.SalonSolutionId== salonSolutionId)
+            var temp = _context.SalonSolution.Where(s => s.SalonSolutionId == salonSolutionId)
                 .Select(option => new SalonViewModel
-            {
-                SalonSolutionId = option.SalonSolutionId,
-                SalonSolutionName = option.SalonSolutionName,
-                SalonSolutionDiscription = option.SalonSolutionDiscription,
-                SalonSolutionPrice=option.SalonSolutionPrice,
-            });
+                {
+                    SalonSolutionId = option.SalonSolutionId,
+                    SalonSolutionName = option.SalonSolutionName,
+                    SalonSolutionDiscription = option.SalonSolutionDiscription,
+                    SalonSolutionPrice = option.SalonSolutionPrice,
+                });
             return temp;
+        }
+
+
+
+        [HttpPost]
+        public async Task<string> GetorderDetail([FromBody] SalonOrderDetailViewModel OrderDetail)
+        {
+            var SalonOrderDetail = new SalonOrderDetail()
+            {
+                SalonOrderDetailId = OrderDetail.SalonOrderDetailID,
+                Appointment = OrderDetail.Appointment,
+                DetailStatus = true,
+                UnitPrice = OrderDetail.UnitPrice,
+                SalonOrderId = OrderDetail.SalonOrderID,
+                SalonSolutionId = OrderDetail.SalonSolutionID,
+                SalonCatagoryName = OrderDetail.SalonCatagoryName,
+                SalonSolutionName = OrderDetail.SalonSolutionName,
+            };
+
+            _context.SalonOrderDetail.Add(SalonOrderDetail);
+            _context.SaveChanges();
+            return "OK";
+
+        }
+
+        [HttpPost]
+        public async Task<string> Getorder([FromBody] PetSalonOrderViewModel Order)
+        {
+
+            var maxid = _context.SalonOrder.Max(x => x.SalonOrderId);
+            var SalonOrder = new SalonOrder()
+            {
+                SalonOrderId = maxid+1,
+                SalonOrderDate = DateTime.Now,
+                MemberId = Order.MemberID,
+                PayId = Order.PayID,
+                InvoiceId = Order.InvoiceID,
+                OrderStatus = true,
+                OrderMemberName = Order.OrderMemberName,
+                OrderMemberPhone = Order.OrderMemberPhone,
+                OrderMemberEmail= Order.OrderMemberEmail,
+            };
+
+            _context.SalonOrder.Add(SalonOrder);
+            _context.SaveChanges();
+            return "預約完成!!";
+
         }
     }
 }

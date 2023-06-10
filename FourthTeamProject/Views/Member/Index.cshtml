@@ -469,6 +469,7 @@
 						self.createpetInfo.petVariety = ""
 						self.createpetInfo.petTypename = "0"						
 						self.pet.unshift(res.data.message)
+						alert("新增成功")
 						$("#createModal").modal("hide");
 					}
 				});
@@ -494,6 +495,7 @@
 						self.editInfo.petVariety = ""
 						self.editInfo.petTypeId = "0"
 						self.pet.unshift(res.data.message)
+						alert("修改成功")
 						$("#editModal").modal("hide");
 					}
 				})

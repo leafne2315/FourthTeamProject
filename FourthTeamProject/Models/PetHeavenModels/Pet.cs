@@ -2,6 +2,7 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace FourthTeamProject.PetHeavenModels
 {
@@ -14,8 +15,9 @@ namespace FourthTeamProject.PetHeavenModels
         public string PetGender { get; set; }
         public DateTime? PetBirthday { get; set; }
         public string PetVariety { get; set; }
-
+        [JsonIgnore]
         public virtual Member Member { get; set; }
+        [JsonIgnore]
         public virtual PetType PetType { get; set; }
     }
 }

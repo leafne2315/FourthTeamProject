@@ -232,12 +232,12 @@
                 GetProductStatus: function (Status) {
                     return Status ? "販售中" : "已停售";
                 },
-                Edit: function (ProductID) {
+                Edit: function (ProductId) {
                     let _this = this;
                     var ProductList = [];
                     for (var i = 0; i < _this.ProductDTO.length; i++) {
                         var item = _this.ProductDTO[i];
-                        if (ProductID == item.productID) {
+                        if (ProductId == item.productID) {
                             item.editProduct = true;
                             _this.ProductNameOld = item.productName;
                             _this.ProductSpecificationOld = item.productSpecification;
@@ -259,21 +259,21 @@
                     })
                     _this.ProductDTO = ProductList;
                 },
-                Discontinued: function (ProductID) {
+                Discontinued: function (productId) {
                     let _this = this;
                     var ret = confirm("確定停售商品嗎??");
                     if (ret == true) {
-                        axios.put(`/api/ProductEnterprise/DiscontinuedProduct/${ProductID}`).then(response => {
+                        axios.put(`/api/ProductEnterprise/DiscontinuedProduct/${productId}`).then(response => {
                             alert(response.data);
                             _this.FilterProductDTO();
                         });
                     }
                 },
-                Shelves: function (ProductID) {
+                Shelves: function (productId) {
                     let _this = this;
                     var ret = confirm("確定上架商品嗎??");
                     if (ret == true) {
-                        axios.put(`/api/ProductEnterprise/ShelvesProduct/${ProductID}`).then(response => {
+                        axios.put(`/api/ProductEnterprise/ShelvesProduct/${productId}`).then(response => {
                             alert(response.data);
                             _this.FilterProductDTO();
                         });
@@ -316,11 +316,11 @@
                     }
                     _this.ProductDTO = ProductList;
                 },
-                Delete: function (ProductID) {
+                Delete: function (productId) {
                     let _this = this;
                     var ret = confirm("確定要刪除商品嗎??");
                     if (ret == true) {
-                        axios.delete(`/api/ProductEnterprise/DeleteProduct/${ProductID}`).then(response => {
+                        axios.delete(`/api/ProductEnterprise/DeleteProduct/${productId}`).then(response => {
                             alert(response.data);
                             _this.FilterProductDTO();
                         });
@@ -372,7 +372,6 @@
                         $("#InsertProductTypePage").modal("hide");
                         _this.FilterProductDTO();
                     });
-
                 },
             }
         })

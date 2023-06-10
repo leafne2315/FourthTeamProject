@@ -19,6 +19,7 @@
                 <tr>
                     <th style="width:10%">編輯</th>
                     <th style="width:10%">房型服務</th>
+                    <th style="width:10%">房型服務介紹</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,13 +30,18 @@
                             <button class="btn btn-warning" @@click="Cancel">取消修改</button>
                         </td>
                         <td><input type="text" v-model="item.hotelServiceName" /></td>
+                        <td>
+                            <textarea type="text" v-model="item.hotelServiceContent">{{item.hotelServiceContent}}</textarea>
+                        </td>
+
                     </template>
                     <template v-else>
                         <td>
-                            <button class="btn btn-primary" @@click="Edit(item.hotelServiceId)">編輯</button>
-                            <button class="btn btn-primary" @@click="Delete(item.hotelServiceId)">刪除</button>
+                            <button class="btn btn-primary" @@click="Edit(item.hotelServiceID)">編輯</button>
+                            <button class="btn btn-primary" @@click="Delete(item.hotelServiceID)">刪除</button>
                         </td>
                         <td>{{item.hotelServiceName}}</td>
+                        <td>{{item.hotelServiceContent}}</td>
                     </template>
                 </tr>
             </tbody>
@@ -55,6 +61,10 @@
                         <div class="mb-3">
                             <label for="message-text" class="col-form-label">房型服務</label>
                             <input type="text" class="form-control" id="recipient-name" v-model="hotelServiceName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">房型服務介紹</label>
+                            <textarea type="text" v-model="hotelServiceContent"></textarea>
                         </div>
                     </form>
                 </div>
@@ -81,7 +91,9 @@
             data: {
                 HotelServiceNameDTO: [],
                 hotelServiceName: "",
+                hotelServiceContent:"",
                 HotelServiceNameOld: "",
+                HotelServiceContentOld:"",
             },
             mounted: function () {
                 let _this = this;
@@ -97,9 +109,10 @@
                     var HotelServiceList = [];
                     for (var i = 0; i < _this.HotelServiceNameDTO.length; i++) {
                         var item = _this.HotelServiceNameDTO[i];
-                        if (HotelServiceId == item.hotelServiceId) {
+                        if (HotelServiceId == item.hotelServiceID) {
                             item.editHotelService = true;
                             _this.HotelServiceNameOld = item.hotelServiceName;
+                            _this.HotelServiceContentOld = item.hotelServiceContent;
                         }
                         HotelServiceList.push(item);
                     }
@@ -108,15 +121,17 @@
                 Create: function () {
                     let _this = this;
                     _this.hotelServiceName = "",
+                        _this.hotelServiceContent = "",
                         $("#InsertPage").modal('show');
                 },
                 Update: function (item) {
                     let _this = this;
                     var request = {
-                        HotelServiceNameId: item.hotelServiceNameId,
+                        HotelServiceID: item.hotelServiceID,
                         HotelServiceName: item.hotelServiceName,
+                        HotelServiceContent: item.hotelServiceContent,
                     };
-                    axios.put(`/api/HotelServiceEnterprise/PutHotelService/${item.hotelServiceId}`, request).then(response => {
+                    axios.put(`/api/HotelServiceEnterprise/PutHotelService/${item.hotelServiceID}`, request).then(response => {
                         alert(response.data);
                         _this.Cancel();
                         _this.FilterHotelServiceDTO();
@@ -132,16 +147,17 @@
                         if (item.editHotelService == true) {
                             item.editHotelService = false;
                             item.hotelServiceName = _this.HotelServiceNameOld;
+                            item.hotelServiceContent = _this.HotelServiceContentOld;
                         }
                         HotelServiceList.push(item);
                     }
                     _this.HotelServiceNameDTO = HotelServiceList;
                 },
-                Delete: function (hotelServiceId) {
+                Delete: function (hotelServiceID) {
                     let _this = this;
                     var ret = confirm("確定刪除嗎??");
                     if (ret == true) {
-                        axios.delete(`/api/HotelEnterprise/DeleteHotelService/${hotelServiceId}`).then(response => {
+                        axios.delete(`/api/HotelServiceEnterprise/DeleteHotelService/${hotelServiceID}`).then(response => {
                             alert(response.data);
                             _this.FilterHotelServiceDTO();
                         });
@@ -152,6 +168,7 @@
                     var HotelServiceDTO = {
                         HotelServiceID: 0,
                         HotelServiceName: _this.hotelServiceName,
+                        HotelServiceContent: _this.hotelServiceContent,
                     };
                     axios.post(`/api/HotelServiceEnterprise/CreateHotelService`, HotelServiceDTO).then(response => {
                         alert(response.data);

@@ -5,11 +5,16 @@ namespace FourthTeamProject.Controllers
 {
     public class PetSalonController : Controller
     {
+        
         public IActionResult SalonIndex()
         {
             return View();
         }
-      
+        public IActionResult SalonOrderCheck()
+        {
+            return View();
+        }
+
     }
 
 

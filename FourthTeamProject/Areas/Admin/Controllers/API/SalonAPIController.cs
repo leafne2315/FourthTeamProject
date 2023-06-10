@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using SalonViewModel = FourthTeamProject.Areas.Admin.ViewModels.SalonViewModel;
 
 namespace FourthTeamProject.Areas.Admin.Controllers.API
 {

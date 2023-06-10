@@ -2247,6 +2247,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\HotelImage\" />
+    <Folder Include="wwwroot\HotelRoomimage\" />
     <Folder Include="wwwroot\Productimage\" />
   </ItemGroup>
 

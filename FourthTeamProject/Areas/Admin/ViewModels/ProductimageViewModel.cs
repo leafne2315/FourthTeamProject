@@ -1,6 +1,4 @@
-﻿using FourthTeamProject.PetHeavenModels;
-
-namespace FourthTeamProject.Areas.Admin.ViewModels
+﻿namespace FourthTeamProject.Areas.Admin.ViewModels
 {
     public class ProductimageViewModel
     {

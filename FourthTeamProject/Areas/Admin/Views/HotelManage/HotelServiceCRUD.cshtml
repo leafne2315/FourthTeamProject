@@ -1,82 +1,112 @@
 ﻿<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link href="~/css/saloncss/style.css" rel="stylesheet" />
+<style>
+    .red-text {
+        color: red
+    }
+</style>
 
 
-<div id="app" class="container">
-    @*<-----------選項-------------->*@
-    <nav class="navbar navbar-expand bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0 ">
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav py-0">
-                <a class="nav-item nav-link" @@click="Create">新增房型服務</a>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portal - Bootstrap 5 Admin Dashboard Template For Developers">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link id="theme-style" rel="stylesheet" href="~/css/System/css/portal.css">
+</head>
+<body class="app">
+    <div id="app" class="app-wrapper">
+        <div class="app-content pt-3 p-md-3 p-lg-4">
+            <div class="container-xl">
+                <div class="tab-content" id="orders-table-tab-content">
+                    <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+                        <div class="app-card app-card-orders-table shadow-sm mb-5">
+                            <div class="app-card-body">
+                                <div class="table-responsive">
+                                    @*<-----------選項-------------->*@
+                                    <nav class="navbar navbar-expand bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0 ">
+                                        <div class="collapse navbar-collapse" id="navbarCollapse">
+                                            <div class="navbar-nav py-0">
+                                                <a class="nav-item nav-link" @@click="Create">新增房型服務</a>
+                                            </div>
+                                        </div>
+                                    </nav>
+
+                                    @*<-----------編輯頁面-------------->*@
+                                    <div class="form-group">
+                                        <table class="table table-striped table-hover text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:10%">編輯</th>
+                                                    <th style="width:10%">房型服務</th>
+                                                    <th style="width:10%">房型服務介紹</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="item in HotelServiceNameDTO">
+                                                    <template v-if="item.editHotelService === true">
+                                                        <td>
+                                                            <button class="btn btn-success" @@click="Update(item)">確定修改</button>
+                                                            <button class="btn btn-warning" @@click="Cancel">取消修改</button>
+                                                        </td>
+                                                        <td><input type="text" v-model="item.hotelServiceName" /></td>
+                                                        <td>
+                                                            <textarea type="text" v-model="item.hotelServiceContent">{{item.hotelServiceContent}}</textarea>
+                                                        </td>
+
+                                                    </template>
+                                                    <template v-else>
+                                                        <td>
+                                                            <button class="btn btn-primary" @@click="Edit(item.hotelServiceID)">編輯</button>
+                                                            <button class="btn btn-primary" @@click="Delete(item.hotelServiceID)">刪除</button>
+                                                        </td>
+                                                        <td>{{item.hotelServiceName}}</td>
+                                                        <td>{{item.hotelServiceContent}}</td>
+                                                    </template>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    @*<----------------新增頁面----------------->*@
+                                    <div class="modal fade" id="InsertPage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">新增房型服務</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form>
+                                                        <div class="mb-3">
+                                                            <label for="message-text" class="col-form-label">房型服務</label>
+                                                            <input type="text" class="form-control" id="recipient-name" v-model="hotelServiceName">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="message-text" class="col-form-label">房型服務介紹</label>
+                                                            <textarea type="text" v-model="hotelServiceContent"></textarea>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                                    <button type="button" class="btn btn-primary" @@click="Insert">新增</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </nav>
-
-    @*<-----------編輯頁面-------------->*@
-    <div class="form-group">
-        <table class="table table-striped table-hover text-center">
-            <thead>
-                <tr>
-                    <th style="width:10%">編輯</th>
-                    <th style="width:10%">房型服務</th>
-                    <th style="width:10%">房型服務介紹</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="item in HotelServiceNameDTO">
-                    <template v-if="item.editHotelService === true">
-                        <td>
-                            <button class="btn btn-success" @@click="Update(item)">確定修改</button>
-                            <button class="btn btn-warning" @@click="Cancel">取消修改</button>
-                        </td>
-                        <td><input type="text" v-model="item.hotelServiceName" /></td>
-                        <td>
-                            <textarea type="text" v-model="item.hotelServiceContent">{{item.hotelServiceContent}}</textarea>
-                        </td>
-
-                    </template>
-                    <template v-else>
-                        <td>
-                            <button class="btn btn-primary" @@click="Edit(item.hotelServiceID)">編輯</button>
-                            <button class="btn btn-primary" @@click="Delete(item.hotelServiceID)">刪除</button>
-                        </td>
-                        <td>{{item.hotelServiceName}}</td>
-                        <td>{{item.hotelServiceContent}}</td>
-                    </template>
-                </tr>
-            </tbody>
-        </table>
     </div>
-
-    @*<----------------新增頁面----------------->*@
-    <div class="modal fade" id="InsertPage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">新增房型服務</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="message-text" class="col-form-label">房型服務</label>
-                            <input type="text" class="form-control" id="recipient-name" v-model="hotelServiceName">
-                        </div>
-                        <div class="mb-3">
-                            <label for="message-text" class="col-form-label">房型服務介紹</label>
-                            <textarea type="text" v-model="hotelServiceContent"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" @@click="Insert">新增</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
+</body>
 
 
 @section Scripts
@@ -91,9 +121,9 @@
             data: {
                 HotelServiceNameDTO: [],
                 hotelServiceName: "",
-                hotelServiceContent:"",
+                hotelServiceContent: "",
                 HotelServiceNameOld: "",
-                HotelServiceContentOld:"",
+                HotelServiceContentOld: "",
             },
             mounted: function () {
                 let _this = this;

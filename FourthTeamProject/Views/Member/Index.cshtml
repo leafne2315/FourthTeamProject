@@ -450,6 +450,12 @@
 			},
 			editMember: function () {
 				let self = this;
+
+				if (self.editmemberInfo.memberPhone == null) alert("請輸入手機")
+				if (self.editmemberInfo.memberEmail == null) alert("請輸入電子郵箱")
+				if (self.editmemberInfo.memberAddress == null) alert("請輸入地址")
+				if (self.editmemberInfo.memberBirthday == null) alert("請輸入生日")
+
 				axios.post('/api/member/editMember', self.editmemberInfo).then(res => {
 					if (res.data.status == true) {
 						self.editmemberInfo.memberPhone = ""
@@ -464,6 +470,7 @@
 			},
 			editMemberPassword: function () {
 				let self = this;
+
 				axios.post('/api/member/editMemberPassword', self.editpasswordInfo).then(res => {
 					if (res.data.status == true) {
 						self.editpasswordInfo.memberPhone = ""

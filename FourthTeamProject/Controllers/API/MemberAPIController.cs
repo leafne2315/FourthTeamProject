@@ -57,41 +57,53 @@ namespace FourthTeamProject.Controllers.API
 			return Unauthorized();
 		}
 
-        [HttpPut]
-        public IActionResult updataMember([FromBody]Member member)
+        public ApiResultDTO editMember([FromBody] EdutmemberDto model)
         {
-            var membername = User.FindFirstValue(ClaimTypes.Name);
-            var memberId = _db.Member.Where(o => o.MemberName == membername).ToList();
-            var user = _db.Member.FirstOrDefault(x => x.MemberEmail == member.MemberEmail);
-            try
+            var memberName = User.FindFirstValue(ClaimTypes.Name);
+            var member = _db.Member.FirstOrDefault(o => o.MemberName == memberName);
+            var memberId = member.MemberId;
+            var result = _db.Member.FirstOrDefault(x => x.MemberId == memberId);
+            if (result == null)
             {
-                // 根據會員的識別資訊（如會員ID或唯一標識）從資料庫中獲取會員物件
-                var existingMember = _db.Member.FirstOrDefault(m => m.MemberId == memberId[0].MemberId);
-
-                if (existingMember == null)
-                {
-                    return NotFound();
-                }
-
-                // 更新會員資訊                
-                existingMember.MemberEmail = member.MemberEmail;
-                existingMember.MemberAddress = member.MemberAddress;
-                existingMember.MemberPhone=member.MemberPhone;
-                existingMember.MemberBirthday = member.MemberBirthday;
-
-                // 保存變更
-                _db.SaveChanges();
-
-                return Ok(existingMember);
+                return new ApiResultDTO() { Status = false, Message = "修改有誤" };
             }
-            catch (Exception ex)
-            {
-                // 處理錯誤，回傳錯誤訊息
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
+            result.MemberPhone = model.memberPhone;
+            result.MemberEmail = model.memberEmail;
+            result.MemberAddress = model.memberAddress;
+            result.MemberBirthday = model.memberBirthday;
+            _db.SaveChanges();
+            return new ApiResultDTO() { Status = true, Message = "成功" };
+
         }
 
+        public ApiResultDTO editMemberPassword([FromBody] EdutPasswordDto model)
+        {
+            var memberName = User.FindFirstValue(ClaimTypes.Name);
+            var member = _db.Member.FirstOrDefault(o => o.MemberName == memberName);
+            var memberId = member.MemberId;
+            var memberPassword = member.MemberPassword;
+            var result = _db.Member.FirstOrDefault(x => x.MemberId == memberId);
+            if (result == null)
+            {
+                return new ApiResultDTO() { Status = false, Message = "修改有誤" };
+            }
+            if (memberPassword != model.memberPassword) {
+                return new ApiResultDTO() { Status = false, Message = "輸入密碼錯誤" };
+            }
+            if (model.membernewPassword!=model.memberconfirmpassword)
+            {
+                return new ApiResultDTO() { Status = false, Message = "請確認密碼是否與確認密碼一樣" };
+            }
+            if (model.memberconfirmpassword != model.membernewPassword)
+            {
+                return new ApiResultDTO() { Status = false, Message = "請確認密碼是否與新密碼一樣" };
+            }
+            result.MemberPassword = model.memberconfirmpassword;
+            _db.SaveChanges();
+            return new ApiResultDTO() { Status = true, Message = "成功" };
 
+        }
+        
         [HttpGet]
 		public object GetMemberOrder()
 		{

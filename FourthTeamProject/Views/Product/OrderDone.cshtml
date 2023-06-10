@@ -1,12 +1,6 @@
-﻿@*<h1>完成訂單</h1>*@
-
-@Html.Raw(ViewData["ReceiveObj"])
-
-@Html.Raw(ViewData["TradeInfo"])
-
-@section Styles{
+﻿@section Styles{
     <style>
-    
+
 
         .checkmark {
             width: 52px;
@@ -35,11 +29,12 @@
         .checkmark-animate .checkmark-check {
             stroke-dashoffset: 0;
         }
-  </style>
+    </style>
 }
 
 <body>
-    <div class="container">
+    <br />
+    <div id="app" class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-md-6">
                 <div class="card">
@@ -62,10 +57,67 @@
 </body>
 
 @section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var checkmark = document.querySelector('.checkmark');
             checkmark.classList.add('checkmark-animate');
         });
+        var result = '@ViewBag.TradeInfo';
+        var app = new Vue({
+            el: '#app',
+            data: {
+                result: result,
+                objData: []
+            },
+            mounted: function () {
+                this.decodeObjectValues(result);
+                this.upDatePayStatus();
+            },
+            computed: {
+            },
+            methods: {
+                decodeObjectValues: function (result) {
+                    var returnObj = result.replace(/&quot;/g, '"');
+                    var final = JSON.parse(returnObj);
+                    for (let key in final) {
+                        if (typeof final[key] === 'string') {
+                            const encodedString = final[key];
+                            const parser = new DOMParser();
+                            const dom = parser.parseFromString(`<dummy>${encodedString}</dummy>`, "text/html");
+                            const decodedString = dom.documentElement.textContent;
+                            final[key] = decodedString;
+                        } else if (typeof final[key] === 'object') {
+                            decodeObjectValues(final[key]); // 遞迴處理物件內的物件
+                        }
+                    }
+                    this.objData = final;
+                },
+                upDatePayStatus: function () {
+                    // 設定要更新的訂單 ID 和付款狀態
+                    const orderNo = this.objData.MerchantOrderNo; // 替換為實際的訂單流水號。
+                    const newPaymentStatus = true; // 替換為要設定的新付款狀態
+                    const data = {
+                        orderNo: orderNo,
+                        paymentStatus: newPaymentStatus
+                    };
+                    // 發送更新訂單的付款狀態的請求
+                    if (this.objData.Status == "SUCCESS") {
+                        axios.put(`/api/PetProductAPI/UpdateOrderPaymentStatus/${orderNo}`, data)
+                            .then(response => {
+                                console.log('訂單付款狀態已成功更新');
+                                // 在這裡處理成功更新的回應
+                            })
+                            .catch(error => {
+                                console.error('更新訂單付款狀態時發生錯誤:', error);
+                                // 在這裡處理錯誤
+                            });
+                    }
+                },
+            }
+        })
+
     </script>
 }

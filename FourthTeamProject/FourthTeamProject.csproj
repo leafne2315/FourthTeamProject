@@ -8,10 +8,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\Data\**" />
+    <Compile Remove="Areas\Admin\Models\**" />
     <Compile Remove="Controllers\NewFolder\**" />
+    <Compile Remove="wwwroot\datetimepicker\**" />
+    <Content Remove="Areas\Admin\Data\**" />
+    <Content Remove="Areas\Admin\Models\**" />
     <Content Remove="Controllers\NewFolder\**" />
+    <Content Remove="wwwroot\datetimepicker\**" />
+    <EmbeddedResource Remove="Areas\Admin\Data\**" />
+    <EmbeddedResource Remove="Areas\Admin\Models\**" />
     <EmbeddedResource Remove="Controllers\NewFolder\**" />
+    <EmbeddedResource Remove="wwwroot\datetimepicker\**" />
+    <None Remove="Areas\Admin\Data\**" />
+    <None Remove="Areas\Admin\Models\**" />
     <None Remove="Controllers\NewFolder\**" />
+    <None Remove="wwwroot\datetimepicker\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -2238,8 +2250,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="wwwroot\HotelImage\" />
+    <Folder Include="wwwroot\HotelRoomimage\" />
+    <Folder Include="wwwroot\Productimage\" />
   </ItemGroup>
 
 </Project>

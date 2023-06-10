@@ -3,13 +3,36 @@
 *@
 @{
     var hotelId = Context.Request.Query["hotelId"];
+
 }
 <head>
     
 
     <style>
+
+        #DetailPage {
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            max-width:1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        @@ media (min-width: 1128px) #DetailPage {
+            padding-left: 150px;
+            padding-right: 150px;
+
+        }
+        @@ media (min-width: 744px) #DetailPage{
+            padding-left: 80px;
+            padding-right: 80px;
+        }
+
         #orderForm {
+            @*
             background-color: #6998AB;
+            *@
             padding-left: 150px;
             padding-right: 150px;
             padding-top:50px;
@@ -17,14 +40,30 @@
         }
 
         .form-text {
+            @*
             color: floralwhite;
+            *@
         }
 
+        .boldText{
+            font-weight: bold;
+        }
+
+        .card{
+            border:1px solid lightGray;
+            padding:30px;
+        }
+
+        .card-body{
+            padding:0px;
+        }
+        @*
         hr.solid {
-            border-top: 1px solid floralwhite;
+            border-top: 1px solid ;
             width: 200px;
             margin-left: 0;
         }
+        *@
 
         .input {
             display: flex;
@@ -69,47 +108,106 @@
         }
 
         .notice {
-            color: red;
+            color: darkred;
             font-size: 14px;
             margin-top: 5px;
         }
 
-        ::placeholder {
-            color: #8eb6c6;
+        input[type='radio'] {
+            --active: #275EFE;
+            --active-inner: #fff;
+            --focus: 2px rgba(39, 94, 254, .3);
+            --border: #BBC1E1;
+            --border-hover: #275EFE;
+            --background: #fff;
+            --disabled: #F6F8FF;
+            --disabled-inner: #E1E6F9;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            height: 21px;
+            outline: none;
+            display: inline-block;
+            vertical-align: top;
+            position: relative;
+            margin: 0;
+            cursor: pointer;
+            border: 1px solid var(--bc, var(--border));
+            background: var(--b, var(--background));
+            transition: background .3s, border-color .3s, box-shadow .2s;
+            &:after {
+              content: '';
+              display: block;
+              left: 0;
+              top: 0;
+              position: absolute;
+              transition: transform var(--d-t, .3s) var(--d-t-e, ease), opacity var(--d-o, .2s);
+            }
+            &:checked {
+              --b: var(--active);
+              --bc: var(--active);
+              --d-o: .3s;
+              --d-t: .6s;
+              --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
+            }
+            &:disabled {
+              --b: var(--disabled);
+              cursor: not-allowed;
+              opacity: .9;
+              &:checked {
+                --b: var(--disabled-inner);
+                --bc: var(--border);
+              }
+              & + label {
+                cursor: not-allowed;
+              }
+            }
+            &:hover {
+              &:not(:checked) {
+                &:not(:disabled) {
+                  --bc: var(--border-hover);
+                }
+              }
+            }
+            &:focus {
+              box-shadow: 0 0 0 var(--focus);
+            }
+            &:not(.switch) {
+              width: 21px;
+              &:after {
+                opacity: var(--o, 0);
+              }
+              &:checked {
+                --o: 1;
+              }
+            }
+        }
+
+        input[type='radio'] {
+            border-radius: 50%;
+            &:after {
+              width: 19px;
+              height: 19px;
+              border-radius: 50%;
+              background: var(--active-inner);
+              opacity: 0;
+              transform: scale(var(--s, .7));
+            }
+            &:checked {
+              --s: .5;
+            }
+          }
         }
         
+        .hoverable {
+          cursor: pointer;
+        }
     </style>
+    <script src="https://kit.fontawesome.com/929fe9c685.js" crossorigin="anonymous"></script>
 </head>
 
 <div id="app">
-    <p>Hotel ID: @hotelId</p>
-    <h1>PetHotelOrderPage </h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>PetHotelId</th>
-                <th>HotelCatagoryId</th>
-                <th>HotelName</th>
-                <th>UnitPrice</th>
-                <th>HotelContent</th>
-                <th>HotelContentDetail</th>
-                <th>HotelImageString</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                @*
-                <td>{{HotelData.id}}</td>
-                <td>{{HotelData.catagoryID}}</td>
-                <td>{{HotelData.hotelName}}</td>
-                <td>{{HotelData.unitPrice}}</td>
-                <td>{{HotelData.hotelContent}}</td>
-                <td>{{HotelData.hotelContentDetail}}</td>
-                <td>{{HotelData.hotelImage}}</td>
-                *@
-            </tr>
-        </tbody>
-    </table>
+    
+    @*
     <div id="orderForm">
         <div class="px-4 px-lg-5 mt-3 form-text">
 
@@ -131,19 +229,6 @@
                         <option v-for="data in selectedPetHotels" :value="data.id">{{data.hotelName}}</option>
                     </select>
                 </div>
-                @*
-                <div class="mb-3">
-                    <p>選擇房型</p>
-                    <select name="" id="" class="form-control custom-select" v-model="orderDetailData.HotelId" required>
-                        <optgroup label="狗">
-                            <option v-for="data in petHotelForDog" :value="data.id">{{data.hotelName}}</option>
-                        </optgroup>
-                        <optgroup label="貓">
-                            <option v-for="data in petHotelForCat" :value="data.id">{{data.hotelName}}</option>
-                        </optgroup>
-                    </select>
-                </div>
-                *@
                 <div class="">
                     <div class="row">
                         <div class="col col-md-6 mb-3">
@@ -157,17 +242,6 @@
                         </div>
                     </div> 
                 </div> 
-                @*
-                <div class="input">
-                    <input type="text" class="input-field" required />
-                    <label class="input-label">聯絡人*</label>
-                </div>
-                <div class="input">
-                    <input type="number" class="input-field" required />
-                    <label class="input-label">聯絡手機*</label>
-                </div>
-
-                *@
                 <div class = "input">
                     <textarea class="input-field" rows="3" placeholder="你想補充什麼?"></textarea>
                     <label class="input-label">其他備註</label>
@@ -177,7 +251,183 @@
                 </div>
             </form>
         </div>
+        
     </div>
+    *@
+
+    <div id="DetailPage">
+            <div class="px-4 px-lg-5 mt-3">
+
+                <h2 class="title mb-5 boldText">確認訂單</h2>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <h4  class="mb-4 boldText">訂單內容</h4>
+                        
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <div>
+                                <p class="mb-1 boldText" style="font-size:18px;">
+                                    日期
+                                </p>
+                                <p class="mb-3 service-content">{{reserveMonth()}}月{{reserveDayIn()}}日至{{reserveDayOut()}}日</p>
+                            </div>
+                            <div>
+                                <div class="mt-2">
+                                    <button class="btn p-0" v-if="!isOrderCreated" v-on:click="OpenDateModal" style="font-weight:bold; font-size:16px; text-decoration: underline;">編輯</button>
+                                </div>
+                                
+                            </div>
+
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="mb-1" style="font-weight:bold; font-size:18px; ">
+                                    入住時間
+                                </p>
+                                <p class="mb-3 service-content">下午{{TimeSelected-12}}:00</p>
+                            </div>
+                            <div>
+                                <div class="mt-2">
+                                    <button class="btn p-0" v-if="!isOrderCreated" v-on:click="OpenCheckInModal" style="font-weight:bold; font-size:16px; text-decoration: underline;">編輯</button>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="solid" style="font-weight: bold;">
+
+                        <div class="d-flex justify-content-center">
+                            <button v-if="!isOrderCreated" v-on:click="createOrder" class="btn btn-primary " style="min-width:170px; border-radius:8px;">
+                                送出訂單
+                            </button>
+                            <button v-if="isCreatingOrder" class="btn btn-primary " style="min-width:170px; border-radius:8px;">
+                                <i class="fa fa-spinner fa-spin mr-2"></i>正在建立訂單
+                            </button>
+                        </div>
+                        <div v-if="isOrderCreated && !isCreatingOrder">
+                            <div class="d-flex justify-content-center">
+                                <h3 class="boldText">訂單已建立!!</h3>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button class="btn btn-primary"  v-on:click="backToHome" style="min-width:170px; border-radius:8px;">
+                                    回首頁
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="card shadow ml-md-auto ml-0 " style="width: 25rem; border:none; border-radius:20px;" >
+                            <form v-on:submit.prevent="formSubmit">
+                                <div class="card-body">
+                                    <div class="d-flex mb-1">
+                                        <image style="width: 125px; height:100px;" class="rounded img-fluid"
+                                            :src="fullImagePath(HotelData.hotelImage)">
+
+                                        <div class="ml-3">
+                                            <p class="mb-1" style="font-size:10px; color:gray">日安寵物旅店</p>
+                                            <h6 class="card-title" >{{HotelData.hotelName}}</h6>
+                                        </div>
+                                        
+                                    </div>
+                                    <hr class="solid">
+                                    <h4 class="boldText">價格詳情</h4>
+                                    <div id="subTotal" class="d-flex justify-content-between pt-4">
+                                        <p>${{orderDetailData.unitPrice}} TWD x{{orderDetailData.orderAmount}} 晚</p>
+                                        <p>${{orderDetailData.unitPrice*orderDetailData.orderAmount}} TWD</p>
+                                    </div>
+                                    <hr style="margin:8px">
+                                    <div id="TotalPrice" class="d-flex justify-content-between pt-3">
+                                        <h6 class="boldText">總價</h6>
+                                        <h6 class="boldText">${{orderDetailData.unitPrice*orderDetailData.orderAmount}} TWD</h6>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="modal fade" id="DateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form v-on:submit.prevent="DateModalSubmit">
+                            <div class="modal-body">
+                                <h3 class="boldText mb-4">變更日期</h3>
+                                <div class="row">
+                                        <div class="col col-md-6 pr-0">
+                                            <div class="mb-1 boldText">入住日期</div>
+                                            <input type="date"  class="form-control custom-select" style="font-size:15px;" required v-model="form_Date.DayIn">
+                                        </div>
+                                        <div class="col col-md-6 pl-0">
+                                            <div class="mb-1 boldText">離宿日期</div>
+                                            <input type="date"  class="form-control custom-select" required v-model="form_Date.DayOut">
+                                            <p class="notice" v-if="showNotice" style="margin-bottom:10px">{{noticeText}}</p>
+                                        </div>
+                               </div>
+                            </div>
+                            <div class="modal-footer d-flex align-content-between">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                <button type="submit" class="btn btn-primary">確認</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="CheckInModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        
+                        <div class="modal-body">
+                            <h3 class="boldText mb-4">入住時間</h3>
+                            
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" id="exampleRadios1" value="13" name="checkInTime" checked>
+                                    <label class="form-check-label" for="exampleRadios1">
+                                        下午 1:00
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" id="exampleRadios2" value="14" name="checkInTime">
+                                    <label class="form-check-label" for="exampleRadios2">
+                                        下午 2:00
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" id="exampleRadios3" value="15" name="checkInTime">
+                                    <label class="form-check-label" for="exampleRadios3">
+                                        下午 3:00
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" id="exampleRadios4" value="16" name="checkInTime">
+                                    <label class="form-check-label" for="exampleRadios4">
+                                        下午 4:00
+                                    </label>
+                                </div>
+                            
+                        </div>
+                        <div class="modal-footer d-flex align-content-between">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" v-on:click="TimeModalSubmit">確認</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
 </div>
 
@@ -188,6 +438,11 @@
     let app = new Vue({
         el: '#app',
         data: {
+            HotelData:{
+                hotelName:'讀取中...',
+            },
+            MemberData:null,
+
             orderData:{
                 MemberId:null,
                 PayId: null,
@@ -196,52 +451,58 @@
 
             orderDetailData:{
                 
-                HotelOrderId:null,
-                HotelId:null,
-                CheckIntime:null,
-                CheckOutTime:null,
-                OrderAmount:null,
-                UnitPrice:null,
-                DetailStatus:null,
-                HotelName:null,
-                HotelCatagoryName:null,
+                hotelOrderId:null,
+                hotelId:null,
+                checkIntime:null,
+                checkOutTime:null,
+                orderAmount:null,
+                unitPrice:null,
+                detailStatus:null,
+                hotelName:null,
+                hotelCatagoryName:null,
             },
-            selectedPetTypeId:1,
-            selectedPetHotels:null,
+            
+            TimeSelected: 13,
 
-            //資料分類
-            petHotelForDog:[],
-            petHotelForCat:[],
-            petHotelDatas:[],
+            form_Date:{
+                DayIn:null,
+                DayOut:null,
+            },
 
             //時段確認
             showNotice: false,
-            noticeText: '',
+            noticeText: '請確認日期是否正確',
+
+            //CheckIn
+            CheckInTimes:['1:00','2:00','3:00','4:00'],
+
+            //
+            isOrderCreated:false,
+            isCreatingOrder:false,
+            
         },
         mounted: async function () {
 
-            await this.getHotelDatas();
-            this.InitialForm();
+            this.getMemberData();
+            await this.getOrderDetailFromSession();
+            await this.getHotelData();
+           
         },
         
-        watch:{
-            selectedPetTypeId: function (newVal, oldVal){
-                console.log("new:",newVal);
-                this.changeSelectedCategory(newVal);
-                this.setChangedHoteltype();
-            },
+        computed:{
+            
         },
         methods: {
 
-            getHotelDatas: async function () {
+            getHotelData: async function () {
 
                 let self = this;
-                var test = await axios.get('/api/PetHotelAPI').then(response => {
-                    this.petHotelDatas = response.data; // Store the fetched data in the component's data property
+                const hotelId = this.orderDetailData.hotelId;
 
-                    console.log(this.petHotelDatas);
-                    this.petHotelForDog = this.petHotelDatas.filter(data => data.catagoryID == 1);
-                    this.petHotelForCat = this.petHotelDatas.filter(data => data.catagoryID == 2);
+                var test = await axios.get(`/api/PetHotelAPI/HotelDetail/${hotelId}`).then(response => {
+                    this.HotelData = response.data; // Store the fetched data in the component's data property
+
+                    console.log(this.HotelData);
 
                 })
                 console.log('getData');
@@ -249,23 +510,31 @@
 
             createOrder:function(){
 
-                    this.formSubmit();
-                    if (this.showNotice) {
-                        console.log('中斷建立訂單');
-                        return;
-                    }
-
+                    this.isOrderCreated = true;
+                    this.isCreatingOrder = true;
+                    
                     console.log('create Order');
 
-                    this.orderData.MemberId = 1;
+                    this.orderData.MemberId = this.MemberData.id;
                     this.orderData.PayId = 1;
                     this.orderData.InvoiceId = 1;
+
+
+                    var temp = new Date(this.orderDetailData.checkIntime);
+                    temp.setHours(this.TimeSelected);
+                    this.orderDetailData.checkIntime = temp;
+                    this.orderDetailData.checkOutTime = new Date(this.orderDetailData.checkOutTime);
+
+                    console.log('In:', this.orderDetailData.checkIntime);
+                    console.log('Out',this.orderDetailData.checkOutTime);
+
+                    
 
                     axios.post('/api/PetHotelAPI/HotelOrderCreate',this.orderData)
                     .then( (response) => {
                         console.log('Order:',response);
 
-                        this.orderDetailData.HotelOrderId = response.data.hoyelOrderId;
+                        this.orderDetailData.HotelOrderId = response.data.hoyelOrderId;    
                         //this.orderDetailData.HotelId = 1;
                         //this.orderDetailData.CheckIntime =new Date( '2023-06-15 13:45:30.000');
                         //this.orderDetailData.CheckOutTime =new Date( '2023-06-16 13:45:30.000');
@@ -275,25 +544,20 @@
                         //this.orderDetailData.HotelName = '測試中旅館名';
                         //this.orderDetailData.HotelCatagoryName = '貓';
 
-                        axios.post('/api/PetHotelAPI/OrderDetailCreate',this.orderDetailData).then((x)=>console.log('OrderDetail:',x));
+                        axios.post('/api/PetHotelAPI/OrderDetailCreate',this.orderDetailData).then(x=>{
+                            console.log('OrderDetail:',x);
+                            this.isCreatingOrder = false;
+                        });
                     });
             },
+            
+            getMemberData:function(){
+                axios.get('/api/member/GetCurrentMember').then(response=>{
 
+                    this.MemberData =  response.data;
 
-            formSubmit: function () {
-
-                this.checkCheckOutTimeValid();
-
-                var hotelChosen = this.getHotelByID(this.orderDetailData.HotelId);
-
-                console.log('chosenHotel:', hotelChosen);
-                this.completeOrderDetail(hotelChosen);
-                console.log('submit:', this.orderDetailData);
-            },
-
-            getHotelByID: function (hotelId) {
-                var hotelChosen = this.petHotelDatas.find(h => h.id == hotelId);
-                return hotelChosen;
+                    console.log('member:',this.MemberData);
+                });
             },
 
             completeOrderDetail: function (hotelData) {
@@ -306,44 +570,89 @@
                 this.orderDetailData.HotelCatagoryName = hotelData.hotelTypeName;
             },
             
-            changeSelectedCategory:function(categoryID){
-                switch(categoryID)
-                {
-                    case 1:
-                        this.selectedPetHotels = this.petHotelForDog;
-                        break;
-                    case 2:
-                        this.selectedPetHotels = this.petHotelForCat;
-                        break;
-                    default:
-                        console.log('Invalid CategoryID has been found!!')
-                        break;
+            
+            getOrderDetailFromSession: async function () {
+                await axios.get(`/api/PetHotelAPI/GetDetailData`).then(response => {
+                    console.log('Session:', response);
+                    this.orderDetailData = response.data;
+                });
+            },
+
+            OpenDateModal: function(){
+
+                this.form_Date.DayIn = this.orderDetailData.checkIntime.split(' ')[0].substring(0, 10);
+                this.form_Date.DayOut = this.orderDetailData.checkOutTime.split(' ')[0].substring(0, 10);
+
+                this.showModal = true;
+                $('#DateModal').modal('show');
+            },
+            CloseDateModal:function(){
+                this.showModal = false;
+                $('#DateModal').modal('hide');
+            },
+
+            OpenCheckInModal: function(){
+                this.showModal = true;
+                $('#CheckInModal').modal('show');
+            },
+            CloseCheckInModal: function(){
+                this.showModal = false;
+                $('#CheckInModal').modal('hide');
+            },
+
+            DateModalSubmit: function () {
+
+                var isValid = this.form_Date.DayIn< this.form_Date.DayOut;
+                this.showNotice = !isValid;
+
+                if(!isValid){
+                    console.log('時間不正確');
+                    this.form_Date.DayOut = null;
+                    return;
                 }
+
+                this.orderDetailData.checkIntime = this.form_Date.DayIn;
+                this.orderDetailData.checkOutTime = this.form_Date.DayOut;
+                this.orderDetailData.orderAmount = new Date(this.form_Date.DayOut).getDate() - new Date(this.form_Date.DayIn).getDate();
+                console.log('變更天數:',this.orderDetailData.orderAmount);
+                this.CloseDateModal();
             },
 
-            setChangedHoteltype:function(){
-                this.orderDetailData.HotelId = this.selectedPetHotels[0].id;
+            TimeModalSubmit: function(){
+
+                var selectedTime = document.querySelector('input[name="checkInTime"]:checked').value;
+                this.TimeSelected = selectedTime;
+
+                this.CloseCheckInModal();
             },
 
-            InitialForm:function(){
-                this.selectedPetHotels = this.petHotelForDog;
-                console.log('set selectedPetHotels:', this.petHotelForDog);
-                this.setChangedHoteltype();
+            
+            reserveMonth: function(){
+
+                var reserveDate = new Date(this.orderDetailData.checkIntime)
+                return  reserveDate.getMonth()+1;
+            },
+            reserveDayIn:function(){
+
+                var reserveDate = new Date(this.orderDetailData.checkIntime)
+                return  reserveDate.getDate();
+            },
+            reserveDayOut:function(){
+                var reserveDate = new Date(this.orderDetailData.checkOutTime)
+                return  reserveDate.getDate();
             },
 
-            checkCheckOutTimeValid: function()
-            {
-                var isInvalid = (this.orderDetailData.CheckOutTime <= this.orderDetailData.CheckIntime);
-                this.showNotice = isInvalid;
+            backToHome:function(){
 
-                if (isInvalid)
-                {
-                    console.log("checkOut Time is invalid");
-                    this.noticeText = '時間不正確,請確認是否有誤';
-                    
-                    this.orderDetailData.CheckOutTime = null;
-                }
-               
+                 const url = `/Home`;
+
+                // Navigate to the detail page using window.location.href
+                window.location.href = url;
+            },
+
+            fullImagePath:function(url){
+                const rootPath = '/';
+                return `${rootPath}${url}`;
             },
 
         },

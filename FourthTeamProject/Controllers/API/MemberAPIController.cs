@@ -230,6 +230,13 @@ namespace FourthTeamProject.Controllers.API
 			return true;
 		}
 
+ //   }
+	//public class DeleteDto
+	//{
+	//	public string Id { get; set; }
+	//}
+
+
 
         public ApiResultDTO Edit([FromBody] EdutDto model)
         {
@@ -281,18 +288,5 @@ namespace FourthTeamProject.Controllers.API
                 .ToList();
 			return zzz;
         }
-
-
-
-
     }
-
-
-
-
-
-
-    
-
-   
 }

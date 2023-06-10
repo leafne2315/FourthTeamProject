@@ -1,66 +1,45 @@
 ﻿@model FourthTeamProject.PetHeavenModels.Product
-
 @{
-    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewData["Title"] = "詳細資訊";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductSpecification)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductSpecification)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductContent)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductContent)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UnitPrice)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UnitPrice)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Stock)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Stock)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductStatus)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductStatus)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductCatagory)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductCatagory.ProductCatagoryName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductType.ProductTypeName)
-        </dd>
-    </dl>
+<h1>詳細資訊</h1>
+<div class="container" style="margin-right:100px">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>商品</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-4">商品名稱</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.ProductName)</dd>
+                <dt class="col-sm-4">商品規格</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.ProductSpecification)</dd>
+                <dt class="col-sm-4">商品內容</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.ProductContent)</dd>
+                <dt class="col-sm-4">單價</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.UnitPrice)</dd>
+                <dt class="col-sm-4">庫存</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Stock)</dd>
+                <dt class="col-sm-4">商品狀態</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.ProductStatus)</dd>
+            </dl>
+        </div>
+        <div class="col-md-6">
+            <h4>分類</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-4">商品分類</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.ProductCatagory.ProductCatagoryName)</dd>
+                <dt class="col-sm-4">商品類別</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.ProductType.ProductTypeName)</dd>
+            </dl>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.ProductId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="text-center mt-3">
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.ProductId">編輯</a>
+    <a class="btn btn-primary" asp-area="Admin" asp-controller="Employees" asp-action="Productmanagement">返回列表</a>
 </div>

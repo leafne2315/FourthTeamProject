@@ -4,6 +4,7 @@ using FourthTeamProject.PetHeavenModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace FourthTeamProject.Controllers.API
 {
@@ -12,6 +13,7 @@ namespace FourthTeamProject.Controllers.API
     public class PetHotelAPIController : ControllerBase
     {
         private readonly PetHeavenDbContext petHeavenDb;
+
 
         public PetHotelAPIController(PetHeavenDbContext petHeavenDb)
         {
@@ -59,6 +61,31 @@ namespace FourthTeamProject.Controllers.API
             return Ok(HotelSelected);
         }
 
+        [HttpGet("HotelDetail/GetService/{hotelId}")]
+        public IActionResult HotelService(int hotelId)
+        {
+            var services = petHeavenDb.HotelToService.Include(s => s.HotelService).ToList();
+            var serviceOfHotel = services.Where(h => h.HotelId == hotelId).Select(data => new PetHotelServiceViewModel()
+            {
+                HotelId=data.HotelId,
+                HotelServiceId=data.HotelServiceId,
+                HotelService = data.HotelService,
+            });
+
+            return Ok(serviceOfHotel);
+        }
+
+        [HttpGet("HotelDetail/GetImages/{hotelId}")]
+        public IActionResult HotelImagesGet(int hotelId)
+        {
+            var images = petHeavenDb.HotelImage.Where(h=>h.HotelId==hotelId).Select(data=>new PetHotelImageViewModel() 
+            {
+                HotelImageId=data.HotelImageId,
+                HotelImagePath=data.HotelImagePath,
+            });
+            return Ok(images);
+        }
+
         [HttpPost("HotelOrderCreate")]
         public IActionResult CreateHotelOrder([FromBody]HotelOrderViewModel orderData)
         {
@@ -68,7 +95,7 @@ namespace FourthTeamProject.Controllers.API
                 MemberId = orderData.MemberId,
                 PayId = orderData?.PayId,
                 InvoiceId = orderData.InvoiceId, 
-                OrderStatus = true,
+                OrderStatus = false,
             };
 
             petHeavenDb.HotelOrder.Add(hotelOrder);
@@ -98,5 +125,36 @@ namespace FourthTeamProject.Controllers.API
             return Ok(hotelOrderDetail);
         }
 
+        [HttpPost("SendDetailData")]
+        public IActionResult SendDataToOrder([FromBody] HotelOrderDetailViewModel orderDetailData)
+        {
+            
+            string serializedData = JsonConvert.SerializeObject(orderDetailData);
+            HttpContext.Session.SetString("OrderData", serializedData);
+            //Console.WriteLine(HttpContext.Session.Keys);
+            
+           
+            return Ok(serializedData);
+        }
+
+        [HttpGet("GetDetailData")]
+
+        public IActionResult GetOrderFromDetail() 
+        {
+            string serializedData = HttpContext.Session.GetString("OrderData");
+
+            HotelOrderDetailViewModel orderDetailData = null;
+            try
+            {
+                orderDetailData = JsonConvert.DeserializeObject<HotelOrderDetailViewModel>(serializedData);
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
+
+            return Ok(orderDetailData);
+        }
     }
 }

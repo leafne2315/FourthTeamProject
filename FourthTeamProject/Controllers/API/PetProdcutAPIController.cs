@@ -4,6 +4,7 @@ using FourthTeamProject.PetHeavenModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol;
 using System;
 using System.Security.Cryptography;
@@ -62,14 +63,27 @@ namespace FourthTeamProject.Controllers.API
 
 
         [HttpPost]
-        public IActionResult CreatOrder([FromBody] ProductOrder request)
+        public IActionResult CreatOrder([FromBody] CreateOrderViewModel request)
         {
 
-            var order = _db.ProductOrder.Add(request);
-
+            var order = new ProductOrder
+            {
+                MemberId = request.MemberId,
+                InvoiceId = request.InvoiceId,
+                PayId = request.PayId,
+                OrderStatus = request.OrderStatus,
+                OrderAddress = request.OrderAddress,
+                OrderMemberName= request.OrderMemberName,
+                OrderMemberPhone= request.OrderMemberPhone,
+                OrderMemberEmail= request.OrderMemberEmail,
+                OrderNo= request.OrderNo,
+                OrderDate= DateTime.Now,
+            };
+            _db.ProductOrder.Add(order);
             _db.SaveChanges();
 
-            return Ok(request.OrderId);
+
+            return Ok(order.OrderId);
 
         }
 
@@ -104,16 +118,17 @@ namespace FourthTeamProject.Controllers.API
             var detail = _db.Product.FirstOrDefault(x => x.ProductId == id);
             if (detail != null)
             {
-                var result = new ProductDetailViewModel
+                var result = new ProductViewModel
                 {
-                    ProductId= id,
-                    ProductName= detail.ProductName,
-                    ProductContent= detail.ProductContent,
-                    ProductSpecification= detail.ProductSpecification,
-                    UnitPrice= detail.UnitPrice,
-                    Stock= detail.Stock,
+                    ProductId = detail.ProductId,
                     ProductTypeId = detail.ProductTypeId,
-                    Amount=1
+                    ProductStatus = detail.ProductStatus,
+                    ProductName = detail.ProductName,
+                    ProductContent = detail.ProductContent,
+                    ProductCatagoryId = detail.ProductCatagoryId,
+                    UnitPrice = detail.UnitPrice,
+                    ProductImage = detail.ProductImage,
+                    Amount = 1
                 };
                 return Ok(result);
             }
@@ -122,25 +137,73 @@ namespace FourthTeamProject.Controllers.API
         }
         public IActionResult MaybeLikProoduct([FromQuery] int id)
         {
-            //隨機五筆
+            //隨機四筆
             var count = 4;
             var randomProducts = _db.Product.Where(p => p.ProductTypeId == id)
-            .OrderBy(x => Guid.NewGuid()).Take(count).Select(x=> new ProductDetailViewModel
+            .OrderBy(x => Guid.NewGuid()).Take(count).Select(x=> new ProductViewModel
             {
-                ProductId= x.ProductId,
-                ProductName= x.ProductName,
-                ProductContent= x.ProductContent,
-                ProductSpecification= x.ProductSpecification,
-                UnitPrice= x.UnitPrice,
-                ProductTypeId= x.ProductTypeId
+                ProductId = x.ProductId,
+                ProductTypeId = x.ProductTypeId,
+                ProductStatus = x.ProductStatus,
+                ProductName = x.ProductName,
+                ProductContent = x.ProductContent,
+                ProductCatagoryId = x.ProductCatagoryId,
+                UnitPrice = x.UnitPrice,
+                ProductImage = x.ProductImage,
+                Amount = 1
             });
 
             return Ok(randomProducts);
 
         }
 
+        public IActionResult getInvoice()
+        {
+            var invoice = _db.Invoice;
+            return Ok(invoice);
+        }
+       
+        public IActionResult getPayment()
+        {
+            var payment = _db.Payment;
+            return Ok(payment);
+        }
 
+        [HttpPut("/api/PetProductAPI/UpdateOrderPaymentStatus/{orderNo}")]
+        public IActionResult UpdateOrderPaymentStatus(string orderNo, [FromBody] OrderPaymentStatusModel paymentStatus)
+        {
+                var existingOrder = _db.ProductOrder.FirstOrDefault(o => o.OrderNo == paymentStatus.OrderNo);
 
+                if (existingOrder == null)
+                {
+                    return NotFound("訂單不存在");
+                }
+                existingOrder.OrderStatus = paymentStatus.PaymentStatus;
+                _db.ProductOrder.Update(existingOrder);
+                _db.SaveChanges();
+                return Ok("付款成功");
+            
+        }
+
+        public IActionResult Recommended()
+        {
+            var count = 2;
+            var randomProducts = _db.Product.OrderBy(x => Guid.NewGuid()).Take(count).Select(x => new ProductViewModel
+            {
+                ProductId = x.ProductId,
+                ProductTypeId = x.ProductTypeId,
+                ProductStatus = x.ProductStatus,
+                ProductName = x.ProductName,
+                ProductContent = x.ProductContent,
+                ProductCatagoryId = x.ProductCatagoryId,
+                UnitPrice = x.UnitPrice,
+                ProductImage = x.ProductImage,
+                Amount = 1                
+            });
+
+            return Ok(randomProducts);
+
+        }
 
 
 

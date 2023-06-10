@@ -1,5 +1,7 @@
 ﻿using FourthTeamProject.PetHeavenModels;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Security.Claims;
 using System.Text;
@@ -40,11 +42,11 @@ namespace FourthTeamProject.Controllers
             //ViewData["CustomerURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}Home/CallbackCustomer"; //商店取號網址
             //ViewData["NotifyURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}Home/CallbackNotify"; //支付通知網址
             //ViewData["ClientBackURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}"; //返回商店網址
-             
+            
             var email = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
 			if (email != null)
 			{
-				ViewBag.Email = email;
+                ViewBag.Email = email;
 				return View();
 			}
 			return Redirect("/Member/Login");
@@ -61,10 +63,10 @@ namespace FourthTeamProject.Controllers
             StringBuilder receive = new StringBuilder();
             foreach (var item in Request.Form)
             {
-                receive.AppendLine(item.Key + "=" + item.Value + "<br>");
+                receive.Append(item.Key + ":" + item.Value + ",");
             }
             ViewData["ReceiveObj"] = receive.ToString();
-
+            
             // 解密訊息
             IConfiguration Config = new ConfigurationBuilder().AddJsonFile("appSettings.json").Build();
             string HashKey = Config.GetSection("HashKey").Value;//API 串接金鑰
@@ -72,12 +74,13 @@ namespace FourthTeamProject.Controllers
 
             string TradeInfoDecrypt = DecryptAESHex(Request.Form["TradeInfo"], HashKey, HashIV);
             NameValueCollection decryptTradeCollection = HttpUtility.ParseQueryString(TradeInfoDecrypt);
-            receive.Length = 0;
-            foreach (String key in decryptTradeCollection.AllKeys)
+            var tradeInfoObject = new Dictionary<string, string>();
+            foreach (string key in decryptTradeCollection.AllKeys)
             {
-                receive.AppendLine(key + "=" + decryptTradeCollection[key] + "<br>");
+                tradeInfoObject[key] = decryptTradeCollection[key];
             }
-            ViewData["TradeInfo"] = receive.ToString();
+            string jsonString = JsonConvert.SerializeObject(tradeInfoObject);
+            ViewBag.TradeInfo = jsonString;
 
             return View();
         }

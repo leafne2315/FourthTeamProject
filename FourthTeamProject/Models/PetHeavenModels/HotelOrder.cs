@@ -17,11 +17,11 @@ namespace FourthTeamProject.PetHeavenModels
         public int? MemberId { get; set; }
         public int? PayId { get; set; }
         public int? InvoiceId { get; set; }
-        public bool? OrderStatus { get; set; }
+        public bool OrderStatus { get; set; }
 
         public virtual Invoice Invoice { get; set; }
         public virtual Member Member { get; set; }
-        public virtual Payment Pay { get; set; }
+        public virtual Payment Payment { get; set; }
         public virtual ICollection<HotelOrderDetail> HotelOrderDetail { get; set; }
     }
 }

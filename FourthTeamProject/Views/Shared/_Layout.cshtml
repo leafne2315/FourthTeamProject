@@ -54,7 +54,7 @@
             min-height: 81px
         }
     </style>
-    <title>Pets Daily</title>
+    <title>寵物 · 日安｜Pets Daily</title>
 
     @await RenderSectionAsync("Styles", required: false)
 </head>
@@ -80,32 +80,22 @@
                     <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
                         <li class="active"><a asp-controller="Home" asp-action="Index">首頁</a></li>
                         <li><a asp-controller="Product" asp-action="Index">寵物商城</a></li>
-                        <li class="has-children">
-                            <a asp-controller="PetHotel" asp-action="Index">寵物旅館</a>
-                            <ul class="dropdown">
-                                <li><a asp-controller="" asp-action="">旅館房型</a></li>
-                                <li><a asp-controller="" asp-action="">入住時間</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-children">
-                            <a asp-controller="PetSalon" asp-action="SalonIndex">寵物美容</a>
-                            <ul class="dropdown">
-                                <li><a asp-controller="PetSalon" asp-action="Index">調整寵物美容後端</a></li>
-                            </ul>
-                        </li>
+                        <li><a asp-controller="PetHotel" asp-action="Index">寵物旅館</a></li>   
+                        <li><a asp-controller="PetSalon" asp-action="SalonIndex">寵物美容</a></li>
                         
 
                         @{
-                            
-                            if (User.Identity.IsAuthenticated)
+
+                            if (User.Identity.IsAuthenticated && !User.IsInRole("admin"))
                             {
-                                <li >
-                                    <a asp-controller="Member" asp-action="Index">會員中心</a>
-                                    
-                                </li>
                                 <li>
-                                    <a asp-controller="Member" asp-action="Logout">會員登出</a>
+                                    <span class="nav-link text-capitalize">使用者:@User.Claims.FirstOrDefault(x=> x.Type == ClaimTypes.Name).Value</span>
                                 </li>
+                                <a asp-controller="Employees" asp-action="EmployeeLogout">登出</a>
+                                <li >
+                                    <a asp-controller="Member" asp-action="Index">會員中心</a>   
+                                </li>
+     
                             }
                             else
                             {
@@ -118,18 +108,15 @@
 
                         <li>
                             @{
-                                if (User.Identity.IsAuthenticated)
+                                if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
                                 {
                                     <li>
                                         <span class="nav-link text-capitalize">使用者:@User.Claims.FirstOrDefault(x=> x.Type == ClaimTypes.Name).Value</span>
                                     </li>
-                                    <li class="has-children">
-                                        <a asp-area="Admin" asp-controller="Employees" asp-action="EmployeeSystem">員工系統</a>
-                                        <ul class="dropdown">
-                                            <li><a asp-area="Admin" asp-controller="Employees" asp-action="Productmanagement">商品管理系統</a></li>
-                                        </ul>
+                                    <li>
+                                    <a asp-area="Admin" asp-controller="ProductManage" asp-action="ProductCRUD">員工系統</a>
                                     </li>
-                                    <li class=""></li>
+                                  
                                     <a asp-controller="Employees" asp-action="EmployeeLogout">登出</a>
                                 }
                                 else
@@ -231,6 +218,7 @@
     <script src="~/js/moment.min.js"></script>
     <script src="~/js/daterangepicker.js"></script>
 
+    <script src="~/js/custom.js"></script>
     <script src="~/js/typed.js"></script>
     <script>
         $(function () {
@@ -267,7 +255,9 @@
         });
     </script>
 
-    <script src="~/js/custom.js"></script>
+
+    
+    
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -46,6 +46,10 @@
             margin-bottom: 0;
         }
 
+        h5 ,p {
+            color:#1A374D;
+        }
+
         .rounded{
             bottom: 10px;
             right: 10px;
@@ -139,7 +143,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(cartItem,i) in shoppingCart">
+                                    <tr v-for="(cartItem,i) in shoppingCart" :key="cartItem.productId">
                                         <th scope="row">
                                             <a data-toggle="modal" data-target="#removeModal" data-whatever="" @@click="RemoveCart(cartItem,i)">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
@@ -317,7 +321,7 @@
                 subTotal: function (item) {
                     return item.amount * item.unitPrice;
                 },
-                // 将页面重定向到商品详细页面，并传递商品ID或其他必要的参数
+                // 重導頁面到其他商品。
                 redirectToDetail(item) {                    
                     window.location.href = `/Product/ProductDetail?id=${item.productId}`;
                     event.stopPropagation();
@@ -426,7 +430,7 @@
                     //阻止冒泡。
                     event.stopPropagation();
                 },
-                //移除購物車商品
+                //移除購物車商品(修改版)
                 RemoveCart: function (item) {
                     let _this = this;
                     // 從 localStorage 中取得目前的購物車資料
@@ -434,8 +438,8 @@
                     if (cartItems) {
                         var ArraysItems = cartItems.carts;
                         //// 在購物車資料中找到要移除的 CartItem
-                        var indexToRemove = ArraysItems.find(cart => cart.productId === item.productId);
-                        if (indexToRemove) {
+                        var indexToRemove = ArraysItems.findIndex(cart => cart.productId === item.productId);
+                        if (indexToRemove !== -1) {
                             // 從購物車資料中移除指定的 CartItem
                             ArraysItems.splice(indexToRemove, 1);
                             _this.shoppingCart = ArraysItems;

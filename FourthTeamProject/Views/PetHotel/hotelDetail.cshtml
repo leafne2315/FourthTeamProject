@@ -2,69 +2,471 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @model int
+@using System.Security.Claims;
+
 @{
     var hotelId = Model;
+    var isUserExist = User.Identity.IsAuthenticated;
 }
 
-<div id="app">
-    <p>Hotel ID: @hotelId</p>
-    <h1>PetHotelDetailData </h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>PetHotelId</th>
-                <th>HotelCatagoryId</th>
-                <th>HotelName</th>
-                <th>UnitPrice</th>
-                <th>HotelContent</th>
-                <th>HotelContentDetail</th>
-                <th>HotelImageString</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{HotelData.id}}</td>
-                <td>{{HotelData.catagoryID}}</td>
-                <td>{{HotelData.hotelName}}</td>
-                <td>{{HotelData.unitPrice}}</td>
-                <td>{{HotelData.hotelContent}}</td>
-                <td>{{HotelData.hotelContentDetail}}</td>
-                <td>{{HotelData.hotelImage}}</td>
+<head>
+    <script src="https://kit.fontawesome.com/929fe9c685.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        #DetailPage {
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            max-width:1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-            </tr>
-        </tbody>
-    </table>
+        @@ media (min-width: 1128px) #DetailPage {
+            padding-left: 150px;
+            padding-right: 150px;
+
+        }
+        @@ media (min-width: 744px) #DetailPage{
+            padding-left: 80px;
+            padding-right: 80px;
+        }
+
+        .title{
+            font-weight: bold;
+        }
+
+        .card-body{
+            padding:0px;
+        }
+
+        i{
+           font-size: 1.8em;
+           padding-right:10px;
+           padding:15px;
+        }
+
+        #subTotal p{
+            font-size: 15px;
+            margin-bottom:8px;
+            padding-left:10px;
+            padding-right:10px;
+        }
+
+        #TotalPrice p {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .service-content{
+            color:dimgray;
+        }
+
+        #DetailPage h4{
+            font-weight: bold;
+        }
+        .notice{
+            color:darkred;
+        }
+
+        
+
+        .fixed {
+            position: fixed;
+            top:120px;
+            
+            left: 77.4%; /* Adjust the left position as needed */
+            transform: translateX(-50%);
+            z-index:1;
+            /*
+            
+            
+            top: 50px;
+            transform: translateX(-50%);
+            */
+        }
+        
+        .RoomNotice{
+            font-size:16px;
+        }
+
+        
+
+    </style>
+    <script src="https://kit.fontawesome.com/929fe9c685.js" crossorigin="anonymous"></script>
+</head>
+<div id="app" data-user-exist='@isUserExist'>
+    @*
+    <p>Hotel ID: @hotelId</p>
+    *@
+    
+    <div id="DetailPage">
+        <div class="px-4 px-lg-5 mt-3">
+
+            <h3 class="title">{{HotelData.hotelName}}</h3>
+            <hr class="solid">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+                    <img :src="fullImagePath(HotelData.hotelImage)"
+                         class="w-100 shadow-1-strong rounded" style="height:350px;object-fit: cover;"
+                         alt="Boat on Calm Water" />
+                </div>
+
+                <div class="col-lg-6 row row-cols-2">
+                    <div class="col p-1">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                             class="w-100 shadow-1-strong rounded "
+                             alt="Boat on Calm Water" />
+                    </div>
+                    <div class="col p-1">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                             class="w-100 shadow-1-strong rounded "
+                             alt="Boat on Calm Water" />
+                    </div>
+                    <div class="col p-1">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                             class="w-100 shadow-1-strong rounded "
+                             alt="Boat on Calm Water" />
+                    </div>
+                    <div class="col p-1">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                             class="w-100 shadow-1-strong rounded"
+                             alt="Boat on Calm Water" />
+                    </div>
+                    
+                </div>
+                
+
+                
+            </div>
+            <div style="height:30px"></div>
+
+            <div class="row">
+                <div class="col-lg-7 col-md-5 col-12">
+                    <h4 ref="mySubTitle" class="mb-2">{{HotelData.hotelName}}-{{HotelData.hotelContent}}</h4>
+                    <hr class="solid" style="font-weight: bold;">
+
+                    <div class="d-flex" v-for="service in HotelServices" >
+                        <i class="fa-solid fa-paw" ></i>
+                        <div>
+                            <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">
+                                {{service.hotelService.hotelServiceName}}
+                            </p>
+                            <p class="mb-3 service-content">
+                                {{service.hotelService.hotelServiceContent}}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <hr class="solid" style="font-weight: bold;">
+                    <div>{{HotelData.hotelContentDetail}}</div>
+                    <hr class="solid" style="font-weight: bold;">
+                    <h4 class="mb-2" style="font-weight:bold;">有提供的設備</h4>
+                    <div class="row">
+                        <div v-if="isForDog" v-for="device in DogDevice" class="col-6" :key="device">
+                            <div class="d-flex">
+                                <i class="fa-solid fa-dog"></i>
+                                <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">{{device}}</p>
+                            </div>
+                        </div>
+                        <div v-if="!isForDog" v-for="device in CatDevice" class="col-6" :key="device">
+                            <div class="d-flex">
+                                <i class="fa-solid fa-cat"></i>
+                                <p class="mb-1 mt-3" style="font-weight:bold; font-size:16px; ">{{device}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-7 col-12" id="PriceCard" :class="{'mt-auto': this.isCardScrollOver}">
+                    <div class="card shadow ml-md-auto ml-0 " style="width: 25rem; border:none;border-radius:20px;" :class=" { 'fixed' : this.isCardFixed }">
+                        <form v-on:submit.prevent="formSubmit">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-1">
+                                    <h3 class="card-title" style="font-weight: bold;">${{HotelData.unitPrice}}TWD</h3>
+                                    <h6 class="card-title text-muted ml-1" style="text-align:center">每晚</h6>
+                                </div>
+                                <div class="row">
+                                    <div class="col col-md-6 pr-0">
+                                        <div class="mb-1">入住日期</div>
+                                        <input type="date" v-model="orderDetailData.CheckIntime" class="form-control custom-select" style="font-size:15px;" required>
+                                    </div>
+                                    <div class="col col-md-6 pl-0">
+                                        <div class="mb-1">離宿日期</div>
+                                        <input type="date" v-model="orderDetailData.CheckOutTime" class="form-control custom-select" required>
+                                        <p class="notice" v-if="showNotice" style="margin-bottom:10px">{{noticeText}}</p>
+                                    </div>
+                                </div>
+                                <div class="action mt-3" style="display: flex; justify-content: center; align-items: center;">
+                                    <button type="submit" class="btn btn-primary" style="min-width:250px; border-radius:8px; ">預定</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div v-if="showTotal">
+                            <div id="subTotal" class="d-flex justify-content-between pt-4">
+                                <p style="text-decoration: underline;">${{HotelData.unitPrice}} TWD x{{DayAmount}} 晚</p>
+                                <p>${{HotelData.unitPrice*DayAmount}} TWD</p>
+                            </div>
+                            <hr style="margin:8px">
+                            <div id="TotalPrice" class="d-flex justify-content-between pt-3">
+                                <p>總價</p>
+                                <p>${{HotelData.unitPrice*DayAmount}} TWD</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <hr class="solid" style="font-weight: bold;" ref="myDiv">
+            <h4 class="mb-4 mt-4" style="font-weight:bold;">注意事項</h4>
+            <ol class="RoomNotice">
+                <li>入住時間：每日 15:00 – 20:30 ｜ 退房時間：每日14:00前 (提早入住或延後退房將按照時數收取超時費)。</li>
+                <li>照護專員在場照護區間：11:45 – 21:20 (如有異動將提前徵詢飼主同意)。</li>
+                <li>6 個月齡以下幼貓幼犬入住須出示預防針接種滿 7 天證明以確保有足夠免疫力。</li>
+                <li>需要持續專業醫療的毛小孩貴賓 (包含針筒注射、擠尿等) 不接受入住。</li>
+                <li>
+                    為了維護旅館環境整潔安全，請於入住前三日幫您的毛孩點妥體外寄生蟲藥 (如寵愛滴劑)。
+                    入住期間如發現貓狗身上有跳蚤，旅館將拍照通知，並於退房時收取每晚 700 元的環境除蟲費用。
+                </li>
+                <li>
+                    辦理入住時，請務必「預留 20 分鐘時間」讓我們與您進行寵物照護資料確認，也期望您能額外花幾分鐘親自
+                    與毛孩說說話再離開以減少毛孩緊張感。
+                </li>
+                <li>入住時須預先結清住宿費用並簽署「寄宿同意書」。</li>
+                <li>建議攜帶一件主人的衣物物放置房內，家人的氣味可以增加毛小孩的安全感。</li>
+            </ol>
+        </div>
+    </div>
+    <div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-auto">
+                        <h3>請先登入才能使用後續操作喔</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">前往登入</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
 <script>
     let app = new Vue({
         el: '#app',
         data: {
             HotelData:{},
+            HotelServices:[],
+            HotelImages:[],
             currenthotelId: @hotelId,
+            UserExist: null,
+            
+            
+            showNotice: false,
+            noticeText: '',
+            orderDetailData: {
+
+                HotelOrderId: null,
+                HotelId: null,
+                CheckIntime: null,
+                CheckOutTime: null,
+                OrderAmount: null,
+                UnitPrice: null,
+                DetailStatus: null,
+                HotelName: null,
+                HotelCatagoryName: null,
+            },
+            DayAmount:null,
+            showTotal:false,
+            showModal:false,
+
+            //fix pos
+            isCardFixed: false,
+            scrollPosition: 300,
+            isCardScrollOver:false,
+
+            //Devices
+            isForDog: true,
+            CatDevice: ['貓跳台', '貓抓板','清淨除溼機','淨水器','舒適吊床','磨牙玩具(退房可帶走)'],
+            DogDevice: ['大坪數公共活動空間','無障礙球池','清淨除溼機','淨水器','舒適寵物床','磨牙玩具(退房可帶走)']
         },
-        mounted: function () {
-            //this.currenthotelId = this.getUrlParameter('hotelId');
-            //this.currenthotelId = JSON.parse(document.getElementById('app').dataset.hotelId);
-            this.getData();
-            console.log('mounted');
+        created:function(){
             
         },
+        mounted: async function () {
+            //this.currenthotelId = this.getUrlParameter('hotelId');
+            //this.currenthotelId = JSON.parse(document.getElementById('app').dataset.hotelId);
+            window.addEventListener('scroll', this.handleScroll);
+
+            await this.getData();
+            console.log('mounted');
+            console.log('catagoryID:', this.HotelData.catagoryID)
+
+            this.isForDog = (this.HotelData.catagoryID == 1);
+            this.UserExist = JSON.parse(this.$el.getAttribute('data-user-exist').toLowerCase());
+        },
+        destroyed() {
+            window.removeEventListener('scroll', this.handleScroll);
+        },
+        watch: {
+            'orderDetailData.CheckOutTime': function(newVal, oldVal) {
+                this.checkCheckOutTimeValid();
+
+                if (this.orderDetailData.CheckIntime ==null) return;
+                if (this.showNotice) return;
+                this.showTotal = true;
+                this.countDayAmount();
+            }
+        },
         methods: {
-            getData: function () {
+
+            getData: async function() {
                 let self = this;
-                var test = axios.get(`/api/PetHotelAPI/HotelDetail/${this.currenthotelId}`).then(response => {
-                    self.HotelData = response.data; 
-                })
+                //var getHotel = await axios.get(`/api/PetHotelAPI/HotelDetail/${this.currenthotelId}`).then(response => {
+                //    console.log('HotelData:', response.data);
+                //    self.HotelData = response.data; 
+                //})
+                
+
+                const getHotelData = axios.get(`/api/PetHotelAPI/HotelDetail/${this.currenthotelId}`);
+                const getServices = axios.get(`/api/PetHotelAPI/HotelDetail/GetService/${this.currenthotelId}`);
+                const getImages = axios.get(`/api/PetHotelAPI/HotelDetail/GetImages/${this.currenthotelId}`);
+
+                await Promise.all([getHotelData, getServices, getImages]).then(([response1,response2,response3]) => {
+
+                    console.log('HotelData:', response1.data);
+                    self.HotelData = response1.data;
+
+                    console.log('serviceDatas:', response2.data);
+                    self.HotelServices = response2.data;
+
+                    console.log('imageDatas:', response3.data);
+                    self.HotelImages = response3.data;
+                });
+
                 console.log('getData');
             },
 
-            //getUrlParameter(name) {
-            //    const urlParams = new URLSearchParams(window.location.search);
-            //    return urlParams.get(name);
-            //},
+            checkCheckOutTimeValid: function () {
+                var isInvalid = (this.orderDetailData.CheckOutTime <= this.orderDetailData.CheckIntime);
+                this.showNotice = isInvalid;
+
+                if (isInvalid) {
+                    this.showTotal = false;
+                    console.log("checkOut Time is invalid");
+                    this.noticeText = '時間不正確,請確認是否有誤';
+
+                    //this.orderDetailData.CheckOutTime = null;
+                }
+
+            },
+
+            formSubmit: async function(){ 
+
+                this.checkCheckOutTimeValid()
+                if (this.showNotice) return;
+                console.log('checkInOutClear!');
+
+                this.setOrderDetailData();
+
+
+                if (!this.UserExist)
+                {
+                    //this.OpenModal();
+                    this.goLoginPage();
+                    return;
+                }
+
+                var sendData = await axios.post(`/api/PetHotelAPI/SendDetailData`, this.orderDetailData).then(response => {
+                    console.log('Send',response);
+
+                })
+
+                //alert('sendData Done');
+                this.goOrderPage();
+                
+            },
+
+            countDayAmount:function(){
+
+                const millisecondsPerDay = 24 * 60 * 60 * 1000;
+                const timeDifference =new Date( this.orderDetailData.CheckOutTime).getTime() - new Date(this.orderDetailData.CheckIntime).getTime();
+                const daysDifference = Math.floor(timeDifference / millisecondsPerDay);
+                this.DayAmount = daysDifference;
+                console.log('天數', this.DayAmount);
+            },
+            handleScroll() {
+                //console.log('scoll');
+
+                const divElement = this.$refs.myDiv;
+                const rect = divElement.getBoundingClientRect();
+                const deadBotton = rect.top + window.pageYOffset;
+                //console.log('deadBotton:', deadBotton);
+
+                const subTitleElement = this.$refs.mySubTitle;
+                const rectOfsubT = subTitleElement.getBoundingClientRect();
+                const deadTop = rectOfsubT.top + window.pageYOffset;
+                //console.log('deadTop:', deadTop);
+
+                this.isCardFixed = (window.pageYOffset >= (deadTop-150)) && (window.pageYOffset < (deadBotton - 350));
+                this.isCardScrollOver = window.pageYOffset >= (deadBotton - 350);
+
+                if (window.innerWidth < 992) {
+                    this.isCardFixed = false; 
+                    this.isCardScrollOver = false;
+                }
+            },
+
+            setOrderDetailData:function(){
+                this.orderDetailData.HotelId = this.currenthotelId;
+                this.orderDetailData.OrderAmount = this.DayAmount;
+                this.orderDetailData.UnitPrice = this.HotelData.unitPrice;
+                this.orderDetailData.DetailStatus = true;
+                this.orderDetailData.HotelName = this.HotelData.hotelName;
+                this.orderDetailData.HotelCatagoryName = this.HotelData.hotelTypeName;
+                //this.orderDetailData.HotelOrderId = 100;
+            },
+
+            goOrderPage:function(){
+
+                const url = `/PetHotel/HotelOrder`;
+
+                // Navigate to the detail page using window.location.href
+                window.location.href = url;
+            },
+
+            goLoginPage:function(){
+                const url = `/Member/Login`;
+                window.location.href = url;
+            },
+
+            OpenModal: function(){
+                this.showModal = true;
+                $('#exampleModal').modal('show');
+            },
+            closeModal() {
+                this.showModal = false;
+                $('#exampleModal').modal('hide');
+            },
+
+            fullImagePath: function (url) {
+                const rootPath = '/';
+                return `${rootPath}${url}`;
+            },
         }
 
     })

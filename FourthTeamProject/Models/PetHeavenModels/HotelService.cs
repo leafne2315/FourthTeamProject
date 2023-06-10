@@ -9,5 +9,6 @@ namespace FourthTeamProject.PetHeavenModels
     {
         public int HotelServiceId { get; set; }
         public string HotelServiceName { get; set; }
+        public string HotelServiceContent { get; set; }
     }
 }

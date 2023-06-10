@@ -226,21 +226,21 @@ namespace FourthTeamProject.Controllers
             var user = _db.Member.FirstOrDefault(x => x.MemberEmail == model.MemberEmail);
             if (user == null)
             {
-                
+
                 return NotFound();
             }
             user.MemberPassword = model.NewPassword;
             try
             {
                 _db.SaveChanges();
-                return View("Login"); 
+                return View("Login");
             }
             catch (Exception ex)
             {
-                
+
                 return StatusCode(500, "密碼更新失敗：" + ex.Message);
             }
-            
+
         }
     }
 }

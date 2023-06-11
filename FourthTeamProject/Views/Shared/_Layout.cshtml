@@ -85,17 +85,12 @@
                         
 
                         @{
-
-                            if (User.Identity.IsAuthenticated && !User.IsInRole("admin"))
+                            @if (User.Identity.IsAuthenticated && !User.IsInRole("admin"))
                             {
                                 <li>
-                                    <span class="nav-link text-capitalize">使用者:@User.Claims.FirstOrDefault(x=> x.Type == ClaimTypes.Name).Value</span>
+                                    <a asp-controller="Member" asp-action="Index">會員中心</a>
                                 </li>
                                 <a asp-controller="Employees" asp-action="EmployeeLogout">登出</a>
-                                <li >
-                                    <a asp-controller="Member" asp-action="Index">會員中心</a>   
-                                </li>
-     
                             }
                             else
                             {
@@ -107,26 +102,8 @@
 
 
                         <li>
-                            @{
-                                if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
-                                {
-                                    <li>
-                                        <span class="nav-link text-capitalize">使用者:@User.Claims.FirstOrDefault(x=> x.Type == ClaimTypes.Name).Value</span>
-                                    </li>
-                                    <li>
-                                    <a asp-area="Admin" asp-controller="ProductManage" asp-action="ProductCRUD">員工系統</a>
-                                    </li>
-                                  
-                                    <a asp-controller="Employees" asp-action="EmployeeLogout">登出</a>
-                                }
-                                else
-                                {
-                                    <li>
-                                        <a asp-controller="Employees" asp-action="EmployeeLogin">企業登入</a>
-                                    </li>
+                    
 
-                                }
-                            }
 
                     </ul>
 
@@ -157,48 +134,72 @@
                             <p>致力為毛孩們提供更好的生活品質，給予陪伴我們的他們最好的呵護。</p>
                         </div>
                         <div class="widget">
-                            <ul class="list-unstyled social">
-                                <li><a asp-controller="" asp-action=""><span class="icon-twitter"></span></a></li>
-                                <li><a asp-controller="" asp-action=""><span class="icon-instagram"></span></a></li>
-                                <li><a asp-controller="" asp-action=""><span class="icon-facebook"></span></a></li>
-                                <li><a asp-controller="" asp-action=""><span class="icon-linkedin"></span></a></li>
-                                <li><a asp-controller="" asp-action=""><span class="icon-dribbble"></span></a></li>
-                                <li><a asp-controller="" asp-action=""><span class="icon-pinterest"></span></a></li>
-                                <li><a asp-controller="" asp-action=""><span class="icon-apple"></span></a></li>
-                                <li><a asp-controller="" asp-action=""><span class="icon-google"></span></a></li>
-                            </ul>
+            
                         </div>
                     </div>
 
                     <div class="col-md-12 col-lg-6">
-                        <div class="widget">
-                            <h3 class="heading">Contact</h3>
-                            <ul class="list-unstyled quick-info links">
-                                <li class="email"><a href="#">thm101team04@gmail.com</a></li>
-                                <li class="phone"><a href="#">+886 987 654 321</a></li>
-                                <li class="address"><a href="https://goo.gl/maps/BpxiWM1wBejFiBH8A?coh=178573&entry=tt">寵物 · 日安—台北商業大學旗艦館</a></li>
-                            </ul>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="widget">
+                                    <h3 class="heading">Contact</h3>
+                                    <ul class="list-unstyled quick-info links">
+                                        <li class="email"><a href="#">thm101team04@gmail.com</a></li>
+                                        <li class="phone"><a href="#">+886 987 654 321</a></li>
+                                        <li class="address"><a href="https://goo.gl/maps/BpxiWM1wBejFiBH8A?coh=178573&entry=tt">寵物 · 日安—台北商業大學旗艦館</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="widget">
+                                    <h3 class="heading">企業端</h3>
+                                    <ul class="list-unstyled quick-info links">
+                                        @{
+                                            if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                                            {
+                                              
+                                                <li>
+                                                    <a asp-area="Admin" asp-controller="ProductManage" asp-action="ProductCRUD">員工系統</a>
+                                                </li>
+
+                                              
+                                            }
+                                            else
+                                            {
+                                                <li>
+                                                    <a asp-controller="Employees" asp-action="EmployeeLogin">企業登入</a>
+                                                </li>
+
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
 
         <div class="inner dark">
             <div class="container">
                 <div class="row text-center">
                     <div class="col-md-8 mb-3 mb-md-0 mx-auto">
                         <p>
-                            Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co" class="link-highlight">Untree.co</a> <!-- License information: https://untree.co/license/ -->Distributed By <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script>.
+                            All Rights Reserved. &mdash;
+                            Designed with love by
+                            <a href="https://untree.co" class="link-highlight">Untree.co</a>
+                            <!-- License information: https://untree.co/license/ -->
+                            Distributed By <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
                         </p>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
+
 
     <div id="overlayer"></div>
     <div class="loader">
@@ -274,3 +275,6 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>*@
+
+
+

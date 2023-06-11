@@ -262,12 +262,16 @@
 								<form>
 									<div class="form-row">
 										<div class="form-group col-md-12">
-											<label for="inputpassworl4">新密碼</label>
-											<input type="password" class="form-control" id="inputEmail4" >
+											<label for="password">當前密碼密碼</label>
+											<input type="password" class="form-control" id="password" v-model="editpasswordInfo.memberPassword">
 										</div>
 										<div class="form-group col-md-12">
-											<label for="inputpassworl4">確認密碼</label>
-											<input type="password" class="form-control" id="inputEmail4" >
+											<label for="newpassword">新密碼</label>
+											<input type="password" class="form-control" id="newpassword" v-model="editpasswordInfo.membernewPassword">
+										</div>
+										<div class="form-group col-md-12">
+											<label for="confirmpassword">確認密碼</label>
+											<input type="password" class="form-control" id="confirmpassword" v-model="editpasswordInfo.memberconfirmpassword">
 										</div>
 										
 
@@ -276,7 +280,7 @@
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-								<button type="button" class="btn btn-primary">確認修改</button>
+								<button type="button" class="btn btn-primary" @@click="editMemberPassword">確認修改</button>
 							</div>
 						</div>
 					</div>
@@ -337,22 +341,22 @@
 							<form>
 								<div class="form-row">
 									<div class="form-group col-md-12">
-										<label for="MemberPhone">手機號碼</label>
-										<input type="text" class="form-control" name="MemberPhone" id="MemberPhone" v-model="member.phone">
+										<label for="memberPhone">手機號碼</label>
+										<input type="text" class="form-control" id="memberPhone" v-model="editmemberInfo.memberPhone">
 									</div>
 									<div class="form-group col-md-12">
-										<label for="MemberEmail">電子郵箱</label>
-										<input type="email" class="form-control" name="MemberEmail" id="MemberEmail" v-model="member.email">
+										<label for="memberEmail">電子郵箱</label>
+										<input type="email" class="form-control" id="memberEmail" v-model="editmemberInfo.memberEmail">
 									</div>
 									<div class="form-group col-md-12">
-										<label for="MemberAddress">地址</label>
-										<input type="text" class="form-control" name="MemberAddress" id="MemberAddress" v-model="member.address">
+										<label for="memberAddress">地址</label>
+										<input type="text" class="form-control" id="memberAddress" v-model="editmemberInfo.memberAddress">
 									</div>
 
 								</div>
 								<div class="form-group">
-									<label for="MemberBirthday">生日</label>
-									<input type="date" class="form-control" name="MemberBirthday" id="MemberBirthday" v-model="member.birthday">
+									<label for="memberBirthday">生日</label>
+									<input type="date" class="form-control" id="memberBirthday" v-model="editmemberInfo.memberBirthday">
 								</div>
 
 
@@ -360,7 +364,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-							<button type="button" class="btn btn-primary" @@click="fetchupdataMember">確認修改</button>
+							<button type="button" class="btn btn-primary" @@click="editMember">確認修改</button>
 						</div>
 					</div>
 				</div>
@@ -396,6 +400,17 @@
 			order: [],
 			detailInfo: [],
 			pet: [],
+			editmemberInfo: {				
+				memberPhone: "",
+				memberEmail: "",
+				memberAddress: "",
+				memberBirthday: "",
+			},
+			editpasswordInfo: {
+				memberPassword: "",
+				membernewPassword: "",
+				memberconfirmpassword: "",
+			},
 			editInfo:{
 				id:"",
 				petName:"",
@@ -433,12 +448,54 @@
 						self.member = membercentre.data;
 					})
 			},
-			fetchupdataMember: function () {
+			editMember: function () {
 				let self = this;
-				axios.put('/api/member/updataMember', self.member)
-					.then(response => {
-						console.log('會員資訊已更新');
+
+				if (self.editmemberInfo.memberPhone == null) alert("請輸入手機")
+				if (self.editmemberInfo.memberEmail == null) alert("請輸入電子郵箱")
+				if (self.editmemberInfo.memberAddress == null) alert("請輸入地址")
+				if (self.editmemberInfo.memberBirthday == null) alert("請輸入生日")
+
+				axios.post('/api/member/editMember', self.editmemberInfo).then(res => {
+					if (res.data.status == true) {
+						self.editmemberInfo.memberPhone = ""
+						self.editmemberInfo.memberEmail = ""
+						self.editmemberInfo.memberAddress = ""
+						self.editmemberInfo.memberBirthday = ""
+						self.pet.unshift(res.data.message)
+						alert("修改成功")
+						$("#revisememberModal").modal("hide");
+					}
 					})
+			},
+			editMemberPassword: function () {
+				let self = this;
+
+				axios.post('/api/member/editMemberPassword', self.editpasswordInfo).then(res => {
+					if (res.data.status == true) {
+						self.editpasswordInfo.memberPhone = ""
+						self.editpasswordInfo.memberEmail = ""
+						self.editpasswordInfo.memberAddress = ""						
+						self.pet.unshift(res.data.message)
+						alert("修改密碼成功")
+						$("#passwordModal").modal("hide");
+					}
+				})
+			},
+			editpet: function () {
+				var self = this;
+				axios.post('/api/member/edit', self.editInfo).then(res => {
+					if (res.data.status == true) {
+						self.editInfo.petName = ""
+						self.editInfo.petGender = "0"
+						self.editInfo.petBirthday = ""
+						self.editInfo.petVariety = ""
+						self.editInfo.petTypeId = "0"
+						self.pet.unshift(res.data.message)
+						alert("修改成功")
+						$("#editModal").modal("hide");
+					}
+				})
 			},
 
 			fetchOrder: function () {

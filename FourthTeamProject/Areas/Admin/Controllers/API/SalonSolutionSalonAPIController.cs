@@ -20,22 +20,34 @@ namespace FourthTeamProject.Areas.Admin.Controllers.API
 
         public IActionResult GetSalonSolutionSalon()
         {
-
-            var salonData = _context.SalonSolutionSalon
-                .GroupBy(ss => ss.SalonSolutionId)
-                .Select(group => new 
+            var temp = _context.SalonSolutionSalon.Include(x => x.Salon)
+                .Include(x => x.SalonSolution)
+                .Select(option => new SalonSolutionSalonViewModel
                 {
-                    SalonSolutionId = group.Key,
-                    SalonSolutionName = group.FirstOrDefault().SalonSolution.SalonSolutionName,
-                    SalonIds = group.Select(ss => new
-                    {
-                        SalonId = ss.SalonId,
-                        SalonName = ss.Salon.SalonName
-                    })
-                })
-                .ToList();
+                    SalonId = option.SalonId,
+                    SalonSolutionId = option.SalonSolutionId,
+                    SalonName = option.Salon.SalonName,
+                    SalonSolutionName = option.SalonSolution.SalonSolutionName,
 
-            return Ok(salonData);
+                });
+
+
+
+            //var salonData = _context.SalonSolutionSalon
+            //    .GroupBy(ss => ss.SalonSolutionId)
+            //    .Select(group => new 
+            //    {
+            //        SalonSolutionId = group.Key,
+            //        SalonSolutionName = group.FirstOrDefault().SalonSolution.SalonSolutionName,
+            //        SalonIds = group.Select(ss => new
+            //        {
+            //            SalonId = ss.SalonId,
+            //            SalonName = ss.Salon.SalonName
+            //        })
+            //    })
+            //    .ToList();
+
+            return Ok(temp);
         }
     }
 }

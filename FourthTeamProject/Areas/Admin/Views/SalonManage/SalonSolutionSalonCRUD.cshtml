@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in salonSolutions.salonData" :key="item.SalonSolutionId">
+                <tr v-for="item in salonSolutions" :key="item.SalonSolutionId">
                     <template v-if="item.editSalon === true">
                         <td>
                             <button class="btn btn-success" @@click="Update(item)">確定修改</button>
@@ -31,9 +31,9 @@
                         <td>
                             <button class="btn btn-primary" @@click="Edit(item.salonSolutionId)">編輯</button>
                         </td>
-                        <td>{{item.SalonSolutionName }}</td>
+                        <td>{{item.salonSolutionName}}</td>
                         <td>
-                            <span v-for="salon in salonSolutions.SalonIds" :key="salon.SalonId" class="bar">{{ salon.SalonName }}</span>
+                            @*<span v-for="salon in salonSolutions.SalonIds" :key="salon.SalonId" class="bar">{{ salon.SalonName }}</span>*@
                         </td>
                     </template>
                 </tr>
@@ -64,7 +64,7 @@
             methods: {
                 FilterSalonSolutionSalonDTO: function () {
                     let _this = this;
-                    axios.get("/api/SalonSolutionSalonEnterprise/GetSalonSolutionSalon")
+                    axios.get("https://localhost:7089/api/SalonSolutionSalonEnterprise/GetSalonSolutionSalon")
                         .then(response => {
                             _this.salonSolutions = response.data;
                         })

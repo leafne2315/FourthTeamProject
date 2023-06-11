@@ -30,7 +30,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="SalonItem in SalonSolutionOrder">
+                    <tr v-for="SalonItem in SalonSolutionOrder" :key="SalonItem.salonSolutionName">
                         <template>
                             <td>{{SalonItem.salonSolutionName}}</td>
                             <td>{{SalonItem.salonSolutionDiscription}}</td>
@@ -55,7 +55,7 @@
                 </div>
                 <div class="form-group">
                     <label for="address">寵物名子：</label>
-                    <input type="text" class="form-control" id="CatagoryName" name="CatagoryName" v-model="salonCatagoryName" :min="currentDate" required>
+                    <input type="text" class="form-control" id="CatagoryName" name="CatagoryName" v-model="salonCatagoryName"  required>
                 </div>
                 <div class="form-group">
                     <label for="address">美容預約日期：</label>
@@ -96,6 +96,15 @@
             orderDetailData: "",
             invoice: "",
             payment: "",
+            addForm: {
+                MerchantID: '@ViewData["MerchantID"]'
+                , MerchantOrderNo: '@ViewData["MerchantOrderNo"]'
+                , ExpireDate: '@ViewData["ExpireDate"]'
+                , ReturnURL: '@ViewData["ReturnURL"]'
+                , CustomerURL: '@ViewData["CustomerURL"]'
+                , NotifyURL: '@ViewData["NotifyURL"]'
+                , ClientBackURL: '@ViewData["ClientBackURL"]'
+            },
         },
         mounted() {
             let _this = this;
@@ -123,31 +132,66 @@
         methods: {
             sendOrder: function () {
                 let _this = this;
-                var order = {
-                    SalonOrderID: 0,
-                    MemberId: _this.member.id,
-                    PayId: _this.payment,
-                    InvoiceId: _this.invoice,
-                    OrderMemberName: _this.member.name,
-                    OrderMemberPhone: _this.member.phone,
-                    OrderMemberEmail: _this.member.email,
-                };
-                //var Detail = {
-                //    SalonOrderDetailId : 0,
-                //    Appointment: _this.orderDetailData,
-                //    UnitPrice: _this.SalonSolutionOrder.salonSolutionPrice,
-                //    SalonOrderId : OrderDetail.SalonOrderID,
-                //    SalonSolutionId : OrderDetail.SalonSolutionID,
-                //    SalonCatagoryName: _this.salonCatagoryName,
-                //    SalonSolutionName: _this.SalonSolutionOrder.salonSolutionName,
-                //};
-                axios.post(`/api/SalonClient/Getorder`, order)
-                .then(response =>{
-                        alert(response.data);
-                     const url = `/Home/Index`;
-                    window.location.href = url;})
-                //axios.post(`/api/SalonClient/GetorderDetail`, Detail).then(response => _this.SalonSolutionDTO = response.data);
+                // 組合表單資料
+                var postData = {};
+                postData['MerchantID'] = _this.addForm.MerchantID;
+                postData['MerchantOrderNo'] = _this.addForm.MerchantOrderNo;
+                postData['ItemDesc'] = _this.member.name + '-' + _this.SalonSolutionOrder[0].salonSolutionName;//付款人資訊。
+                postData['Amt'] = _this.SalonSolutionOrder[0].salonSolutionPrice;//結帳金額
+                postData['ExpireDate'] = _this.addForm.ExpireDate;
+                postData['ReturnURL'] = _this.addForm.ReturnURL;
+                postData['CustomerURL'] = _this.addForm.CustomerURL;
+                postData['NotifyURL'] = _this.addForm.NotifyURL;
+                postData['ClientBackURL'] = _this.addForm.ClientBackURL;
+                postData['Email'] = _this.member.email;
+                // 使用 jQuery Ajax 傳送至後端
+                $.ajax({
+                    url: '@Url.Content("~/Product/SendToNewebPay")',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: { inModel: postData, __RequestVerificationToken: $('@Html.AntiForgeryToken()').val() },
+                    success: function (returnObj) {
+                        // 呼叫藍新金流 API
+                        const form = document.createElement('form');
+                        form.method = 'post';
+                        form.action = 'https://ccore.newebpay.com/MPG/mpg_gateway';//藍新金流驗證網址(測試環境)
 
+                        for (const key in returnObj) {
+                            if (returnObj.hasOwnProperty(key)) {
+                                //將回傳的Json物件開頭轉為大寫
+                                const fixedKey = key.charAt(0).toUpperCase() + key.slice(1);
+                                const hiddenField = document.createElement('input');
+                                hiddenField.type = 'hidden';
+                                hiddenField.name = fixedKey;
+                                hiddenField.value = returnObj[key];
+                                form.appendChild(hiddenField);
+                            }
+                        }
+                        var order = {
+                            SalonOrderID: 0,
+                            MemberId: _this.member.id,
+                            PayId: _this.payment,
+                            InvoiceId: _this.invoice,
+                            OrderMemberName: _this.member.name,
+                            OrderMemberPhone: _this.member.phone,
+                            OrderMemberEmail: _this.member.email,
+                        };
+                        var Detail = {
+                            SalonOrderDetailId: 0,
+                            Appointment: _this.orderDetailData,
+                            UnitPrice: _this.SalonSolutionOrder[0].salonSolutionPrice,
+                            SalonCatagoryName: _this.salonCatagoryName,
+                            SalonSolutionName: _this.SalonSolutionOrder[0].salonSolutionName,
+                        };
+                        axios.post(`/api/SalonClient/Getorder`, order);
+                        axios.post(`/api/SalonClient/GetorderDetail`, Detail);
+                        document.body.appendChild(form);
+                        form.submit();
+                    },
+                    error: function (err) {
+                        alert(err.status + " " + err.statusText + '\n' + err.responseText);
+                    }
+                })
             },
 
         }

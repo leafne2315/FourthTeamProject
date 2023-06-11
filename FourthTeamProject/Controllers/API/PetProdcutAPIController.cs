@@ -216,6 +216,42 @@ namespace FourthTeamProject.Controllers.API
             return Ok(productImages);
         }
 
+        [HttpPost("/Product/GetFilterImages")]
+        public IActionResult GetFilterImages([FromBody] int[] hotelIDs) 
+        {
+
+       
+            var productImages = _db.ProductImage;
+
+            List<ProductImageFilter> ImageDatas = new List<ProductImageFilter>();
+
+            foreach (var id in hotelIDs)
+            {
+                var image = productImages.FirstOrDefault(p=> p.ProductId == id);
+
+                if(image != null)
+                {
+                    var imageData = new ProductImageFilter() {
+                        ProductId = id,
+                        ImagePath = image.ProductImagePath, 
+                    };
+                    ImageDatas.Add(imageData);
+                }
+                else 
+                {
+                    var imageData = new ProductImageFilter()
+                    {
+                        ProductId = id,
+                        ImagePath = null,
+                    };
+                    ImageDatas.Add(imageData);
+                }
+            }
+
+            
+
+            return Ok(ImageDatas);
+        }
 
     }
 }

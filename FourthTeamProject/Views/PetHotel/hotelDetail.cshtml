@@ -111,30 +111,15 @@
             <div class="row">
                 <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
                     <img :src="fullImagePath(HotelData.hotelImage)"
-                         class="w-100 shadow-1-strong rounded" style="height:350px;object-fit: cover;"
-                         alt="Boat on Calm Water" />
+                         class="w-100 shadow-1-strong rounded" style="height:366px;object-fit: cover;"
+                         alt="" />
                 </div>
 
-                <div class="col-lg-6 row row-cols-2">
-                    <div class="col p-1">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                <div class="col-lg-6 row row-cols-2" >
+                    <div class="col p-1 d-flex justify-content-center align-items-center" v-for="image in HotelImages">
+                        <img :src="fullImagePath(image.hotelImagePath)"
                              class="w-100 shadow-1-strong rounded "
-                             alt="Boat on Calm Water" />
-                    </div>
-                    <div class="col p-1">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
-                             class="w-100 shadow-1-strong rounded "
-                             alt="Boat on Calm Water" />
-                    </div>
-                    <div class="col p-1">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
-                             class="w-100 shadow-1-strong rounded "
-                             alt="Boat on Calm Water" />
-                    </div>
-                    <div class="col p-1">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
-                             class="w-100 shadow-1-strong rounded"
-                             alt="Boat on Calm Water" />
+                             alt="image" style="height:175px;object-fit: cover;"/>
                     </div>
                     
                 </div>

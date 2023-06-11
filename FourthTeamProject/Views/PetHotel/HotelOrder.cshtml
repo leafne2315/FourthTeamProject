@@ -311,6 +311,9 @@
                                 <button class="btn btn-primary"  v-on:click="backToHome" style="min-width:170px; border-radius:8px;">
                                     回首頁
                                 </button>
+                                <button class="btn btn-primary"  v-on:click="SendToNewebPay" style="min-width:170px; border-radius:8px;">
+                                    付款
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -461,6 +464,16 @@
                 hotelName:null,
                 hotelCatagoryName:null,
             },
+
+            addForm: {
+                MerchantID: '@ViewData["MerchantID"]' //商品代號
+                , MerchantOrderNo: '@ViewData["MerchantOrderNo"]'
+                , ExpireDate: '@ViewData["ExpireDate"]'
+                , ReturnURL: '@ViewData["ReturnURL"]'
+                , CustomerURL: '@ViewData["CustomerURL"]'
+                , NotifyURL: '@ViewData["NotifyURL"]'//需要nrogk
+                , ClientBackURL: '@ViewData["ClientBackURL"]'
+            },
             
             TimeSelected: 13,
 
@@ -547,6 +560,7 @@
                         axios.post('/api/PetHotelAPI/OrderDetailCreate',this.orderDetailData).then(x=>{
                             console.log('OrderDetail:',x);
                             this.isCreatingOrder = false;
+
                         });
                     });
             },
@@ -654,6 +668,53 @@
                 const rootPath = '/';
                 return `${rootPath}${url}`;
             },
+
+            SendToNewebPay: function () {
+                    var self = this;
+                    // 組合表單資料
+                    var postData = {};
+                    postData['MerchantID'] = self.addForm.MerchantID;
+                    postData['MerchantOrderNo'] = self.addForm.MerchantOrderNo;
+                    postData['ItemDesc'] = self.orderDetailData.hotelName //付款人資訊。
+                    postData['Amt'] = self.orderDetailData.unitPrice*self.orderDetailData.orderAmount //結帳金額
+                    postData['ExpireDate'] = self.addForm.ExpireDate;
+                    postData['ReturnURL'] = self.addForm.ReturnURL;
+                    postData['CustomerURL'] = self.addForm.CustomerURL;
+                    postData['NotifyURL'] = self.addForm.NotifyURL;
+                    postData['ClientBackURL'] = self.addForm.ClientBackURL;
+                    postData['Email'] = 
+                    // 使用 jQuery Ajax 傳送至後端
+                    $.ajax({
+                        url: '@Url.Content("~/Product/SendToNewebPay")',
+                        method: 'POST',
+                        dataType: 'json',
+                        data: { inModel: postData, __RequestVerificationToken: $('@Html.AntiForgeryToken()').val() },
+                        success: function (returnObj) {
+                            // 呼叫藍新金流 API
+                            const form = document.createElement('form');
+                            form.method = 'post';
+                            form.action = 'https://ccore.newebpay.com/MPG/mpg_gateway';//藍新金流驗證網址(測試環境)
+
+                            for (const key in returnObj) {
+                                if (returnObj.hasOwnProperty(key)) {
+                                    //將回傳的Json物件開頭轉為大寫
+                                    const fixedKey = key.charAt(0).toUpperCase() + key.slice(1);
+                                    const hiddenField = document.createElement('input');
+                                    hiddenField.type = 'hidden';
+                                    hiddenField.name = fixedKey;
+                                    hiddenField.value = returnObj[key];
+                                    form.appendChild(hiddenField);
+                                }
+                            }
+                            document.body.appendChild(form);
+                            form.submit();
+                        },
+                        error: function (err) {
+                            alert(err.status + " " + err.statusText + '\n' + err.responseText);
+                        }
+                    });
+
+                }
 
         },
 

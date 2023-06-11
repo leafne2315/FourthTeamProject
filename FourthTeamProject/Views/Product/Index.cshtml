@@ -211,7 +211,7 @@
             <ul class="card-group px-md-2 py-md-2">
                 <template v-for="item in selectedProductList.slice(pageStart, pageEnd)">
                     <li class="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-flex align-items-stretch buy-cursor" v-if="item.productStatus" >
-                        <div class="card" @@click="redirectToDetail(item)">
+                        <div class="card" style="width:350px;" @@click="redirectToDetail(item)">
                             <div class="pic">
                                 <img src="https://picsum.photos/300/?random=10">
                             </div>

@@ -85,15 +85,12 @@
                         
 
                         @{
-
-                            if (User.Identity.IsAuthenticated && !User.IsInRole("admin"))
+                            @if (User.Identity.IsAuthenticated && !User.IsInRole("admin"))
                             {
-                               
-                                <a asp-controller="Employees" asp-action="EmployeeLogout">登出</a>
-                                <li >
-                                    <a asp-controller="Member" asp-action="Index">會員中心</a>   
+                                <li>
+                                    <a asp-controller="Member" asp-action="Index">會員中心</a>
                                 </li>
-     
+                                <a asp-controller="Employees" asp-action="EmployeeLogout">登出</a>
                             }
                             else
                             {

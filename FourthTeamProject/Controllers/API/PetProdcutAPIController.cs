@@ -204,7 +204,17 @@ namespace FourthTeamProject.Controllers.API
             return Ok(randomProducts);
 
         }
-
+        [HttpGet("/Product/GetImages/{productId}")]
+        public IActionResult GetProductImages(int productId)
+        {
+            var productImages = _db.ProductImage.Where(p => p.ProductId == productId).Select(p => new
+            {
+                productId = p.ProductId,
+                ImageId = p.ProductImageId,
+                ImagePath = p.ProductImagePath,
+            }) ;
+            return Ok(productImages);
+        }
 
 
     }

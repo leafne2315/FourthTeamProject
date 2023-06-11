@@ -78,14 +78,15 @@
                     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active item" data-bs-interval="5000">
-                                <img src="https://picsum.photos/300/?random=10" class="d-block w-100" alt="...">
+                                <img :src="imagesData[0].imagePath" class="d-block w-100" alt="...">
                             </div>
+                            <div class="carousel-item item" v-for="image in imagesData">
+                                <img :src="fullImagePath(image.imagePath)" class="d-block w-100" alt="...">
+                            </div>
+                            @*
                             <div class="carousel-item item">
                                 <img src="https://picsum.photos/300/?random=10" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item item">
-                                <img src="https://picsum.photos/300/?random=10" class="d-block w-100" alt="...">
-                            </div>                            
+                            </div>     *@
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -172,12 +173,14 @@
             data: {
                 productDetail: [],
                 shoppingCart: [],
-                maybeLik:[]
+                maybeLik:[],
+                imagesData:null,
             },
             //掛載虛擬DOM元素有點類似於$().ready();
             mounted: function () {
                 this.shoppingCart = this.getCart(email) ? this.getCart(email).carts : [];
                 this.getProduct();
+                this.getImages();
             },
             computed: {
                 listConut: function () {
@@ -298,6 +301,19 @@
 
 
                     }
+                },
+
+                getImages:function(){
+
+                   
+                    axios.get(`/Product/GetImages/${productId}`).then(res => {
+                        this.imagesData = res.data;
+                    })
+                },
+
+                fullImagePath: function (url) {
+                    const rootPath = '/';
+                    return `${rootPath}${url}`;
                 },
 
             },

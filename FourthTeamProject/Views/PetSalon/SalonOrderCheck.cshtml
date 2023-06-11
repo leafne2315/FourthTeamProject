@@ -9,6 +9,7 @@
             margin-bottom: 10px;
         }
 
+        .error-message{color:red}
     </style>
 
 }
@@ -32,51 +33,63 @@
                 <tbody>
                     <tr v-for="SalonItem in SalonSolutionOrder" :key="SalonItem.salonSolutionName">
                         <template>
-                            <td>{{SalonItem.salonSolutionName}}</td>
-                            <td>{{SalonItem.salonSolutionDiscription}}</td>
-                            <td>{{SalonItem.salonSolutionPrice}}</td>
+                            <td class="h4">{{SalonItem.salonSolutionName}}</td>
+                            <td class="h4">{{SalonItem.salonSolutionDiscription}}</td>
+                            <td class="h4">{{SalonItem.salonSolutionPrice}}</td>
                         </template>
                     </tr>
                 </tbody>
             </table>
-            <div class="mt-4">
-                <h4>訂購人資料</h4>
-                <div class="form-group">
-                    <label for="name">姓名：</label>
-                    <input type="text" class="form-control" id="name" name="name" v-model="member.name" required>
+            <form>
+                <div class="mt-4">
+                    <h4>訂購人資料</h4>
+                    <div class="form-group">
+                        <label for="name">姓名：</label>
+                        <div v-if="validations.name.isValid" class="error-message">{{ validations.name.errorMessage }}</div>
+                        <input type="text" class="form-control" id="name" name="name" v-model="member.name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">連絡電話：</label>
+                        <div v-if="validations.phone.isValid" class="error-message">{{ validations.phone.errorMessage }}</div>
+                        <input type="tel" class="form-control" id="phone" name="phone" v-model="member.phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">信箱：</label>
+                        <div v-if="validations.email.isValid" class="error-message">{{ validations.email.errorMessage }}</div>
+                        <input type="email" class="form-control" id="Email" name="Email" v-model="member.email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">寵物名子：</label>
+                        <div v-if="validations.catagory.isValid" class="error-message">{{ validations.catagory.errorMessage }}</div>
+                        <input type="text" class="form-control" id="CatagoryName" name="CatagoryName" v-model="salonCatagoryName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">美容預約日期：</label>
+                        <div v-if="validations.data.isValid" class="error-message">{{ validations.data.errorMessage }}</div>
+                        <input type="date" v-model="orderDetailData" class="form-control custom-select" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">發票類型：</label>
+                        <div v-if="validations.invoice.isValid" class="error-message">{{ validations.invoice.errorMessage }}</div>
+                        <select class="form-control" aria-label=".form-select-lg example" v-model="invoiceId" required>
+                            <option v-for="item in invoiceType" :value="item.invoiceId">{{ item.invoiceName }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">付款方式：</label>
+                        <div v-if="validations.pay.isValid" class="error-message">{{ validations.pay.errorMessage }}</div>
+                        <select class="form-control" aria-label=".form-select-lg example" v-model="payId" required>
+                            <option v-for="item in paymentType" :value="item.payId">{{ item.payName }}</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="phone">連絡電話：</label>
-                    <input type="tel" class="form-control" id="phone" name="phone" v-model="member.phone" required>
-                </div>
-                <div class="form-group">
-                    <label for="address">信箱：</label>
-                    <input type="email" class="form-control" id="Email" name="Email" v-model="member.email" required>
-                </div>
-                <div class="form-group">
-                    <label for="address">寵物名子：</label>
-                    <input type="text" class="form-control" id="CatagoryName" name="CatagoryName" v-model="salonCatagoryName"  required>
-                </div>
-                <div class="form-group">
-                    <label for="address">美容預約日期：</label>
-                    <input type="date" v-model="orderDetailData" class="form-control custom-select" style="font-size:15px;" required>
-                </div>
-                <label for="phone">發票類型：</label>
-                <div class="form-group" v-for="item in invoiceType">
-                    <span></span>{{item.invoiceName}}
-                    <input type="radio" name="invoice" v-model="invoice" :value="item.invoiceId" required>
-                </div>
-                <label for="phone">付款方式：</label>
-                <div class="form-group" v-for="item in paymentType">
-                    <span></span>{{item.payName}}
-                    <input type="radio" name="payment" v-model="payment" :value="item.payId" required>
-                </div>
-                <button class="btn btn-primary btn-block" @@click="sendOrder">送出訂單</button>
-            </div>
+                <button class="btn btn-primary btn-block" :disabled="isSubmitting" @@click="sendOrder">送出訂單</button>
+            </form>
         </div>
     </div>
-
 </div>
+
+
 
 
 
@@ -94,8 +107,11 @@
             paymentType: [],
             salonCatagoryName: "",
             orderDetailData: "",
+            payId: "",
+            invoiceId: "",
             invoice: "",
             payment: "",
+            isSubmitting: false,
             addForm: {
                 MerchantID: '@ViewData["MerchantID"]'
                 , MerchantOrderNo: '@ViewData["MerchantOrderNo"]'
@@ -104,6 +120,15 @@
                 , CustomerURL: '@ViewData["CustomerURL"]'
                 , NotifyURL: '@ViewData["NotifyURL"]'
                 , ClientBackURL: '@ViewData["ClientBackURL"]'
+            },
+            validations: {
+                name: { isValid: false, errorMessage: "請輸入姓名" },
+                phone: { isValid: false, errorMessage: "請輸入電話" },
+                email: { isValid: false, errorMessage: "請輸入信箱" },
+                catagory: { isValid: false, errorMessage: "請輸入寵物姓名" },
+                data: { isValid: false, errorMessage: "請選擇日期" },
+                invoice: { isValid: false, errorMessage: "請選擇發票" },
+                pay: { isValid: false, errorMessage: "請選擇付款方式" },
             },
         },
         mounted() {
@@ -120,18 +145,55 @@
             axios.post('/api/PetProdcutAPI/getInvoice').then(response => _this.invoiceType = response.data);
             axios.post('/api/PetProdcutAPI/getPayment').then(response => _this.paymentType = response.data);
         },
-        //computed: {
-        //    currentDate() {
-        //        const today = new Date();
-        //        const year = today.getFullYear();
-        //        const month = String(today.getMonth() + 1).padStart(2, '0');
-        //        const day = String(today.getDate()).padStart(2, '0');
-        //        return `${year}-${month}-${day}`;
-        //    }
-        //},
         methods: {
             sendOrder: function () {
                 let _this = this;
+                _this.validations = {
+                    name: { isValid: false, errorMessage: "請輸入姓名" },
+                    phone: { isValid: false, errorMessage: "請輸入電話" },
+                    email: { isValid: false, errorMessage: "請輸入信箱" },
+                    catagory: { isValid: false, errorMessage: "請輸入寵物姓名" },
+                    data: { isValid: false, errorMessage: "預約日期不可小於今日" },
+                    invoice: { isValid: false, errorMessage: "請選擇發票" },
+                    pay: { isValid: false, errorMessage: "請選擇付款方式" },
+                };
+
+                if (_this.member.name === '') {
+                    _this.validations.name.isValid = true;
+                }
+
+                if (_this.member.phone === '') {
+                    _this.validations.phone.isValid = true;
+                }
+
+                if (_this.member.email === '') {
+                    _this.validations.email.isValid = true;
+                }
+
+                if (_this.salonCatagoryName === '') {
+                    _this.validations.catagory.isValid = true;
+                }
+
+                var today=new Date();
+                var selectDate = new Date(_this.orderDetailData);
+                if (selectDate < today) {
+                    _this.validations.data.isValid = true;
+                }
+
+                if (selectDate < today || _this.orderDetailData === '') {
+                    _this.validations.data.isValid = true;
+                }
+
+                if (_this.invoiceId === '') {
+                    _this.validations.invoice.isValid = true;
+                }
+
+                if (_this.payId === '') {
+                    _this.validations.pay.isValid = true;
+                }
+
+                if (Object.values(_this.validations).every(field => field.isValid === false)) {
+                    _this.isSubmitting = true;
                 // 組合表單資料
                 var postData = {};
                 postData['MerchantID'] = _this.addForm.MerchantID;
@@ -170,8 +232,8 @@
                         var order = {
                             SalonOrderID: 0,
                             MemberId: _this.member.id,
-                            PayId: _this.payment,
-                            InvoiceId: _this.invoice,
+                            PayId: _this.payId,
+                            InvoiceId: _this.invoiceId,
                             OrderMemberName: _this.member.name,
                             OrderMemberPhone: _this.member.phone,
                             OrderMemberEmail: _this.member.email,
@@ -187,11 +249,14 @@
                         axios.post(`/api/SalonClient/GetorderDetail`, Detail);
                         document.body.appendChild(form);
                         form.submit();
+                        
                     },
                     error: function (err) {
                         alert(err.status + " " + err.statusText + '\n' + err.responseText);
+                        _this.isSubmitting = false;
                     }
-                })
+                    
+                })}
             },
 
         }

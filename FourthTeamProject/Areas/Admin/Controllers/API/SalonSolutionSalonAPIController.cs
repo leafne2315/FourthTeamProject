@@ -20,14 +20,13 @@ namespace FourthTeamProject.Areas.Admin.Controllers.API
 
         public IActionResult GetSalonSolutionSalon()
         {
-            var temp = _context.SalonSolutionSalon.Include(x => x.Salon)
-                .Include(x => x.SalonSolution)
+            var temp = _context.Salon.Include(x => x.SalonSolutionSalon)
+                .ThenInclude(x => x.SalonSolution)
                 .Select(option => new SalonSolutionSalonViewModel
                 {
-                    SalonId = option.SalonId,
-                    SalonSolutionId = option.SalonSolutionId,
-                    SalonName = option.Salon.SalonName,
-                    SalonSolutionName = option.SalonSolution.SalonSolutionName,
+                    SalonSolutionName = option.SalonName,
+                    SalonSolutionId = option.SalonId,
+
 
                 });
 

@@ -1,6 +1,5 @@
 ﻿<style>
     .Discription {
-        width: 150px;
         overflow: hidden;
         text-overflow: ellipsis;
         -webkit-box-orient: vertical;
@@ -16,9 +15,9 @@
 
 <div id="app">
     <!-- banner -->
-    <div class="collapse row " id="collapseExample">
+    <div class="row justify-content-center" id="collapseExample">
         <div class="card card-body col-1" v-for="(item, index) in SalonTypeDTO" :key="index">
-            <span>{{ item.salonName}}</span>
+            <span class="font-weight-light mb-3">{{ item.salonName}}</span>
             <img class="img-fluid" style="width:100px;height:100px" :src="GetImageUrl(item.salonImagePath)" :alt="item.salonName">
         </div>
     </div>
@@ -32,31 +31,28 @@
         <div class="carousel-inner">
             <div class="carousel-item" v-for="(salonsrc, salonindex) in imageSalonSolution" :key="salonindex" v-bind:class="{ active: salonindex === 0 }">
                 <div class="container-fluid">
-                    <div class="carousel-caption relative">
-                        <div class="row d_flex">
-                            <div class="col-md-6">
-                                <img style="width:600px;height:500px" :src="rootPath + salonsrc" alt="#" />
+                    <div class="row justify-content-center">
+                            <div class="col-lg-6 text-center">
+                                <img class="testimonial mx-auto" style="width:600px;height:500px" :src="rootPath + salonsrc.imageUrl" alt="#" />
                             </div>
-                            <div class="col-md-6 ">
-                                <h1>{{SalonSolutionDTO[salonindex].salonSolutionName}}</h1>
-                                <p>{{SalonSolutionDTO[salonindex].salonSolutionDiscription}}</p>
+                            <div class="col-lg-6 text-center mt-5">
+                                <h1 class="font-weight-light mb-3">{{SalonSolutionDTO[salonindex].salonSolutionName}}</h1>
+                                <p class="mb-3 ">{{SalonSolutionDTO[salonindex].salonSolutionDiscription}}</p>
                                 <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" type="button" class="btn btn-primary" @@click="getSalonData(SalonSolutionDTO[salonindex].salonSolutionId)">查看服務項目</button>
-
-
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
-
+        </div>
+        <div>
             <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-                <svg width="20" height="30" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16" aria-hidden="true">
+                <svg fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16" aria-hidden="true">
                     <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
                 </svg>
                 <span class="sr-only">Previous</span>
             </a>
             <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-                <svg width="20" height="30" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16" aria-hidden="true">
+                <svg fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16" aria-hidden="true">
                     <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
                 </svg>
                 <span class="sr-only">Next</span>
@@ -111,10 +107,9 @@
             </div>
         </div>
     </div>
-
     <!-- our pricing -->
-    <div class="we_do slin">
-        <div class="container">
+    <div class="row">
+        <div class="col-lg-10 offset-lg-1 col-md-12">
             <div class="row">
                 <div class="col-md-12">
                     <div class="titlepage">
@@ -144,7 +139,7 @@
         </div>
     </div>
 </div>
-
+        
 @section Scripts
     {
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
@@ -163,13 +158,15 @@
                 memberName: "",
                 memberPhone: "",
                 memberEmail: "",
+                name:"",
+                salonSolutionPrice:"",
                 salonCatagoryName: "",
                 rootPath: "/Salonimage/",
                 imageSalonSolution: [
-                    "DogGroomingL.jpg",
-                    "DogGroomingS.jpg",
-                    "CatGroomingL.jpg",
-                    "CatGroomingS.jpg",
+                    {imageUrl:"DogGroomingL.jpg"},
+                    {imageUrl:"DogGroomingS.jpg"},
+                    {imageUrl:"CatGroomingL.jpg"},
+                    { imageUrl:"CatGroomingS.jpg"},
                 ],
                 imageDiscription: [
                     "DOGMaxDiscription.jpg",
@@ -204,10 +201,8 @@
                         .then(response => {
                             _this.member = response.data;
                             if (_this.member !== "") {
-                                if (_this.member && _this.SalonSolutionOrder) {
-                                    const url = `/PetSalon/SalonOrderCheck?member=${JSON.stringify(_this.member)}&orderData=${JSON.stringify(_this.SalonSolutionOrder)}`;
-                                    window.location.href = url;
-                                }
+                                const url = `/PetSalon/SalonOrderCheck?member=${JSON.stringify(_this.member)}&orderData=${JSON.stringify(_this.SalonSolutionOrder)}`;
+                                window.location.href = url;
                             }
                             else {
                                 const url = `/Member/Login`;
@@ -215,9 +210,7 @@
                             }
                         });
                 },
-
             }
-
         })
     </script>
     }

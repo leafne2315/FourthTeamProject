@@ -86,22 +86,31 @@ namespace FourthTeamProject.Controllers.API
         [HttpPost]
         public async Task<string> GetorderDetail([FromBody] SalonOrderDetailViewModel OrderDetail)
         {
+            int SalonSolutionId = GetSalonSolutionId(OrderDetail.SalonSolutionName);
+            var maxid = _context.SalonOrder.Max(x => x.SalonOrderId);
+            var maxDetailID = _context.SalonOrderDetail.Max(x => x.SalonOrderDetailId);
             var SalonOrderDetail = new SalonOrderDetail()
             {
-                SalonOrderDetailId = OrderDetail.SalonOrderDetailID,
+                SalonOrderDetailId = maxDetailID+1,
                 Appointment = OrderDetail.Appointment,
                 DetailStatus = true,
                 UnitPrice = OrderDetail.UnitPrice,
-                SalonOrderId = OrderDetail.SalonOrderID,
-                SalonSolutionId = OrderDetail.SalonSolutionID,
+                SalonOrderId = maxid + 1,
                 SalonCatagoryName = OrderDetail.SalonCatagoryName,
                 SalonSolutionName = OrderDetail.SalonSolutionName,
+                SalonSolutionId = SalonSolutionId,
             };
 
             _context.SalonOrderDetail.Add(SalonOrderDetail);
             _context.SaveChanges();
-            return "OK";
+            return "完成";
 
+        }
+
+        private int GetSalonSolutionId(String salonSolutionName)
+        {
+            var SalonSolution = _context.SalonSolution.FirstOrDefault(s => s.SalonSolutionName == salonSolutionName);
+            return SalonSolution.SalonSolutionId;
         }
 
         [HttpPost]

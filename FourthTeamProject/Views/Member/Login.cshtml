@@ -7,7 +7,7 @@
 
     }
 
-    
+
     <section style="background-color: #6998AB;">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -18,7 +18,7 @@
                             <!-- Pills navs -->
                             <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="tab-login" data-toggle="pill" href="#pills-login" role="tab"
+                                    <a class="nav-link active" id="tab-login" data-toggle="pill" href="#pills-login" role="tab"
                                        aria-controls="pills-login" aria-selected="true">登入</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
@@ -31,17 +31,6 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
                                     <form action="/Member/Login" method="post">
-                                        <div class="text-center mb-3">
-                                            <p>第三方登入：</p>
-                                            <button type="button" class="btn btn-link btn-floating mx-1">
-                                                <i class="icon-facebook"><a href=""></a></i>
-                                            </button>
-
-                                            <button type="button" class="btn btn-link btn-floating mx-1">
-                                                <i class="icon-google"><a href=""></a></i>
-                                            </button>
-                                        </div>
-
                                         <p class="text-center">已有帳號：</p>
 
                                         <!-- Email input -->
@@ -77,7 +66,10 @@
 
                                         <!-- Register buttons -->
                                         <div class="text-center">
-                                            <p>還不是會員？<a href="#!" class="text-decoration-none">註冊會員</a></p>
+                                            <p>
+                                                還不是會員？<a data-toggle="pill" href="#pills-register" role="tab"
+                                                         aria-controls="pills-register" aria-selected="false" class="text-decoration-none" onclick="changeSelected()">註冊會員</a>
+                                            </p>
                                         </div>
                                     </form>
 
@@ -87,16 +79,6 @@
 
                                     <!-- Register form -->
                                     <form action="/Member/Register" method="post">
-                                        <div class="text-center mb-3">
-                                            <p>第三方註冊：</p>
-                                            <button type="button" class="btn btn-link btn-floating mx-1">
-                                                <i class="icon-facebook"><a href=""></a></i>
-                                            </button>
-
-                                            <button type="button" class="btn btn-link btn-floating mx-1">
-                                                <i class="icon-google"><a href=""></a></i>
-                                            </button>
-                                        </div>
 
                                         <p class="text-center">一般註冊：</p>
 
@@ -106,14 +88,14 @@
                                                    placeholder="" name="c_MemberName">
                                             <label class="form-control-placeholder" for="registerName">姓名</label>
                                         </div>
-                                      
+
 
                                         <!-- Username input -->
                                         <div class="form-group">
                                             <input type="text" id="Account" class="form-control" placeholder="" name="c_MemberAccount">
                                             <label class="form-control-placeholder" for="Account">帳號</label>
                                         </div>
-                                 
+
 
                                         <!-- Email input -->
                                         <div class="form-group">
@@ -121,7 +103,7 @@
                                             <label class="form-control-placeholder" for="Password">密碼</label>
                                         </div>
 
-                                    
+
                                         <!-- Password input -->
 
                                         <div class="form-group">
@@ -129,7 +111,7 @@
                                             <label class="form-control-placeholder" for="Email">信箱</label>
                                         </div>
 
-                                    
+
 
                                         <!-- Repeat Password input -->
 
@@ -151,7 +133,7 @@
                                         </div>
 
 
-                              
+
 
                                         <!-- Checkbox -->
                                         <div class="form-check d-flex mb-4">
@@ -176,3 +158,16 @@
     </section>
 
 </main>
+
+<script>
+    function changeSelected() {
+        var registerTab = document.getElementById("tab-register");
+        registerTab.setAttribute("aria-selected", "true");
+        registerTab.setAttribute("class", "nav-link active"); 
+
+        var loginTab = document.getElementById("tab-login");
+        loginTab.setAttribute("aria-selected", "false");
+        loginTab.setAttribute("class", "nav-link ");
+    }
+
+</script>

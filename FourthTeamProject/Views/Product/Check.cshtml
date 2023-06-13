@@ -41,7 +41,7 @@
                             </a>
                         </td>
                         <td>
-                            <img src="https://picsum.photos/120/?random=10" alt="商品" class="order-item-image">
+                            <img :src="imagePathById(cartItem.productId)" alt="商品" style="max-height:100px" class="order-item-image">
                         </td>
                         <td><span class="order-item-title">{{cartItem.productName}}</span></td>
                         <td class="td-Width">
@@ -141,8 +141,8 @@
                 invoice: null,
                 paymentType: [],
                 payment: null,
-                maybeLik: []
-
+                maybeLik: [],
+                ProductImageData: null,
             },
             mounted: function () {
                 this.shoppingCart = this.getCart(email) ? this.getCart(email).carts : [];
@@ -150,6 +150,7 @@
                 this.getInvoice();
                 this.getPayment();
                 this.favProduct();
+                this.getImage();
             },
             computed: {
                 //商品數量計算。
@@ -158,6 +159,29 @@
                 }
             },
             methods: {
+                getImage: function () {
+                    let productIDs = [];
+                    this.shoppingCart.forEach(function (item, i) {
+
+                        productIDs.push(item.productId);
+                        //console.log(item.productId);
+                    });
+
+                    axios.post(`/Product/GetFilterImages`, productIDs).then(response => {
+                        console.log(response.data);
+                        this.ProductImageData = response.data;
+                    });
+                },
+                imagePathById: function (productId) {
+                    var data = this.ProductImageData.find(item => item.productId == productId);
+
+                    if (data != null)
+                        return data.imagePath;
+                    else
+                        return null;
+                },
+
+
                 //可能喜歡的商品。
                 favProduct: function () {
                     let _this = this; // 指的是Vue本身。
@@ -260,6 +284,7 @@
                             _this.shoppingCart.push({ ...item, amount: item.amount });
                         }
                         _this.setCart(email, _this.shoppingCart);
+                        _this.getImage();
                     }
                     else {
                         Swal.fire({

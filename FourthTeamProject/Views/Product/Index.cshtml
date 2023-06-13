@@ -302,7 +302,7 @@
                 this.GetProduct();
             },
             watch:{
-                'selectedProductList':function(newValue,oldValue){
+                'ProductList':function(newValue,oldValue){
                     this.getImage();
                 },
             },
@@ -466,7 +466,7 @@
                 getImage: function()
                 {
                     let productIDs = [];
-                    this.selectedProductList.forEach(function (item, i) {
+                    this.ProductList.forEach(function (item, i) {
 
                         productIDs.push(item.productId);
                         //console.log(item.productId);

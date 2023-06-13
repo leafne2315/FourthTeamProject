@@ -83,7 +83,7 @@ namespace FourthTeamProject.Controllers
             {
                 From = new MailAddress("mstyle912012@gmail.com"),
                 Subject = "啟用網站驗證",
-                Body = (@$"請點這<a href='https://localhost:7089/Member/enable?code= {code}'>這裡</a>來啟用你的帳號"),
+                Body = (@$"請點這<a href='https://localhost:7089/Home/Index?code= {code}'>這裡</a>來啟用你的帳號"),
                 IsBodyHtml = true,
                 BodyEncoding = Encoding.UTF8,
             };
@@ -193,7 +193,7 @@ namespace FourthTeamProject.Controllers
             {
                 From = new MailAddress("mstyle912012@gmail.com"),
                 Subject = "忘記密碼",
-                Body = (@$"請點這<a href='https://localhost:7089/Member/Reset?code= {code}'>這裡</a>來更新您的密碼"),
+                Body = (@$"請點這<a href='https://localhost:7089/Home/Index?code= {code}'>這裡</a>來啟用你的帳號"),
                 IsBodyHtml = true,
                 BodyEncoding = Encoding.UTF8,
             };
